@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions.*
 internal class LengthValidationTest {
 
     @Test
-    fun ShouldreturnFalseIfDataLengthIsgreaterThan_maxLength() {
+    fun shouldReturnFalseIfDataLengthIsGreaterThanMaxLength() {
         val lengthValidation = LengthValidation()
 
         val actual = lengthValidation.maxLength("abcdef", 5)
@@ -16,7 +16,7 @@ internal class LengthValidationTest {
     }
 
     @Test
-    fun ShouldreturnTrueIfDataLengthIsLessThan_maxLength() {
+    fun shouldReturnTrueIfDataLengthIsLessThanMaxLength() {
         val lengthValidation = LengthValidation()
 
         val actual = lengthValidation.maxLength("abcdef", 7)
@@ -25,7 +25,7 @@ internal class LengthValidationTest {
     }
 
     @Test
-    fun ShouldreturnTrueIfDataLengthIsEqualTo_maxLength() {
+    fun shouldReturnTrueIfDataLengthIsEqualToMaxLength() {
         val lengthValidation = LengthValidation()
 
         val actual = lengthValidation.maxLength("abcdef", 6)
@@ -34,7 +34,7 @@ internal class LengthValidationTest {
     }
 
     @Test
-    fun ShouldreturnFalseIfDataLengthIsLessThan_minLength() {
+    fun shouldReturnFalseIfDataLengthIsLessThanMinLength() {
         val lengthValidation = LengthValidation()
 
         val actual = lengthValidation.minLength("abcdef", 7)
@@ -43,7 +43,7 @@ internal class LengthValidationTest {
     }
 
     @Test
-    fun ShouldreturnFalseIfDataLengthIsGreatorThan_minLength() {
+    fun shouldReturnFalseIfDataLengthIsGreaterThanMinLength() {
         val lengthValidation = LengthValidation()
 
         val actual = lengthValidation.minLength("abcdef", 5)
@@ -52,7 +52,7 @@ internal class LengthValidationTest {
     }
 
     @Test
-    fun ShouldreturnTrueIfDataLengthIsEqualTo_minLength() {
+    fun shouldReturnTrueIfDataLengthIsEqualToMinLength() {
         val lengthValidation = LengthValidation()
 
         val actual = lengthValidation.minLength("abcdef", 6)
@@ -61,7 +61,7 @@ internal class LengthValidationTest {
     }
 
     @Test
-    fun ShouldReturnFalseIfDataLengthIsLessThan_fixedLength() {
+    fun shouldReturnFalseIfDataLengthIsLessThanFixedLength() {
         val lengthValidation = LengthValidation()
 
         val actual = lengthValidation.fixedLength("abcde", 6)
@@ -70,7 +70,7 @@ internal class LengthValidationTest {
     }
 
     @Test
-    fun ShouldReturnFalseIfDataLengthIsGreatorThan_fixedLength() {
+    fun shouldReturnFalseIfDataLengthIsGreaterThanFixedLength() {
         val lengthValidation = LengthValidation()
 
         val actual = lengthValidation.fixedLength("abcdeas", 6)
@@ -79,7 +79,7 @@ internal class LengthValidationTest {
     }
 
     @Test
-    fun ShouldReturnTrueIfDataLengthIsEqual_fixedLength() {
+    fun shouldReturnTrueIfDataLengthIsEqualFixedLength() {
         val lengthValidation = LengthValidation()
 
         val actual = lengthValidation.fixedLength("abcdef", 6)
