@@ -7,9 +7,10 @@ class DuplicationValidation {
         val mapOfIndexOfDuplicateObjects: MutableMap<String, MutableList<Int>> = mutableMapOf()
         dataInJSONArray.forEachIndexed { index, element ->
             mapOfIndexOfDuplicateObjects.putIfAbsent(element.toString(), mutableListOf())
-            mapOfIndexOfDuplicateObjects[element.toString()]!!.add(index+1)
+            mapOfIndexOfDuplicateObjects[element.toString()]!!.add(index + 1)
         }
-        val mapOfIndexOfDuplicateObjectsWithOnlyDuplicateValues = mapOfIndexOfDuplicateObjects.filterValues { it.size > 1 }
+        val mapOfIndexOfDuplicateObjectsWithOnlyDuplicateValues =
+            mapOfIndexOfDuplicateObjects.filterValues { it.size > 1 }
         return mapOfIndexOfDuplicateObjectsWithOnlyDuplicateValues.values.toList()
     }
 }

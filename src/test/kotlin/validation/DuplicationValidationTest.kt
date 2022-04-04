@@ -29,27 +29,27 @@ internal class DuplicationValidationTest {
     }
 
     @Test
-    fun shouldReturnRowNumbersForMultipleRepetitionOfOneRow(){
+    fun shouldReturnRowNumbersForMultipleRepetitionOfOneRow() {
         val jsonString =
             "[{ \"a\": \"d\", \"b\": \"e\", \"c\": \"f\" }, { \"a\": \"g\", \"b\": \"h\", \"c\": \"i\" }, { \"a\": \"d\", \"b\": \"e\", \"c\": \"f\" }, { \"a\": \"d\", \"b\": \"e\", \"c\": \"f\" }]"
         val jsonArray = JSONArray(jsonString)
-        val expected = listOf(listOf(1,3,4))
+        val expected = listOf(listOf(1, 3, 4))
 
         val actual = duplicationValidation.getDuplicateRowNumberInJSON(jsonArray)
 
-        assertEquals(expected,actual)
+        assertEquals(expected, actual)
     }
 
     @Test
-    fun shouldReturnTwoListOfRowNumbersForTwoRepeatedRows(){
+    fun shouldReturnTwoListOfRowNumbersForTwoRepeatedRows() {
         val jsonString =
             "[{ \"a\": \"d\", \"b\": \"e\", \"c\": \"f\" }, { \"a\": \"g\", \"b\": \"h\", \"c\": \"i\" }, { \"a\": \"d\", \"b\": \"e\", \"c\": \"f\" }, { \"a\": \"d\", \"b\": \"e\", \"c\": \"f\" }, { \"a\": \"g\", \"b\": \"h\", \"c\": \"i\" }, { \"a\": \"g\", \"b\": \"h\", \"c\": \"z\" }]"
         val jsonArray = JSONArray(jsonString)
-        val expected = listOf(listOf(1,3,4), listOf(2,5))
+        val expected = listOf(listOf(1, 3, 4), listOf(2, 5))
 
         val actual = duplicationValidation.getDuplicateRowNumberInJSON(jsonArray)
 
-        assertEquals(expected,actual)
+        assertEquals(expected, actual)
     }
 
 }
