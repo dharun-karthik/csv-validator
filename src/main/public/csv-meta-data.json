@@ -1,44 +1,62 @@
 [
   {
-    "field-name": "ProductId",
+    "fieldName": "ProductId",
     "type": "AlphaNumeric",
     "length": 5
   },
   {
-    "field-name": "Product Description",
+    "fieldName": "ProductDescription",
     "type": "AlphaNumeric",
-    "min-length": 3,
-    "max-length": 30
+    "minLength": 7,
+    "maxLength": 20
   },
   {
-    "field-name": "Price",
+    "fieldName": "Price",
     "type": "Number"
   },
   {
-    "field-name": "Export",
-    "type": "Boolean",
+    "fieldName": "Export",
+    "type": "Alphabet",
     "values": [
       "Y",
       "N"
     ]
   },
   {
-    "field-name": "Country Name",
-    "type": "Alphabets",
-    "max-length": 3
+    "fieldName": "Country Name",
+    "type": "Alphabet",
+    "minLength": 3
   },
   {
-    "field-name": "Source",
-    "type": "Alphabets"
+    "fieldName": "Source",
+    "type": "Alphabet",
+    "minLength": 3
   },
   {
-    "field-name": "Country Code",
+    "fieldName": "Country Code",
     "type": "Number",
-    "max-length": 2
+    "maxLength": 3
   },
   {
-    "field-name": "Source Pincode",
+    "fieldName": "Source Pincode",
     "type": "Number",
-    "length": 6
+    "length": 6,
+    "values": [
+      "500020",
+      "110001",
+      "560001",
+      "500001",
+      "111045",
+      "230532",
+      "530068",
+      "226020",
+      "533001",
+      "600001",
+      "700001",
+      "212011",
+      "641001",
+      "682001",
+      "444601"
+    ]
   }
 ]

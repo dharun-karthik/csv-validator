@@ -6,6 +6,7 @@ import java.net.ServerSocket
 class Server(
     port: Int = 3000
 ) {
+    private lateinit var fieldArray : Array<JsonMetaDataTemplate>
     private val serverSocket = ServerSocket(port)
     private val statusMap = mapOf(
         200 to "Found",
@@ -55,14 +56,15 @@ class Server(
         }
     }
 
-    private fun handleAddingCsvMetaData(request: String, inputStream: BufferedReader): String {
+    private fun handleCsv(request: String, inputStream: BufferedReader): String {
         TODO("Not yet implemented")
     }
 
-    private fun handleCsv(request: String, inputStream: BufferedReader): String {
+    private fun handleAddingCsvMetaData(request: String, inputStream: BufferedReader): String {
         val bodySize = getContentLength(request)
         val body = getBody(bodySize, inputStream)
-        val jsonBody = getJsonBody(body)
+        val jsonBody = getMetaData(body)
+        fieldArray = jsonBody
         val endOfHeader = "\r\n\r\n"
         val responseBody = "Successfully Added"
         val contentLength = responseBody.length
@@ -76,10 +78,9 @@ class Server(
         return String(buffer)
     }
 
-    fun getJsonBody(body: String): Array<JsonMetaDataTemplate>{
+    fun getMetaData(body: String): Array<JsonMetaDataTemplate> {
         val gson = Gson()
-        val jsonArray = gson.fromJson(body,Array<JsonMetaDataTemplate>::class.java)
-        return jsonArray
+        return gson.fromJson(body, Array<JsonMetaDataTemplate>::class.java)
     }
 
     private fun getRequestType(request: String): String {

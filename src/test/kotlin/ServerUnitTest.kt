@@ -30,7 +30,7 @@ class SeverUnitTest {
  ]
 """
         val server = Server(3001)
-        val jsonArray = server.getJsonBody(values)
+        val jsonArray = server.getMetaData(values)
         val data = jsonArray[0]
 
         assertEquals("ProductId", data.fieldName)
