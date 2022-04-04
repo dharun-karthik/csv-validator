@@ -46,7 +46,7 @@ class TypeValidationTest {
     }
 
     @Test
-    fun shouldBeAbleToCheckIfValueIsAlphaNumeric(){
+    fun shouldBeAbleToCheckIfValueIsAlphaNumeric() {
         val typeValidation = TypeValidation()
         val value = "asfd123"
 
@@ -54,4 +54,15 @@ class TypeValidationTest {
 
         assertTrue(actual)
     }
+
+    @Test
+    fun shouldBeAbleToCheckIfValueIsNotAlphaNumeric() {
+        val typeValidation = TypeValidation()
+        val value = "asfs:ae1"
+
+        val actual = typeValidation.isAlphaNumeric(value)
+
+        assertFalse(actual)
+    }
+
 }
