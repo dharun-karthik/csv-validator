@@ -41,12 +41,12 @@
     </form>
     <button type="submit" style="margin-top: 10px;" onclick="addDataToJson()">ADD</button>
 
-    <button type="submit" style="margin-top: 10px;" onclick="sendConfigData()">SUBMIT</button>
+    <button id="value-submit-button" type="submit" style="margin-top: 10px;" onclick="sendConfigData()">SUBMIT</button>
 </div>
 <div>
     <h1>CSV PARSER</h1>
     <input type="file" name="csv-file" id="csv_id" accept=".csv">
-    <button onclick="csvReader()">Submit</button>
+    <button id ="csv-submit-button"onclick="csvReader()">Submit</button>
 </div>
 </body>
 

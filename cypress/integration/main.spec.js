@@ -22,3 +22,10 @@ describe('upload csv-file',()=>{
         cy.get('#csv-submit-button').click()
     })
 })
+
+describe('upload csv-file',()=>{
+    it('check if csv file sucessfully uploaded',()=>{
+        cy.readFile('/Users/soumya/csv_parse/src/main/public/data.csv').its('ProductID').should('12')
+
+    })
+})
