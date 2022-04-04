@@ -6,11 +6,6 @@ import org.junit.jupiter.api.Test
 class TypeValidationTest {
 
     @Test
-    fun test() {
-        assertEquals(1, 1)
-    }
-
-    @Test
     fun shouldBeAbleToCheckIfValueIsNumeric() {
         val typeValidation = TypeValidation()
         val value = "410401"
