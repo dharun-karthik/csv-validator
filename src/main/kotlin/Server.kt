@@ -49,8 +49,8 @@ class Server(
     private fun handlePostRequest(request: String, inputStream: BufferedReader): String {
 
         return when (getPath(request)) {
-            "csv" -> handleCsv(request, inputStream)
-            "add-meta-data" -> handleAddingCsvMetaData(request, inputStream)
+            "/csv" -> handleCsv(request, inputStream)
+            "/add-meta-data" -> handleAddingCsvMetaData(request, inputStream)
             else -> handleUnknownRequest()
         }
     }
@@ -66,7 +66,7 @@ class Server(
         val endOfHeader = "\r\n\r\n"
         val responseBody = "Successfully Added"
         val contentLength = responseBody.length
-        return getHttpHead(201) + """Content-Type: text/plain; charset=utf-8
+        return getHttpHead(200) + """Content-Type: text/plain; charset=utf-8
             |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
     }
 

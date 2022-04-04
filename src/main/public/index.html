@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,28 +8,29 @@
     <script src="js/main.js" type="text/javascript"></script>
     <title>Csv Parser</title>
 </head>
+
 <body>
-    <div>
-        <h1>Set Configuration</h1>
+<div>
+    <h1>Set Configuration</h1>
+    <h3>Number Of Fields</h3>
+    <form id="myform">
+        <label for="field">Field</label>
+        <input id="field" type="text">
 
-        <h2>Field Name</h2>
-        <input type="text">
-        
-        <h2>Type</h2>
-        <input type="text">
+        <label for="type">Type</label>
+        <input id="type" type="text">
 
-        <h2>Length</h2>
-        <input type="text">
+        <label for="text_file_id">Values</label>
+        <input type="file" name="text-file" id="text_file_id" accept=".txt">
 
-        <h2>Values</h2>
-        <input type="file" name="csv-file" id="csv_id" accept=".csv">
-<button>Submit</button>
-
-    </div>
-    <div>
+    </form>
+    <button type="submit" style="margin-top: 10px;" onclick="addDataToJson()">ADD</button>
+</div>
+<div>
     <h1>CSV PARSER</h1>
     <input type="file" name="csv-file" id="csv_id" accept=".csv">
     <button onclick="csvReader()">Submit</button>
-    </div>
+</div>
 </body>
+
 </html>
