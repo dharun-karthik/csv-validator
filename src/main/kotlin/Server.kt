@@ -3,6 +3,7 @@ import org.json.JSONArray
 import routeHandler.Get
 import routeHandler.Post
 import routeHandler.Unknown
+import org.json.JSONObject
 import validation.DuplicationValidation
 import java.io.*
 import java.net.ServerSocket
@@ -11,7 +12,7 @@ import java.net.ServerSocket
 class Server(
     port: Int = 3000
 ) {
-    private lateinit var fieldArray: Array<JsonMetaDataTemplate>
+    var fieldArray: Array<JsonMetaDataTemplate> = arrayOf()
     private val serverSocket = ServerSocket(port)
     private val statusMap = mapOf(
         200 to "Found",
@@ -77,7 +78,9 @@ class Server(
 
         val repeatedRowList = DuplicationValidation().getDuplicateRowNumberInJSON(jsonBody)
         println("Repeated Lines :$repeatedRowList")
-        lateinit var responseBody: String
+        val typeValidationResultList = typeValidation(jsonBody)
+        val lengthValidationResultList = lengthValidation(jsonBody)
+        var responseBody = ""
         responseBody += "{"
         responseBody = if (repeatedRowList.isNotEmpty()) {
             "\"Repeated Lines\" : \"$repeatedRowList\""
@@ -89,6 +92,32 @@ class Server(
         val endOfHeader = "\r\n\r\n"
         return getHttpHead(200) + """Content-Type: text/json; charset=utf-8
             |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
+    }
+
+    private fun lengthValidation(dataInJSONArray: JSONArray): List<Int> {
+        val rowList = mutableListOf<Int>()
+        dataInJSONArray.forEachIndexed { index, element ->
+            println("$index $element")
+        }
+        return mutableListOf()
+    }
+
+    fun typeValidation(dataInJSONArray: JSONArray): List<Int> {
+        val rowList = mutableListOf<Int>()
+        var result = ""
+        dataInJSONArray.forEachIndexed { index, element ->
+            println(element)
+            val keys = (element as JSONObject).keySet()
+            for (key in keys) {
+                println("key $key")
+                val field = fieldArray.first { it.fieldName == key }
+                val type = field.type
+                if (isTypeInvalid()){
+                    result+= "{ ${index+1}"
+                }
+            }
+        }
+        return mutableListOf()
     }
 
     private fun handleAddingCsvMetaData(request: String, inputStream: BufferedReader): String {
