@@ -29,7 +29,7 @@ class SeverUnitTest {
   }
  ]
 """
-        val server = Server()
+        val server = Server(3001)
         val jsonArray = server.getJsonBody(values)
         val data = jsonArray[0]
 
