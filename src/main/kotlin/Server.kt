@@ -82,7 +82,7 @@ class Server(
         val lengthValidationResultList = lengthValidation(jsonBody)
         var responseBody = ""
         responseBody += "{"
-        responseBody = if (repeatedRowList.isNotEmpty()) {
+        responseBody = if (!repeatedRowList.isEmpty()) {
             "\"Repeated Lines\" : \"$repeatedRowList\""
         } else {
             "No Error"
@@ -112,9 +112,8 @@ class Server(
                 println("key $key")
                 val field = fieldArray.first { it.fieldName == key }
                 val type = field.type
-                if (isTypeInvalid()){
-                    result+= "{ ${index+1}"
-                }
+                result+= "{ ${index+1}"
+
             }
         }
         return mutableListOf()
