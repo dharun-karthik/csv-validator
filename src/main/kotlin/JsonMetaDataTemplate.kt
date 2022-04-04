@@ -1,4 +1,4 @@
-class CsvTemplate(
+class JsonMetaDataTemplate(
     val fieldName : String,
     val type: String,
     val length: Int,

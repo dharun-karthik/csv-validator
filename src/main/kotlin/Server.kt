@@ -76,9 +76,9 @@ class Server(
         return String(buffer)
     }
 
-    fun getJsonBody(body: String): Array<CsvTemplate>{
+    fun getJsonBody(body: String): Array<JsonMetaDataTemplate>{
         val gson = Gson()
-        val jsonArray = gson.fromJson(body,Array<CsvTemplate>::class.java)
+        val jsonArray = gson.fromJson(body,Array<JsonMetaDataTemplate>::class.java)
         return jsonArray
     }
 
