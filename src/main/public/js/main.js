@@ -16,8 +16,12 @@ function csvReader() {
             }
             result.push(obj);
         }
+<<<<<<< Updated upstream
         console.log(JSON.stringify(result))
         fetch('/csv', {
+=======
+        fetch('csv', {
+>>>>>>> Stashed changes
             method: 'POST',
             body: JSON.stringify(result)
         })
@@ -31,14 +35,21 @@ function addDataToJson() {
         var field = document.getElementById("field")
         var type = document.getElementById("type")
         var value = document.getElementById("text_file_id").files[0]
-        jsonObj["field"] = field.value
+        jsonObj["field-name"] = field.value
         jsonObj["type"] = type.value
         let reader = new FileReader();
         reader.addEventListener('load', function(e) {
           let text = e.target.result
-          jsonObj["value"] = text
+          jsonObj["values"] = JSON.stringify(text.split('\n'))
         });
         reader.readAsText(value)
         payload.push(jsonObj)
         console.log(payload)
+}
+
+function sendConfigData(){
+fetch('add-meta-data', {
+            method: 'POST',
+            body: JSON.stringify(payload)
+        })
 }
