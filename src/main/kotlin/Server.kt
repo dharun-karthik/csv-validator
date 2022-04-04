@@ -61,9 +61,12 @@ class Server(
     }
 
     private fun handleAddingCsvMetaData(request: String, inputStream: BufferedReader): String {
+        println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
         val bodySize = getContentLength(request)
         val body = getBody(bodySize, inputStream)
+        println(body)
         val jsonBody = getMetaData(body)
+        println(body)
         fieldArray = jsonBody
         val endOfHeader = "\r\n\r\n"
         val responseBody = "Successfully Added"

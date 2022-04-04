@@ -28,7 +28,6 @@ function csvReader() {
 }
 
 function addDataToJson() {
-
         let jsonObj = {}
         var field = document.getElementById("field")
         var type = document.getElementById("type")
@@ -38,11 +37,11 @@ function addDataToJson() {
         let reader = new FileReader();
         reader.addEventListener('load', function(e) {
           let text = e.target.result
-          jsonObj["values"] = JSON.stringify(text.split('\n'))
+          jsonObj["values"] = text.split('\n')
+
         });
         reader.readAsText(value)
         payload.push(jsonObj)
-        console.log(payload)
 }
 
 function sendConfigData(){
