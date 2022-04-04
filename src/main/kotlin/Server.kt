@@ -1,7 +1,4 @@
-import java.io.BufferedReader
-import java.io.BufferedWriter
-import java.io.InputStreamReader
-import java.io.OutputStreamWriter
+import java.io.*
 import java.net.ServerSocket
 
 
@@ -35,9 +32,9 @@ class Server(
         clientSocket.close()
     }
 
-    fun handleRequest(request: String, inputStream: BufferedReader): String {
+    private fun handleRequest(request: String, inputStream: BufferedReader): String {
         return when (getRequestType(request)) {
-            "GET" -> handleGetRequest(request)
+            "GET" -> handleGetRequest()
             "POST" -> handlePostRequest(request, inputStream)
             else -> handleUnknownRequest()
         }
@@ -77,11 +74,11 @@ class Server(
         return String(buffer)
     }
 
-    fun getJsonBody(body: String): String {
+    private fun getJsonBody(body: String): String {
         TODO("get body in json")
     }
 
-    fun getRequestType(request: String): String {
+    private fun getRequestType(request: String): String {
         return request.substringBefore(" ")
     }
 
@@ -98,23 +95,19 @@ class Server(
         return request
     }
 
-    private fun handleGetRequest(request: String): String {
-
-        return when (getPath(request)) {
-            "/" -> handleHomePage()
-            else -> handleUnknownRequest()
-        }
+    private fun handleGetRequest(): String {
+        val responseBody =  getHtmlContent()
+        val contentLength = responseBody.length
+        val endOfHeader = "\r\n\r\n"
+        return getHttpHead(201) + """Content-Type: text/html; charset=utf-8
+            |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
     }
 
-    private fun handleHomePage(): String {
-        TODO("handle home page")
-    }
-
-    fun getPath(request: String): String {
+    private fun getPath(request: String): String {
         return request.split("\r\n")[0].split(" ")[1].substringBefore("?").split("/")[1]
     }
 
-    fun getHttpHead(statusCode: Int): String {
+    private fun getHttpHead(statusCode: Int): String {
         val content = statusMap[statusCode]
         return "HTTP/1.1 $statusCode $content\n"
     }
@@ -127,5 +120,10 @@ class Server(
             }
         }
         return 0
+    }
+
+    private fun getHtmlContent(): String{
+        val path = System.getProperty("user.dir")
+        return File("$path/src/main/public/index.html").readText(Charsets.UTF_8)
     }
 }
