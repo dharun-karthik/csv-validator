@@ -1,6 +1,8 @@
 import com.google.gson.Gson
 import org.json.JSONArray
 import routeHandler.Get
+import routeHandler.Post
+import routeHandler.Unknown
 import validation.DuplicationValidation
 import java.io.*
 import java.net.ServerSocket
@@ -17,6 +19,8 @@ class Server(
         401 to "Unauthorized"
     )
     private val get = Get()
+    private val post = Post()
+    private val unknown = Unknown()
 
     fun startServer() {
         while (true) {
@@ -47,12 +51,8 @@ class Server(
         return when (getRequestType(request)) {
             "GET" -> get.handleGetRequest(request)
             "POST" -> handlePostRequest(request, inputStream)
-            else -> handleUnknownRequest()
+            else -> unknown.handleUnknownRequest()
         }
-    }
-
-    private fun handleUnknownRequest(): String {
-        return getHttpHead(400) + "\r\n\r\n"
     }
 
     private fun handlePostRequest(request: String, inputStream: BufferedReader): String {
@@ -60,14 +60,10 @@ class Server(
         return when (getPath(request)) {
             "/csv" -> handleCsv(request, inputStream)
             "/add-meta-data" -> handleAddingCsvMetaData(request, inputStream)
-            else -> handleUnknownRequest()
+            else -> unknown.handleUnknownRequest()
         }
     }
 
-    private fun getHttpHead(statusCode: Int): String {
-        val content = statusMap[statusCode]
-        return "HTTP/1.1 $statusCode $content\n"
-    }
 
     private fun getPath(request: String): String {
         return request.split("\r\n")[0].split(" ")[1].substringBefore("?")
@@ -138,7 +134,10 @@ class Server(
         return request
     }
 
-
+    private fun getHttpHead(statusCode: Int): String {
+        val content = statusMap[statusCode]
+        return "HTTP/1.1 $statusCode $content\n"
+    }
 
     private fun getContentLength(request: String): Int {
         request.split("\n").forEach { headerString ->
@@ -149,6 +148,5 @@ class Server(
         }
         return 0
     }
-
 
 }
