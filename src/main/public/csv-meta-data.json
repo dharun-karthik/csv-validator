@@ -1,0 +1,44 @@
+[
+  {
+    "field-name": "ProductId",
+    "type": "AlphaNumeric",
+    "length": 5
+  },
+  {
+    "field-name": "Product Description",
+    "type": "AlphaNumeric",
+    "min-length": 3,
+    "max-length": 30
+  },
+  {
+    "field-name": "Price",
+    "type": "Number"
+  },
+  {
+    "field-name": "Export",
+    "type": "Boolean",
+    "values": [
+      "Y",
+      "N"
+    ]
+  },
+  {
+    "field-name": "Country Name",
+    "type": "Alphabets",
+    "max-length": 3
+  },
+  {
+    "field-name": "Source",
+    "type": "Alphabets"
+  },
+  {
+    "field-name": "Country Code",
+    "type": "Number",
+    "max-length": 2
+  },
+  {
+    "field-name": "Source Pincode",
+    "type": "Number",
+    "length": 6
+  }
+]
