@@ -111,7 +111,6 @@ class Server(
     }
 
     fun getPath(request: String): String {
-        //todo use response object to store headers so path can be taken from there
         return request.split("\r\n")[0].split(" ")[1].substringBefore("?").split("/")[1]
     }
 
