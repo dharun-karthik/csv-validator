@@ -1,4 +1,6 @@
 import com.google.gson.Gson
+import org.json.JSONArray
+import validation.DuplicationValidation
 import java.io.*
 import java.net.ServerSocket
 
@@ -6,7 +8,7 @@ import java.net.ServerSocket
 class Server(
     port: Int = 3000
 ) {
-    private lateinit var fieldArray : Array<JsonMetaDataTemplate>
+    private lateinit var fieldArray: Array<JsonMetaDataTemplate>
     private val serverSocket = ServerSocket(port)
     private val statusMap = mapOf(
         200 to "Found",
@@ -26,7 +28,7 @@ class Server(
         val inputStream = BufferedReader(InputStreamReader(clientSocket.getInputStream()))
 
         val request = readRequest(inputStream)
-        println(request)
+        println("request $request")
         val responseData = handleRequest(request, inputStream)
 
         outputStream.write(responseData)
@@ -57,7 +59,23 @@ class Server(
     }
 
     private fun handleCsv(request: String, inputStream: BufferedReader): String {
-        TODO("Not yet implemented")
+        val bodySize = getContentLength(request)
+        val body = getBody(bodySize, inputStream)
+        println("body $body")
+        val jsonBody = JSONArray(body)
+
+        val repeatedRowList = DuplicationValidation().getDuplicateRowNumberInJSON(jsonBody)
+        println("Repeated Lines :$repeatedRowList")
+        lateinit var responseBody: String
+        if (repeatedRowList.isNotEmpty()) {
+            responseBody = "\"Repeated Lines\" : \"$repeatedRowList\""
+        } else {
+            responseBody = "No Error"
+        }
+        val contentLength = responseBody.length
+        val endOfHeader = "\r\n\r\n"
+        return getHttpHead(200) + """Content-Type: text/json; charset=utf-8
+            |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
     }
 
     private fun handleAddingCsvMetaData(request: String, inputStream: BufferedReader): String {
@@ -140,8 +158,8 @@ class Server(
 
     private fun readFileContent(fileName: String): String {
         val path = System.getProperty("user.dir")
-        var file =File("$path/src/main/public$fileName")
-        if(!file.exists()) {
+        var file = File("$path/src/main/public$fileName")
+        if (!file.exists()) {
             file = File("$path/src/main/public/404.html")
         }
         return file.readText(Charsets.UTF_8)
