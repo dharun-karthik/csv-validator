@@ -67,11 +67,13 @@ class Server(
         val repeatedRowList = DuplicationValidation().getDuplicateRowNumberInJSON(jsonBody)
         println("Repeated Lines :$repeatedRowList")
         lateinit var responseBody: String
+        responseBody += "{"
         if (repeatedRowList.isNotEmpty()) {
             responseBody = "\"Repeated Lines\" : \"$repeatedRowList\""
         } else {
             responseBody = "No Error"
         }
+        responseBody += "}"
         val contentLength = responseBody.length
         val endOfHeader = "\r\n\r\n"
         return getHttpHead(200) + """Content-Type: text/json; charset=utf-8
