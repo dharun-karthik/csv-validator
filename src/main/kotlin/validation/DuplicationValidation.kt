@@ -1,16 +1,34 @@
 package validation
 
 import org.json.JSONArray
+import org.json.JSONObject
 
 class DuplicationValidation {
-    fun getDuplicateRowNumberInJSON(dataInJSONArray: JSONArray): List<List<Int>> {
-        val mapOfObjectsAndIndices: MutableMap<String, MutableList<Int>> = mutableMapOf()
+    fun getDuplicateRowNumberInJSON(dataInJSONArray: JSONArray): JSONArray {
+        val mapOfObjectsAndIndices: MutableMap<String, Int> = mutableMapOf()
+        val jsonArrayOfDuplicateElements = JSONArray()
         dataInJSONArray.forEachIndexed { index, element ->
-            mapOfObjectsAndIndices.putIfAbsent(element.toString(), mutableListOf())
-            mapOfObjectsAndIndices.getOrDefault(element.toString(), mutableListOf()).add(index + 1)
+            addElementToMap(mapOfObjectsAndIndices, element, index, jsonArrayOfDuplicateElements)
         }
-        val mapOfIndexOfDuplicateObjectsWithOnlyDuplicateValues =
-            mapOfObjectsAndIndices.filterValues { it.size > 1 }
-        return mapOfIndexOfDuplicateObjectsWithOnlyDuplicateValues.values.toList()
+        return jsonArrayOfDuplicateElements
+    }
+
+    private fun addElementToMap(
+        mapOfObjectsAndIndices: MutableMap<String, Int>,
+        element: Any,
+        index: Int,
+        jsonArrayOfDuplicateElements: JSONArray
+    ) {
+        if (mapOfObjectsAndIndices[element.toString()] == null) {
+            mapOfObjectsAndIndices[element.toString()] = index + 1
+            return
+        }
+
+        val jsonObject = JSONObject().put(
+            (index + 1).toString(),
+            "Row Duplicated From ${mapOfObjectsAndIndices[element.toString()]}"
+        )
+        jsonArrayOfDuplicateElements.put(jsonObject)
+
     }
 }

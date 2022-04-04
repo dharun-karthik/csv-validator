@@ -14,7 +14,7 @@ internal class DuplicationValidationTest {
 
         val actual = duplicationValidation.getDuplicateRowNumberInJSON(jsonArray)
 
-        assertTrue(actual.isEmpty())
+        assertTrue(actual.isEmpty)
     }
 
     @Test
@@ -22,11 +22,11 @@ internal class DuplicationValidationTest {
         val jsonString =
             "[{ \"a\": \"d\", \"b\": \"e\", \"c\": \"f\" }, { \"a\": \"g\", \"b\": \"h\", \"c\": \"i\" }, { \"a\": \"d\", \"b\": \"e\", \"c\": \"f\" }]"
         val jsonArray = JSONArray(jsonString)
-        val expected = listOf(listOf(1, 3))
+        val expected = JSONArray("[{\"3\":\"Row Duplicated From 1\"}]")
 
         val actual = duplicationValidation.getDuplicateRowNumberInJSON(jsonArray)
 
-        assertEquals(expected, actual)
+        assertEquals(expected.toList(), actual.toList())
     }
 
     @Test
@@ -34,11 +34,11 @@ internal class DuplicationValidationTest {
         val jsonString =
             "[{ \"a\": \"d\", \"b\": \"e\", \"c\": \"f\" }, { \"a\": \"g\", \"b\": \"h\", \"c\": \"i\" }, { \"a\": \"d\", \"b\": \"e\", \"c\": \"f\" }, { \"a\": \"d\", \"b\": \"e\", \"c\": \"f\" }]"
         val jsonArray = JSONArray(jsonString)
-        val expected = listOf(listOf(1, 3, 4))
+        val expected = JSONArray("[{\"3\":\"Row Duplicated From 1\"},{\"4\":\"Row Duplicated From 1\"}]")
 
         val actual = duplicationValidation.getDuplicateRowNumberInJSON(jsonArray)
 
-        assertEquals(expected, actual)
+        assertEquals(expected.toList(), actual.toList())
     }
 
     @Test
@@ -46,11 +46,11 @@ internal class DuplicationValidationTest {
         val jsonString =
             "[{ \"a\": \"d\", \"b\": \"e\", \"c\": \"f\" }, { \"a\": \"g\", \"b\": \"h\", \"c\": \"i\" }, { \"a\": \"d\", \"b\": \"e\", \"c\": \"f\" }, { \"a\": \"d\", \"b\": \"e\", \"c\": \"f\" }, { \"a\": \"g\", \"b\": \"h\", \"c\": \"i\" }, { \"a\": \"g\", \"b\": \"h\", \"c\": \"z\" }]"
         val jsonArray = JSONArray(jsonString)
-        val expected = listOf(listOf(1, 3, 4), listOf(2, 5))
+        val expected = JSONArray("[{\"3\":\"Row Duplicated From 1\"},{\"4\":\"Row Duplicated From 1\"},{\"5\":\"Row Duplicated From 2\"}]")
 
         val actual = duplicationValidation.getDuplicateRowNumberInJSON(jsonArray)
 
-        assertEquals(expected, actual)
+        assertEquals(expected.toList(), actual.toList())
     }
 
 }
