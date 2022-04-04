@@ -59,4 +59,31 @@ internal class LengthValidationTest {
 
         assertTrue(actual)
     }
+
+    @Test
+    fun ShouldReturnFalseIfDataLengthIsLessThan_fixedLength() {
+        val lengthValidation = LengthValidation()
+
+        val actual = lengthValidation.fixedLength("abcde", 6)
+
+        assertFalse(actual)
+    }
+
+    @Test
+    fun ShouldReturnFalseIfDataLengthIsGreatorThan_fixedLength() {
+        val lengthValidation = LengthValidation()
+
+        val actual = lengthValidation.fixedLength("abcdeas", 6)
+
+        assertFalse(actual)
+    }
+
+    @Test
+    fun ShouldReturnTrueIfDataLengthIsEqual_fixedLength() {
+        val lengthValidation = LengthValidation()
+
+        val actual = lengthValidation.fixedLength("abcdef", 6)
+
+        assertTrue(actual)
+    }
 }
