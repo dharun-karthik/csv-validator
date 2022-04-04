@@ -1,0 +1,6 @@
+package validation
+
+class TypeValidation {
+
+
+}
