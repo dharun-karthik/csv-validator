@@ -1,5 +1,5 @@
 var payload=[]
-function csvReader() {
+ async function csvReader() {
     var csv = document.getElementById("csv_id").files[0];
     const reader = new FileReader();
     reader.onload = function (event) {
@@ -16,13 +16,19 @@ function csvReader() {
             }
             result.push(obj);
         }
-        console.log(JSON.stringify(result))
 
-        fetch('csv', {
+
+
+        const resp = await fetch('csv', {
 
             method: 'POST',
             body: JSON.stringify(result)
         })
+        console.log(resp)
+        if (resp.status === 200) {
+                   var jsonData =  resp.json();
+                   console.log(jsonData)
+        }
     };
     reader.readAsText(csv);
 }
@@ -45,6 +51,7 @@ function addDataToJson() {
 }
 
 function sendConfigData(){
+
 fetch('add-meta-data', {
             method: 'POST',
             body: JSON.stringify(payload)
