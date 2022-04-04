@@ -7,4 +7,11 @@ class LengthValidation {
         }
         return false
     }
+
+    fun minLength(data:String, len:Int): Boolean {
+        if(data.length >= len){
+            return true
+        }
+        return false
+    }
 }
