@@ -3,23 +3,14 @@ package validation
 class LengthValidation {
 
     fun maxLength(data:String, len:Int): Boolean {
-        if(data.length <= len) {
-            return true
-        }
-        return false
+        return data.length <= len
     }
 
     fun minLength(data:String, len:Int): Boolean {
-        if(data.length >= len){
-            return true
-        }
-        return false
+        return data.length >= len
     }
 
     fun fixedLength(data:String, len:Int): Boolean {
-        if(data.length == len){
-            return true
-        }
-        return false
+        return data.length == len
     }
 }
