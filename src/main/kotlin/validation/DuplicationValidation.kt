@@ -4,13 +4,13 @@ import org.json.JSONArray
 
 class DuplicationValidation {
     fun getDuplicateRowNumberInJSON(dataInJSONArray: JSONArray): List<List<Int>> {
-        val mapOfIndexOfDuplicateObjects: MutableMap<String, MutableList<Int>> = mutableMapOf()
+        val mapOfObjectsAndIndices: MutableMap<String, MutableList<Int>> = mutableMapOf()
         dataInJSONArray.forEachIndexed { index, element ->
-            mapOfIndexOfDuplicateObjects.putIfAbsent(element.toString(), mutableListOf())
-            mapOfIndexOfDuplicateObjects[element.toString()]!!.add(index + 1)
+            mapOfObjectsAndIndices.putIfAbsent(element.toString(), mutableListOf())
+            mapOfObjectsAndIndices.getOrDefault(element.toString(), mutableListOf()).add(index + 1)
         }
         val mapOfIndexOfDuplicateObjectsWithOnlyDuplicateValues =
-            mapOfIndexOfDuplicateObjects.filterValues { it.size > 1 }
+            mapOfObjectsAndIndices.filterValues { it.size > 1 }
         return mapOfIndexOfDuplicateObjectsWithOnlyDuplicateValues.values.toList()
     }
 }
