@@ -49,4 +49,4 @@ fetch('add-meta-data', {
             method: 'POST',
             body: JSON.stringify(payload)
         })
-}
+     }
