@@ -16,12 +16,10 @@ function csvReader() {
             }
             result.push(obj);
         }
-<<<<<<< Updated upstream
         console.log(JSON.stringify(result))
-        fetch('/csv', {
-=======
+
         fetch('csv', {
->>>>>>> Stashed changes
+
             method: 'POST',
             body: JSON.stringify(result)
         })
