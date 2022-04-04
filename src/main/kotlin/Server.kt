@@ -1,3 +1,4 @@
+import com.google.gson.Gson
 import java.io.*
 import java.net.ServerSocket
 
@@ -24,6 +25,7 @@ class Server(
         val inputStream = BufferedReader(InputStreamReader(clientSocket.getInputStream()))
 
         val request = readRequest(inputStream)
+        println(request)
         val responseData = handleRequest(request, inputStream)
 
         outputStream.write(responseData)
@@ -34,7 +36,7 @@ class Server(
 
     private fun handleRequest(request: String, inputStream: BufferedReader): String {
         return when (getRequestType(request)) {
-            "GET" -> handleGetRequest()
+            "GET" -> handleGetRequest(request)
             "POST" -> handlePostRequest(request, inputStream)
             else -> handleUnknownRequest()
         }
@@ -74,8 +76,10 @@ class Server(
         return String(buffer)
     }
 
-    private fun getJsonBody(body: String): String {
-        TODO("get body in json")
+    fun getJsonBody(body: String): Array<CsvTemplate>{
+        val gson = Gson()
+        val jsonArray = gson.fromJson(body,Array<CsvTemplate>::class.java)
+        return jsonArray
     }
 
     private fun getRequestType(request: String): String {
@@ -95,8 +99,16 @@ class Server(
         return request
     }
 
-    private fun handleGetRequest(): String {
-        val responseBody =  getHtmlContent()
+    private fun handleGetRequest(request: String): String {
+        val path = getPath(request)
+        return when (path) {
+            "/" -> serveFile("/index.html")
+            else -> serveFile(path)
+        }
+    }
+
+    private fun serveFile(path: String): String {
+        val responseBody = readFileContent(path)
         val contentLength = responseBody.length
         val endOfHeader = "\r\n\r\n"
         return getHttpHead(201) + """Content-Type: text/html; charset=utf-8
@@ -104,7 +116,7 @@ class Server(
     }
 
     private fun getPath(request: String): String {
-        return request.split("\r\n")[0].split(" ")[1].substringBefore("?").split("/")[1]
+        return request.split("\r\n")[0].split(" ")[1].substringBefore("?")
     }
 
     private fun getHttpHead(statusCode: Int): String {
@@ -122,8 +134,12 @@ class Server(
         return 0
     }
 
-    private fun getHtmlContent(): String{
+    private fun readFileContent(fileName: String): String {
         val path = System.getProperty("user.dir")
-        return File("$path/src/main/public/index.html").readText(Charsets.UTF_8)
+        var file =File("$path/src/main/public$fileName")
+        if(!file.exists()) {
+            file = File("$path/src/main/public/404.html")
+        }
+        return file.readText(Charsets.UTF_8)
     }
 }
