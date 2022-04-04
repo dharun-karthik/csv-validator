@@ -23,6 +23,7 @@ internal class DuplicationValidationTest {
             "[{ \"a\": \"d\", \"b\": \"e\", \"c\": \"f\" }, { \"a\": \"g\", \"b\": \"h\", \"c\": \"i\" }, { \"a\": \"d\", \"b\": \"e\", \"c\": \"f\" }]"
         val jsonArray = JSONArray(jsonString)
         val expected = listOf(listOf(1, 3))
+
         val actual = duplicationValidation.getDuplicateRowNumberInJSON(jsonArray)
 
         assertEquals(expected, actual)
