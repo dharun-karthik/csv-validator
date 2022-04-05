@@ -15,7 +15,6 @@ class PostRouteHandler(
     private val responseHead: ResponseHead = ResponseHead()
 ) {
     private val pageNotFoundResponse = PageNotFoundResponse()
-
     fun handlePostRequest(request: String, inputStream: BufferedReader): String {
 
         return when (getPath(request)) {
@@ -56,7 +55,6 @@ class PostRouteHandler(
 
 
     fun handleAddingCsvMetaData(request: String, inputStream: BufferedReader): String {
-        println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
         val bodySize = getContentLength(request)
         val body = getBody(bodySize, inputStream)
         println(body)
