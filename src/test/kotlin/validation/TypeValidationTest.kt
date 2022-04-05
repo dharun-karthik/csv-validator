@@ -10,7 +10,6 @@ class TypeValidationTest {
 
     @Test
     fun shouldGiveTypeErrorLinesAsResult(){
-        val server = Server(3004)
         val data = """[
   {
     "fieldName": "Product Id",
@@ -93,7 +92,7 @@ class TypeValidationTest {
     }
 ]"""
         val jsonCsvData = JSONArray(csvData)
-        val result = server.typeValidation(jsonCsvData)
+        val result = post.typeValidation(jsonCsvData)
         println(result)
     }
 

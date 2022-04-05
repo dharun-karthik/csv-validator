@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import routeHandler.Post
 
 class ServerUnitTest {
 
@@ -29,8 +30,8 @@ class ServerUnitTest {
               }
              ]
             """.trimMargin()
-        val server = Server(3001)
-        val jsonArray = server.getMetaData(values)
+        val post = Post();
+        val jsonArray = post.getMetaData(values)
         val data = jsonArray[0]
 
         Assertions.assertEquals("ProductId", data.fieldName)
