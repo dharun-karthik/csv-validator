@@ -20,7 +20,6 @@ function csvReader() {
 
 
         const resp = fetch('csv', {
-
             method: 'POST',
             body: JSON.stringify(result)
         })
@@ -38,15 +37,20 @@ function addDataToJson() {
         var field = document.getElementById("field")
         var type = document.getElementById("type")
         var value = document.getElementById("text_file_id").files[0]
+        var max_len = document.getElementById("max-len")
+        var min_len = document.getElementById("min-len")
+        var fixed_len = document.getElementById("fixed-len")
         jsonObj["field-name"] = field.value
         jsonObj["type"] = type.value
         let reader = new FileReader();
         reader.addEventListener('load', function(e) {
           let text = e.target.result
           jsonObj["values"] = text.split('\n')
-
         });
         reader.readAsText(value)
+        jsonObj["max_len"] = max_len.value
+        jsonObj["min_len"] = min_len.value
+        jsonObj["fixed_len"] = fixed_len.value
         payload.push(jsonObj)
 }
 
