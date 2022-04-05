@@ -4,6 +4,7 @@ import Server
 import org.json.JSONArray
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import routeHandler.Post
 
 class TypeValidationTest {
 
@@ -68,8 +69,9 @@ class TypeValidationTest {
     ]
   }
 ]"""
-        val jsonData = server.getMetaData(data)
-        server.fieldArray = jsonData
+        val post = Post()
+        val jsonData = post.getMetaData(data)
+        post.fieldArray = jsonData
         val csvData ="""[
     {
         "Product Id": "1564",
