@@ -1,8 +1,15 @@
 var payload=[]
+function getFakeResponse() {
+    return [
+           {"3":"Row Duplicated From 1"},
+           {"4":"Row Duplicated From 1"},
+           {"5":"Row Duplicated From 2"}
+           ] 
+}
 function csvReader() {
     var csv = document.getElementById("csv_id").files[0];
     const reader = new FileReader();
-    reader.onload = function (event) {
+    reader.onload = async function (event) {
         csv = event.target.result
         var lines = csv.toString().split("\n");
         console.log(lines)
@@ -16,18 +23,24 @@ function csvReader() {
             }
             result.push(obj);
         }
+        
 
 
-
-        const resp = fetch('csv', {
-            method: 'POST',
-            body: JSON.stringify(result)
-        })
-        console.log(resp)
-        if (resp.status === 200) {
-                   var jsonData =  resp.json();
-                   console.log(jsonData)
-        }
+       const response = await fetch('csv', {
+           method: 'POST',
+           body: JSON.stringify(result)
+       })
+       if (response.status === 200) {
+                  var jsonData =  await resp.json();
+                  console.log(jsonData)
+       }
+          response.forEach(element => {
+            const node = document.createElement("li");
+            const textnode = document.createTextNode(`Line Number ${Object.keys(element)[0]}: ${element[Object.keys(element)[0]]}`);
+            node.appendChild(textnode);
+            document.getElementById("error_msgs_list").appendChild(node)
+          });
+        
     };
     reader.readAsText(csv);
 }
@@ -54,10 +67,15 @@ function addDataToJson() {
         payload.push(jsonObj)
 }
 
-function sendConfigData(){
+async function sendConfigData(){
 
-fetch('add-meta-data', {
+        var resp = await fetch('add-meta-data', {
             method: 'POST',
             body: JSON.stringify(payload)
         })
-     }
+        if (resp.status === 200) {
+                var jsonData = await resp.json();
+                console.log(jsonData)
+            }
+
+}
