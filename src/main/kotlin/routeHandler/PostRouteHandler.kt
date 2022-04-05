@@ -6,6 +6,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import response.ResponseHead
 import validation.DuplicationValidation
+import validation.LengthValidation
 import validation.TypeValidation
 import java.io.BufferedReader
 
@@ -95,12 +96,41 @@ class PostRouteHandler(
     }
 
 
-    private fun lengthValidation(dataInJSONArray: JSONArray): List<Int> {
+    fun lengthValidation(dataInJSONArray: JSONArray): List<Int> {
         val rowList = mutableListOf<Int>()
+        val lengthValidation = LengthValidation()
         dataInJSONArray.forEachIndexed { index, element ->
-            println("$index $element")
+            val filedElement = (element as JSONObject)
+            val keys = filedElement.keySet()
+            for (key in keys) {
+                val field = fieldArray.first { it.fieldName == key }
+                var isValid = true
+                val value = filedElement.get(key) as String
+                if (field.length != null) {
+                    if (!lengthValidation.fixedLength(value, field.length)) {
+                        println("1 ${field.length}, $value")
+                        isValid = false
+                    }
+                }
+                if (field.maxLength != null) {
+                    if (!lengthValidation.maxLength(value, field.maxLength)) {
+                        println("2 ${field.maxLength}, $value")
+                        isValid = false
+                    }
+                }
+                if (field.minLength != null) {
+                    if (!lengthValidation.minLength(value, field.minLength)) {
+                        println("3 ${field.minLength}, $value")
+                        isValid = false
+                    }
+                }
+                if (!isValid) {
+                    rowList.add(index + 1)
+                    break
+                }
+            }
         }
-        return mutableListOf()
+        return rowList
     }
 
     fun typeValidation(dataInJSONArray: JSONArray): List<Int> {
@@ -129,7 +159,7 @@ class PostRouteHandler(
                         isValid = false
                     }
                 }
-                if(!isValid) {
+                if (!isValid) {
                     rowList.add(index + 1)
                     continue
                 }
