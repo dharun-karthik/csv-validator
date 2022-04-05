@@ -165,8 +165,9 @@ class PostTest {
     }
 ]"""
         val jsonCsvData = JSONArray(csvData)
+        val expected = mutableListOf(1)
         val result = postRouteHandler.typeValidation(jsonCsvData)
-        println(result)
+        assertEquals(expected,result)
     }
 
 }

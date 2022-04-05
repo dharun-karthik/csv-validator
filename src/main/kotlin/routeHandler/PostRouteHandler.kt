@@ -6,11 +6,12 @@ import org.json.JSONArray
 import org.json.JSONObject
 import response.ResponseHead
 import validation.DuplicationValidation
+import validation.TypeValidation
 import java.io.BufferedReader
 
 class PostRouteHandler(
     var fieldArray: Array<JsonMetaDataTemplate> = arrayOf(),
-    private val responseHead : ResponseHead = ResponseHead()
+    private val responseHead: ResponseHead = ResponseHead()
 ) {
     private val pageNotFoundResponse = PageNotFoundResponse()
 
@@ -105,17 +106,36 @@ class PostRouteHandler(
 
     fun typeValidation(dataInJSONArray: JSONArray): List<Int> {
         val rowList = mutableListOf<Int>()
+        val typeValidation = TypeValidation()
         dataInJSONArray.forEachIndexed { index, element ->
             println(element)
-            val keys = (element as JSONObject).keySet()
+            val ele = (element as JSONObject)
+            val keys = ele.keySet()
             for (key in keys) {
-                println("key $key index $index")
                 val field = fieldArray.first { it.fieldName == key }
-                val type = field.type
-                rowList.add(index+1)
+                var isValid = true
+                val value = ele.get(key) as String
+                println("${field.type} , $key , $value")
+                if (field.type == "AlphaNumeric") {
+                    if (!typeValidation.isAlphaNumeric(value)) {
+                        isValid = false
+                    }
+                } else if (field.type == "Alphabet") {
+                    if (!typeValidation.isAlphabetic(value)) {
+                        isValid = false
+                    }
+                } else if (field.type == "Number") {
+                    if (!typeValidation.isNumeric(value)) {
+                        println("3")
+                        isValid = false
+                    }
+                }
+                if(!isValid) {
+                    rowList.add(index + 1)
+                    continue
+                }
             }
         }
-        return mutableListOf()
+        return rowList
     }
-
 }
