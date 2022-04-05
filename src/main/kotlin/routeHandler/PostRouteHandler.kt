@@ -145,19 +145,12 @@ class PostRouteHandler(
                 var isValid = true
                 val value = ele.get(key) as String
                 println("${field.type} , $key , $value")
-                if (field.type == "AlphaNumeric") {
-                    if (!typeValidation.isAlphaNumeric(value)) {
+                if (field.type == "AlphaNumeric"  && !typeValidation.isAlphaNumeric(value)) {
                         isValid = false
-                    }
-                } else if (field.type == "Alphabet") {
-                    if (!typeValidation.isAlphabetic(value)) {
+                } else if (field.type == "Alphabet" && !typeValidation.isAlphabetic(value)) {
                         isValid = false
-                    }
-                } else if (field.type == "Number") {
-                    if (!typeValidation.isNumeric(value)) {
-                        println("3")
+                } else if (field.type == "Number" && !typeValidation.isNumeric(value)) {
                         isValid = false
-                    }
                 }
                 if (!isValid) {
                     rowList.add(index + 1)
