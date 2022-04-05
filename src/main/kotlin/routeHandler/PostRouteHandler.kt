@@ -41,8 +41,11 @@ class PostRouteHandler(
         val lengthValidationResultList = lengthValidation(jsonBody)
         var responseBody = ""
         responseBody += "{"
-        responseBody = if (!repeatedRowList.isEmpty()) {
-            "\"Repeated Lines\" : \"$repeatedRowList\""
+        responseBody = if (!repeatedRowList.isEmpty && typeValidationResultList.isNotEmpty() && lengthValidationResultList.isNotEmpty()) {
+            "\"Repeated Lines\" : \"$repeatedRowList\"\n"+
+            "\"Type Error Lines\" : \"$typeValidationResultList\"\n"+
+            "\"Length Error Lines\" : \"$lengthValidationResultList\"\n"
+
         } else {
             "No Error"
         }
@@ -57,7 +60,6 @@ class PostRouteHandler(
     fun handleAddingCsvMetaData(request: String, inputStream: BufferedReader): String {
         val bodySize = getContentLength(request)
         val body = getBody(bodySize, inputStream)
-        println(body)
         return addCsvMetaData(body)
     }
 
@@ -139,6 +141,7 @@ class PostRouteHandler(
             val ele = (element as JSONObject)
             val keys = ele.keySet()
             for (key in keys) {
+                println("key $key")
                 val field = fieldArray.first { it.fieldName == key }
                 var isValid = true
                 val value = ele.get(key) as String
