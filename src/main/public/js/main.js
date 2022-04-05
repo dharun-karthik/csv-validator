@@ -40,7 +40,7 @@ function addDataToJson() {
         var max_len = document.getElementById("max-len")
         var min_len = document.getElementById("min-len")
         var fixed_len = document.getElementById("fixed-len")
-        jsonObj["field-name"] = field.value
+        jsonObj["fieldName"] = field.value
         jsonObj["type"] = type.value
         let reader = new FileReader();
         reader.addEventListener('load', function(e) {
@@ -48,9 +48,9 @@ function addDataToJson() {
           jsonObj["values"] = text.split('\n')
         });
         reader.readAsText(value)
-        jsonObj["max_len"] = max_len.value
-        jsonObj["min_len"] = min_len.value
-        jsonObj["fixed_len"] = fixed_len.value
+        jsonObj["maxLength"] = max_len.value
+        jsonObj["minLength"] = min_len.value
+        jsonObj["length"] = fixed_len.value
         payload.push(jsonObj)
 }
 
