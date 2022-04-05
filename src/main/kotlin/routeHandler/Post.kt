@@ -7,16 +7,10 @@ import org.json.JSONObject
 import validation.DuplicationValidation
 import java.io.BufferedReader
 
-class Post {
+class Post(private val responseHead : ResponseHead = ResponseHead()) {
 
     var fieldArray: Array<JsonMetaDataTemplate> = arrayOf()
     private val unknown = Unknown()
-
-    private val statusMap = mapOf(
-        200 to "Found",
-        400 to "Bad Request",
-        401 to "Unauthorized"
-    )
 
     fun handlePostRequest(request: String, inputStream: BufferedReader): String {
 
@@ -52,7 +46,7 @@ class Post {
         responseBody += "}"
         val contentLength = responseBody.length
         val endOfHeader = "\r\n\r\n"
-        return getHttpHead(200) + """Content-Type: text/json; charset=utf-8
+        return responseHead.getHttpHead(200) + """Content-Type: text/json; charset=utf-8
             |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
     }
 
@@ -68,7 +62,7 @@ class Post {
         val endOfHeader = "\r\n\r\n"
         val responseBody = "Successfully Added"
         val contentLength = responseBody.length
-        return getHttpHead(200) + """Content-Type: text/plain; charset=utf-8
+        return responseHead.getHttpHead(200) + """Content-Type: text/plain; charset=utf-8
             |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
     }
 
@@ -83,12 +77,6 @@ class Post {
         return gson.fromJson(body, Array<JsonMetaDataTemplate>::class.java)
     }
 
-
-
-    private fun getHttpHead(statusCode: Int): String {
-        val content = statusMap[statusCode]
-        return "HTTP/1.1 $statusCode $content\n"
-    }
 
     private fun getContentLength(request: String): Int {
         request.split("\n").forEach { headerString ->
