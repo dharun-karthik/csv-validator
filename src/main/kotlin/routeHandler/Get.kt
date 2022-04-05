@@ -22,7 +22,7 @@ class Get {
         val responseBody = readFileContent(path)
         val contentLength = responseBody.length
         val endOfHeader = "\r\n\r\n"
-        return getHttpHead(201) + """Content-Type: text/html; charset=utf-8
+        return getHttpHead(200) + """Content-Type: text/html; charset=utf-8
             |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
     }
 

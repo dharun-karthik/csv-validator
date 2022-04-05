@@ -1,3 +1,3 @@
 fun main() {
-    Server(3002).startServer()
+    Server(3000).startServer()
 }
