@@ -42,9 +42,9 @@ class PostRouteHandler(
         var responseBody = "{"
         responseBody +=
             if (!repeatedRowList.isEmpty || typeValidationResultList.isNotEmpty() || lengthValidationResultList.isNotEmpty()) {
-                "\"Repeated Lines\" : \"$repeatedRowList\"\n" +
-                        "\"Type Error Lines\" : \"$typeValidationResultList\"\n" +
-                        "\"Length Error Lines\" : \"$lengthValidationResultList\"\n"
+                "\"Repeated Lines\" : \"$repeatedRowList\",\n" +
+                        "\"Type Error Lines\" : \"$typeValidationResultList\",\n" +
+                        "\"Length Error Lines\" : \"$lengthValidationResultList\",\n"
 
             } else {
                 "\"Response\" : \"No Error\""
