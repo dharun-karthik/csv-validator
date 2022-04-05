@@ -1,5 +1,7 @@
 package routeHandler
 
+import response.ResponseHead
+
 class PageNotFoundResponse(private val responseHead : ResponseHead = ResponseHead()) {
 
     fun handleUnknownRequest(): String {
