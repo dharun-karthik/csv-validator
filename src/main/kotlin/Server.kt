@@ -1,5 +1,9 @@
 import com.google.gson.Gson
 import org.json.JSONArray
+import routeHandler.Get
+import routeHandler.Post
+import routeHandler.Unknown
+import org.json.JSONObject
 import validation.DuplicationValidation
 import java.io.*
 import java.net.ServerSocket
@@ -8,13 +12,16 @@ import java.net.ServerSocket
 class Server(
     port: Int = 3000
 ) {
-    private lateinit var fieldArray: Array<JsonMetaDataTemplate>
+    var fieldArray: Array<JsonMetaDataTemplate> = arrayOf()
     private val serverSocket = ServerSocket(port)
     private val statusMap = mapOf(
         200 to "Found",
         400 to "Bad Request",
         401 to "Unauthorized"
     )
+    private val get = Get()
+    private val post = Post()
+    private val unknown = Unknown()
 
     fun startServer() {
         while (true) {
@@ -31,22 +38,22 @@ class Server(
         println("request $request")
         val responseData = handleRequest(request, inputStream)
 
-        outputStream.write(responseData)
-        outputStream.flush()
+        getResponseData(outputStream, responseData)
 
         clientSocket.close()
     }
 
-    private fun handleRequest(request: String, inputStream: BufferedReader): String {
-        return when (getRequestType(request)) {
-            "GET" -> handleGetRequest(request)
-            "POST" -> handlePostRequest(request, inputStream)
-            else -> handleUnknownRequest()
-        }
+    private fun getResponseData(outputStream: BufferedWriter, responseData: String) {
+        outputStream.write(responseData)
+        outputStream.flush()
     }
 
-    private fun handleUnknownRequest(): String {
-        return getHttpHead(400) + "\r\n\r\n"
+    private fun handleRequest(request: String, inputStream: BufferedReader): String {
+        return when (getRequestType(request)) {
+            "GET" -> get.handleGetRequest(request)
+            "POST" -> handlePostRequest(request, inputStream)
+            else -> unknown.handleUnknownRequest()
+        }
     }
 
     private fun handlePostRequest(request: String, inputStream: BufferedReader): String {
@@ -54,8 +61,13 @@ class Server(
         return when (getPath(request)) {
             "/csv" -> handleCsv(request, inputStream)
             "/add-meta-data" -> handleAddingCsvMetaData(request, inputStream)
-            else -> handleUnknownRequest()
+            else -> unknown.handleUnknownRequest()
         }
+    }
+
+
+    private fun getPath(request: String): String {
+        return request.split("\r\n")[0].split(" ")[1].substringBefore("?")
     }
 
     private fun handleCsv(request: String, inputStream: BufferedReader): String {
@@ -66,18 +78,45 @@ class Server(
 
         val repeatedRowList = DuplicationValidation().getDuplicateRowNumberInJSON(jsonBody)
         println("Repeated Lines :$repeatedRowList")
-        lateinit var responseBody: String
+        val typeValidationResultList = typeValidation(jsonBody)
+        val lengthValidationResultList = lengthValidation(jsonBody)
+        var responseBody = ""
         responseBody += "{"
-        if (repeatedRowList.isNotEmpty()) {
-            responseBody = "\"Repeated Lines\" : \"$repeatedRowList\""
+        responseBody = if (!repeatedRowList.isEmpty()) {
+            "\"Repeated Lines\" : \"$repeatedRowList\""
         } else {
-            responseBody = "No Error"
+            "No Error"
         }
         responseBody += "}"
         val contentLength = responseBody.length
         val endOfHeader = "\r\n\r\n"
         return getHttpHead(200) + """Content-Type: text/json; charset=utf-8
             |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
+    }
+
+    private fun lengthValidation(dataInJSONArray: JSONArray): List<Int> {
+        val rowList = mutableListOf<Int>()
+        dataInJSONArray.forEachIndexed { index, element ->
+            println("$index $element")
+        }
+        return mutableListOf()
+    }
+
+    fun typeValidation(dataInJSONArray: JSONArray): List<Int> {
+        val rowList = mutableListOf<Int>()
+        var result = ""
+        dataInJSONArray.forEachIndexed { index, element ->
+            println(element)
+            val keys = (element as JSONObject).keySet()
+            for (key in keys) {
+                println("key $key")
+                val field = fieldArray.first { it.fieldName == key }
+                val type = field.type
+                result+= "{ ${index+1}"
+
+            }
+        }
+        return mutableListOf()
     }
 
     private fun handleAddingCsvMetaData(request: String, inputStream: BufferedReader): String {
@@ -123,26 +162,6 @@ class Server(
         return request
     }
 
-    private fun handleGetRequest(request: String): String {
-        val path = getPath(request)
-        return when (path) {
-            "/" -> serveFile("/index.html")
-            else -> serveFile(path)
-        }
-    }
-
-    private fun serveFile(path: String): String {
-        val responseBody = readFileContent(path)
-        val contentLength = responseBody.length
-        val endOfHeader = "\r\n\r\n"
-        return getHttpHead(201) + """Content-Type: text/html; charset=utf-8
-            |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
-    }
-
-    private fun getPath(request: String): String {
-        return request.split("\r\n")[0].split(" ")[1].substringBefore("?")
-    }
-
     private fun getHttpHead(statusCode: Int): String {
         val content = statusMap[statusCode]
         return "HTTP/1.1 $statusCode $content\n"
@@ -158,12 +177,4 @@ class Server(
         return 0
     }
 
-    private fun readFileContent(fileName: String): String {
-        val path = System.getProperty("user.dir")
-        var file = File("$path/src/main/public$fileName")
-        if (!file.exists()) {
-            file = File("$path/src/main/public/404.html")
-        }
-        return file.readText(Charsets.UTF_8)
-    }
 }
