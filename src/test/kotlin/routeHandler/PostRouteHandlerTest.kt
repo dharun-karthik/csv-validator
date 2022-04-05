@@ -3,13 +3,13 @@ package routeHandler
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
-import routeHandler.Post
+import routeHandler.PostRouteHandler
 
 class PostTest {
 
     @Test
     fun shouldBeAbleToAddCsvMetaData(){
-        val post = Post()
+        val post = PostRouteHandler()
         val data = """[
   {
     "fieldName": "ProductId",
