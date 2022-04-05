@@ -104,16 +104,14 @@ class PostRouteHandler(
 
     fun typeValidation(dataInJSONArray: JSONArray): List<Int> {
         val rowList = mutableListOf<Int>()
-        var result = ""
         dataInJSONArray.forEachIndexed { index, element ->
             println(element)
             val keys = (element as JSONObject).keySet()
             for (key in keys) {
-                println("key $key")
+                println("key $key index $index")
                 val field = fieldArray.first { it.fieldName == key }
                 val type = field.type
-                result += "{ ${index + 1}"
-
+                rowList.add(index+1)
             }
         }
         return mutableListOf()
