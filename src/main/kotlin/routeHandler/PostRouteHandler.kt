@@ -64,7 +64,6 @@ class PostRouteHandler(
 
     fun addCsvMetaData(body: String): String {
         val jsonBody = getMetaData(body)
-        println(body)
         fieldArray = jsonBody
         val endOfHeader = "\r\n\r\n"
         val responseBody = "Successfully Added"

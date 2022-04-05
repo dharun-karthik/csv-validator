@@ -10,7 +10,7 @@ class Server(
 ) {
     private val serverSocket = ServerSocket(port)
     private val getRouteHandler = GetRouteHandler()
-    private val postRouteHandler = PostRouteHandler()
+    val postRouteHandler = PostRouteHandler()
     private val pageNotFoundResponse = PageNotFoundResponse()
 
     fun startServer() {
