@@ -9,7 +9,6 @@ describe('Send the config file',()=>
     it('fill the values and submit the config file',()=>
     {
         cy.get('#field').type('Hello')
-        cy.get('select').select(1)
         cy.get('#text_file_id').selectFile('src/main/public/assets/sample3.txt',{
         })
         cy.get('#max-len').type(19)
