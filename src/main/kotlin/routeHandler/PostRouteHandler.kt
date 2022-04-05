@@ -7,9 +7,10 @@ import org.json.JSONObject
 import validation.DuplicationValidation
 import java.io.BufferedReader
 
-class PostRouteHandler(private val responseHead : ResponseHead = ResponseHead()) {
-
-    var fieldArray: Array<JsonMetaDataTemplate> = arrayOf()
+class PostRouteHandler(
+    var fieldArray: Array<JsonMetaDataTemplate> = arrayOf(),
+    private val responseHead : ResponseHead = ResponseHead()
+) {
     private val pageNotFoundResponse = PageNotFoundResponse()
 
     fun handlePostRequest(request: String, inputStream: BufferedReader): String {
@@ -26,7 +27,7 @@ class PostRouteHandler(private val responseHead : ResponseHead = ResponseHead())
         return request.split("\r\n")[0].split(" ")[1].substringBefore("?")
     }
 
-    private fun handleCsv(request: String, inputStream: BufferedReader): String {
+    fun handleCsv(request: String, inputStream: BufferedReader): String {
         val bodySize = getContentLength(request)
         val body = getBody(bodySize, inputStream)
         println("body $body")
@@ -51,11 +52,15 @@ class PostRouteHandler(private val responseHead : ResponseHead = ResponseHead())
     }
 
 
-    private fun handleAddingCsvMetaData(request: String, inputStream: BufferedReader): String {
+    fun handleAddingCsvMetaData(request: String, inputStream: BufferedReader): String {
         println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
         val bodySize = getContentLength(request)
         val body = getBody(bodySize, inputStream)
         println(body)
+        return addCsvMetaData(body)
+    }
+
+    fun addCsvMetaData(body: String): String {
         val jsonBody = getMetaData(body)
         println(body)
         fieldArray = jsonBody
