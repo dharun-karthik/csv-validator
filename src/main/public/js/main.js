@@ -1,5 +1,5 @@
 var payload=[]
- async function csvReader() {
+function csvReader() {
     var csv = document.getElementById("csv_id").files[0];
     const reader = new FileReader();
     reader.onload = function (event) {
@@ -19,7 +19,7 @@ var payload=[]
 
 
 
-        const resp = await fetch('csv', {
+        const resp = fetch('csv', {
 
             method: 'POST',
             body: JSON.stringify(result)

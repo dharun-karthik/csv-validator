@@ -1,6 +1,6 @@
 describe('cypress connect test',()=>{
     it('Open link',()=>{
-        cy.visit("http://localhost:3000")
+        cy.visit("http://localhost:3002")
     })
 })
 
