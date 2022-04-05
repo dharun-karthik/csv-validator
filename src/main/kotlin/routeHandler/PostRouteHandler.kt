@@ -36,20 +36,21 @@ class PostRouteHandler(
         val jsonBody = JSONArray(body)
 
         val repeatedRowList = DuplicationValidation().getDuplicateRowNumberInJSON(jsonBody)
-        println("Repeated Lines :$repeatedRowList")
+        println("Repeated Lines :$repeatedRowList , ${repeatedRowList.isEmpty}")
         val typeValidationResultList = typeValidation(jsonBody)
         val lengthValidationResultList = lengthValidation(jsonBody)
-        var responseBody = ""
-        responseBody += "{"
-        responseBody = if (!repeatedRowList.isEmpty && typeValidationResultList.isNotEmpty() && lengthValidationResultList.isNotEmpty()) {
-            "\"Repeated Lines\" : \"$repeatedRowList\"\n"+
-            "\"Type Error Lines\" : \"$typeValidationResultList\"\n"+
-            "\"Length Error Lines\" : \"$lengthValidationResultList\"\n"
+        var responseBody = "{"
+        responseBody +=
+            if (!repeatedRowList.isEmpty || typeValidationResultList.isNotEmpty() || lengthValidationResultList.isNotEmpty()) {
+                "\"Repeated Lines\" : \"$repeatedRowList\"\n" +
+                        "\"Type Error Lines\" : \"$typeValidationResultList\"\n" +
+                        "\"Length Error Lines\" : \"$lengthValidationResultList\"\n"
 
-        } else {
-            "No Error"
-        }
+            } else {
+                "\"Response\" : \"No Error\""
+            }
         responseBody += "}"
+        println(responseBody)
         val contentLength = responseBody.length
         val endOfHeader = "\r\n\r\n"
         return responseHead.getHttpHead(200) + """Content-Type: text/json; charset=utf-8
@@ -99,36 +100,40 @@ class PostRouteHandler(
     fun lengthValidation(dataInJSONArray: JSONArray): List<Int> {
         val rowList = mutableListOf<Int>()
         val lengthValidation = LengthValidation()
-        dataInJSONArray.forEachIndexed { index, element ->
-            val filedElement = (element as JSONObject)
-            val keys = filedElement.keySet()
-            for (key in keys) {
-                val field = fieldArray.first { it.fieldName == key }
-                var isValid = true
-                val value = filedElement.get(key) as String
-                if (field.length != null) {
-                    if (!lengthValidation.fixedLength(value, field.length)) {
-                        println("1 ${field.length}, $value")
-                        isValid = false
+        try {
+            dataInJSONArray.forEachIndexed { index, element ->
+                val filedElement = (element as JSONObject)
+                val keys = filedElement.keySet()
+                for (key in keys) {
+                    val field = fieldArray.first { it.fieldName == key }
+                    var isValid = true
+                    val value = filedElement.get(key) as String
+                    if (field.length != null) {
+                        if (!lengthValidation.fixedLength(value, field.length)) {
+                            println("1 ${field.length}, $value")
+                            isValid = false
+                        }
                     }
-                }
-                if (field.maxLength != null) {
-                    if (!lengthValidation.maxLength(value, field.maxLength)) {
-                        println("2 ${field.maxLength}, $value")
-                        isValid = false
+                    if (field.maxLength != null) {
+                        if (!lengthValidation.maxLength(value, field.maxLength)) {
+                            println("2 ${field.maxLength}, $value")
+                            isValid = false
+                        }
                     }
-                }
-                if (field.minLength != null) {
-                    if (!lengthValidation.minLength(value, field.minLength)) {
-                        println("3 ${field.minLength}, $value")
-                        isValid = false
+                    if (field.minLength != null) {
+                        if (!lengthValidation.minLength(value, field.minLength)) {
+                            println("3 ${field.minLength}, $value")
+                            isValid = false
+                        }
                     }
-                }
-                if (!isValid) {
-                    rowList.add(index + 1)
-                    break
+                    if (!isValid) {
+                        rowList.add(index + 1)
+                        break
+                    }
                 }
             }
+        } catch (err: Exception) {
+            return listOf()
         }
         return rowList
     }
@@ -136,28 +141,32 @@ class PostRouteHandler(
     fun typeValidation(dataInJSONArray: JSONArray): List<Int> {
         val rowList = mutableListOf<Int>()
         val typeValidation = TypeValidation()
-        dataInJSONArray.forEachIndexed { index, element ->
-            println(element)
-            val ele = (element as JSONObject)
-            val keys = ele.keySet()
-            for (key in keys) {
-                println("key $key")
-                val field = fieldArray.first { it.fieldName == key }
-                var isValid = true
-                val value = ele.get(key) as String
-                println("${field.type} , $key , $value")
-                if (field.type == "AlphaNumeric"  && !typeValidation.isAlphaNumeric(value)) {
+        try {
+            dataInJSONArray.forEachIndexed { index, element ->
+                println(element)
+                val ele = (element as JSONObject)
+                val keys = ele.keySet()
+                for (key in keys) {
+                    println("key $key")
+                    val field = fieldArray.first { it.fieldName == key }
+                    var isValid = true
+                    val value = ele.get(key) as String
+                    println("${field.type} , $key , $value")
+                    if (field.type == "AlphaNumeric" && !typeValidation.isAlphaNumeric(value)) {
                         isValid = false
-                } else if (field.type == "Alphabet" && !typeValidation.isAlphabetic(value)) {
+                    } else if (field.type == "Alphabet" && !typeValidation.isAlphabetic(value)) {
                         isValid = false
-                } else if (field.type == "Number" && !typeValidation.isNumeric(value)) {
+                    } else if (field.type == "Number" && !typeValidation.isNumeric(value)) {
                         isValid = false
-                }
-                if (!isValid) {
-                    rowList.add(index + 1)
-                    continue
+                    }
+                    if (!isValid) {
+                        rowList.add(index + 1)
+                        continue
+                    }
                 }
             }
+        } catch (err: Exception) {
+            return listOf()
         }
         return rowList
     }
