@@ -7,17 +7,17 @@ import org.json.JSONObject
 import validation.DuplicationValidation
 import java.io.BufferedReader
 
-class Post(private val responseHead : ResponseHead = ResponseHead()) {
+class PostRouteHandler(private val responseHead : ResponseHead = ResponseHead()) {
 
     var fieldArray: Array<JsonMetaDataTemplate> = arrayOf()
-    private val unknown = Unknown()
+    private val pageNotFoundResponse = PageNotFoundResponse()
 
     fun handlePostRequest(request: String, inputStream: BufferedReader): String {
 
         return when (getPath(request)) {
             "/csv" -> handleCsv(request, inputStream)
             "/add-meta-data" -> handleAddingCsvMetaData(request, inputStream)
-            else -> unknown.handleUnknownRequest()
+            else -> pageNotFoundResponse.handleUnknownRequest()
         }
     }
 

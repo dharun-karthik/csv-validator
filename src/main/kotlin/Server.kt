@@ -1,6 +1,6 @@
-import routeHandler.Get
-import routeHandler.Post
-import routeHandler.Unknown
+import routeHandler.GetRouteHandler
+import routeHandler.PostRouteHandler
+import routeHandler.PageNotFoundResponse
 import java.io.*
 import java.net.ServerSocket
 
@@ -9,9 +9,9 @@ class Server(
     port: Int = 3000
 ) {
     private val serverSocket = ServerSocket(port)
-    private val get = Get()
-    private val post = Post()
-    private val unknown = Unknown()
+    private val getRouteHandler = GetRouteHandler()
+    private val postRouteHandler = PostRouteHandler()
+    private val pageNotFoundResponse = PageNotFoundResponse()
 
     fun startServer() {
         while (true) {
@@ -40,9 +40,9 @@ class Server(
 
     private fun handleRequest(request: String, inputStream: BufferedReader): String {
         return when (getRequestType(request)) {
-            "GET" -> get.handleGetRequest(request)
-            "POST" -> post.handlePostRequest(request, inputStream)
-            else -> unknown.handleUnknownRequest()
+            "GET" -> getRouteHandler.handleGetRequest(request)
+            "POST" -> postRouteHandler.handlePostRequest(request, inputStream)
+            else -> pageNotFoundResponse.handleUnknownRequest()
         }
     }
 

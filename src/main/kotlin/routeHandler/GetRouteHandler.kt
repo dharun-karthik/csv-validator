@@ -2,7 +2,7 @@ package routeHandler
 
 import java.io.File
 
-class Get(private val responseHead: ResponseHead = ResponseHead()) {
+class GetRouteHandler(private val responseHead: ResponseHead = ResponseHead()) {
 
 
     fun handleGetRequest(request: String): String {
