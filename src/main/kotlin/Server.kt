@@ -1,17 +1,13 @@
-import routeHandler.GetRouteHandler
-import routeHandler.PostRouteHandler
-import routeHandler.PageNotFoundResponse
+import routeHandler.RequestHandler
 import java.io.*
 import java.net.ServerSocket
 
 
 class Server(
     port: Int = 3000
-) {
+){
+    private val requestHandler = RequestHandler()
     private val serverSocket = ServerSocket(port)
-    private val getRouteHandler = GetRouteHandler()
-    val postRouteHandler = PostRouteHandler()
-    private val pageNotFoundResponse = PageNotFoundResponse()
 
     fun startServer() {
         while (true) {
@@ -26,7 +22,7 @@ class Server(
 
         val request = readRequest(inputStream)
         println("request $request")
-        val responseData = handleRequest(request, inputStream)
+        val responseData = requestHandler.handleRequest(request, inputStream)
 
         getResponseData(outputStream, responseData)
 
@@ -36,14 +32,6 @@ class Server(
     private fun getResponseData(outputStream: BufferedWriter, responseData: String) {
         outputStream.write(responseData)
         outputStream.flush()
-    }
-
-    private fun handleRequest(request: String, inputStream: BufferedReader): String {
-        return when (getRequestType(request)) {
-            "GET" -> getRouteHandler.handleGetRequest(request)
-            "POST" -> postRouteHandler.handlePostRequest(request, inputStream)
-            else -> pageNotFoundResponse.handleUnknownRequest()
-        }
     }
 
     private fun readRequest(inputStream: BufferedReader): String {
@@ -59,7 +47,4 @@ class Server(
         return request
     }
 
-    private fun getRequestType(request: String): String {
-        return request.substringBefore(" ")
-    }
 }

@@ -24,6 +24,7 @@ class ServerIntegrationTest {
         assertEquals(expectedResponseCode, actualResponseCode)
     }
 
+    //TODO refactor this test
     @Test
     fun shouldAddMetaDataToFieldArray() {
         val port = 3013
@@ -38,7 +39,6 @@ class ServerIntegrationTest {
                 |Content-Type: text/plain;charset=UTF-8
                 |Host: localhost:3000
                 |Origin: http://localhost:3000""".trimMargin() + "\r\n\r\n" +
-
                 payload +"\r\n"
         outputStream.write(request.toByteArray())
         val expectedResponseCode = "200"
