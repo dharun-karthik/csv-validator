@@ -10,7 +10,13 @@ class MetaDataWriter(
     val file = getMetaDataFile()
 
     fun appendField(data: String) {
-        readFields()
+        val gson = Gson()
+        val fieldInJson = gson.fromJson(data,JsonMetaDataTemplate::class.java)
+        val existingFields = readFields()
+        val newFields = existingFields?.plus(fieldInJson)
+        if (newFields != null) {
+            writeJsonContent(newFields)
+        }
     }
 
     fun readFields(): Array<JsonMetaDataTemplate>? {
@@ -21,6 +27,12 @@ class MetaDataWriter(
 
     fun readRawContent(): String {
         return file.readText()
+    }
+
+    fun writeJsonContent(jsonData : Array<JsonMetaDataTemplate>){
+        val gson = Gson()
+        val stringData = gson.toJson(jsonData,Array<JsonMetaDataTemplate>::class.java)
+        file.writeText(stringData)
     }
 
     private fun getMetaDataFile(): File {

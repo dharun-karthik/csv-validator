@@ -1,13 +1,13 @@
 package metaData
 
+import JsonMetaDataTemplate
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class MetaDataWriterTest {
-    private val metaDataWriter = MetaDataWriter("src/test/kotlin/metaData/csv-meta-data-test.json")
-
     @Test
     fun shouldBeAbleToReadRawContent() {
+        val metaDataWriter = MetaDataWriter("src/test/kotlin/metaData/csv-meta-data-test.json")
         val expected = """[
   {
     "fieldName": "ProductId",
@@ -78,11 +78,24 @@ class MetaDataWriterTest {
 
     @Test
     fun shouldBeAbleToGiveMetaDataInJson(){
+        val metaDataWriter = MetaDataWriter("src/test/kotlin/metaData/csv-meta-data-test.json")
         val fields = metaDataWriter.readFields()
 
         val expected = "500020"
         val actual = fields?.get(7)?.values?.get(0)
 
         assertEquals(expected,actual)
+    }
+
+    @Test
+    fun shouldBeAbleToWriteJsonToFile(){
+        val metaDataWriter = MetaDataWriter("src/test/kotlin/metaData/write-test.json")
+        val jsonData : Array<JsonMetaDataTemplate> = arrayOf(JsonMetaDataTemplate("test field","Alphabet",2,3,1,listOf("22")))
+        metaDataWriter.writeJsonContent(jsonData)
+
+        val expected = """[{"fieldName":"test field","type":"Alphabet","length":2,"maxLength":3,"minLength":1,"values":["22"]}]"""
+        val actual = metaDataWriter.readRawContent()
+
+        assertEquals(expected, actual)
     }
 }
