@@ -2,7 +2,6 @@ package response
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import response.ResponseHead
 
 internal class ResponseHeadTest {
 

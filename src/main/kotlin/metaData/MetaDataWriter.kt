@@ -11,7 +11,7 @@ class MetaDataWriter(
 
     fun appendField(data: String) {
         val gson = Gson()
-        val fieldInJson = gson.fromJson(data,JsonMetaDataTemplate::class.java)
+        val fieldInJson = gson.fromJson(data, JsonMetaDataTemplate::class.java)
         val existingFields = readFields()
         val newFields = existingFields.plus(fieldInJson)
         writeJsonContent(newFields)
@@ -27,13 +27,13 @@ class MetaDataWriter(
         return file.readText()
     }
 
-    fun writeJsonContent(jsonData : Array<JsonMetaDataTemplate>){
+    fun writeJsonContent(jsonData: Array<JsonMetaDataTemplate>) {
         val gson = Gson()
-        val stringData = gson.toJson(jsonData,Array<JsonMetaDataTemplate>::class.java)
+        val stringData = gson.toJson(jsonData, Array<JsonMetaDataTemplate>::class.java)
         file.writeText(stringData)
     }
 
-    fun clearFields(){
+    fun clearFields() {
         file.deleteOnExit()
         file.createNewFile()
     }

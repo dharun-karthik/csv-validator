@@ -1,11 +1,14 @@
 import routeHandler.RequestHandler
-import java.io.*
+import java.io.BufferedReader
+import java.io.BufferedWriter
+import java.io.InputStreamReader
+import java.io.OutputStreamWriter
 import java.net.ServerSocket
 
 
 class Server(
     port: Int = 3000
-){
+) {
     private val requestHandler = RequestHandler()
     private val serverSocket = ServerSocket(port)
 

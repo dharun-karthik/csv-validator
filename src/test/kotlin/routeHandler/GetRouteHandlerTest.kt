@@ -1,9 +1,9 @@
 package routeHandler
 
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-internal class GetRouteHandlerTest{
+internal class GetRouteHandlerTest {
 
     @Test
     fun shouldBeAbleToGetResponse() {
@@ -26,7 +26,8 @@ internal class GetRouteHandlerTest{
                 "        \"Accept-Encoding: gzip, deflate, br\\n\" +\n" +
                 "        \"Accept-Language: en-GB,en-US;q=0.9,en;q=0.8\\n\" +\n" +
                 "        \"Cookie: Idea-b3c56f7e=12016d35-83c9-49b5-803a-37d4606d94ca\\n"
-        val actualContentLength = getRouteHandler.handleGetRequest(request).split("\n")[2].replace("\n", "").replace("\r", "")
-        assertEquals(expectedContentLength , actualContentLength)
+        val actualContentLength =
+            getRouteHandler.handleGetRequest(request).split("\n")[2].replace("\n", "").replace("\r", "")
+        assertEquals(expectedContentLength, actualContentLength)
     }
 }

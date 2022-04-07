@@ -1,7 +1,8 @@
 package validation
 
 import org.json.JSONArray
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 internal class DuplicationValidationTest {
@@ -46,7 +47,8 @@ internal class DuplicationValidationTest {
         val jsonString =
             "[{ \"a\": \"d\", \"b\": \"e\", \"c\": \"f\" }, { \"a\": \"g\", \"b\": \"h\", \"c\": \"i\" }, { \"a\": \"d\", \"b\": \"e\", \"c\": \"f\" }, { \"a\": \"d\", \"b\": \"e\", \"c\": \"f\" }, { \"a\": \"g\", \"b\": \"h\", \"c\": \"i\" }, { \"a\": \"g\", \"b\": \"h\", \"c\": \"z\" }]"
         val jsonArray = JSONArray(jsonString)
-        val expected = JSONArray("[{\"3\":\"Row Duplicated From 1\"},{\"4\":\"Row Duplicated From 1\"},{\"5\":\"Row Duplicated From 2\"}]")
+        val expected =
+            JSONArray("[{\"3\":\"Row Duplicated From 1\"},{\"4\":\"Row Duplicated From 1\"},{\"5\":\"Row Duplicated From 2\"}]")
 
         val actual = duplicationValidation.getDuplicateRowNumberInJSON(jsonArray)
 

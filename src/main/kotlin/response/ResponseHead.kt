@@ -1,6 +1,6 @@
 package response
 
-class ResponseHead{
+class ResponseHead {
 
     private val statusMap = mapOf(
         200 to "Found",

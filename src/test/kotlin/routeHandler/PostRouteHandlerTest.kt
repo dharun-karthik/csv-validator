@@ -4,12 +4,11 @@ import org.json.JSONArray
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
-import routeHandler.PostRouteHandler
 
 class PostTest {
 
     @Test
-    fun shouldBeAbleToAddCsvMetaData(){
+    fun shouldBeAbleToAddCsvMetaData() {
         val post = PostRouteHandler()
         val data = """[
   {
@@ -76,13 +75,13 @@ class PostTest {
         post.addCsvMetaData(data)
         val field = post.fieldArray[0]
         assertNull(field.maxLength)
-        assertEquals(5,field.length)
-        assertEquals("Number",post.fieldArray[2].type)
+        assertEquals(5, field.length)
+        assertEquals("Number", post.fieldArray[2].type)
     }
 
 
     @Test
-    fun shouldGiveTypeErrorLinesAsResult(){
+    fun shouldGiveTypeErrorLinesAsResult() {
         val data = """[
   {
     "fieldName": "Product Id",
@@ -144,7 +143,7 @@ class PostTest {
         val postRouteHandler = PostRouteHandler()
         val jsonData = postRouteHandler.getMetaData(data)
         postRouteHandler.fieldArray = jsonData
-        val csvData ="""[
+        val csvData = """[
     {
         "Product Id": "1564",
         "Product Description": "Table",
@@ -167,11 +166,11 @@ class PostTest {
         val jsonCsvData = JSONArray(csvData)
         val expected = mutableListOf(1)
         val result = postRouteHandler.typeValidation(jsonCsvData)
-        assertEquals(expected,result)
+        assertEquals(expected, result)
     }
 
     @Test
-    fun shouldGiveLengthErrorLinesAsResult(){
+    fun shouldGiveLengthErrorLinesAsResult() {
         val data = """[
   {
     "fieldName": "Product Id",
@@ -233,7 +232,7 @@ class PostTest {
         val postRouteHandler = PostRouteHandler()
         val jsonData = postRouteHandler.getMetaData(data)
         postRouteHandler.fieldArray = jsonData
-        val csvData ="""[
+        val csvData = """[
     {
         "Product Id": "1564",
         "Product Description": "Table",
@@ -254,8 +253,8 @@ class PostTest {
     }
 ]"""
         val jsonCsvData = JSONArray(csvData)
-        val expected = mutableListOf(1,2)
+        val expected = mutableListOf(1, 2)
         val result = postRouteHandler.lengthValidation(jsonCsvData)
-        assertEquals(expected,result)
+        assertEquals(expected, result)
     }
 }
