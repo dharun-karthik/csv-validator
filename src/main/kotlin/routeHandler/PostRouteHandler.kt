@@ -156,6 +156,7 @@ class PostRouteHandler(
             dataInJSONArray.forEachIndexed { index, element ->
                 val fieldElement = (element as JSONObject)
                 val keys = fieldElement.keySet()
+                println(fieldElement)
                 for (key in keys) {
                     if (typeVal(fieldArray, key, fieldElement, typeValidation, rowList, index)) break
                 }

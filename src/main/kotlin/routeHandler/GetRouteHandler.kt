@@ -7,8 +7,7 @@ class GetRouteHandler(private val responseHead: ResponseHead = ResponseHead()) {
 
 
     fun handleGetRequest(request: String): String {
-        val path = getPath(request)
-        return when (path) {
+        return when (val path = getPath(request)) {
             "/" -> serveFile("/index.html")
             else -> serveFile(path)
         }
