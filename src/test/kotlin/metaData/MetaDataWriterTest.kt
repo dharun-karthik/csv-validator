@@ -1,6 +1,5 @@
 package metaData
 
-import JsonMetaDataTemplate
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test

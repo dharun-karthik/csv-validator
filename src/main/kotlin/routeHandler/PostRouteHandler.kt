@@ -1,6 +1,6 @@
 package routeHandler
 
-import JsonMetaDataTemplate
+import metaData.JsonMetaDataTemplate
 import com.google.gson.Gson
 import org.json.JSONArray
 import org.json.JSONObject

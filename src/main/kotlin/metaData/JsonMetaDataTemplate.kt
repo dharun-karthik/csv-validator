@@ -1,3 +1,5 @@
+package metaData
+
 class JsonMetaDataTemplate(
     val fieldName: String?,
     val type: String?,
