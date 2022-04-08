@@ -1,11 +1,11 @@
 [
   {
-    "fieldName": "ProductId",
+    "fieldName": "Product Id",
     "type": "AlphaNumeric",
     "length": 5
   },
   {
-    "fieldName": "ProductDescription",
+    "fieldName": "Product Description",
     "type": "AlphaNumeric",
     "minLength": 7,
     "maxLength": 20
@@ -28,7 +28,7 @@
     "minLength": 3
   },
   {
-    "fieldName": "Source",
+    "fieldName": "Source City",
     "type": "Alphabet",
     "minLength": 3
   },

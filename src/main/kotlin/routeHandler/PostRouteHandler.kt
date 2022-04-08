@@ -132,6 +132,7 @@ class PostRouteHandler(
                 }
             }
         } catch (err: Exception) {
+            println(err.message)
             return listOf()
         }
         return rowList
@@ -166,6 +167,7 @@ class PostRouteHandler(
                 }
             }
         } catch (err: Exception) {
+            println(err.message)
             return listOf()
         }
         return rowList

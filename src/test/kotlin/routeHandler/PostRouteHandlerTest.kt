@@ -2,6 +2,7 @@ package routeHandler
 
 import metaData.JsonMetaDataTemplate
 import metaData.MetaDataReaderWriter
+import org.json.JSONArray
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -55,67 +56,8 @@ class PostTest {
 
     @Test
     fun shouldGiveTypeErrorLinesAsResult() {
-        val data = """[
-  {
-    "fieldName": "Product Id",
-    "type": "AlphaNumeric",
-    "length": 5
-  },
-  {
-    "fieldName": "Product Description",
-    "type": "AlphaNumeric",
-    "minLength": 7,
-    "maxLength": 20
-  },
-  {
-    "fieldName": "Price",
-    "type": "Number"
-  },
-  {
-    "fieldName": "Export",
-    "type": "Alphabet"
-  },
-  {
-    "fieldName": "Country Name",
-    "type": "Alphabet",
-    "minLength": 3
-  },
-  {
-    "fieldName": "Source City",
-    "type": "Alphabet",
-    "minLength": 3
-  },
-  {
-    "fieldName": "Country Code",
-    "type": "Number",
-    "maxLength": 3
-  },
-  {
-    "fieldName": "Source Pincode",
-    "type": "Number",
-    "length": 6,
-    "values": [
-      "500020",
-      "110001",
-      "560001",
-      "500001",
-      "111045",
-      "230532",
-      "530068",
-      "226020",
-      "533001",
-      "600001",
-      "700001",
-      "212011",
-      "641001",
-      "682001",
-      "444601"
-    ]
-  }
-]"""
-        val postRouteHandler = PostRouteHandler()
-        val jsonData = postRouteHandler.getMetaData(data)
-        postRouteHandler.fieldArray = jsonData
+        val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/csv-meta-data-test.json")
+        val postRouteHandler = PostRouteHandler(metaDataReaderWriter)
         val csvData = """[
     {
         "Product Id": "1564",
@@ -144,67 +86,8 @@ class PostTest {
 
     @Test
     fun shouldGiveLengthErrorLinesAsResult() {
-        val data = """[
-  {
-    "fieldName": "Product Id",
-    "type": "AlphaNumeric",
-    "length": 5
-  },
-  {
-    "fieldName": "Product Description",
-    "type": "AlphaNumeric",
-    "minLength": 7,
-    "maxLength": 20
-  },
-  {
-    "fieldName": "Price",
-    "type": "Number"
-  },
-  {
-    "fieldName": "Export",
-    "type": "Alphabet"
-  },
-  {
-    "fieldName": "Country Name",
-    "type": "Alphabet",
-    "minLength": 3
-  },
-  {
-    "fieldName": "Source City",
-    "type": "Alphabet",
-    "minLength": 3
-  },
-  {
-    "fieldName": "Country Code",
-    "type": "Number",
-    "maxLength": 3
-  },
-  {
-    "fieldName": "Source Pincode",
-    "type": "Number",
-    "length": 6,
-    "values": [
-      "500020",
-      "110001",
-      "560001",
-      "500001",
-      "111045",
-      "230532",
-      "530068",
-      "226020",
-      "533001",
-      "600001",
-      "700001",
-      "212011",
-      "641001",
-      "682001",
-      "444601"
-    ]
-  }
-]"""
-        val postRouteHandler = PostRouteHandler()
-        val jsonData = postRouteHandler.getMetaData(data)
-        postRouteHandler.fieldArray = jsonData
+        val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/csv-meta-data-test.json")
+        val postRouteHandler = PostRouteHandler(metaDataReaderWriter)
         val csvData = """[
     {
         "Product Id": "1564",
@@ -230,5 +113,4 @@ class PostTest {
         val result = postRouteHandler.lengthValidation(jsonCsvData)
         assertEquals(expected, result)
     }
-
 }
