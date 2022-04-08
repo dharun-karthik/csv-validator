@@ -1,7 +1,8 @@
 package routeHandler
 
-import metaData.JsonMetaDataTemplate
 import com.google.gson.Gson
+import metaData.JsonMetaDataTemplate
+import metaData.MetaDataReaderWriter
 import org.json.JSONArray
 import org.json.JSONObject
 import response.ResponseHead
@@ -11,11 +12,15 @@ import validation.TypeValidation
 import java.io.BufferedReader
 
 class PostRouteHandler(
-    var fieldArray: Array<JsonMetaDataTemplate> = arrayOf(),
+    val metaDataReaderWriter: MetaDataReaderWriter,
     private val responseHead: ResponseHead = ResponseHead()
 ) {
     private val pageNotFoundResponse = PageNotFoundResponse()
-    fun handlePostRequest(request: String, inputStream: BufferedReader): String {
+
+    fun handlePostRequest(
+        request: String,
+        inputStream: BufferedReader,
+    ): String {
 
         return when (getPath(request)) {
             "/csv" -> handleCsv(request, inputStream)
@@ -65,8 +70,7 @@ class PostRouteHandler(
     }
 
     fun addCsvMetaData(body: String): String {
-        val jsonBody = getMetaData(body)
-        fieldArray = jsonBody
+        metaDataReaderWriter.appendField(body)
         val endOfHeader = "\r\n\r\n"
         val responseBody = "Successfully Added"
         val contentLength = responseBody.length
@@ -79,12 +83,6 @@ class PostRouteHandler(
         inputStream.read(buffer)
         return String(buffer)
     }
-
-    fun getMetaData(body: String): Array<JsonMetaDataTemplate> {
-        val gson = Gson()
-        return gson.fromJson(body, Array<JsonMetaDataTemplate>::class.java)
-    }
-
 
     private fun getContentLength(request: String): Int {
         request.split("\n").forEach { headerString ->
@@ -100,6 +98,7 @@ class PostRouteHandler(
     fun lengthValidation(dataInJSONArray: JSONArray): List<Int> {
         val rowList = mutableListOf<Int>()
         val lengthValidation = LengthValidation()
+        val fieldArray = metaDataReaderWriter.readFields()
         try {
             dataInJSONArray.forEachIndexed { index, element ->
                 val filedElement = (element as JSONObject)
@@ -141,6 +140,7 @@ class PostRouteHandler(
     fun typeValidation(dataInJSONArray: JSONArray): List<Int> {
         val rowList = mutableListOf<Int>()
         val typeValidation = TypeValidation()
+        val fieldArray = metaDataReaderWriter.readFields()
         try {
             dataInJSONArray.forEachIndexed { index, element ->
                 println(element)

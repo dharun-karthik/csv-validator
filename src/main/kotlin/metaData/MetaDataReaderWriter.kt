@@ -3,7 +3,7 @@ package metaData
 import com.google.gson.Gson
 import java.io.File
 
-class MetaDataWriter(
+class MetaDataReaderWriter(
     private val path: String
 ) {
     private val file = getMetaDataFile()
@@ -33,8 +33,7 @@ class MetaDataWriter(
     }
 
     fun clearFields() {
-        file.deleteOnExit()
-        file.createNewFile()
+        file.writeText("")
     }
 
     private fun getMetaDataFile(): File {

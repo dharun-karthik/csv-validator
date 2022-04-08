@@ -1,12 +1,14 @@
 package routeHandler
 
+import metaData.MetaDataReaderWriter
 import java.io.BufferedReader
 
-class RequestHandler {
+class RequestHandler(
+    metaDataReaderWriter: MetaDataReaderWriter
+) {
     private val getRouteHandler = GetRouteHandler()
+    private val postRouteHandler = PostRouteHandler(metaDataReaderWriter)
     private val pageNotFoundResponse = PageNotFoundResponse()
-
-    val postRouteHandler = PostRouteHandler()
 
     fun handleRequest(request: String, inputStream: BufferedReader): String {
         return when (getRequestType(request)) {

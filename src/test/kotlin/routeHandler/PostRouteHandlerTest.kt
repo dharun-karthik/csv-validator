@@ -1,84 +1,57 @@
 package routeHandler
 
-import org.json.JSONArray
+import metaData.JsonMetaDataTemplate
+import metaData.MetaDataReaderWriter
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 
 class PostTest {
 
     @Test
-    fun shouldBeAbleToAddCsvMetaData() {
-        val post = PostRouteHandler()
-        val data = """[
-  {
+    fun shouldBeAbleToAppendCsvMetaDataToEmptyFile() {
+        val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/new-json-test.json")
+        val post = PostRouteHandler(metaDataReaderWriter)
+        val data = """{
     "fieldName": "ProductId",
     "type": "AlphaNumeric",
     "length": 5
-  },
+  }"""
+        post.addCsvMetaData(data)
+        val fields = post.metaDataReaderWriter.readFields()
+        val actual = fields[0]
+        metaDataReaderWriter.clearFields()
+
+        val expected = JsonMetaDataTemplate("ProductId", "AlphaNumeric", 5, null, null, null)
+
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun shouldBeAbleToAppendCsvMetaData() {
+        val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/append-json-test.json")
+        val post = PostRouteHandler(metaDataReaderWriter)
+        val oldData = """
   {
-    "fieldName": "ProductDescription",
+    "fieldName": "Product Id",
+    "type": "AlphaNumeric",
+    "length": 5
+  }
+  """
+        post.addCsvMetaData(oldData)
+        val data = """{
+    "fieldName": "Product Description",
     "type": "AlphaNumeric",
     "minLength": 7,
     "maxLength": 20
-  },
-  {
-    "fieldName": "Price",
-    "type": "Number"
-  },
-  {
-    "fieldName": "Export",
-    "type": "Alphabet",
-    "values": [
-      "Y",
-      "N"
-    ]
-  },
-  {
-    "fieldName": "Country Name",
-    "type": "Alphabet",
-    "minLength": 3
-  },
-  {
-    "fieldName": "Source",
-    "type": "Alphabet",
-    "minLength": 3
-  },
-  {
-    "fieldName": "Country Code",
-    "type": "Number",
-    "maxLength": 3
-  },
-  {
-    "fieldName": "Source Pincode",
-    "type": "Number",
-    "length": 6,
-    "values": [
-      "500020",
-      "110001",
-      "560001",
-      "500001",
-      "111045",
-      "230532",
-      "530068",
-      "226020",
-      "533001",
-      "600001",
-      "700001",
-      "212011",
-      "641001",
-      "682001",
-      "444601"
-    ]
-  }
-]"""
+  }"""
         post.addCsvMetaData(data)
-        val field = post.fieldArray[0]
-        assertNull(field.maxLength)
-        assertEquals(5, field.length)
-        assertEquals("Number", post.fieldArray[2].type)
-    }
+        val fields = post.metaDataReaderWriter.readFields()
+        val actual = fields[1]
 
+        val expected = JsonMetaDataTemplate("Product Description", "AlphaNumeric", null, 7, 20, null)
+
+        assertEquals(expected, actual)
+    }
 
     @Test
     fun shouldGiveTypeErrorLinesAsResult() {
@@ -257,4 +230,5 @@ class PostTest {
         val result = postRouteHandler.lengthValidation(jsonCsvData)
         assertEquals(expected, result)
     }
+
 }

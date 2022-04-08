@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 
-class MetaDataWriterTest {
+class MetaDataReaderWriterTest {
     @Test
     fun shouldBeAbleToReadRawContent() {
-        val metaDataWriter = MetaDataWriter("src/test/kotlin/metaData/csv-meta-data-test.json")
+        val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaData/csv-meta-data-test.json")
         val expected = """[
   {
     "fieldName": "ProductId",
@@ -70,15 +70,15 @@ class MetaDataWriterTest {
     ]
   }
 ]"""
-        val actual = metaDataWriter.readRawContent()
+        val actual = metaDataReaderWriter.readRawContent()
 
         assertEquals(expected, actual)
     }
 
     @Test
     fun shouldBeAbleToGiveMetaDataInJson() {
-        val metaDataWriter = MetaDataWriter("src/test/kotlin/metaData/csv-meta-data-test.json")
-        val fields = metaDataWriter.readFields()
+        val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaData/csv-meta-data-test.json")
+        val fields = metaDataReaderWriter.readFields()
 
         val expected = "500020"
         val actual = fields[7].values?.get(0)
@@ -88,36 +88,36 @@ class MetaDataWriterTest {
 
     @Test
     fun shouldBeAbleToGiveMetaDataInJsonWhenThereIsNoContent() {
-        val metaDataWriter = MetaDataWriter("src/test/kotlin/metaData/empty.json")
-        val expected = metaDataWriter.readFields()
+        val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaData/empty-json-test.json")
+        val expected = metaDataReaderWriter.readFields()
 
         assertNotNull(expected)
     }
 
     @Test
     fun shouldBeAbleToWriteJsonToFile() {
-        val metaDataWriter = MetaDataWriter("src/test/kotlin/metaData/write-test.json")
+        val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaData/write-test.json")
         val jsonData: Array<JsonMetaDataTemplate> =
             arrayOf(JsonMetaDataTemplate("test field", "Alphabet", 2, 3, 1, listOf("22")))
-        metaDataWriter.writeJsonContent(jsonData)
+        metaDataReaderWriter.writeJsonContent(jsonData)
 
         val expected =
             """[{"fieldName":"test field","type":"Alphabet","length":2,"maxLength":3,"minLength":1,"values":["22"]}]"""
-        val actual = metaDataWriter.readRawContent()
+        val actual = metaDataReaderWriter.readRawContent()
 
         assertEquals(expected, actual)
     }
 
     @Test
     fun shouldBeAbleToAppendFieldToFile() {
-        val metaDataWriter = MetaDataWriter("src/test/kotlin/metaData/write-test.json")
+        val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaData/write-test.json")
         val field = """{"fieldName": "ProductDescription","type": "AlphaNumeric","minLength": 7,"maxLength": 20}"""
         val expected =
             """[{"fieldName":"test field","type":"Alphabet","length":2,"maxLength":3,"minLength":1,"values":["22"]},{"fieldName":"ProductDescription","type":"AlphaNumeric","maxLength":20,"minLength":7}]"""
 
-        metaDataWriter.appendField(field)
-        val actual = metaDataWriter.readRawContent()
-        metaDataWriter.clearFields()
+        metaDataReaderWriter.appendField(field)
+        val actual = metaDataReaderWriter.readRawContent()
+        metaDataReaderWriter.clearFields()
 
         assertEquals(expected, actual)
     }
