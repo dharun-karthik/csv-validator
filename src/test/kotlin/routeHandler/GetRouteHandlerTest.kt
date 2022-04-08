@@ -8,7 +8,7 @@ internal class GetRouteHandlerTest {
     @Test
     fun shouldBeAbleToGetResponse() {
         val getRouteHandler = GetRouteHandler()
-        val expectedContentLength = "Content-Length: 1774"
+        val expectedContentLength = "Content-Length: 1766"
         val request = "GET / HTTP/1.1\\n\" +\n" +
                 "        \"Host: localhost:3001\\n\" +\n" +
                 "        \"Connection: keep-alive\\n\" +\n" +

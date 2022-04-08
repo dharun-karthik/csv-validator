@@ -1,6 +1,5 @@
 package routeHandler
 
-import com.google.gson.Gson
 import metaData.JsonMetaDataTemplate
 import metaData.MetaDataReaderWriter
 import org.json.JSONArray
@@ -101,34 +100,10 @@ class PostRouteHandler(
         val fieldArray = metaDataReaderWriter.readFields()
         try {
             dataInJSONArray.forEachIndexed { index, element ->
-                val filedElement = (element as JSONObject)
-                val keys = filedElement.keySet()
+                val fieldElement = (element as JSONObject)
+                val keys = fieldElement.keySet()
                 for (key in keys) {
-                    val field = fieldArray.first { it.fieldName == key }
-                    var isValid = true
-                    val value = filedElement.get(key) as String
-                    if (field.length != null) {
-                        if (!lengthValidation.fixedLength(value, field.length)) {
-                            println("1 ${field.length}, $value")
-                            isValid = false
-                        }
-                    }
-                    if (field.maxLength != null) {
-                        if (!lengthValidation.maxLength(value, field.maxLength)) {
-                            println("2 ${field.maxLength}, $value")
-                            isValid = false
-                        }
-                    }
-                    if (field.minLength != null) {
-                        if (!lengthValidation.minLength(value, field.minLength)) {
-                            println("3 ${field.minLength}, $value")
-                            isValid = false
-                        }
-                    }
-                    if (!isValid) {
-                        rowList.add(index + 1)
-                        break
-                    }
+                    if (lengthVal(fieldArray, key, fieldElement, lengthValidation, rowList, index)) break
                 }
             }
         } catch (err: Exception) {
@@ -138,32 +113,49 @@ class PostRouteHandler(
         return rowList
     }
 
+    private fun lengthVal(
+        fieldArray: Array<JsonMetaDataTemplate>,
+        key: String?,
+        filedElement: JSONObject,
+        lengthValidation: LengthValidation,
+        rowList: MutableList<Int>,
+        index: Int
+    ): Boolean {
+        val field = fieldArray.first { it.fieldName == key }
+        var isValid = true
+        val value = filedElement.get(key) as String
+        if (field.length != null) {
+            if (!lengthValidation.fixedLength(value, field.length)) {
+                isValid = false
+            }
+        }
+        if (field.maxLength != null) {
+            if (!lengthValidation.maxLength(value, field.maxLength)) {
+                isValid = false
+            }
+        }
+        if (field.minLength != null) {
+            if (!lengthValidation.minLength(value, field.minLength)) {
+                isValid = false
+            }
+        }
+        if (!isValid) {
+            rowList.add(index + 1)
+            return true
+        }
+        return false
+    }
+
     fun typeValidation(dataInJSONArray: JSONArray): List<Int> {
         val rowList = mutableListOf<Int>()
         val typeValidation = TypeValidation()
         val fieldArray = metaDataReaderWriter.readFields()
         try {
             dataInJSONArray.forEachIndexed { index, element ->
-                println(element)
-                val ele = (element as JSONObject)
-                val keys = ele.keySet()
+                val fieldElement = (element as JSONObject)
+                val keys = fieldElement.keySet()
                 for (key in keys) {
-                    println("key $key")
-                    val field = fieldArray.first { it.fieldName == key }
-                    var isValid = true
-                    val value = ele.get(key) as String
-                    println("${field.type} , $key , $value")
-                    if (field.type == "AlphaNumeric" && !typeValidation.isAlphaNumeric(value)) {
-                        isValid = false
-                    } else if (field.type == "Alphabet" && !typeValidation.isAlphabetic(value)) {
-                        isValid = false
-                    } else if (field.type == "Number" && !typeValidation.isNumeric(value)) {
-                        isValid = false
-                    }
-                    if (!isValid) {
-                        rowList.add(index + 1)
-                        continue
-                    }
+                    if (typeVal(fieldArray, key, fieldElement, typeValidation, rowList, index)) break
                 }
             }
         } catch (err: Exception) {
@@ -171,5 +163,30 @@ class PostRouteHandler(
             return listOf()
         }
         return rowList
+    }
+
+    private fun typeVal(
+        fieldArray: Array<JsonMetaDataTemplate>,
+        key: String?,
+        ele: JSONObject,
+        typeValidation: TypeValidation,
+        rowList: MutableList<Int>,
+        index: Int
+    ): Boolean {
+        val field = fieldArray.first { it.fieldName == key }
+        var isValid = true
+        val value = ele.get(key) as String
+        if (field.type == "AlphaNumeric" && !typeValidation.isAlphaNumeric(value)) {
+            isValid = false
+        } else if (field.type == "Alphabet" && !typeValidation.isAlphabetic(value)) {
+            isValid = false
+        } else if (field.type == "Number" && !typeValidation.isNumeric(value)) {
+            isValid = false
+        }
+        if (!isValid) {
+            rowList.add(index + 1)
+            return true
+        }
+        return false
     }
 }
