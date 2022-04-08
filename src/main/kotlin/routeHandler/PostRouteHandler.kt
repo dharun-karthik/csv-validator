@@ -93,7 +93,9 @@ class PostRouteHandler(
         return 0
     }
 
-
+    //Todo isolate common code between length and type validation
+    //todo single responsibility
+    //todo eliminate if else
     fun lengthValidation(dataInJSONArray: JSONArray): List<Int> {
         val rowList = mutableListOf<Int>()
         val lengthValidation = LengthValidation()
