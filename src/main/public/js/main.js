@@ -8,52 +8,77 @@ function getFakeResponse() {
     ]
 }
 
-function csvReader() {
-    let csv = document.getElementById("csv_id").files[0];
+const csvReader = () => {
+    let csvElement = document.getElementById("csv_id").files[0];
     const reader = new FileReader();
-    reader.onload = async function (event) {
-        csv = event.target.result
-        const lines = csv.toString().split("\n");
-        console.log(lines)
-        const result = [];
-        const headers = lines[0].split(",");
-        for (let i = 1; i < lines.length; i++) {
-            const obj = {};
-            const currentLine = lines[i].split(",");
-            for (let j = 0; j < headers.length; j++) {
-                obj[headers[j]] = currentLine[j];
-            }
-            result.push(obj);
+    reader.onload = handleCsvFile
+    reader.readAsText(csvElement)
+}
+
+function csvToJson(lines) {
+    const result = [];
+    const headers = lines[0].split(",");
+    for (let i = 1; i < lines.length; i++) {
+        const obj = {};
+        const currentLine = lines[i].split(",");
+        for (let j = 0; j < headers.length; j++) {
+            obj[headers[j]] = currentLine[j];
         }
+        result.push(obj);
+    }
+    return result;
+}
 
-
-        const response = await fetch('csv', {
-            method: 'POST',
-            body: JSON.stringify(result)
-        })
-        if (response.status === 200) {
-            const jsonData = await response.json();
-            console.log(jsonData)
+async function handleResponse(response) {
+    if (response.status === 200) {
+        // const jsonData = await response.json();
+        const jsonData = getFakeResponse()
+        console.log(jsonData)
+        for (let key in jsonData) {
+            const obj = jsonData[key]
+            console.log("obj ", obj)
+            printLines(obj)
         }
-        response.forEach(element => {
-            const node = document.createElement("li");
-            const textNode = document.createTextNode(`Line Number ${Object.keys(element)[0]}: ${element[Object.keys(element)[0]]}`);
-            node.appendChild(textNode);
-            document.getElementById("error_msgs_list").appendChild(node)
-        });
+    } else {
+        //todo handle
+        console.log("Error : ", response)
+    }
+}
 
-    };
-    reader.readAsText(csv);
+function printLines(arrayOfObject) {
+    for (let obj in arrayOfObject) {
+        const node = document.createElement("li");
+        const currentObject = arrayOfObject[obj]
+        const textNode = document.createTextNode(`Line Number ${obj}: ${currentObject}`);
+        console.log("key ", obj, "obj ", currentObject)
+        node.appendChild(textNode);
+        document.getElementById("error_msg_list").appendChild(node)
+    }
+}
+
+async function handleCsvFile(event) {
+    const csv = event.target.result;
+    const lines = csv.toString().split("\n");
+    const result = csvToJson(lines);
+    const response = await sendRequest(result);
+    await handleResponse(response);
+}
+
+async function sendRequest(result) {
+    return await fetch('csv', {
+        method: 'POST',
+        body: JSON.stringify(result)
+    });
 }
 
 function addDataToJson() {
     let jsonObj = {}
     const field = document.getElementById("field");
-    var type = document.getElementById("type")
-    var value = document.getElementById("text_file_id").files[0]
-    var max_len = document.getElementById("max-len")
-    var min_len = document.getElementById("min-len")
-    var fixed_len = document.getElementById("fixed-len")
+    const type = document.getElementById("type");
+    const value = document.getElementById("text_file_id").files[0];
+    const max_len = document.getElementById("max-len");
+    const min_len = document.getElementById("min-len");
+    const fixed_len = document.getElementById("fixed-len");
     jsonObj["fieldName"] = field.value
     jsonObj["type"] = type.value
     let reader = new FileReader();
@@ -69,7 +94,6 @@ function addDataToJson() {
 }
 
 async function sendConfigData() {
-
     const resp = await fetch('add-meta-data', {
         method: 'POST',
         body: JSON.stringify(payload)
@@ -78,5 +102,4 @@ async function sendConfigData() {
         const jsonData = await resp.json();
         console.log(jsonData)
     }
-
 }
