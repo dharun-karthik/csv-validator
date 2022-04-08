@@ -1,13 +1,5 @@
 const payload = [];
 
-function getFakeResponse() {
-    return [
-        {"3": "Row Duplicated From 1"},
-        {"4": "Row Duplicated From 1"},
-        {"5": "Row Duplicated From 2"}
-    ]
-}
-
 const csvReader = () => {
     let csvElement = document.getElementById("csv_id").files[0];
     const reader = new FileReader();
@@ -31,8 +23,7 @@ function csvToJson(lines) {
 
 async function handleResponse(response) {
     if (response.status === 200) {
-        // const jsonData = await response.json();
-        const jsonData = getFakeResponse()
+        const jsonData = await response.json();
         console.log(jsonData)
         for (let key in jsonData) {
             const obj = jsonData[key]
