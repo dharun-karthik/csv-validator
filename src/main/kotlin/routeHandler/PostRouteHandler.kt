@@ -45,7 +45,7 @@ class PostRouteHandler(
         val lengthValidationResultList = lengthValidation(jsonBody)
         var responseBody = "{"
         responseBody +=
-            if (!repeatedRowList.isEmpty || typeValidationResultList.isNotEmpty() || lengthValidationResultList.isNotEmpty()) {
+            if (!repeatedRowList.isEmpty || !typeValidationResultList.isEmpty || !lengthValidationResultList.isEmpty) {
                 "\"Repeated Lines\" : $repeatedRowList,\n" +
                         "\"Type Error Lines\" : $typeValidationResultList,\n" +
                         "\"Length Error Lines\" : $lengthValidationResultList\n"
@@ -96,8 +96,8 @@ class PostRouteHandler(
     //Todo isolate common code between length and type validation
     //todo single responsibility
     //todo eliminate if else
-    fun lengthValidation(dataInJSONArray: JSONArray): List<Int> {
-        val rowList = mutableListOf<Int>()
+    fun lengthValidation(dataInJSONArray: JSONArray): JSONArray {
+        val rowMap = JSONArray()
         val lengthValidation = LengthValidation()
         val fieldArray = metaDataReaderWriter.readFields()
         try {
@@ -105,23 +105,28 @@ class PostRouteHandler(
                 val fieldElement = (element as JSONObject)
                 val keys = fieldElement.keySet()
                 for (key in keys) {
-                    if (lengthVal(fieldArray, key, fieldElement, lengthValidation, rowList, index)) break
+                    if (lengthVal(fieldArray, key, fieldElement, lengthValidation)) {
+                        val jsonObject = JSONObject().put(
+                            (index + 1).toString(),
+                            "Length Error in $key"
+                        )
+                        rowMap.put(jsonObject)
+                        break
+                    }
                 }
             }
         } catch (err: Exception) {
             println(err.message)
-            return listOf()
+            return JSONArray()
         }
-        return rowList
+        return rowMap
     }
 
     private fun lengthVal(
         fieldArray: Array<JsonMetaDataTemplate>,
         key: String?,
         filedElement: JSONObject,
-        lengthValidation: LengthValidation,
-        rowList: MutableList<Int>,
-        index: Int
+        lengthValidation: LengthValidation
     ): Boolean {
         val field = fieldArray.first { it.fieldName == key }
         var isValid = true
@@ -142,14 +147,13 @@ class PostRouteHandler(
             }
         }
         if (!isValid) {
-            rowList.add(index + 1)
             return true
         }
         return false
     }
 
-    fun typeValidation(dataInJSONArray: JSONArray): List<Int> {
-        val rowList = mutableListOf<Int>()
+    fun typeValidation(dataInJSONArray: JSONArray): JSONArray {
+        val rowMap = JSONArray()
         val typeValidation = TypeValidation()
         val fieldArray = metaDataReaderWriter.readFields()
         try {
@@ -158,23 +162,28 @@ class PostRouteHandler(
                 val keys = fieldElement.keySet()
                 println(fieldElement)
                 for (key in keys) {
-                    if (typeVal(fieldArray, key, fieldElement, typeValidation, rowList, index)) break
+                    if (typeVal(fieldArray, key, fieldElement, typeValidation)) {
+                        val jsonObject = JSONObject().put(
+                            (index + 1).toString(),
+                            "Type Error in $key"
+                        )
+                        rowMap.put(jsonObject)
+                        break
+                    }
                 }
             }
         } catch (err: Exception) {
             println(err.message)
-            return listOf()
+            return JSONArray()
         }
-        return rowList
+        return rowMap
     }
 
     private fun typeVal(
         fieldArray: Array<JsonMetaDataTemplate>,
         key: String?,
         ele: JSONObject,
-        typeValidation: TypeValidation,
-        rowList: MutableList<Int>,
-        index: Int
+        typeValidation: TypeValidation
     ): Boolean {
         val field = fieldArray.first { it.fieldName == key }
         var isValid = true
@@ -187,7 +196,6 @@ class PostRouteHandler(
             isValid = false
         }
         if (!isValid) {
-            rowList.add(index + 1)
             return true
         }
         return false
