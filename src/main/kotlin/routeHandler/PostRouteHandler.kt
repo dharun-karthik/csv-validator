@@ -142,9 +142,9 @@ class PostRouteHandler(
         val isValid: Boolean
         val value = filedElement.get(key) as String
 
-        isValid = (lengthTypeMap[LengthType.FIXED_LENGTH]!!.validateLengthType(value, field.length, lengthValidation) &&
-                lengthTypeMap[LengthType.MIN_LENGTH]!!.validateLengthType(value, field.minLength, lengthValidation) &&
-                lengthTypeMap[LengthType.MAX_LENGTH]!!.validateLengthType(value, field.maxLength, lengthValidation))
+        isValid = (lengthTypeMap[LengthType.FIXED_LENGTH]!!.validateLengthType(value, field.length?.toInt(), lengthValidation) &&
+                lengthTypeMap[LengthType.MIN_LENGTH]!!.validateLengthType(value, field.minLength?.toInt(), lengthValidation) &&
+                lengthTypeMap[LengthType.MAX_LENGTH]!!.validateLengthType(value, field.maxLength?.toInt(), lengthValidation))
 
         if (!isValid) {
             return true
