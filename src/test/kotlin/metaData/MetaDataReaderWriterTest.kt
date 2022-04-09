@@ -100,7 +100,16 @@ class MetaDataReaderWriterTest {
     fun shouldBeAbleToWriteJsonToFile() {
         val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/meta-data-write-test.json")
         val jsonData: Array<JsonMetaDataTemplate> =
-            arrayOf(JsonMetaDataTemplate("test field", "Alphabet", 2, 1, 3, listOf("22")))
+            arrayOf(
+                JsonMetaDataTemplate(
+                    fieldName = "test field",
+                    type = "Alphabet",
+                    length = 2,
+                    minLength = 1,
+                    maxLength = 3,
+                    values = listOf("22")
+                )
+            )
         metaDataReaderWriter.writeJsonContent(jsonData)
         val expected =
             """[{"fieldName":"test field","type":"Alphabet","length":2,"minLength":1,"maxLength":3,"values":["22"]}]"""
@@ -113,7 +122,8 @@ class MetaDataReaderWriterTest {
     @Test
     fun shouldBeAbleToAppendFieldToFile() {
         val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/meta-data-append-test.json")
-        val oldField = """{"fieldName":"test field","type":"Alphabet","length":2,"minLength":1,"maxLength":3,"values":["22"]}"""
+        val oldField =
+            """{"fieldName":"test field","type":"Alphabet","length":2,"minLength":1,"maxLength":3,"values":["22"]}"""
         metaDataReaderWriter.appendField(oldField)
         val field = """{"fieldName": "ProductDescription","type": "AlphaNumeric","minLength": 7,"maxLength": 20}"""
         metaDataReaderWriter.appendField(field)

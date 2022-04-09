@@ -1,10 +1,13 @@
 package metaData
 
 data class JsonMetaDataTemplate(
-    val fieldName: String?,
-    val type: String?,
-    val length: Int?,
-    val minLength: Int?,
-    val maxLength: Int?,
-    val values: List<String>?,
+    val fieldName: String? = null,
+    val type: String? = null,
+    val length: Int? = null,
+    val minLength: Int? = null,
+    val maxLength: Int? = null,
+    val dependent: String? = null,
+    val dependentCondition: String? = null,
+    val currentValueWhenThatConditionIsMet: String? = null,
+    val values: List<String>? = null,
 )

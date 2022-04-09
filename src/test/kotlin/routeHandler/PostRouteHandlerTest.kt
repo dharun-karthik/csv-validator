@@ -3,6 +3,7 @@ package routeHandler
 import metaData.JsonMetaDataTemplate
 import metaData.MetaDataReaderWriter
 import org.json.JSONArray
+import org.json.JSONObject
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -22,7 +23,8 @@ class PostTest {
         val actual = fields[0]
         metaDataReaderWriter.clearFields()
 
-        val expected = JsonMetaDataTemplate("ProductId", "AlphaNumeric", 5, null, null, null)
+        val expected =
+            JsonMetaDataTemplate(fieldName = "ProductId", type = "AlphaNumeric", length = 5)
 
         assertEquals(expected, actual)
     }
@@ -49,7 +51,12 @@ class PostTest {
         val fields = post.metaDataReaderWriter.readFields()
         val actual = fields[1]
 
-        val expected = JsonMetaDataTemplate("Product Description", "AlphaNumeric", null, 7, 20, null)
+        val expected = JsonMetaDataTemplate(
+            fieldName = "Product Description",
+            type = "AlphaNumeric",
+            minLength = 7,
+            maxLength = 20
+        )
 
         assertEquals(expected, actual)
     }
@@ -79,9 +86,12 @@ class PostTest {
     }
 ]"""
         val jsonCsvData = JSONArray(csvData)
-        val expected = mutableListOf(1)
+
+        val expected = JSONArray()
+        expected.put(JSONObject().put("1","Type Error in Price"))
         val result = postRouteHandler.typeValidation(jsonCsvData)
-        assertEquals(expected, result)
+
+        assertEquals(expected.toString(), result.toString())
     }
 
     @Test
@@ -109,8 +119,11 @@ class PostTest {
     }
 ]"""
         val jsonCsvData = JSONArray(csvData)
-        val expected = mutableListOf(1, 2)
+        val expected = JSONArray()
+        expected.put(JSONObject().put("1","Length Error in Product Id"))
+        expected.put(JSONObject().put("2","Length Error in Product Id"))
         val result = postRouteHandler.lengthValidation(jsonCsvData)
-        assertEquals(expected, result)
+
+        assertEquals(expected.toString(), result.toString())
     }
 }
