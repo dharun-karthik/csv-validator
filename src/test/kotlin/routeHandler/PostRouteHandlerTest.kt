@@ -24,7 +24,7 @@ class PostRouteHandlerTest {
         metaDataReaderWriter.clearFields()
 
         val expected =
-            JsonMetaDataTemplate(fieldName = "ProductId", type = "AlphaNumeric", length = 5)
+            JsonMetaDataTemplate(fieldName = "ProductId", type = "AlphaNumeric", length = "5")
 
         assertEquals(expected, actual)
     }
@@ -54,8 +54,8 @@ class PostRouteHandlerTest {
         val expected = JsonMetaDataTemplate(
             fieldName = "Product Description",
             type = "AlphaNumeric",
-            minLength = 7,
-            maxLength = 20
+            minLength = "7",
+            maxLength = "20"
         )
 
         assertEquals(expected, actual)

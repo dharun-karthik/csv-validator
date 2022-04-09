@@ -104,15 +104,15 @@ class MetaDataReaderWriterTest {
                 JsonMetaDataTemplate(
                     fieldName = "test field",
                     type = "valueValidator.Alphabet",
-                    length = 2,
-                    minLength = 1,
-                    maxLength = 3,
+                    length = "2",
+                    minLength = "1",
+                    maxLength = "3",
                     values = listOf("22")
                 )
             )
         metaDataReaderWriter.writeJsonContent(jsonData)
         val expected =
-            """[{"fieldName":"test field","type":"valueValidator.Alphabet","length":2,"minLength":1,"maxLength":3,"values":["22"]}]"""
+            """[{"fieldName":"test field","type":"valueValidator.Alphabet","length":"2","minLength":"1","maxLength":"3","values":["22"]}]"""
 
         val actual = metaDataReaderWriter.readRawContent()
 
@@ -128,7 +128,7 @@ class MetaDataReaderWriterTest {
         val field = """{"fieldName": "ProductDescription","type": "valueValidator.AlphaNumeric","minLength": 7,"maxLength": 20}"""
         metaDataReaderWriter.appendField(field)
         val expected =
-            """[{"fieldName":"test field","type":"valueValidator.Alphabet","length":2,"minLength":1,"maxLength":3,"values":["22"]},{"fieldName":"ProductDescription","type":"valueValidator.AlphaNumeric","minLength":7,"maxLength":20}]"""
+            """[{"fieldName":"test field","type":"valueValidator.Alphabet","length":"2","minLength":"1","maxLength":"3","values":["22"]},{"fieldName":"ProductDescription","type":"valueValidator.AlphaNumeric","minLength":"7","maxLength":"20"}]"""
 
         val actual = metaDataReaderWriter.readRawContent()
 
