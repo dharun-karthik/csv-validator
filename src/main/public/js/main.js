@@ -77,7 +77,9 @@ function addDataToJson() {
         let text = e.target.result
         jsonObj["values"] = text.split('\n')
     });
-    reader.readAsText(value)
+    if (value != undefined) {
+        reader.readAsText(value)
+    }
     jsonObj["maxLength"] = max_len.value
     jsonObj["minLength"] = min_len.value
     jsonObj["length"] = fixed_len.value
