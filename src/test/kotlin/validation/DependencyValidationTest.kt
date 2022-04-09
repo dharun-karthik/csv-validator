@@ -3,56 +3,100 @@ package validation
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.MethodSource
+import java.util.stream.Stream
 
 class DependencyValidationTest {
-    @Test
-    fun shouldGetTrueWhenDependencyIsValid(){
-        val dependencyValidation = DependencyValidation()
-        val currentField = FieldValue("Country Name",null)
-        val dependentField = FieldValue("Export","N")
-        val expectedDependentFieldValue = "N"
-        val expectedCurrentFieldValue = null
+    companion object {
+        @JvmStatic
+        fun firstArguments() = Stream.of(
+            Arguments.of("null", "N", "N", "null"),
+            Arguments.of("223", "Hello", "null", "null"),
+        )
 
-        val actual = dependencyValidation.validate(currentField,dependentField,expectedDependentFieldValue,expectedCurrentFieldValue)
+        @JvmStatic
+        fun secondArguments() = Stream.of(
+            Arguments.of("AUS", "N", "N", "null"),
+            Arguments.of("223", "null", "null", "null"),
+
+            //todo
+            Arguments.of("null", "Y", "Y", "!null"),
+            Arguments.of("null", "India", "!null", "!null")
+        )
+    }
+
+    @ParameterizedTest
+    @MethodSource("firstArguments")
+    fun shouldGetTrueWhenDependencyIsValid(
+        currentValue: String,
+        dependentValue: String,
+        expectedDependentFieldValue: String,
+        expectedCurrentFieldValue: String
+    ) {
+        val dependencyValidation = DependencyValidation()
+
+        val actual = dependencyValidation.validate(
+            currentValue,
+            dependentValue,
+            expectedDependentFieldValue,
+            expectedCurrentFieldValue
+        )
 
         assertTrue(actual)
     }
 
-    @Test
-    fun shouldGetFalseWhenDependencyIsInValid(){
+    @ParameterizedTest
+    @MethodSource("secondArguments")
+    fun shouldGetFalseWhenDependencyIsInValid(
+        currentValue: String,
+        dependentValue: String,
+        expectedDependentFieldValue: String,
+        expectedCurrentFieldValue: String
+    ) {
         val dependencyValidation = DependencyValidation()
-        val currentField = FieldValue("Country Name","AUS")
-        val dependentField = FieldValue("Export","N")
-        val expectedDependentFieldValue = "N"
-        val expectedCurrentFieldValue = null
 
-        val actual = dependencyValidation.validate(currentField,dependentField,expectedDependentFieldValue,expectedCurrentFieldValue)
+        val actual = dependencyValidation.validate(
+            currentValue,
+            dependentValue,
+            expectedDependentFieldValue,
+            expectedCurrentFieldValue
+        )
 
         assertFalse(actual)
     }
 
     @Test
-    fun shouldGetTrueWhenDependencyFieldValueIsNotMet(){
+    fun shouldGetTrueWhenDependencyFieldValueIsNotMet() {
         val dependencyValidation = DependencyValidation()
-        val currentField = FieldValue("Country Name","AUS")
-        val dependentField = FieldValue("Export","Y")
+        val currentValue = "AUS"
+        val dependentValue = "Y"
         val expectedDependentFieldValue = "N"
-        val expectedCurrentFieldValue = null
-
-        val actual = dependencyValidation.validate(currentField,dependentField,expectedDependentFieldValue,expectedCurrentFieldValue)
+        val expectedCurrentFieldValue = "null"
+        val actual = dependencyValidation.validate(
+            currentValue,
+            dependentValue,
+            expectedDependentFieldValue,
+            expectedCurrentFieldValue
+        )
 
         assertTrue(actual)
     }
 
     @Test
-    fun shouldPassDespiteOfCaseSensitivity(){
+    fun shouldPassDespiteOfCaseSensitivity() {
         val dependencyValidation = DependencyValidation()
-        val currentField = FieldValue("Country Name",null)
-        val dependentField = FieldValue("Export","n")
+        val currentValue = "null"
+        val dependentValue = "n"
         val expectedDependentFieldValue = "N"
-        val expectedCurrentFieldValue = null
-
-        val actual = dependencyValidation.validate(currentField,dependentField,expectedDependentFieldValue,expectedCurrentFieldValue)
+        val expectedCurrentFieldValue = "null"
+        val actual = dependencyValidation.validate(
+            currentValue,
+            dependentValue,
+            expectedDependentFieldValue,
+            expectedCurrentFieldValue
+        )
 
         assertTrue(actual)
     }
