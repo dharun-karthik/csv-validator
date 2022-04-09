@@ -12,7 +12,7 @@ internal class AlphabetTest{
     fun shouldReturnTrueIfInputTextIsAlphabetic(){
         val inputText = "abcABC"
 
-        val actual = alphabet.validateValueType(inputText, "Alphabet", typeValidation)
+        val actual = alphabet.validateValueType(inputText, typeValidation)
 
         assertTrue(actual)
     }
@@ -21,7 +21,7 @@ internal class AlphabetTest{
     fun shouldReturnFalseIfInputTextIsNotAlphabetic(){
         val inputText = "abcABC12:@"
 
-        val actual = alphabet.validateValueType(inputText, "Alphabet", typeValidation)
+        val actual = alphabet.validateValueType(inputText, typeValidation)
 
         assertFalse(actual)
     }

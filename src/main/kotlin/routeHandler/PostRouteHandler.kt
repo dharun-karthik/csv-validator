@@ -188,7 +188,7 @@ class PostRouteHandler(
         val isValid: Boolean
         val value = fieldElement.get(key) as String
 
-        isValid = valueTypeMap[field.type]!!.validateValueType(value, field.type, typeValidation)
+        isValid = valueTypeMap[field.type]!!.validateValueType(value, typeValidation)
 
         if (!isValid) {
             return true
