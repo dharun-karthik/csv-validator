@@ -87,9 +87,14 @@ function addDataToJson() {
 }
 
 async function sendConfigData() {
+    for (var i=0; i<payload.length; i++) {
+        sendOneConfig(payload[i])
+    }
+}
+async function sendOneConfig(oneConfig) {
     const resp = await fetch('add-meta-data', {
         method: 'POST',
-        body: JSON.stringify(payload)
+        body: JSON.stringify(oneConfig)
     });
     if (resp.status === 200) {
         const jsonData = await resp.json();
