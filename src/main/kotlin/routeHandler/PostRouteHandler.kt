@@ -1,22 +1,19 @@
 package routeHandler
 
-import lengthValidator.LengthTypeValidator
-import valueValidator.AlphaNumeric
-import valueValidator.Alphabet
-import lengthValidator.FixedLength
-import lengthValidator.LengthType
-import lengthValidator.MaxLength
-import lengthValidator.MinLength
-import valueValidator.Numbers
-import valueValidator.ValueTypeValidator
+import lengthValidator.*
 import metaData.JsonMetaDataTemplate
 import metaData.MetaDataReaderWriter
 import org.json.JSONArray
 import org.json.JSONObject
 import response.ResponseHead
+import validation.DependencyValidation
 import validation.DuplicationValidation
 import validation.LengthValidation
 import validation.TypeValidation
+import valueValidator.AlphaNumeric
+import valueValidator.Alphabet
+import valueValidator.Numbers
+import valueValidator.ValueTypeValidator
 import java.io.BufferedReader
 
 
@@ -64,7 +61,8 @@ class PostRouteHandler(
         println("Repeated Lines :$repeatedRowList , ${repeatedRowList.isEmpty}")
         val typeValidationResultList = typeValidation(jsonBody)
         val lengthValidationResultList = lengthValidation(jsonBody)
-        val responseBody = repeatedRowList.putAll(typeValidationResultList).putAll(lengthValidationResultList).toString()
+        val responseBody =
+            repeatedRowList.putAll(typeValidationResultList).putAll(lengthValidationResultList).toString()
         println(responseBody)
         val contentLength = responseBody.length
         val endOfHeader = "\r\n\r\n"
@@ -107,7 +105,7 @@ class PostRouteHandler(
     //Todo isolate common code between length and type validation
     //todo single responsibility
     //todo eliminate if else
-        fun lengthValidation(dataInJSONArray: JSONArray): JSONArray {
+    fun lengthValidation(dataInJSONArray: JSONArray): JSONArray {
         val rowMap = JSONArray()
         val lengthValidation = LengthValidation()
         val fieldArray = metaDataReaderWriter.readFields()
@@ -140,12 +138,12 @@ class PostRouteHandler(
         lengthValidation: LengthValidation
     ): Boolean {
         val field = fieldArray.first { it.fieldName == key }
-        val isValid : Boolean
+        val isValid: Boolean
         val value = filedElement.get(key) as String
 
         isValid = (lengthTypeMap[LengthType.FIXED_LENGTH]!!.validateLengthType(value, field.length, lengthValidation) &&
                 lengthTypeMap[LengthType.MIN_LENGTH]!!.validateLengthType(value, field.minLength, lengthValidation) &&
-                lengthTypeMap[LengthType.MAX_LENGTH]!!.validateLengthType(value, field.maxLength,lengthValidation))
+                lengthTypeMap[LengthType.MAX_LENGTH]!!.validateLengthType(value, field.maxLength, lengthValidation))
 
         if (!isValid) {
             return true
@@ -187,7 +185,7 @@ class PostRouteHandler(
         typeValidation: TypeValidation
     ): Boolean {
         val field = fieldArray.first { it.fieldName == key }
-        val isValid : Boolean
+        val isValid: Boolean
         val value = ele.get(key) as String
 
         isValid = valueTypeMap[field.type]!!.validateValueType(value, field.type, typeValidation)
@@ -196,5 +194,41 @@ class PostRouteHandler(
             return true
         }
         return false
+    }
+
+    fun dependencyValidation(dataInJSONArray: JSONArray): JSONArray {
+        val rowMap = JSONArray()
+        val dependencyValidation = DependencyValidation()
+        val fieldArray = metaDataReaderWriter.readFields()
+        val errorMessage = "Dependency Error in "
+        try {
+            dataInJSONArray.forEachIndexed { index, element ->
+                val fieldElement = (element as JSONObject)
+                val keys = fieldElement.keySet()
+                for (key in keys) {
+                    if (depVal(fieldArray, key, fieldElement, dependencyValidation)) {
+                        val jsonObject = JSONObject().put(
+                            (index + 1).toString(),
+                            "$errorMessage$key"
+                        )
+                        rowMap.put(jsonObject)
+                        break
+                    }
+                }
+            }
+        } catch (err: Exception) {
+            println(err.message)
+            return JSONArray()
+        }
+        return rowMap
+    }
+
+    private fun depVal(
+        fieldArray: Array<JsonMetaDataTemplate>,
+        key: String?,
+        fieldElement: JSONObject,
+        dependencyValidation: DependencyValidation
+    ): Boolean {
+        TODO("Not yet implemented")
     }
 }

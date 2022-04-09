@@ -100,4 +100,52 @@ class DependencyValidationTest {
 
         assertTrue(actual)
     }
+
+    @Test
+    fun shouldPassWhenNullIsPassedToIsNull(){
+        val dependencyValidation = DependencyValidation()
+        val nullString = "null"
+
+        assertTrue( dependencyValidation.isNull(nullString))
+    }
+
+    @Test
+    fun shouldFailWhenNotNullValueIsPassedToIsNull(){
+        val dependencyValidation = DependencyValidation()
+        val notNullString = "!null"
+
+        assertFalse( dependencyValidation.isNull(notNullString))
+    }
+
+    @Test
+    fun shouldFailWhenRandomValueIsPassedToIsNull(){
+        val dependencyValidation = DependencyValidation()
+        val randomString = "hell22"
+
+        assertFalse( dependencyValidation.isNull(randomString))
+    }
+
+    @Test
+    fun shouldPassWhenNotNullIsPassedToIsNotNull(){
+        val dependencyValidation = DependencyValidation()
+        val nullString = "!null"
+
+        assertTrue( dependencyValidation.isNotNull(nullString))
+    }
+
+    @Test
+    fun shouldFailWhenNullValueIsPassedToIsNotNull(){
+        val dependencyValidation = DependencyValidation()
+        val notNullString = "null"
+
+        assertFalse( dependencyValidation.isNotNull(notNullString))
+    }
+
+    @Test
+    fun shouldFailWhenRandomValueIsPassedToIsNotNull(){
+        val dependencyValidation = DependencyValidation()
+        val randomString = "hell22"
+
+        assertFalse( dependencyValidation.isNotNull(randomString))
+    }
 }

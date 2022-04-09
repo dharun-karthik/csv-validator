@@ -48,11 +48,11 @@ class DependencyValidation {
         return value.contentEquals("!null", ignoreCase = true)
     }
 
-    fun checkNull(value: String): Boolean {
+    private fun checkNull(value: String): Boolean {
         return isNull(value)
     }
 
-    fun checkNotNull(value: String): Boolean {
+    private fun checkNotNull(value: String): Boolean {
         return !isNull(value)
     }
 }
