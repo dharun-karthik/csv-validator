@@ -2,13 +2,13 @@
   {
     "fieldName": "Product Id",
     "type": "AlphaNumeric",
-    "length": 5
+    "length": "5"
   },
   {
     "fieldName": "Product Description",
     "type": "AlphaNumeric",
-    "minLength": 7,
-    "maxLength": 20
+    "minLength": "7",
+    "maxLength": "20"
   },
   {
     "fieldName": "Price",
@@ -25,7 +25,7 @@
   {
     "fieldName": "Country Name",
     "type": "Alphabet",
-    "minLength": 3,
+    "minLength": "3",
     "dependentOn": "Export",
     "expectedDependentFieldValue": "N",
     "expectedCurrentFieldValue": "null"
@@ -33,12 +33,12 @@
   {
     "fieldName": "Source City",
     "type": "Alphabet",
-    "minLength": 3
+    "minLength": "3"
   },
   {
     "fieldName": "Country Code",
     "type": "Number",
-    "maxLength": 3,
+    "maxLength": "3",
     "dependentOn": "Country Name",
     "expectedDependentFieldValue": "null",
     "expectedCurrentFieldValue": "null"
@@ -46,7 +46,7 @@
   {
     "fieldName": "Source Pincode",
     "type": "Number",
-    "length": 6,
+    "length": "6",
     "values": [
       "500020",
       "110001",
