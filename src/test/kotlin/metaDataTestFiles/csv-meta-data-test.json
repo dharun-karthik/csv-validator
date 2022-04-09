@@ -25,7 +25,10 @@
   {
     "fieldName": "Country Name",
     "type": "Alphabet",
-    "minLength": 3
+    "minLength": 3,
+    "dependentOn": "Export",
+    "expectedDependentFieldValue": "N",
+    "expectedCurrentFieldValue": "null"
   },
   {
     "fieldName": "Source City",
@@ -35,7 +38,10 @@
   {
     "fieldName": "Country Code",
     "type": "Number",
-    "maxLength": 3
+    "maxLength": 3,
+    "dependentOn": "Country Name",
+    "expectedDependentFieldValue": "null",
+    "expectedCurrentFieldValue": "null"
   },
   {
     "fieldName": "Source Pincode",
