@@ -181,12 +181,12 @@ class PostRouteHandler(
     private fun typeVal(
         fieldArray: Array<JsonMetaDataTemplate>,
         key: String?,
-        ele: JSONObject,
+        fieldElement: JSONObject,
         typeValidation: TypeValidation
     ): Boolean {
         val field = fieldArray.first { it.fieldName == key }
         val isValid: Boolean
-        val value = ele.get(key) as String
+        val value = fieldElement.get(key) as String
 
         isValid = valueTypeMap[field.type]!!.validateValueType(value, field.type, typeValidation)
 
@@ -229,6 +229,23 @@ class PostRouteHandler(
         fieldElement: JSONObject,
         dependencyValidation: DependencyValidation
     ): Boolean {
-        TODO("Not yet implemented")
+        val field = fieldArray.first { it.fieldName == key }
+        val value = fieldElement.get(key) as String
+        //todo handle null in dependent
+        if (field.dependentOn != null && field.expectedCurrentFieldValue != null && field.expectedDependentFieldValue != null) {
+            val dependentValue = fieldElement.get(field.dependentOn) as String
+            val expectedCurrentValue = field.expectedCurrentFieldValue
+            val expectedDependentValue = field.expectedDependentFieldValue
+            val isValid: Boolean = dependencyValidation.validate(
+                value,
+                dependentValue,
+                expectedDependentValue,
+                expectedCurrentValue
+            )
+            if (!isValid) {
+                return true
+            }
+        }
+        return false
     }
 }

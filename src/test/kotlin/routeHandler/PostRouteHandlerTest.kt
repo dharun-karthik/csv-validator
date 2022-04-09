@@ -88,7 +88,7 @@ class PostRouteHandlerTest {
         val jsonCsvData = JSONArray(csvData)
 
         val expected = JSONArray()
-        expected.put(JSONObject().put("1","Type Error in Price"))
+        expected.put(JSONObject().put("1", "Type Error in Price"))
         val result = postRouteHandler.typeValidation(jsonCsvData)
 
         assertEquals(expected.toString(), result.toString())
@@ -120,15 +120,15 @@ class PostRouteHandlerTest {
 ]"""
         val jsonCsvData = JSONArray(csvData)
         val expected = JSONArray()
-        expected.put(JSONObject().put("1","Length Error in Product Id"))
-        expected.put(JSONObject().put("2","Length Error in Product Id"))
+        expected.put(JSONObject().put("1", "Length Error in Product Id"))
+        expected.put(JSONObject().put("2", "Length Error in Product Id"))
         val result = postRouteHandler.lengthValidation(jsonCsvData)
 
         assertEquals(expected.toString(), result.toString())
     }
 
     @Test
-    fun shouldGiveDependencyErrorLinesAsResult(){
+    fun shouldGiveDependencyErrorLinesAsResult() {
         val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/csv-meta-data-test.json")
         val postRouteHandler = PostRouteHandler(metaDataReaderWriter)
         val csvData = """[
@@ -137,7 +137,7 @@ class PostRouteHandlerTest {
         "Product Description": "Table",
         "Price": "4500.59",
         "Export": "N",
-        "Country Name","AUS",
+        "Country Name":"AUS",
         "Source City": "Nagpur",
         "Source Pincode": "440001"
     },
@@ -154,7 +154,7 @@ class PostRouteHandlerTest {
 ]"""
         val jsonCsvData = JSONArray(csvData)
         val expected = JSONArray()
-        expected.put(JSONObject().put("1","Dependency Error in Country Name"))
+        expected.put(JSONObject().put("1", "Dependency Error in Country Name"))
         val result = postRouteHandler.dependencyValidation(jsonCsvData)
 
         assertEquals(expected.toString(), result.toString())
