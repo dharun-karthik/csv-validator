@@ -26,12 +26,12 @@ class PostRouteHandler(
 ) {
     private val pageNotFoundResponse = PageNotFoundResponse()
 
-    private val lengthTypeLengthTypeValidatorMapper: Map<LengthType, LengthTypeValidator> = mapOf(
+    private val lengthTypeMap: Map<LengthType, LengthTypeValidator> = mapOf(
         LengthType.FIXED_LENGTH to FixedLength(),
         LengthType.MIN_LENGTH to MinLength(),
         LengthType.MAX_LENGTH to MaxLength()
     )
-    private val valueTypeActionMapper: Map<String, ValueTypeValidator> = mapOf(
+    private val valueTypeMap: Map<String, ValueTypeValidator> = mapOf(
         "AlphaNumeric" to AlphaNumeric(),
         "Alphabet" to Alphabet(),
         "Number" to Numbers()
@@ -143,9 +143,9 @@ class PostRouteHandler(
         var isValid = true
         val value = filedElement.get(key) as String
 
-        isValid = (lengthTypeLengthTypeValidatorMapper[LengthType.FIXED_LENGTH]!!.validateLengthType(value, field.length, lengthValidation) &&
-                lengthTypeLengthTypeValidatorMapper[LengthType.MIN_LENGTH]!!.validateLengthType(value, field.minLength, lengthValidation) &&
-                lengthTypeLengthTypeValidatorMapper[LengthType.MAX_LENGTH]!!.validateLengthType(value, field.maxLength,lengthValidation))
+        isValid = (lengthTypeMap[LengthType.FIXED_LENGTH]!!.validateLengthType(value, field.length, lengthValidation) &&
+                lengthTypeMap[LengthType.MIN_LENGTH]!!.validateLengthType(value, field.minLength, lengthValidation) &&
+                lengthTypeMap[LengthType.MAX_LENGTH]!!.validateLengthType(value, field.maxLength,lengthValidation))
 
         if (!isValid) {
             return true
@@ -190,7 +190,7 @@ class PostRouteHandler(
         var isValid = true
         val value = ele.get(key) as String
 
-        isValid = valueTypeActionMapper[field.type]!!.validateValueType(value, field.type, typeValidation)
+        isValid = valueTypeMap[field.type]!!.validateValueType(value, field.type, typeValidation)
 
         if (!isValid) {
             return true
