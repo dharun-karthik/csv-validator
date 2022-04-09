@@ -7,7 +7,7 @@ import org.json.JSONObject
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class PostTest {
+class PostRouteHandlerTest {
 
     @Test
     fun shouldBeAbleToAppendCsvMetaDataToEmptyFile() {
