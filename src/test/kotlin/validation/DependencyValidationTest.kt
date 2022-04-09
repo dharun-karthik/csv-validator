@@ -14,14 +14,14 @@ class DependencyValidationTest {
         fun firstArguments() = Stream.of(
             Arguments.of("null", "N", "N", "null"),
             Arguments.of("223", "Hello", "null", "null"),
+            Arguments.of("AUS", "Y", "Y", "!null"),
+            Arguments.of("AUS", "Y", "!null", "!null"),
         )
 
         @JvmStatic
         fun secondArguments() = Stream.of(
             Arguments.of("AUS", "N", "N", "null"),
             Arguments.of("223", "null", "null", "null"),
-
-            //todo
             Arguments.of("null", "Y", "Y", "!null"),
             Arguments.of("null", "India", "!null", "!null")
         )

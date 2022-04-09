@@ -18,7 +18,7 @@ class DependencyValidation {
             }
         }
         if (checkEquals(expectedDependentFieldValue, dependentValue)) {
-            return checkEquals(expectedCurrentFieldValue, currentValue)
+            return checkValue(expectedCurrentFieldValue, currentValue)
         }
         return true
     }
