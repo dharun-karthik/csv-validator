@@ -1,14 +1,14 @@
 package routeHandler
 
-import LengthTypeValidator
-import AlphaNumeric
-import Alphabet
-import FixedLength
-import LengthType
-import MaxLength
-import MinLength
-import Numbers
-import ValueTypeValidator
+import lengthValidator.LengthTypeValidator
+import valueValidator.AlphaNumeric
+import valueValidator.Alphabet
+import lengthValidator.FixedLength
+import lengthValidator.LengthType
+import lengthValidator.MaxLength
+import lengthValidator.MinLength
+import valueValidator.Numbers
+import valueValidator.ValueTypeValidator
 import metaData.JsonMetaDataTemplate
 import metaData.MetaDataReaderWriter
 import org.json.JSONArray
@@ -32,8 +32,8 @@ class PostRouteHandler(
         LengthType.MAX_LENGTH to MaxLength()
     )
     private val valueTypeMap: Map<String, ValueTypeValidator> = mapOf(
-        "AlphaNumeric" to AlphaNumeric(),
-        "Alphabet" to Alphabet(),
+        "valueValidator.AlphaNumeric" to AlphaNumeric(),
+        "valueValidator.Alphabet" to Alphabet(),
         "Number" to Numbers()
     )
 

@@ -1,8 +1,10 @@
+package valueValidator
+
 import validation.TypeValidation
 
-class Alphabet : ValueTypeValidator {
+class Numbers : ValueTypeValidator {
     override fun validateValueType(value: String, type: String, typeValidation: TypeValidation): Boolean {
-        if (!typeValidation.isAlphabetic(value)) {
+        if (!typeValidation.isNumeric(value)) {
             return false
         }
         return true

@@ -11,12 +11,12 @@ class MetaDataReaderWriterTest {
         val expected = """[
   {
     "fieldName": "Product Id",
-    "type": "AlphaNumeric",
+    "type": "valueValidator.AlphaNumeric",
     "length": 5
   },
   {
     "fieldName": "Product Description",
-    "type": "AlphaNumeric",
+    "type": "valueValidator.AlphaNumeric",
     "minLength": 7,
     "maxLength": 20
   },
@@ -26,7 +26,7 @@ class MetaDataReaderWriterTest {
   },
   {
     "fieldName": "Export",
-    "type": "Alphabet",
+    "type": "valueValidator.Alphabet",
     "values": [
       "Y",
       "N"
@@ -34,12 +34,12 @@ class MetaDataReaderWriterTest {
   },
   {
     "fieldName": "Country Name",
-    "type": "Alphabet",
+    "type": "valueValidator.Alphabet",
     "minLength": 3
   },
   {
     "fieldName": "Source City",
-    "type": "Alphabet",
+    "type": "valueValidator.Alphabet",
     "minLength": 3
   },
   {
@@ -103,7 +103,7 @@ class MetaDataReaderWriterTest {
             arrayOf(
                 JsonMetaDataTemplate(
                     fieldName = "test field",
-                    type = "Alphabet",
+                    type = "valueValidator.Alphabet",
                     length = 2,
                     minLength = 1,
                     maxLength = 3,
@@ -112,7 +112,7 @@ class MetaDataReaderWriterTest {
             )
         metaDataReaderWriter.writeJsonContent(jsonData)
         val expected =
-            """[{"fieldName":"test field","type":"Alphabet","length":2,"minLength":1,"maxLength":3,"values":["22"]}]"""
+            """[{"fieldName":"test field","type":"valueValidator.Alphabet","length":2,"minLength":1,"maxLength":3,"values":["22"]}]"""
 
         val actual = metaDataReaderWriter.readRawContent()
 
@@ -123,12 +123,12 @@ class MetaDataReaderWriterTest {
     fun shouldBeAbleToAppendFieldToFile() {
         val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/meta-data-append-test.json")
         val oldField =
-            """{"fieldName":"test field","type":"Alphabet","length":2,"minLength":1,"maxLength":3,"values":["22"]}"""
+            """{"fieldName":"test field","type":"valueValidator.Alphabet","length":2,"minLength":1,"maxLength":3,"values":["22"]}"""
         metaDataReaderWriter.appendField(oldField)
-        val field = """{"fieldName": "ProductDescription","type": "AlphaNumeric","minLength": 7,"maxLength": 20}"""
+        val field = """{"fieldName": "ProductDescription","type": "valueValidator.AlphaNumeric","minLength": 7,"maxLength": 20}"""
         metaDataReaderWriter.appendField(field)
         val expected =
-            """[{"fieldName":"test field","type":"Alphabet","length":2,"minLength":1,"maxLength":3,"values":["22"]},{"fieldName":"ProductDescription","type":"AlphaNumeric","minLength":7,"maxLength":20}]"""
+            """[{"fieldName":"test field","type":"valueValidator.Alphabet","length":2,"minLength":1,"maxLength":3,"values":["22"]},{"fieldName":"ProductDescription","type":"valueValidator.AlphaNumeric","minLength":7,"maxLength":20}]"""
 
         val actual = metaDataReaderWriter.readRawContent()
 

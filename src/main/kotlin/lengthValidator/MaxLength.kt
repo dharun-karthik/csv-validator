@@ -1,9 +1,11 @@
+package lengthValidator
+
 import validation.LengthValidation
 
-class FixedLength : LengthTypeValidator{
+class MaxLength : LengthTypeValidator {
     override fun validateLengthType(value: String, length: Int?, lengthValidation: LengthValidation): Boolean {
-        if (length != null && !lengthValidation.fixedLength(value, length)) {
-            return false
+        if (length != null && !lengthValidation.maxLength(value, length)) {
+                return false
         }
         return true
     }

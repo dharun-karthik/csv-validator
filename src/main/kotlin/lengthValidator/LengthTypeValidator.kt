@@ -1,3 +1,5 @@
+package lengthValidator
+
 import validation.LengthValidation
 
 interface LengthTypeValidator {

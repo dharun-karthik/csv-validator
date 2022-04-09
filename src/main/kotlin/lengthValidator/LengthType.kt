@@ -1,3 +1,5 @@
+package lengthValidator
+
 enum class LengthType {
     FIXED_LENGTH,
     MIN_LENGTH,

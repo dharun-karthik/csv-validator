@@ -1,3 +1,5 @@
+package valueValidator
+
 import validation.TypeValidation
 
 class AlphaNumeric : ValueTypeValidator {
