@@ -1,5 +1,10 @@
 package routeHandler
 
+import Action
+import FixedLength
+import LengthType
+import MaxLength
+import MinLength
 import metaData.JsonMetaDataTemplate
 import metaData.MetaDataReaderWriter
 import org.json.JSONArray
@@ -10,11 +15,18 @@ import validation.LengthValidation
 import validation.TypeValidation
 import java.io.BufferedReader
 
+
 class PostRouteHandler(
     val metaDataReaderWriter: MetaDataReaderWriter,
     private val responseHead: ResponseHead = ResponseHead()
 ) {
     private val pageNotFoundResponse = PageNotFoundResponse()
+
+    private val lengthTypeActionMapper: Map<LengthType, Action> = mapOf(
+        LengthType.FIXED_LENGTH to FixedLength(),
+        LengthType.MIN_LENGTH to MinLength(),
+        LengthType.MAX_LENGTH to MaxLength()
+    )
 
     fun handlePostRequest(
         request: String,
@@ -86,7 +98,7 @@ class PostRouteHandler(
     //Todo isolate common code between length and type validation
     //todo single responsibility
     //todo eliminate if else
-    fun lengthValidation(dataInJSONArray: JSONArray): JSONArray {
+        fun lengthValidation(dataInJSONArray: JSONArray): JSONArray {
         val rowMap = JSONArray()
         val lengthValidation = LengthValidation()
         val fieldArray = metaDataReaderWriter.readFields()
@@ -121,21 +133,11 @@ class PostRouteHandler(
         val field = fieldArray.first { it.fieldName == key }
         var isValid = true
         val value = filedElement.get(key) as String
-        if (field.length != null) {
-            if (!lengthValidation.fixedLength(value, field.length)) {
-                isValid = false
-            }
-        }
-        if (field.maxLength != null) {
-            if (!lengthValidation.maxLength(value, field.maxLength)) {
-                isValid = false
-            }
-        }
-        if (field.minLength != null) {
-            if (!lengthValidation.minLength(value, field.minLength)) {
-                isValid = false
-            }
-        }
+
+        isValid = (lengthTypeActionMapper[LengthType.FIXED_LENGTH]!!.performAction(value, field.length, lengthValidation) &&
+                lengthTypeActionMapper[LengthType.MIN_LENGTH]!!.performAction(value, field.minLength, lengthValidation) &&
+                lengthTypeActionMapper[LengthType.MAX_LENGTH]!!.performAction(value, field.maxLength,lengthValidation))
+
         if (!isValid) {
             return true
         }
