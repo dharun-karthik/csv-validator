@@ -7,7 +7,8 @@ import validation.LengthValidation
 internal class MaxLengthTest {
     private val maxLength = MaxLength()
     private val inputText = "Abc123"
-    private val lengthValidation = LengthValidation();
+    private val lengthValidation = LengthValidation()
+
     @Test
     fun shouldReturnTrueIfInputTextLengthIsLessThanMaxLengthSpecified() {
         val length = 7
@@ -43,6 +44,4 @@ internal class MaxLengthTest {
 
         assertTrue(actual);
     }
-
-
 }
