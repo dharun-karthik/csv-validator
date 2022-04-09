@@ -2,7 +2,7 @@ package metaData
 
 data class JsonMetaDataTemplate(
     val fieldName: String? = null,
-    val type: String? = null,
+    val type: String,
     val length: Int? = null,
     val minLength: Int? = null,
     val maxLength: Int? = null,

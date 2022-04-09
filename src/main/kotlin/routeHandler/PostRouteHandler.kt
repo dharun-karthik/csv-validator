@@ -1,10 +1,14 @@
 package routeHandler
 
 import Action
+import AlphaNumeric
+import Alphabet
 import FixedLength
 import LengthType
 import MaxLength
 import MinLength
+import Numbers
+import ValueTypeValidator
 import metaData.JsonMetaDataTemplate
 import metaData.MetaDataReaderWriter
 import org.json.JSONArray
@@ -26,6 +30,11 @@ class PostRouteHandler(
         LengthType.FIXED_LENGTH to FixedLength(),
         LengthType.MIN_LENGTH to MinLength(),
         LengthType.MAX_LENGTH to MaxLength()
+    )
+    private val valueTypeActionMapper: Map<String, ValueTypeValidator> = mapOf(
+        "AlphaNumeric" to AlphaNumeric(),
+        "Alphabet" to Alphabet(),
+        "Number" to Numbers()
     )
 
     fun handlePostRequest(
@@ -180,13 +189,9 @@ class PostRouteHandler(
         val field = fieldArray.first { it.fieldName == key }
         var isValid = true
         val value = ele.get(key) as String
-        if (field.type == "AlphaNumeric" && !typeValidation.isAlphaNumeric(value)) {
-            isValid = false
-        } else if (field.type == "Alphabet" && !typeValidation.isAlphabetic(value)) {
-            isValid = false
-        } else if (field.type == "Number" && !typeValidation.isNumeric(value)) {
-            isValid = false
-        }
+
+        isValid = valueTypeActionMapper[field.type]!!.validateValueType(value, field.type, typeValidation)
+
         if (!isValid) {
             return true
         }
