@@ -1,6 +1,6 @@
 package routeHandler
 
-import Action
+import LengthTypeValidator
 import AlphaNumeric
 import Alphabet
 import FixedLength
@@ -26,7 +26,7 @@ class PostRouteHandler(
 ) {
     private val pageNotFoundResponse = PageNotFoundResponse()
 
-    private val lengthTypeActionMapper: Map<LengthType, Action> = mapOf(
+    private val lengthTypeLengthTypeValidatorMapper: Map<LengthType, LengthTypeValidator> = mapOf(
         LengthType.FIXED_LENGTH to FixedLength(),
         LengthType.MIN_LENGTH to MinLength(),
         LengthType.MAX_LENGTH to MaxLength()
@@ -143,9 +143,9 @@ class PostRouteHandler(
         var isValid = true
         val value = filedElement.get(key) as String
 
-        isValid = (lengthTypeActionMapper[LengthType.FIXED_LENGTH]!!.performAction(value, field.length, lengthValidation) &&
-                lengthTypeActionMapper[LengthType.MIN_LENGTH]!!.performAction(value, field.minLength, lengthValidation) &&
-                lengthTypeActionMapper[LengthType.MAX_LENGTH]!!.performAction(value, field.maxLength,lengthValidation))
+        isValid = (lengthTypeLengthTypeValidatorMapper[LengthType.FIXED_LENGTH]!!.validateLengthType(value, field.length, lengthValidation) &&
+                lengthTypeLengthTypeValidatorMapper[LengthType.MIN_LENGTH]!!.validateLengthType(value, field.minLength, lengthValidation) &&
+                lengthTypeLengthTypeValidatorMapper[LengthType.MAX_LENGTH]!!.validateLengthType(value, field.maxLength,lengthValidation))
 
         if (!isValid) {
             return true
