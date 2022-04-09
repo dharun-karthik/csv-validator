@@ -109,6 +109,7 @@ class PostRouteHandler(
         val rowMap = JSONArray()
         val lengthValidation = LengthValidation()
         val fieldArray = metaDataReaderWriter.readFields()
+        val errorMessage = "Length Error in "
         try {
             dataInJSONArray.forEachIndexed { index, element ->
                 val fieldElement = (element as JSONObject)
@@ -117,7 +118,7 @@ class PostRouteHandler(
                     if (lengthVal(fieldArray, key, fieldElement, lengthValidation)) {
                         val jsonObject = JSONObject().put(
                             (index + 1).toString(),
-                            "Length Error in $key"
+                            "$errorMessage$key"
                         )
                         rowMap.put(jsonObject)
                         break
@@ -155,6 +156,7 @@ class PostRouteHandler(
         val rowMap = JSONArray()
         val typeValidation = TypeValidation()
         val fieldArray = metaDataReaderWriter.readFields()
+        val errorMessage = "Type Error in "
         try {
             dataInJSONArray.forEachIndexed { index, element ->
                 val fieldElement = (element as JSONObject)
@@ -164,7 +166,7 @@ class PostRouteHandler(
                     if (typeVal(fieldArray, key, fieldElement, typeValidation)) {
                         val jsonObject = JSONObject().put(
                             (index + 1).toString(),
-                            "Type Error in $key"
+                            "$errorMessage$key"
                         )
                         rowMap.put(jsonObject)
                         break
