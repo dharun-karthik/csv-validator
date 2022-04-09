@@ -140,7 +140,7 @@ class PostRouteHandler(
         lengthValidation: LengthValidation
     ): Boolean {
         val field = fieldArray.first { it.fieldName == key }
-        var isValid = true
+        val isValid : Boolean
         val value = filedElement.get(key) as String
 
         isValid = (lengthTypeMap[LengthType.FIXED_LENGTH]!!.validateLengthType(value, field.length, lengthValidation) &&
@@ -187,7 +187,7 @@ class PostRouteHandler(
         typeValidation: TypeValidation
     ): Boolean {
         val field = fieldArray.first { it.fieldName == key }
-        var isValid = true
+        val isValid : Boolean
         val value = ele.get(key) as String
 
         isValid = valueTypeMap[field.type]!!.validateValueType(value, field.type, typeValidation)
