@@ -25,6 +25,9 @@ async function handleResponse(response) {
     if (response.status === 200) {
         const jsonData = await response.json();
         console.log(jsonData)
+        if (jsonData.length == 0) {
+            printCsvValid()
+        }
         for (let key in jsonData) {
             const obj = jsonData[key]
             console.log("obj ", obj)
@@ -34,6 +37,13 @@ async function handleResponse(response) {
         //todo handle
         console.log("Error : ", response)
     }
+}
+
+function printCsvValid(){
+    const node = document.createElement("h3");
+    const textNode = document.createTextNode(`CSV IS VALID`);
+    node.appendChild(textNode);
+    document.getElementById("error-msg").appendChild(node)
 }
 
 function printLines(arrayOfObject) {
@@ -87,7 +97,7 @@ function addDataToJson() {
 }
 
 async function sendConfigData() {
-    for (var i=0; i<payload.length; i++) {
+    for (var i = 0; i < payload.length; i++) {
         sendOneConfig(payload[i])
     }
 }
