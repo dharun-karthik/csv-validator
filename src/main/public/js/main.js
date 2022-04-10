@@ -101,3 +101,9 @@ async function sendOneConfig(oneConfig) {
         console.log(jsonData)
     }
 }
+
+async function resetConfigData() {
+    await fetch('reset-config', {
+        method: 'DELETE',
+    })
+}
