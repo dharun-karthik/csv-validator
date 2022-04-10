@@ -29,8 +29,8 @@ class PostRouteHandler(
         LengthType.MAX_LENGTH to MaxLength()
     )
     private val valueTypeMap: Map<String, ValueTypeValidator> = mapOf(
-        "valueValidator.AlphaNumeric" to AlphaNumeric(),
-        "valueValidator.Alphabet" to Alphabet(),
+        "AlphaNumeric" to AlphaNumeric(),
+        "Alphabet" to Alphabet(),
         "Number" to Numbers()
     )
 

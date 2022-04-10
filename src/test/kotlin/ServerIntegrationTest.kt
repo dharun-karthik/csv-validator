@@ -33,7 +33,7 @@ class ServerIntegrationTest {
 //        val clientSocket = Socket("localhost", port)
 //        val outputStream = clientSocket.getOutputStream()
 //        val inputStream = clientSocket.getInputStream()
-//        val payload = "[{\"fieldName\": \"ProductId\",\"type\": \"valueValidator.AlphaNumeric\",\"length\": 5}]"
+//        val payload = "[{\"fieldName\": \"ProductId\",\"type\": \"AlphaNumeric\",\"length\": 5}]"
 //        val request = """POST /add-meta-data HTTP/1.1
 //                |Accept: */*
 //                |Content-Length: ${payload.length}
@@ -47,7 +47,7 @@ class ServerIntegrationTest {
 //        val postRouteHandler = server.postRouteHandler
 //        val fieldArray = postRouteHandler.fieldArray
 //        val expectedFieldName = "ProductId"
-//        val expectedType = "valueValidator.AlphaNumeric"
+//        val expectedType = "AlphaNumeric"
 //
 //        val actualResponseCode = extractResponseCode(response)
 //        clientSocket.close()

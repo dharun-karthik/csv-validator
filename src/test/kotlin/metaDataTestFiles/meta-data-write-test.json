@@ -1,1 +1,1 @@
-[{"fieldName":"test field","type":"valueValidator.Alphabet","length":"2","minLength":"1","maxLength":"3","values":["22"]}]
+[{"fieldName":"test field","type":"Alphabet","length":"2","minLength":"1","maxLength":"3","values":["22"]}]
