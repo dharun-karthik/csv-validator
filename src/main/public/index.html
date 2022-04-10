@@ -47,7 +47,11 @@
             <input type="text" id="expectedDependentFieldValue">
 
             <label for="expectedCurrentFieldValue">Expected Current Field Value</label>
-            <input type="text" id="expectedCurrentFieldValue">
+            <select id="expectedCurrentFieldValue">
+                <option value="selected disabled hidden">Choose here</option>
+                <option value="!null">Present</option>
+                <option value="null">Not Present</option>
+            </select>
 
         </form>
         <button onclick="addMoreDependencyRow()">Add more dependencies</button>
