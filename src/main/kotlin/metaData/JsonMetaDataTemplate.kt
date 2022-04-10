@@ -6,8 +6,6 @@ data class JsonMetaDataTemplate(
     val length: String? = null,
     val minLength: String? = null,
     val maxLength: String? = null,
-    val dependentOn: String? = null,
-    val expectedDependentFieldValue: String? = null,
-    val expectedCurrentFieldValue: String? = null,
+    val dependencies: List<DependencyTemplate>? = null,
     val values: List<String>? = null,
 )

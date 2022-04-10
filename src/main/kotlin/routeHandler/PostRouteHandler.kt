@@ -61,7 +61,8 @@ class PostRouteHandler(
         val lengthValidationResultList = lengthValidation(jsonBody)
         val dependencyValidation = dependencyValidation(jsonBody)
         val responseBody =
-            repeatedRowList.putAll(typeValidationResultList).putAll(lengthValidationResultList).putAll(dependencyValidation).toString()
+            repeatedRowList.putAll(typeValidationResultList).putAll(lengthValidationResultList)
+                .putAll(dependencyValidation).toString()
         println(responseBody)
         val contentLength = responseBody.length
         val endOfHeader = "\r\n\r\n"
@@ -141,9 +142,21 @@ class PostRouteHandler(
         val isValid: Boolean
         val value = filedElement.get(key) as String
 
-        isValid = (lengthTypeMap[LengthType.FIXED_LENGTH]!!.validateLengthType(value, field.length?.toInt(), lengthValidation) &&
-                lengthTypeMap[LengthType.MIN_LENGTH]!!.validateLengthType(value, field.minLength?.toInt(), lengthValidation) &&
-                lengthTypeMap[LengthType.MAX_LENGTH]!!.validateLengthType(value, field.maxLength?.toInt(), lengthValidation))
+        isValid = (lengthTypeMap[LengthType.FIXED_LENGTH]!!.validateLengthType(
+            value,
+            field.length?.toInt(),
+            lengthValidation
+        ) &&
+                lengthTypeMap[LengthType.MIN_LENGTH]!!.validateLengthType(
+                    value,
+                    field.minLength?.toInt(),
+                    lengthValidation
+                ) &&
+                lengthTypeMap[LengthType.MAX_LENGTH]!!.validateLengthType(
+                    value,
+                    field.maxLength?.toInt(),
+                    lengthValidation
+                ))
 
         if (!isValid) {
             return true
@@ -232,19 +245,21 @@ class PostRouteHandler(
     ): Boolean {
         val field = fieldArray.first { it.fieldName == key }
         val value = fieldElement.get(key) as String
-        //todo handle null in dependent
-        if (field.dependentOn != null && field.expectedCurrentFieldValue != null && field.expectedDependentFieldValue != null) {
-            val dependentValue = fieldElement.get(field.dependentOn) as String
-            val expectedCurrentValue = field.expectedCurrentFieldValue
-            val expectedDependentValue = field.expectedDependentFieldValue
-            val isValid: Boolean = dependencyValidation.validate(
-                value,
-                dependentValue,
-                expectedDependentValue,
-                expectedCurrentValue
-            )
-            if (!isValid) {
-                return true
+        if (field.dependencies != null) {
+            val dependencies = field.dependencies
+            for (dependency in dependencies) {
+                val dependentValue = fieldElement.get(dependency.dependentOn) as String
+                val expectedCurrentValue = dependency.expectedCurrentFieldValue
+                val expectedDependentValue = dependency.expectedDependentFieldValue
+                val isValid: Boolean = dependencyValidation.validate(
+                    value,
+                    dependentValue,
+                    expectedDependentValue,
+                    expectedCurrentValue
+                )
+                if (!isValid) {
+                    return true
+                }
             }
         }
         return false

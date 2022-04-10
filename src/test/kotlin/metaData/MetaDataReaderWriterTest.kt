@@ -36,7 +36,7 @@ class MetaDataReaderWriterTest {
     "fieldName": "Country Name",
     "type": "Alphabet",
     "minLength": 3,
-    "dependency": [
+    "dependencies": [
       {
         "dependentOn": "Export",
         "expectedDependentFieldValue": "N",
@@ -58,7 +58,7 @@ class MetaDataReaderWriterTest {
     "fieldName": "Country Code",
     "type": "Number",
     "maxLength": 3,
-    "dependency": [
+    "dependencies": [
       {
         "dependentOn": "Country Name",
         "expectedDependentFieldValue": "null",
