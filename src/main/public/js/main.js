@@ -16,6 +16,10 @@ function csvToJson(lines) {
         const obj = {};
         const currentLine = lines[i].split(",");
         for (let j = 0; j < headers.length; j++) {
+            if (currentLine[j] == "") {
+                obj[headers[j]] = "null"
+                continue;
+            }
             obj[headers[j]] = currentLine[j];
         }
         result.push(obj);
@@ -41,7 +45,7 @@ async function handleResponse(response) {
     }
 }
 
-function printCsvValid(){
+function printCsvValid() {
     const node = document.createElement("h3");
     const textNode = document.createTextNode(`CSV IS VALID`);
     node.appendChild(textNode);
@@ -96,7 +100,7 @@ function validateInputsForDependency() {
     const expectedDependentFieldValue = document.getElementById("expectedDependentFieldValue").value
     const expectedCurrentFieldValue = document.getElementById("expectedCurrentFieldValue").value
 
-    if (dependsOnColumn != "" && expectedDependentFieldValue == "" || expectedCurrentFieldValue == ""){
+    if (dependsOnColumn != "" && expectedDependentFieldValue == "" || expectedCurrentFieldValue == "") {
         alert("Please enter values for Expected Dependent Field and Expected Current Field")
         return false
     }
@@ -106,7 +110,7 @@ function validateInputsForDependency() {
 function displayDependencyList(dependsOnColumn, dependentFieldValue, currenFieldValue) {
     let dependency = document.createElement('div')
     dependency.id = 'dependency'
-    
+
     let dependsOnColumnElement = addDependencyElement("Depends On: ", dependsOnColumn);
     dependency.appendChild(dependsOnColumnElement)
 
@@ -174,7 +178,7 @@ function validateInputsForFields() {
     const type = document.getElementById("type").value;
 
     console.log(field + type)
-    if (field != "" && type == ""){
+    if (field != "" && type == "") {
         alert("Please enter type for the field !")
         return false
     }
