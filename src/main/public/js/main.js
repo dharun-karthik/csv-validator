@@ -115,10 +115,16 @@ async function sendOneConfig(oneConfig) {
 }
 
 async function resetConfigData() {
+    let shouldReset = confirm("Do you want to reset configuration? \nThis will clear all existing configuration \nThis process is non-reversible")
+    if (!shouldReset) {
+        console.log("Cancelled reset configuration")
+        return
+    }
     clearPayload()
     await fetch('reset-config', {
         method: 'DELETE',
     })
+    console.log("Configurations reset")
 }
 
 function clearPayload() {
