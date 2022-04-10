@@ -94,6 +94,7 @@ function addDataToJson() {
     jsonObj["minLength"] = min_len.value
     jsonObj["length"] = fixed_len.value
     payload.push(jsonObj)
+    alert("Field: " + field.value + " is added to configuration of CSV")
 }
 
 async function sendConfigData() {
