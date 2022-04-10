@@ -1,10 +1,12 @@
 const payload = [];
+const dependencyList = [];
 
 const csvReader = () => {
     let csvElement = document.getElementById("csv_id").files[0];
     const reader = new FileReader();
     reader.onload = handleCsvFile
     reader.readAsText(csvElement)
+    alert("CSV file submitted")
 }
 
 function csvToJson(lines) {
@@ -72,6 +74,24 @@ async function sendRequest(result) {
     });
 }
 
+function addMoreDependencyRow() {
+    let jsonObj = {}
+    const dependsOnColumn = document.getElementById("dependentOnColumn");
+    const expectedDependentFieldValue = document.getElementById("expectedDependentFieldValue");
+    const expectedCurrentFieldValue = document.getElementById("expectedCurrentFieldValue")
+    jsonObj["dependentOn"] = dependsOnColumn.value
+    jsonObj["expectedDependentFieldValue"] = expectedDependentFieldValue.value
+    jsonObj["expectedCurrentFieldValue"] = expectedCurrentFieldValue.value
+    dependencyList.push(jsonObj)
+    clearDependencyInputs()
+}
+
+function clearDependencyInputs() {
+    dependentOnColumn.value = ""
+    expectedDependentFieldValue.value = ""
+    expectedCurrentFieldValue.value = ""
+}
+
 function addDataToJson() {
     let jsonObj = {}
     const field = document.getElementById("field");
@@ -93,7 +113,9 @@ function addDataToJson() {
     jsonObj["maxLength"] = max_len.value
     jsonObj["minLength"] = min_len.value
     jsonObj["length"] = fixed_len.value
+    jsonObj["dependencies"] = dependencyList
     payload.push(jsonObj)
+    console.log(payload)
     alert("Field: " + field.value + " is added to configuration of CSV")
 }
 

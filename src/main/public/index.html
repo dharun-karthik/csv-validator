@@ -10,54 +10,68 @@
 </head>
 
 <body>
-<div>
-    <h1>Set Configuration</h1>
-    <h3>Number Of Fields</h3>
-    <form id="myform">
-        <label for="field">Field</label>
-        <input id="field" type="text">
+    <div>
+        <h1>Set Configuration</h1>
+        <h3>Number Of Fields</h3>
+        <form id="myform">
+            <label for="field">Field</label>
+            <input id="field" type="text">
 
-        <label for="type">Type</label>
-        <select id="type">
-            <option value="selected disabled hidden">Choose here</option>
-            <option value="Number">Number</option>
-            <option value="AlphaNumeric">AlphaNumeric</option>
-            <option value="Alphabets">Alphabets</option>
-            <option value="Boolean">Boolean</option>
-        </select>
+            <label for="type">Type</label>
+            <select id="type">
+                <option value="selected disabled hidden">Choose here</option>
+                <option value="Number">Number</option>
+                <option value="AlphaNumeric">AlphaNumeric</option>
+                <option value="Alphabets">Alphabets</option>
+                <option value="Boolean">Boolean</option>
+            </select>
 
-        <label for="text_file_id">Values</label>
-        <input type="file" name="text-file" id="text_file_id" accept=".txt">
+            <label for="text_file_id">Values</label>
+            <input type="file" name="text-file" id="text_file_id" accept=".txt">
 
-        <label for="max-len">Max-length</label>
-        <input type="number" id="max-len">
+            <label for="max-len">Max-length</label>
+            <input type="number" id="max-len">
 
-        <label for="min-len">Min-length</label>
-        <input type="number" id="min-len">
+            <label for="min-len">Min-length</label>
+            <input type="number" id="min-len">
 
-        <label for="fixed-len">Fixed-length</label>
-        <input type="number" id="fixed-len">
+            <label for="fixed-len">Fixed-length</label>
+            <input type="number" id="fixed-len">
 
-    </form>
-    <button type="submit" style="margin-top: 10px;" onclick="addDataToJson()">ADD</button>
+            <br>
 
-    <button id="value-submit-button" type="submit" style="margin-top: 10px;" onclick="sendConfigData()">SUBMIT</button>
-</div>
-<br>
-<div>
-    <button onclick="resetConfigData()">Reset Config</button>
-</div>
-<div>
-    <h1>CSV PARSER</h1>
-    <label>CSV File :</label>
-    <input type="file" name="csv-file" id="csv_id" accept=".csv">
-    <button id="csv-submit-button" onclick="csvReader()">Submit</button>
-</div>
-<div id="error-msg">
-    <ul id="error_msg_list">
+            <label for="dependentOnColumn">Dependency on column: </label>
+            <input type="text" id="dependentOnColumn">
 
-    </ul>
-</div>
+            <label for="expectedDependentFieldValue">Expected Dependent Field Value</label>
+            <input type="text" id="expectedDependentFieldValue">
+
+            <label for="expectedCurrentFieldValue">Expected Current Field Value</label>
+            <input type="text" id="expectedCurrentFieldValue">
+
+        </form>
+        <button onclick="addMoreDependencyRow()">Add more dependencies</button>
+
+        <button type="submit" style="margin-top: 10px;" onclick="addDataToJson()">ADD</button>
+        
+        <button id="value-submit-button" type="submit" style="margin-top: 10px;"
+            onclick="sendConfigData()">SUBMIT</button>
+    </div>
+    <br>
+    <div>
+        <button onclick="resetConfigData()">Reset Config</button>
+    </div>
+    <div>
+        <h1>CSV PARSER</h1>
+        <label>CSV File :</label>
+        <input type="file" name="csv-file" id="csv_id" accept=".csv">
+        <button id="csv-submit-button" onclick="csvReader()">Submit</button>
+    </div>
+    <div id="error-msg">
+        <ul id="error_msg_list">
+
+        </ul>
+    </div>
 </body>
 
 </html>
