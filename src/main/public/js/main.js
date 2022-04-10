@@ -97,7 +97,6 @@ function validateInputsForDependency() {
     const expectedDependentFieldValue = document.getElementById("expectedDependentFieldValue").value
     const expectedCurrentFieldValue = document.getElementById("expectedCurrentFieldValue").value
 
-    console.log("Inside function")
     if (dependsOnColumn != "" && expectedDependentFieldValue == "" || expectedCurrentFieldValue == ""){
         alert("Please enter values for Expected Dependent Field and Expected Current Field")
         return false
