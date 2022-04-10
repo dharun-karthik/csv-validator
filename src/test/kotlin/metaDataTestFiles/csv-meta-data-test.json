@@ -26,9 +26,18 @@
     "fieldName": "Country Name",
     "type": "Alphabet",
     "minLength": 3,
-    "dependentOn": "Export",
-    "expectedDependentFieldValue": "N",
-    "expectedCurrentFieldValue": "null"
+    "dependency": [
+      {
+        "dependentOn": "Export",
+        "expectedDependentFieldValue": "N",
+        "expectedCurrentFieldValue": "null"
+      },
+      {
+        "dependentOn": "Export",
+        "expectedDependentFieldValue": "Y",
+        "expectedCurrentFieldValue": "!null"
+      }
+    ]
   },
   {
     "fieldName": "Source City",
@@ -39,9 +48,18 @@
     "fieldName": "Country Code",
     "type": "Number",
     "maxLength": 3,
-    "dependentOn": "Country Name",
-    "expectedDependentFieldValue": "null",
-    "expectedCurrentFieldValue": "null"
+    "dependency": [
+      {
+        "dependentOn": "Country Name",
+        "expectedDependentFieldValue": "null",
+        "expectedCurrentFieldValue": "null"
+      },
+      {
+        "dependentOn": "Country Name",
+        "expectedDependentFieldValue": "!null",
+        "expectedCurrentFieldValue": "!null"
+      }
+    ]
   },
   {
     "fieldName": "Source Pincode",
