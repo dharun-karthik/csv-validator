@@ -17,7 +17,7 @@ class ColumnValidation {
             val configFieldName = configJsonObject.get("fieldName").toString()
             if (!fieldsInJsonData.contains(configFieldName)) {
                 val obj = JSONObject()
-                obj.put("Column Name Error", "$configFieldName")
+                obj.put("Column Name Error", configFieldName)
                 errorJsonArray.put(obj)
             }
         }
