@@ -11,13 +11,20 @@
         #dependencies #dependency div {
             display: inline;
         }
+
+        #configs #config div {
+            display: inline;
+        }
     </style>
 </head>
 
 <body>
     <div>
         <h1>Set Configuration</h1>
-        <h3>Number Of Fields</h3>
+        <div id="configs" style="display: none;">
+            <h3>Fields to Validates</h3>
+        </div>
+
         <form id="myform">
             <label for="field">Field</label>
             <input id="field" type="text">
@@ -45,8 +52,7 @@
 
             <br>
             <hr>
-            <div id="dependencies" style="display: none;">
-            
+            <div id="dependencies">
             </div>
 
             <label for="dependentOnColumn">Dependency on column: </label>

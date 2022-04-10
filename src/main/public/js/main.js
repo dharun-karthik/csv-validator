@@ -87,7 +87,6 @@ function addMoreDependencyRow() {
     jsonObj["expectedDependentFieldValue"] = expectedDependentFieldValue.value
     jsonObj["expectedCurrentFieldValue"] = expectedCurrentFieldValue.value
     dependencyList.push(jsonObj)
-    dependencies.style.display = "block"
     displayDependencyList(dependsOnColumn.value, expectedDependentFieldValue.value, expectedCurrentFieldValue.value)
     clearDependencyInputs()
 }
@@ -117,6 +116,7 @@ function displayDependencyList(dependsOnColumn, dependentFieldValue, currenField
     let currenFieldValueElement = addDependencyElement(" Expected Current Field: ", currenFieldValue)
     dependency.appendChild(currenFieldValueElement)
 
+    let dependencies = document.getElementById('dependencies')
     dependencies.appendChild(dependency)
 }
 
@@ -158,8 +158,41 @@ function addDataToJson() {
     jsonObj["length"] = fixed_len.value
     jsonObj["dependencies"] = dependencyList
     payload.push(jsonObj)
+    configs.style.display = "block"
+    displayConfigs(field.value, type.value, max_len.value, min_len.value, fixed_len.value)
     console.log(payload)
     alert("Field: " + field.value + " is added to configuration of CSV")
+    clearConfigInputs()
+}
+
+function displayConfigs(fieldName, typeValue, maxLengthValue, minLengthValue, fixedLengthValue) {
+    let config = document.createElement('div')
+    config.id = 'config'
+
+    let field = addDependencyElement("Field: ", fieldName);
+    config.appendChild(field)
+
+    let type = addDependencyElement(" Type: ", typeValue);
+    config.appendChild(type)
+
+    let maxLength = addDependencyElement(" Maximum Length: ", maxLengthValue);
+    config.appendChild(maxLength)
+
+    let minLength = addDependencyElement(" Minimum Length: ", minLengthValue);
+    config.appendChild(minLength)
+
+    let fixedLength = addDependencyElement(" Fixed Length: ", fixedLengthValue);
+    config.appendChild(fixedLength)
+
+    let configs = document.getElementById('configs')
+    configs.appendChild(config)
+
+    let dependencies = document.getElementById("dependencies")
+    configs.appendChild(dependencies)
+}
+
+function clearConfigInputs() {
+    myform.reset()
 }
 
 async function sendConfigData() {
