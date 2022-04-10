@@ -3,6 +3,7 @@ package routeHandler
 import metaData.MetaDataReaderWriter
 import org.json.JSONArray
 import org.json.JSONObject
+import request.RequestHandle
 import response.ContentType
 import response.Response
 import validation.*
@@ -13,25 +14,23 @@ class PostRouteHandler(
     val metaDataReaderWriter: MetaDataReaderWriter,
 ) {
     private val response = Response()
+    private val requestHandle = RequestHandle()
     private val pageNotFoundResponse = PageNotFoundResponse()
 
     fun handlePostRequest(
         request: String,
         inputStream: BufferedReader,
     ): String {
-        return when (getPath(request)) {
+        return when (requestHandle.getPath(request)) {
             "/csv" -> handleCsv(request, inputStream)
             "/add-meta-data" -> handleAddingCsvMetaData(request, inputStream)
             else -> pageNotFoundResponse.handleUnknownRequest()
         }
     }
 
-    private fun getPath(request: String): String {
-        return request.split("\r\n")[0].split(" ")[1].substringBefore("?")
-    }
 
     fun handleCsv(request: String, inputStream: BufferedReader): String {
-        val bodySize = getContentLength(request)
+        val bodySize = requestHandle.getContentLength(request)
         val body = getBody(bodySize, inputStream)
         val jsonBody = JSONArray(body)
 
@@ -49,7 +48,7 @@ class PostRouteHandler(
 
 
     fun handleAddingCsvMetaData(request: String, inputStream: BufferedReader): String {
-        val bodySize = getContentLength(request)
+        val bodySize = requestHandle.getContentLength(request)
         val body = getBody(bodySize, inputStream)
         return addCsvMetaData(body)
     }
@@ -65,16 +64,6 @@ class PostRouteHandler(
         val buffer = CharArray(bodySize)
         inputStream.read(buffer)
         return String(buffer)
-    }
-
-    private fun getContentLength(request: String): Int {
-        request.split("\n").forEach { headerString ->
-            val keyValue = headerString.split(":", limit = 2)
-            if (keyValue[0].contains("Content-Length")) {
-                return keyValue[1].trim().toInt()
-            }
-        }
-        return 0
     }
 
 }
