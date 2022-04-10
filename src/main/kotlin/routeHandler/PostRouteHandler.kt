@@ -52,18 +52,15 @@ class PostRouteHandler(
     fun handleCsv(request: String, inputStream: BufferedReader): String {
         val bodySize = getContentLength(request)
         val body = getBody(bodySize, inputStream)
-        println("body $body")
         val jsonBody = JSONArray(body)
 
         val repeatedRowList = DuplicationValidation().getDuplicateRowNumberInJSON(jsonBody)
-        println("Repeated Lines :$repeatedRowList , ${repeatedRowList.isEmpty}")
         val typeValidationResultList = typeValidation(jsonBody)
         val lengthValidationResultList = lengthValidation(jsonBody)
         val dependencyValidation = dependencyValidation(jsonBody)
         val responseBody =
             repeatedRowList.putAll(typeValidationResultList).putAll(lengthValidationResultList)
                 .putAll(dependencyValidation).toString()
-        println(responseBody)
         val contentLength = responseBody.length
         val endOfHeader = "\r\n\r\n"
         return responseHead.getHttpHead(200) + """Content-Type: text/json; charset=utf-8
@@ -121,7 +118,6 @@ class PostRouteHandler(
                             "$errorMessage$key"
                         )
                         rowMap.put(jsonObject)
-                        break
                     }
                 }
             }
@@ -173,7 +169,6 @@ class PostRouteHandler(
             dataInJSONArray.forEachIndexed { index, element ->
                 val fieldElement = (element as JSONObject)
                 val keys = fieldElement.keySet()
-                println(fieldElement)
                 for (key in keys) {
                     if (typeVal(fieldArray, key, fieldElement, typeValidation)) {
                         val jsonObject = JSONObject().put(
@@ -181,7 +176,6 @@ class PostRouteHandler(
                             "$errorMessage$key"
                         )
                         rowMap.put(jsonObject)
-                        break
                     }
                 }
             }
@@ -201,6 +195,9 @@ class PostRouteHandler(
         val field = fieldArray.first { it.fieldName == key }
         val isValid: Boolean
         val value = fieldElement.get(key) as String
+        if(isFieldIsNull(value)){
+            return false
+        }
 
         isValid = valueTypeMap[field.type]!!.validateValueType(value, typeValidation)
 
@@ -226,7 +223,6 @@ class PostRouteHandler(
                             "$errorMessage$key"
                         )
                         rowMap.put(jsonObject)
-                        break
                     }
                 }
             }
@@ -263,5 +259,9 @@ class PostRouteHandler(
             }
         }
         return false
+    }
+
+    private fun isFieldIsNull(value: String?): Boolean {
+        return value.contentEquals("null", ignoreCase = true)
     }
 }
