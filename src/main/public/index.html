@@ -57,15 +57,15 @@
 
             <label for="expectedCurrentFieldValue">Expected Current Field Value</label>
             <select id="expectedCurrentFieldValue">
-                <option value="selected disabled hidden">Choose here</option>
+                <option value="">Choose here</option>
                 <option value="!null">Present</option>
                 <option value="null">Not Present</option>
             </select>
 
         </form>
-        <button onclick="addMoreDependencyRow()">Add more dependencies</button>
+        <button onclick="addMoreDependencyRow()">Add dependency</button>
 
-        <button type="submit" style="margin-top: 10px;" onclick="addDataToJson()">ADD</button>
+        <button type="submit" style="margin-top: 10px;" onclick="addDataToJson()">Add Field</button>
 
         <button id="value-submit-button" type="submit" style="margin-top: 10px;"
             onclick="sendConfigData()">SUBMIT</button>
