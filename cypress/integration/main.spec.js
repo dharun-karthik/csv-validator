@@ -1,40 +1,104 @@
-describe('cypress connect test',()=>{
-    it('Open link',()=>{
+describe('cypress connect test', () => {
+    it('Open link', () => {
         cy.visit("http://localhost:3000")
     })
 })
 
-describe('Send the config file',()=>
-{
-    it('fill the values and submit the config file',()=>
-    {
-        cy.get('#field').type('Hello')
-        cy.get('#text_file_id').selectFile('src/main/public/assets/valueTestSample.txt',{
-        })
+describe('Add config data', () => {
+    it('fill the values and add the config data', () => {
+        cy.get('#field').type('Pincode')
+        cy.get('#text_file_id').selectFile('src/main/public/assets/valueTestSample.txt', {})
+        cy.get('#type').select(1)
         cy.get('#max-len').type(19)
         cy.get('#min-len').type(7)
-        cy.get('#value-submit-button').click()
+
+        const stub = cy.stub()
+        cy.on('window:alert', stub)
+        cy.get('#add-field-button').click().then(() => {
+            expect(stub.getCall(0)).to.be.calledWith('Field: Pincode is added to configuration of CSV')
+        })
+        cy.get('#config span:first').contains('Pincode')
+        cy.get('#config span').contains('Number')
+        cy.get('#config span').contains('19')
+        cy.get('#config span').contains('7')
     })
 })
 
-describe('check dropdown option values',()=>
-{
+describe('Dependency test with one dependency', () => {
+    it('and all values filled', () => {
+        cy.reload()
+        cy.get('#field').type('Country Name')
+        cy.get('#text_file_id').selectFile('src/main/public/assets/valueTestSample.txt', {})
+        cy.get('#type').select(2)
+        cy.get('#max-len').type(5)
+        cy.get('#min-len').type(2)
 
-     it('check first option value',()=>
-       {
-            cy.get('select').select(1).should('have.value','Number')
+        cy.get('#dependentOnColumn').type('Export')
+        cy.get('#expectedDependentFieldValue').type('N')
+        cy.get('#expectedCurrentFieldValue').select(2)
+        cy.get('#add-dependency-button').click()
+
+        const stub = cy.stub()
+        cy.on('window:alert', stub)
+        cy.get('#add-field-button').click().then(() => {
+            expect(stub.getCall(0)).to.be.calledWith('Field: Country Name is added to configuration of CSV')
         })
 
-        it('check second option value',()=>
-               {
-                    cy.get('select').select(2).should('have.value','AlphaNumeric')
-                })
-})
+        cy.get('#config span:first').contains('Country Name')
+        cy.get('#dependency span:first').contains('Export')
+    })
 
-describe('upload csv-file',()=>{
-    it('check if csv file successfully uploaded',()=>{
-        cy.get('#csv_id').selectFile('src/main/public/assets/data.csv')
-        cy.get('#csv-submit-button').click()
+    it('and missing dependent field and current field values', () => {
+        cy.reload()
+        cy.get('#field').type('Country Name')
+        cy.get('#text_file_id').selectFile('src/main/public/assets/valueTestSample.txt', {})
+        cy.get('#type').select(2)
+        cy.get('#max-len').type(5)
+        cy.get('#min-len').type(2)
+
+        cy.get('#dependentOnColumn').type('Export')
+
+        const stub = cy.stub()
+        cy.on('window:alert', stub)
+        cy.get('#add-dependency-button').click().then(() => {
+            expect(stub.getCall(0)).to.be.calledWith('Please enter values for Expected Dependent Field and Expected Current Field')
+        })
+    })
+
+    it('and missing dependent field value', () => {
+        cy.reload()
+        cy.get('#field').type('Country Name')
+        cy.get('#text_file_id').selectFile('src/main/public/assets/valueTestSample.txt', {})
+        cy.get('#type').select(2)
+        cy.get('#max-len').type(5)
+        cy.get('#min-len').type(2)
+
+        cy.get('#dependentOnColumn').type('Export')
+        cy.get('#expectedCurrentFieldValue').select(2)
+
+        const stub = cy.stub()
+        cy.on('window:alert', stub)
+        cy.get('#add-dependency-button').click().then(() => {
+            expect(stub.getCall(0)).to.be.calledWith('Please enter values for Expected Dependent Field and Expected Current Field')
+        })
+    })
+
+    it('and missing current field value', () => {
+        cy.reload()
+        cy.get('#field').type('Country Name')
+        cy.get('#text_file_id').selectFile('src/main/public/assets/valueTestSample.txt', {})
+        cy.get('#type').select(2)
+        cy.get('#max-len').type(5)
+        cy.get('#min-len').type(2)
+
+        cy.get('#dependentOnColumn').type('Export')
+        cy.get('#expectedCurrentFieldValue').select(2)
+
+        const stub = cy.stub()
+        cy.on('window:alert', stub)
+        cy.get('#add-dependency-button').click().then(() => {
+            expect(stub.getCall(0)).to.be.calledWith('Please enter values for Expected Dependent Field and Expected Current Field')
+        })
     })
 })
 
