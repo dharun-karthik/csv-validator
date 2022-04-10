@@ -38,14 +38,12 @@ class PostRouteHandler(
         request: String,
         inputStream: BufferedReader,
     ): String {
-
         return when (getPath(request)) {
             "/csv" -> handleCsv(request, inputStream)
             "/add-meta-data" -> handleAddingCsvMetaData(request, inputStream)
             else -> pageNotFoundResponse.handleUnknownRequest()
         }
     }
-
 
     private fun getPath(request: String): String {
         return request.split("\r\n")[0].split(" ")[1].substringBefore("?")

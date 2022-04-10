@@ -1,0 +1,9 @@
+build-job:
+  stage: build
+  script:
+    - ./gradlew build
+
+test-job:
+  stage: test
+  script:
+    - ./gradlew test
