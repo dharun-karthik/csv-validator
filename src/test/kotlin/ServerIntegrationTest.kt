@@ -8,7 +8,7 @@ class ServerIntegrationTest {
 
     @Test
     fun shouldReturnSuccessWhenLoadingHomePage() {
-        val port = 3012
+        val port = 3000
         startServerInThread(port)
         val clientSocket = Socket("localhost", port)
         val outputStream = clientSocket.getOutputStream()
