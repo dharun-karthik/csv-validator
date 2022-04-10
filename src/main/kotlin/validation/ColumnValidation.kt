@@ -1,21 +1,27 @@
 package validation
 
 import org.json.JSONArray
+import org.json.JSONObject
+
 
 class ColumnValidation {
 
-    fun isValid(configJSON: String, jsonData: String): Boolean {
+    fun isValid(configJSON: String, jsonData: String): JSONArray {
         val configJSONArray = JSONArray(configJSON)
         val jsonDataArray = JSONArray(jsonData)
+        val errorJsonArray = JSONArray()
         val fieldsInJsonData = getAllFieldNames(jsonDataArray)
         val noOfConfig = configJSONArray.length()
         for (index in 0 until noOfConfig) {
-            val jsonObject = configJSONArray.getJSONObject(index)
-            if (!fieldsInJsonData.contains(jsonObject.get("fieldName").toString())) {
-                return false
+            val configJsonObject = configJSONArray.getJSONObject(index)
+            val configFieldName = configJsonObject.get("fieldName").toString()
+            if (!fieldsInJsonData.contains(configFieldName)) {
+                val obj = JSONObject()
+                obj.put("Column Name Error", "$configFieldName")
+                errorJsonArray.put(obj)
             }
         }
-        return true
+        return errorJsonArray
 
     }
 
@@ -28,7 +34,6 @@ class ColumnValidation {
         while (jsonObjectKeyIterator.hasNext()) {
             fieldNames.add(jsonObjectKeyIterator.next())
         }
-        print(fieldNames)
         return fieldNames
     }
 
