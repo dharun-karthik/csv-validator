@@ -7,6 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="js/main.js" type="text/javascript"></script>
     <title>Csv Parser</title>
+    <style>
+        #dependencies #dependency div {
+            display: inline;
+        }
+    </style>
 </head>
 
 <body>
@@ -39,6 +44,10 @@
             <input type="number" id="fixed-len">
 
             <br>
+            <hr>
+            <div id="dependencies" style="display: none;">
+            
+            </div>
 
             <label for="dependentOnColumn">Dependency on column: </label>
             <input type="text" id="dependentOnColumn">
@@ -57,7 +66,7 @@
         <button onclick="addMoreDependencyRow()">Add more dependencies</button>
 
         <button type="submit" style="margin-top: 10px;" onclick="addDataToJson()">ADD</button>
-        
+
         <button id="value-submit-button" type="submit" style="margin-top: 10px;"
             onclick="sendConfigData()">SUBMIT</button>
     </div>

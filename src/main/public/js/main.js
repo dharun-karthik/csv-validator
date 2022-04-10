@@ -75,6 +75,10 @@ async function sendRequest(result) {
 }
 
 function addMoreDependencyRow() {
+    let isInputValid = validateInputsForDependency()
+    if (!isInputValid) {
+        return
+    }
     let jsonObj = {}
     const dependsOnColumn = document.getElementById("dependentOnColumn");
     const expectedDependentFieldValue = document.getElementById("expectedDependentFieldValue");
@@ -83,7 +87,47 @@ function addMoreDependencyRow() {
     jsonObj["expectedDependentFieldValue"] = expectedDependentFieldValue.value
     jsonObj["expectedCurrentFieldValue"] = expectedCurrentFieldValue.value
     dependencyList.push(jsonObj)
+    dependencies.style.display = "block"
+    displayDependencyList(dependsOnColumn.value, expectedDependentFieldValue.value, expectedCurrentFieldValue.value)
     clearDependencyInputs()
+}
+
+function validateInputsForDependency() {
+    const dependsOnColumn = document.getElementById("dependentOnColumn").value;
+    const expectedDependentFieldValue = document.getElementById("expectedDependentFieldValue").value
+    const expectedCurrentFieldValue = document.getElementById("expectedCurrentFieldValue").value
+
+    console.log("Inside function")
+    if (dependsOnColumn != "" && expectedDependentFieldValue == "" || expectedCurrentFieldValue == ""){
+        alert("Please enter values for Expected Dependent Field and Expected Current Field")
+        return false
+    }
+    return true
+}
+
+function displayDependencyList(dependsOnColumn, dependentFieldValue, currenFieldValue) {
+    let dependency = document.createElement('div')
+    dependency.id = 'dependency'
+    
+    let dependsOnColumnElement = addDependencyElement("Depends On: ", dependsOnColumn);
+    dependency.appendChild(dependsOnColumnElement)
+
+    let dependentFieldValueElement = addDependencyElement(" Expected Dependent Field: ", dependentFieldValue);
+    dependency.appendChild(dependentFieldValueElement)
+
+    let currenFieldValueElement = addDependencyElement(" Expected Current Field: ", currenFieldValue)
+    dependency.appendChild(currenFieldValueElement)
+
+    dependencies.appendChild(dependency)
+}
+
+function addDependencyElement(dependencyType, dependsOnColumn) {
+    let newElement = document.createElement('div');
+    newElement.innerText = dependencyType;
+    let spanColumn = document.createElement('span');
+    spanColumn.innerText = dependsOnColumn;
+    newElement.appendChild(spanColumn);
+    return newElement;
 }
 
 function clearDependencyInputs() {
