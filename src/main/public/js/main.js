@@ -101,6 +101,7 @@ async function sendConfigData() {
     for (var i = 0; i < payload.length; i++) {
         sendOneConfig(payload[i])
     }
+    alert("Submitted configuration of CSV\nNow you can add your csv file.")
 }
 async function sendOneConfig(oneConfig) {
     const resp = await fetch('add-meta-data', {
