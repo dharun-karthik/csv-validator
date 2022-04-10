@@ -1,23 +1,18 @@
 package routeHandler
 
-import lengthValidator.*
-import metaData.JsonMetaDataTemplate
 import metaData.MetaDataReaderWriter
 import org.json.JSONArray
 import org.json.JSONObject
-import response.ResponseHead
+import response.ContentType
+import response.Response
 import validation.*
-import valueValidator.AlphaNumeric
-import valueValidator.Alphabet
-import valueValidator.Numbers
-import valueValidator.ValueTypeValidator
 import java.io.BufferedReader
 
 
 class PostRouteHandler(
     val metaDataReaderWriter: MetaDataReaderWriter,
-    private val responseHead: ResponseHead = ResponseHead()
 ) {
+    private val response = Response()
     private val pageNotFoundResponse = PageNotFoundResponse()
 
     fun handlePostRequest(
@@ -47,11 +42,9 @@ class PostRouteHandler(
         val dependencyValidation = validation.dependencyValidation(jsonBody)
         val responseBody =
             repeatedRowList.putAll(typeValidationResultList).putAll(lengthValidationResultList)
-                .putAll(dependencyValidation).toString()
-        val contentLength = responseBody.length
-        val endOfHeader = "\r\n\r\n"
-        return responseHead.getHttpHead(200) + """Content-Type: text/json; charset=utf-8
-            |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
+                .putAll(dependencyValidation)
+
+        return response.generateResponse(responseBody.toString(),200,ContentType.JSON)
     }
 
 
@@ -63,11 +56,9 @@ class PostRouteHandler(
 
     fun addCsvMetaData(body: String): String {
         metaDataReaderWriter.appendField(body)
-        val endOfHeader = "\r\n\r\n"
-        val responseBody = "Successfully Added"
-        val contentLength = responseBody.length
-        return responseHead.getHttpHead(200) + """Content-Type: text/plain; charset=utf-8
-            |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
+        val responseBody = JSONObject()
+        responseBody.put("value","Success")
+        return response.generateResponse(responseBody.toString(),200,ContentType.JSON)
     }
 
     private fun getBody(bodySize: Int, inputStream: BufferedReader): String {

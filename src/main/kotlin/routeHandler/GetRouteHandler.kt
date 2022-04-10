@@ -1,9 +1,10 @@
 package routeHandler
 
-import response.ResponseHead
+import response.ContentType
+import response.Response
 import java.io.File
 
-class GetRouteHandler(private val responseHead: ResponseHead = ResponseHead()) {
+class GetRouteHandler(private val response: Response = Response()) {
 
 
     fun handleGetRequest(request: String): String {
@@ -15,10 +16,7 @@ class GetRouteHandler(private val responseHead: ResponseHead = ResponseHead()) {
 
     private fun serveFile(path: String): String {
         val responseBody = readFileContent(path)
-        val contentLength = responseBody.length
-        val endOfHeader = "\r\n\r\n"
-        return responseHead.getHttpHead(200) + """Content-Type: text/html; charset=utf-8
-            |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
+        return response.generateResponse(responseBody,200, ContentType.HTML)
     }
 
     private fun readFileContent(fileName: String): String {

@@ -22,6 +22,10 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
         "Number" to Numbers()
     )
 
+    fun validate(dataInJSONArray: JSONArray):JSONArray{
+        TODO("group everything")
+    }
+
 
     //Todo isolate common code between length and type validation
     //todo single responsibility
