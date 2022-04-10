@@ -136,6 +136,10 @@ function clearDependencyInputs() {
 }
 
 function addDataToJson() {
+    let isInputValid = validateInputsForFields()
+    if (!isInputValid) {
+        return
+    }
     let jsonObj = {}
     const field = document.getElementById("field");
     const type = document.getElementById("type");
@@ -163,6 +167,18 @@ function addDataToJson() {
     console.log(payload)
     alert("Field: " + field.value + " is added to configuration of CSV")
     clearConfigInputs()
+}
+
+function validateInputsForFields() {
+    const field = document.getElementById("field").value;
+    const type = document.getElementById("type").value;
+
+    console.log(field + type)
+    if (field != "" && type == ""){
+        alert("Please enter type for the field !")
+        return false
+    }
+    return true
 }
 
 function displayConfigs(fieldName, typeValue, maxLengthValue, minLengthValue, fixedLengthValue) {
