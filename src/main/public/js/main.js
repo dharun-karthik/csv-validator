@@ -113,7 +113,14 @@ async function sendOneConfig(oneConfig) {
 }
 
 async function resetConfigData() {
+    clearPayload()
     await fetch('reset-config', {
         method: 'DELETE',
     })
+}
+
+function clearPayload() {
+    while (payload.length > 0) {
+        payload.pop()
+    }
 }
