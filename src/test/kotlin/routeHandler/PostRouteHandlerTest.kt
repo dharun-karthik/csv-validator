@@ -48,15 +48,16 @@ class PostRouteHandlerTest {
     "maxLength": 20
   }"""
         post.addCsvMetaData(data)
+
         val fields = post.metaDataReaderWriter.readFields()
         val actual = fields[1]
-
         val expected = JsonMetaDataTemplate(
             fieldName = "Product Description",
             type = "AlphaNumeric",
             minLength = "7",
             maxLength = "20"
         )
+        post.metaDataReaderWriter.clearFields()
 
         assertEquals(expected, actual)
     }

@@ -11,12 +11,12 @@ class MetaDataReaderWriterTest {
         val expected = """[
   {
     "fieldName": "Product Id",
-    "type": "valueValidator.AlphaNumeric",
+    "type": "AlphaNumeric",
     "length": 5
   },
   {
     "fieldName": "Product Description",
-    "type": "valueValidator.AlphaNumeric",
+    "type": "AlphaNumeric",
     "minLength": 7,
     "maxLength": 20
   },
@@ -26,7 +26,7 @@ class MetaDataReaderWriterTest {
   },
   {
     "fieldName": "Export",
-    "type": "valueValidator.Alphabet",
+    "type": "Alphabet",
     "values": [
       "Y",
       "N"
@@ -34,18 +34,24 @@ class MetaDataReaderWriterTest {
   },
   {
     "fieldName": "Country Name",
-    "type": "valueValidator.Alphabet",
-    "minLength": 3
+    "type": "Alphabet",
+    "minLength": 3,
+    "dependentOn": "Export",
+    "expectedDependentFieldValue": "N",
+    "expectedCurrentFieldValue": "null"
   },
   {
     "fieldName": "Source City",
-    "type": "valueValidator.Alphabet",
+    "type": "Alphabet",
     "minLength": 3
   },
   {
     "fieldName": "Country Code",
     "type": "Number",
-    "maxLength": 3
+    "maxLength": 3,
+    "dependentOn": "Country Name",
+    "expectedDependentFieldValue": "null",
+    "expectedCurrentFieldValue": "null"
   },
   {
     "fieldName": "Source Pincode",
@@ -132,7 +138,7 @@ class MetaDataReaderWriterTest {
 
         val actual = metaDataReaderWriter.readRawContent()
 
-        assertEquals(expected, actual)
         metaDataReaderWriter.clearFields()
+        assertEquals(expected, actual)
     }
 }

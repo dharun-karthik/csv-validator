@@ -61,8 +61,9 @@ class PostRouteHandler(
         println("Repeated Lines :$repeatedRowList , ${repeatedRowList.isEmpty}")
         val typeValidationResultList = typeValidation(jsonBody)
         val lengthValidationResultList = lengthValidation(jsonBody)
+        val dependencyValidation = dependencyValidation(jsonBody)
         val responseBody =
-            repeatedRowList.putAll(typeValidationResultList).putAll(lengthValidationResultList).toString()
+            repeatedRowList.putAll(typeValidationResultList).putAll(lengthValidationResultList).putAll(dependencyValidation).toString()
         println(responseBody)
         val contentLength = responseBody.length
         val endOfHeader = "\r\n\r\n"
