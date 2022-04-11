@@ -19,6 +19,9 @@
         #configs #config div {
             display: inline;
         }
+        #reset_config:hover {
+            background-color: rgb(240, 112, 112);
+        }
     </style>
 </head>
 
@@ -84,7 +87,7 @@
     </div>
     <br>
     <div>
-        <button onclick="resetConfigData()">Reset Config</button>
+        <button id="reset_config" onclick="resetConfigData()">Reset Config</button>
     </div>
     <div>
         <h1>CSV PARSER</h1>

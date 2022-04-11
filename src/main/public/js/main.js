@@ -14,7 +14,7 @@ async function loadMetaData() {
 
 function displayMetaData(jsonData) {
     jsonData.forEach(obj => {
-        displayConfigs(obj["fieldName"], obj["type"], obj["maxLength"], obj["minLength"], obj["length"])
+        displayConfigs(obj["fieldName"] || "", obj["type"] || "", obj["maxLength"] || "", obj["minLength"] || "", obj["length"] || "")
     })
 }
 
