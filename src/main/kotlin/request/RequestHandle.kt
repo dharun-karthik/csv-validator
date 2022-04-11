@@ -1,5 +1,7 @@
 package request
 
+import java.io.BufferedReader
+
 class RequestHandle {
     fun getPath(request: String): String {
         return request.split("\r\n")[0].split(" ")[1].substringBefore("?")
@@ -15,4 +17,9 @@ class RequestHandle {
         return 0
     }
 
+    fun getBody(bodySize: Int, inputStream: BufferedReader): String {
+        val buffer = CharArray(bodySize)
+        inputStream.read(buffer)
+        return String(buffer)
+    }
 }

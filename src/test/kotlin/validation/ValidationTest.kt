@@ -13,20 +13,8 @@ class ValidationTest {
     @Test
     fun shouldGiveLengthErrorLinesAsResult() {
         val validation = Validation(metaDataReaderWriter)
-        val csvData = """{
-            "Product Id": "1564",
-            "Product Description": "Table",
-            "Price": "4500.59",
-            "Export": "N",
-            "Country Name": "null",
-            "Source City": "Nagpur",
-            "Country Code": "null",
-            "Source Pincode": "440001"
-        }"""
-        val currentRow = JSONObject(csvData)
-        val fieldName = "Product Id"
-
-        val actual = validation.lengthValidation(metaDataArray, fieldName,currentRow)
+        val productIdField = metaDataArray[0]
+        val actual = validation.lengthValidation(productIdField, "1564")
 
         assertTrue(actual)
     }
@@ -34,20 +22,9 @@ class ValidationTest {
     @Test
     fun shouldGiveTypeErrorLinesAsResult() {
         val validation = Validation(metaDataReaderWriter)
-        val csvData = """{
-            "Product Id": "1564",
-            "Product Description": "Table",
-            "Price": "4500.59DD",
-            "Export": "N",
-            "Country Name": "null",
-            "Source City": "Nagpur",
-            "Country Code": "null",
-            "Source Pincode": "440001"
-        }"""
-        val currentRow = JSONObject(csvData)
-        val fieldName = "Price"
+        val priceField = metaDataArray[2]
 
-        val actual = validation.typeValidation(metaDataArray, fieldName,currentRow)
+        val actual = validation.typeValidation(priceField, "4500.59DD")
 
         assertTrue(actual)
     }
@@ -66,9 +43,9 @@ class ValidationTest {
             "Source Pincode": "440001"
         }"""
         val currentRow = JSONObject(csvData)
-        val fieldName = "Country Name"
+        val countryNameField = metaDataArray[4]
 
-        val actual = validation.dependencyValidation(metaDataArray, fieldName,currentRow)
+        val actual = validation.dependencyValidation(countryNameField, "USA",currentRow)
 
         assertTrue(actual)
     }

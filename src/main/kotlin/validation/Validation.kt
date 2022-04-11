@@ -24,23 +24,26 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
 
     fun validate(dataInJSONArray: JSONArray): JSONArray {
         val arrayOfAllErrors = List(3) { JSONArray() }
-        val fieldArray = metaDataReaderWriter.readFields()
+        val metaDataList = metaDataReaderWriter.readFields()
         val errorMessageForType = "Type Error in "
         val errorMessageForLength = "Length Error in "
         val errorMessageForDependency = "Dependency Error in "
 
         try {
             dataInJSONArray.forEachIndexed { index, element ->
-                val fieldElement = (element as JSONObject)
-                val keys = fieldElement.keySet()
+                val currentRow = (element as JSONObject)
+                val keys = currentRow.keySet()
                 for (key in keys) {
-                    if (typeValidation(fieldArray, key, fieldElement)) {
+                    val metaDataField = metaDataList.first { it.fieldName == key }
+                    val currentFieldValue = currentRow.get(key) as String
+
+                    if (typeValidation(metaDataField, currentFieldValue)) {
                         addError(index, errorMessageForType, key, arrayOfAllErrors[0])
                     }
-                    if (lengthValidation(fieldArray, key, fieldElement)) {
+                    if (lengthValidation(metaDataField, currentFieldValue)) {
                         addError(index, errorMessageForLength, key, arrayOfAllErrors[1])
                     }
-                    if (dependencyValidation(fieldArray, key, fieldElement)) {
+                    if (dependencyValidation(metaDataField, currentFieldValue, currentRow)) {
                         addError(index, errorMessageForDependency, key, arrayOfAllErrors[2])
                     }
                 }
@@ -69,28 +72,24 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
     }
 
     fun lengthValidation(
-        metaDataList: Array<JsonMetaDataTemplate>,
-        key: String,
-        currentRow: JSONObject
+        metaDataField: JsonMetaDataTemplate,
+        currentFieldValue: String
     ): Boolean {
         val lengthValidation = LengthValidation()
-        val field = metaDataList.first { it.fieldName == key }
-        val isValid: Boolean
-        val value = currentRow.get(key) as String
 
-        isValid = (lengthTypeMap[LengthType.FIXED_LENGTH]!!.validateLengthType(
-            value,
-            field.length?.toInt(),
+        val isValid: Boolean = (lengthTypeMap[LengthType.FIXED_LENGTH]!!.validateLengthType(
+            currentFieldValue,
+            metaDataField.length?.toInt(),
             lengthValidation
         ) &&
                 lengthTypeMap[LengthType.MIN_LENGTH]!!.validateLengthType(
-                    value,
-                    field.minLength?.toInt(),
+                    currentFieldValue,
+                    metaDataField.minLength?.toInt(),
                     lengthValidation
                 ) &&
                 lengthTypeMap[LengthType.MAX_LENGTH]!!.validateLengthType(
-                    value,
-                    field.maxLength?.toInt(),
+                    currentFieldValue,
+                    metaDataField.maxLength?.toInt(),
                     lengthValidation
                 ))
 
@@ -101,19 +100,15 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
     }
 
     fun typeValidation(
-        metaDataList: Array<JsonMetaDataTemplate>,
-        key: String,
-        currentRow: JSONObject,
+        metaDataField: JsonMetaDataTemplate,
+        currentFieldValue: String
     ): Boolean {
         val typeValidation = TypeValidation()
-        val field = metaDataList.first { it.fieldName == key }
-        val isValid: Boolean
-        val value = currentRow.get(key) as String
-        if (isFieldIsNull(value)) {
+        if (isFieldIsNull(currentFieldValue)) {
             return false
         }
 
-        isValid = valueTypeMap[field.type]!!.validateValueType(value, typeValidation)
+        val isValid: Boolean = valueTypeMap[metaDataField.type]!!.validateValueType(currentFieldValue, typeValidation)
 
         if (!isValid) {
             return true
@@ -122,21 +117,19 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
     }
 
     fun dependencyValidation(
-        metaDataList: Array<JsonMetaDataTemplate>,
-        key: String,
+        metaDataField: JsonMetaDataTemplate,
+        currentFieldValue: String,
         currentRow: JSONObject,
     ): Boolean {
         val dependencyValidation = DependencyValidation()
-        val field = metaDataList.first { it.fieldName == key }
-        val value = currentRow.get(key) as String
-        if (field.dependencies != null) {
-            val dependencies = field.dependencies
+        if (metaDataField.dependencies != null) {
+            val dependencies = metaDataField.dependencies
             for (dependency in dependencies) {
                 val dependentValue = currentRow.get(dependency.dependentOn) as String
                 val expectedCurrentValue = dependency.expectedCurrentFieldValue
                 val expectedDependentValue = dependency.expectedDependentFieldValue
                 val isValid: Boolean = dependencyValidation.validate(
-                    value,
+                    currentFieldValue,
                     dependentValue,
                     expectedDependentValue,
                     expectedCurrentValue

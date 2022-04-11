@@ -31,7 +31,7 @@ class PostRouteHandler(
 
     fun handleCsv(request: String, inputStream: BufferedReader): String {
         val bodySize = requestHandle.getContentLength(request)
-        val body = getBody(bodySize, inputStream)
+        val body = requestHandle.getBody(bodySize, inputStream)
         val jsonBody = JSONArray(body)
 
         val repeatedRowList = DuplicationValidation().getDuplicateRowNumberInJSON(jsonBody)
@@ -44,7 +44,7 @@ class PostRouteHandler(
 
     fun handleAddingCsvMetaData(request: String, inputStream: BufferedReader): String {
         val bodySize = requestHandle.getContentLength(request)
-        val body = getBody(bodySize, inputStream)
+        val body = requestHandle.getBody(bodySize, inputStream)
         return addCsvMetaData(body)
     }
 
@@ -54,11 +54,4 @@ class PostRouteHandler(
         responseBody.put("value","Success")
         return response.generateResponse(responseBody.toString(),200,ContentType.JSON)
     }
-
-    private fun getBody(bodySize: Int, inputStream: BufferedReader): String {
-        val buffer = CharArray(bodySize)
-        inputStream.read(buffer)
-        return String(buffer)
-    }
-
 }
