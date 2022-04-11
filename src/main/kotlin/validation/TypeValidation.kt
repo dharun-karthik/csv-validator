@@ -7,11 +7,11 @@ class TypeValidation {
     }
 
     fun isAlphabetic(value: String): Boolean {
-        return value.all { it.isLetter() }
+        return value.matches("""^[A-Za-z\s]*$""".toRegex())
     }
 
     fun isAlphaNumeric(value: String): Boolean {
-        return value.all { it.isLetterOrDigit() }
+        return value.matches("""^[A-Za-z0-9\s]*$""".toRegex())
     }
 
 

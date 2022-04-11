@@ -25,29 +25,9 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
     fun validate(dataInJSONArray: JSONArray): JSONArray {
         val arrayOfAllErrors = List(3) { JSONArray() }
         val metaDataList = metaDataReaderWriter.readFields()
-        val errorMessageForType = "Type Error in "
-        val errorMessageForLength = "Length Error in "
-        val errorMessageForDependency = "Dependency Error in "
 
         try {
-            dataInJSONArray.forEachIndexed { index, element ->
-                val currentRow = (element as JSONObject)
-                val keys = currentRow.keySet()
-                for (key in keys) {
-                    val metaDataField = metaDataList.first { it.fieldName == key }
-                    val currentFieldValue = currentRow.get(key) as String
-
-                    if (typeValidation(metaDataField, currentFieldValue)) {
-                        addError(index, errorMessageForType, key, arrayOfAllErrors[0])
-                    }
-                    if (lengthValidation(metaDataField, currentFieldValue)) {
-                        addError(index, errorMessageForLength, key, arrayOfAllErrors[1])
-                    }
-                    if (dependencyValidation(metaDataField, currentFieldValue, currentRow)) {
-                        addError(index, errorMessageForDependency, key, arrayOfAllErrors[2])
-                    }
-                }
-            }
+            iterateJsonContent(dataInJSONArray, metaDataList, arrayOfAllErrors)
         } catch (err: Exception) {
             println(err.message)
             return JSONArray()
@@ -55,7 +35,32 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
         return convertToSingleJsonArray(arrayOfAllErrors)
     }
 
-    private fun getErrorMessage(errorType: String): String{
+    private fun iterateJsonContent(
+        dataInJSONArray: JSONArray,
+        metaDataList: Array<JsonMetaDataTemplate>,
+        arrayOfAllErrors: List<JSONArray>
+    ) {
+        dataInJSONArray.forEachIndexed { index, element ->
+            val currentRow = (element as JSONObject)
+            val keys = currentRow.keySet()
+            for (key in keys) {
+                val metaDataField = metaDataList.first { it.fieldName.contentEquals(key, ignoreCase = true) }
+                val currentFieldValue = currentRow.get(key) as String
+
+                if (typeValidation(metaDataField, currentFieldValue)) {
+                    addError(index, getErrorMessage("Type"), key, arrayOfAllErrors[0])
+                }
+                if (lengthValidation(metaDataField, currentFieldValue)) {
+                    addError(index, getErrorMessage("Length"), key, arrayOfAllErrors[1])
+                }
+                if (dependencyValidation(metaDataField, currentFieldValue, currentRow)) {
+                    addError(index, getErrorMessage("Dependency"), key, arrayOfAllErrors[2])
+                }
+            }
+        }
+    }
+
+    private fun getErrorMessage(errorType: String): String {
         return "$errorType Error in "
     }
 
@@ -80,6 +85,9 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
         currentFieldValue: String
     ): Boolean {
         val lengthValidation = LengthValidation()
+        if (isFieldIsNull(currentFieldValue)) {
+            return false
+        }
 
         val isValid: Boolean = (lengthTypeMap[LengthType.FIXED_LENGTH]!!.validateLengthType(
             currentFieldValue,
@@ -120,7 +128,7 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
         return false
     }
 
-    fun dependencyValidation(
+    private fun dependencyValidation(
         metaDataField: JsonMetaDataTemplate,
         currentFieldValue: String,
         currentRow: JSONObject,

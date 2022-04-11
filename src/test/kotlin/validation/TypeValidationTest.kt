@@ -37,6 +37,16 @@ class TypeValidationTest {
     }
 
     @Test
+    fun shouldBeAbleToCheckIfValueWithSpacesIsAlphabetic() {
+        val typeValidation = TypeValidation()
+        val value = "This is Fun"
+
+        val actual = typeValidation.isAlphabetic(value)
+
+        assertTrue(actual)
+    }
+
+    @Test
     fun shouldBeAbleToCheckIfValueIsNotAlphabetic() {
         val typeValidation = TypeValidation()
         val value = "abcrere12"
@@ -56,6 +66,15 @@ class TypeValidationTest {
         assertTrue(actual)
     }
 
+    @Test
+    fun shouldBeAbleToCheckIfValueWithSpaceIsAlphaNumeric() {
+        val typeValidation = TypeValidation()
+        val value = "asfd 123 23fv"
+
+        val actual = typeValidation.isAlphaNumeric(value)
+
+        assertTrue(actual)
+    }
     @Test
     fun shouldBeAbleToCheckIfValueIsNotAlphaNumeric() {
         val typeValidation = TypeValidation()
