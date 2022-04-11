@@ -26,24 +26,6 @@ const csvReader = () => {
     alert("CSV file submitted")
 }
 
-function csvToJson(lines) {
-    const result = [];
-    const headers = lines[0].split(",");
-    for (let i = 1; i < lines.length; i++) {
-        const obj = {};
-        const currentLine = lines[i].split(",");
-        for (let j = 0; j < headers.length; j++) {
-            if (currentLine[j] == "") {
-                obj[headers[j]] = "null"
-                continue;
-            }
-            obj[headers[j]] = currentLine[j];
-        }
-        result.push(obj);
-    }
-    return result;
-}
-
 async function handleResponse(response) {
     clearOldErrors()
     if (response.status === 200) {
@@ -93,7 +75,8 @@ function printLines(arrayOfObject) {
 async function handleCsvFile(event) {
     const csv = event.target.result;
     const lines = csv.toString().split("\n");
-    const result = csvToJson(lines);
+    let convert = new Convert();
+    const result = convert.csvToJson(lines);
     const response = await sendRequest(result);
     await handleResponse(response);
 }
