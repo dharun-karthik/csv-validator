@@ -17,7 +17,7 @@ describe('Add config data', () => {
         cy.get('#add-field-button').click().then(() => {
             expect(stub.getCall(0)).to.be.calledWith('Field: Pincode is added to configuration of CSV')
         })
-        cy.get('#config span:first').contains('Pincode')
+        cy.get('#config span').contains('Pincode')
         cy.get('#config span').contains('Number')
         cy.get('#config span').contains('19')
         cy.get('#config span').contains('7')
@@ -44,7 +44,7 @@ describe('Dependency test with one dependency', () => {
             expect(stub.getCall(0)).to.be.calledWith('Field: Country Name is added to configuration of CSV')
         })
 
-        cy.get('#config span:first').contains('Country Name')
+        cy.get('#config span').contains('Country Name')
         cy.get('#dependency span:first').contains('Export')
     })
 
