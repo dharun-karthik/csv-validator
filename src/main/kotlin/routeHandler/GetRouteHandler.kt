@@ -13,8 +13,14 @@ class GetRouteHandler() {
     fun handleGetRequest(request: String): String {
         return when (val path = requestHandle.getPath(request)) {
             "/" -> serveFile("/index.html")
+            "/get-meta-data" -> serveMetaDataJson()
             else -> serveFile(path)
         }
+    }
+
+    private fun serveMetaDataJson(): String {
+        val responseBody = readFileContent("/csv-meta-data.json")
+        return response.generateResponse(responseBody,200, ContentType.JSON)
     }
 
     private fun serveFile(path: String): String {
