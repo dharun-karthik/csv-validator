@@ -1,6 +1,24 @@
 const payload = [];
 const dependencyList = [];
 
+window.addEventListener('load', async() => loadMetaData());
+
+async function loadMetaData() {
+    const resp = await fetch('get-meta-data', {
+        method: 'GET',
+    });
+    if (resp.status === 200) {
+        const jsonData = await resp.json();
+        displayMetaData(jsonData)
+    }
+}
+
+function displayMetaData(jsonData) {
+    jsonData.forEach(obj => {
+        displayConfigs(obj["fieldName"], obj["type"], obj["maxLength"], obj["minLength"], obj["length"])
+    })
+}
+
 const csvReader = () => {
     let csvElement = document.getElementById("csv_id").files[0];
     const reader = new FileReader();
