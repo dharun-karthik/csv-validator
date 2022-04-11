@@ -14,7 +14,7 @@ class ConfigValidationTest {
         val columnValidator = ColumnValidation()
         val expected = "[]"
 
-        val actual = columnValidator.isValid(configJSON, jsonData).toString()
+        val actual = columnValidator.getInvalidFieldNames(configJSON, jsonData).toString()
 
         assertEquals(expected, actual)
 
@@ -29,7 +29,7 @@ class ConfigValidationTest {
         val columnValidator = ColumnValidation()
         val expected = "[{\"Column Name Error\":\"ProductIDNumber\"}]"
 
-        val actual = columnValidator.isValid(configJSON, jsonData).toString()
+        val actual = columnValidator.getInvalidFieldNames(configJSON, jsonData).toString()
 
         assertEquals(expected, actual)
 
@@ -44,7 +44,7 @@ class ConfigValidationTest {
         val columnValidator = ColumnValidation()
         val expected = "[{\"Column Name Error\":\"ProductIDNumber\"},{\"Column Name Error\":\"ProductNamed\"}]"
 
-        val actual = columnValidator.isValid(configJSON, jsonData).toString()
+        val actual = columnValidator.getInvalidFieldNames(configJSON, jsonData).toString()
 
         assertEquals(expected, actual)
 

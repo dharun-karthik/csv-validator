@@ -6,7 +6,7 @@ import org.json.JSONObject
 
 class ColumnValidation {
 
-    fun isValid(configJSON: String, jsonData: String): JSONArray {
+    fun getInvalidFieldNames(configJSON: String, jsonData: String): JSONArray {
         val configJSONArray = JSONArray(configJSON)
         val jsonDataArray = JSONArray(jsonData)
         val errorJsonArray = JSONArray()
