@@ -163,6 +163,7 @@ function addDataToJson() {
     let mandatoryInputValidation = new MandatoryInputValidation();
     let isInputValid = mandatoryInputValidation.validateInputsForFields(field, type)
     if (!isInputValid) {
+        alert("Please enter type for the field !")
         return
     }
     let jsonObj = {}
