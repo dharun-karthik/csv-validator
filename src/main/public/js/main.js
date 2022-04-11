@@ -84,7 +84,7 @@ function printLines(arrayOfObject) {
     for (let obj in arrayOfObject) {
         const node = document.createElement("li");
         const currentObject = arrayOfObject[obj]
-        const textNode = document.createTextNode(`Line Number ${obj}: ${currentObject}`);
+        const textNode = document.createTextNode(`${obj}: ${currentObject}`);
         console.log("key ", obj, "obj ", currentObject)
         node.appendChild(textNode);
         document.getElementById("error_msg_list").appendChild(node)
