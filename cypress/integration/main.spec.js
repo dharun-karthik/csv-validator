@@ -102,3 +102,15 @@ describe('Dependency test with one dependency', () => {
     })
 })
 
+describe("Upload CSV", () => {
+    it("should upload csv for validation", () => {
+        cy.get('#csv_id').selectFile('src/main/public/assets/data.csv')
+        
+        const stub = cy.stub()
+        cy.on('window:alert', stub)
+        cy.get('#csv-submit-button').click().then(() => {
+            expect(stub.getCall(0)).to.be.calledWith('CSV file submitted')
+        })
+    })
+})
+
