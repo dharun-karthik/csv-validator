@@ -168,9 +168,9 @@ function addDataToJson() {
     }
     let jsonObj = {}
     const value = document.getElementById("text_file_id").files[0];
-    const max_len = document.getElementById("max-len");
-    const min_len = document.getElementById("min-len");
-    const fixed_len = document.getElementById("fixed-len");
+    const max_len = document.getElementById("max-len").value;
+    const min_len = document.getElementById("min-len").value;
+    const fixed_len = document.getElementById("fixed-len").value;
     jsonObj["fieldName"] = field
     jsonObj["type"] = type
     let reader = new FileReader();
@@ -181,14 +181,14 @@ function addDataToJson() {
     if (value != undefined) {
         reader.readAsText(value)
     }
-    jsonObj["maxLength"] = max_len.value
-    jsonObj["minLength"] = min_len.value
-    jsonObj["length"] = fixed_len.value
+    jsonObj["maxLength"] = max_len
+    jsonObj["minLength"] = min_len
+    jsonObj["length"] = fixed_len
     jsonObj["dependencies"] = dependencyList
     payload.push(jsonObj)
-    displayConfigs(field.value, type.value, max_len.value, min_len.value, fixed_len.value)
+    displayConfigs(field, type, max_len, min_len, fixed_len)
     console.log(payload)
-    alert("Field: " + field.value + " is added to configuration of CSV")
+    alert("Field: " + field + " is added to configuration of CSV")
     clearConfigInputs()
 }
 
