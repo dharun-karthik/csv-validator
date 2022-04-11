@@ -158,19 +158,20 @@ function clearDependencyInputs() {
 }
 
 function addDataToJson() {
-    let isInputValid = validateInputsForFields()
+    const field = document.getElementById("field").value;
+    const type = document.getElementById("type").value;
+    let mandatoryInputValidation = new MandatoryInputValidation();
+    let isInputValid = mandatoryInputValidation.validateInputsForFields(field, type)
     if (!isInputValid) {
         return
     }
     let jsonObj = {}
-    const field = document.getElementById("field");
-    const type = document.getElementById("type");
     const value = document.getElementById("text_file_id").files[0];
     const max_len = document.getElementById("max-len");
     const min_len = document.getElementById("min-len");
     const fixed_len = document.getElementById("fixed-len");
-    jsonObj["fieldName"] = field.value
-    jsonObj["type"] = type.value
+    jsonObj["fieldName"] = field
+    jsonObj["type"] = type
     let reader = new FileReader();
     reader.addEventListener('load', function (e) {
         let text = e.target.result
@@ -188,18 +189,6 @@ function addDataToJson() {
     console.log(payload)
     alert("Field: " + field.value + " is added to configuration of CSV")
     clearConfigInputs()
-}
-
-function validateInputsForFields() {
-    const field = document.getElementById("field").value;
-    const type = document.getElementById("type").value;
-
-    console.log(field + type)
-    if (field != "" && type == "") {
-        alert("Please enter type for the field !")
-        return false
-    }
-    return true
 }
 
 function displayConfigs(fieldName, typeValue, maxLengthValue, minLengthValue, fixedLengthValue) {

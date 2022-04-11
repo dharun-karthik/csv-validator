@@ -6,4 +6,13 @@ class MandatoryInputValidation{
         }
         return true
     }
+
+    validateInputsForFields(field, type) {
+        console.log(field + type)
+        if (field != "" && type == "") {
+            alert("Please enter type for the field !")
+            return false
+        }
+        return true
+    }
 }
