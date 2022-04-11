@@ -28,6 +28,7 @@ function csvToJson(lines) {
 }
 
 async function handleResponse(response) {
+    clearOldErrors()
     if (response.status === 200) {
         const jsonData = await response.json();
         console.log(jsonData)
@@ -43,6 +44,15 @@ async function handleResponse(response) {
         //todo handle
         console.log("Error : ", response)
     }
+}
+
+function clearOldErrors(){
+    let errorDiv = document.getElementById("error-msg")
+    errorDiv.innerHTML = ""
+    let ul = document.createElement("ul")
+    ul.id = "error_msg_list"
+    errorDiv.appendChild(ul)
+
 }
 
 function printCsvValid() {
