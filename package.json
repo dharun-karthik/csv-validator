@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "cypress": "^9.5.3",
     "jasmine": "^4.0.2"
   },
   "scripts": {
