@@ -1,116 +1,75 @@
 package validation
 
 import metaData.MetaDataReaderWriter
-import org.json.JSONArray
 import org.json.JSONObject
-import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
+//todo add more test cases
 class ValidationTest {
+    private val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/csv-meta-data-test.json")
+    private val metaDataArray = metaDataReaderWriter.readFields()
+
     @Test
     fun shouldGiveLengthErrorLinesAsResult() {
-        val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/csv-meta-data-test.json")
         val validation = Validation(metaDataReaderWriter)
-        val csvData = """[
-    {
-        "Product Id": "1564",
-        "Product Description": "Table",
-        "Price": "4500.59",
-        "Export": "N",
-        "Country Name": "null",
-        "Source City": "Nagpur",
-        "Country Code": "null",
-        "Source Pincode": "440001"
-    },
-    {
-        "Product Id": "1234",
-        "Product Description": "Chairs",
-        "Price": "1000",
-        "Export": "Y",
-        "Country Name": "AUS",
-        "Source City": "Mumbai",
-        "Country Code": "61",
-        "Source Pincode": "400001"
-    }
-]"""
-        val jsonCsvData = JSONArray(csvData)
-        val expected = JSONArray()
-        expected.put(JSONObject().put("1", "Length Error in Product Id"))
-        expected.put(JSONObject().put("1", "Length Error in Country Code"))
-        expected.put(JSONObject().put("1", "Length Error in Product Description"))
-        expected.put(JSONObject().put("2", "Length Error in Product Id"))
-        expected.put(JSONObject().put("2", "Length Error in Product Description"))
-        val result = validation.lengthValidation(jsonCsvData)
+        val csvData = """{
+            "Product Id": "1564",
+            "Product Description": "Table",
+            "Price": "4500.59",
+            "Export": "N",
+            "Country Name": "null",
+            "Source City": "Nagpur",
+            "Country Code": "null",
+            "Source Pincode": "440001"
+        }"""
+        val currentRow = JSONObject(csvData)
+        val fieldName = "Product Id"
 
-        Assertions.assertEquals(expected.toString(), result.toString())
+        val actual = validation.lengthValidation(metaDataArray, fieldName,currentRow)
+
+        assertTrue(actual)
     }
 
     @Test
     fun shouldGiveTypeErrorLinesAsResult() {
-        val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/csv-meta-data-test.json")
         val validation = Validation(metaDataReaderWriter)
-        val csvData = """[
-    {
-        "Product Id": "1564",
-        "Product Description": "Table",
-        "Price": "4500.59d",
-        "Export": "N",
-        "Source City": "Nagpur",
-        "Source Pincode": "440001"
-    },
-    {
-        "Product Id": "1234",
-        "Product Description": "Chairs",
-        "Price": "1000",
-        "Export": "Y",
-        "Country Name": "AUS",
-        "Source City": "Mumbai",
-        "Country Code": "61",
-        "Source Pincode": "400001"
-    }
-]"""
-        val jsonCsvData = JSONArray(csvData)
+        val csvData = """{
+            "Product Id": "1564",
+            "Product Description": "Table",
+            "Price": "4500.59DD",
+            "Export": "N",
+            "Country Name": "null",
+            "Source City": "Nagpur",
+            "Country Code": "null",
+            "Source Pincode": "440001"
+        }"""
+        val currentRow = JSONObject(csvData)
+        val fieldName = "Price"
 
-        val expected = JSONArray()
-        expected.put(JSONObject().put("1", "Type Error in Price"))
-        val result = validation.typeValidation(jsonCsvData)
+        val actual = validation.typeValidation(metaDataArray, fieldName,currentRow)
 
-        Assertions.assertEquals(expected.toString(), result.toString())
+        assertTrue(actual)
     }
 
     @Test
     fun shouldGiveDependencyErrorLinesAsResult() {
-        val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/csv-meta-data-test.json")
         val validation = Validation(metaDataReaderWriter)
-        val csvData = """[
-    {
-        "Product Id": "1564",
-        "Product Description": "Table",
-        "Price": "4500.59",
-        "Export": "N",
-        "Country Name":"AUS",
-        "Source City": "Nagpur",
-        "Country Code": "null",
-        "Source Pincode": "440001"
-    },
-    {
-        "Product Id": "1234",
-        "Product Description": "Chairs",
-        "Price": "1000",
-        "Export": "Y",
-        "Country Name": "AUS",
-        "Source City": "Mumbai",
-        "Country Code": "61",
-        "Source Pincode": "400001"
-    }
-]"""
-        val jsonCsvData = JSONArray(csvData)
-        val expected = JSONArray()
-        expected.put(JSONObject().put("1", "Dependency Error in Country Name"))
-        expected.put(JSONObject().put("1", "Dependency Error in Country Code"))
-        val result = validation.dependencyValidation(jsonCsvData)
+        val csvData = """{
+            "Product Id": "1564",
+            "Product Description": "Table",
+            "Price": "4500.59DD",
+            "Export": "N",
+            "Country Name": "USA",
+            "Source City": "Nagpur",
+            "Country Code": "null",
+            "Source Pincode": "440001"
+        }"""
+        val currentRow = JSONObject(csvData)
+        val fieldName = "Country Name"
 
-        Assertions.assertEquals(expected.toString(), result.toString())
-    }
+        val actual = validation.dependencyValidation(metaDataArray, fieldName,currentRow)
 
+        assertTrue(actual)
+    }
 }
