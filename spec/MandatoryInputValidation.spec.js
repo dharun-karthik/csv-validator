@@ -26,5 +26,11 @@ describe("mandatory input validation for dependency", () => {
         let isValid = mandatoryInputValidation.validateInputsForDependency("Export", "Y", "");
         expect(isValid).toBeFalse();
     })
+
+    it('should return false if mandatory input for dependency is not empty', ()=>{
+        let mandatoryInputValidation = new MandatoryInputValidation();
+        let isValid = mandatoryInputValidation.validateInputsForDependency("Export", "Y", "Present");
+        expect(isValid).toBeTrue();
+    })
 })
 
