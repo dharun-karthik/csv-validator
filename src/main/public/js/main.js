@@ -1,7 +1,6 @@
 const payload = [];
 const dependencyList = [];
-
-window.addEventListener('load', async() => loadMetaData());
+window.addEventListener('load', async () => loadMetaData());
 
 async function loadMetaData() {
     const resp = await fetch('get-meta-data', {
@@ -64,7 +63,7 @@ async function handleResponse(response) {
     }
 }
 
-function clearOldErrors(){
+function clearOldErrors() {
     let errorDiv = document.getElementById("error-msg")
     errorDiv.innerHTML = ""
     let ul = document.createElement("ul")
@@ -110,7 +109,8 @@ function addMoreDependencyRow() {
     const dependsOnColumn = document.getElementById("dependentOnColumn").value;
     const expectedDependentFieldValue = document.getElementById("expectedDependentFieldValue").value;
     const expectedCurrentFieldValue = document.getElementById("expectedCurrentFieldValue").value;
-    let isInputValid = validateInputsForDependency(dependsOnColumn, expectedDependentFieldValue, expectedCurrentFieldValue)
+    let mandatoryInputValidation = new MandatoryInputValidation();
+    let isInputValid = mandatoryInputValidation.validateInputsForDependency(dependsOnColumn, expectedDependentFieldValue, expectedCurrentFieldValue)
     if (!isInputValid) {
         return
     }
@@ -123,13 +123,7 @@ function addMoreDependencyRow() {
     clearDependencyInputs()
 }
 
-function validateInputsForDependency(dependsOnColumn, expectedDependentFieldValue, expectedCurrentFieldValue) {
-    if (dependsOnColumn != "" && expectedDependentFieldValue == "" || expectedCurrentFieldValue == "") {
-        alert("Please enter values for Expected Dependent Field and Expected Current Field")
-        return false
-    }
-    return true
-}
+
 
 function displayDependencyList(dependsOnColumn, dependentFieldValue, currenFieldValue) {
     let dependency = document.createElement('div')
