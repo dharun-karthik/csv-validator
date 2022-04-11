@@ -95,7 +95,7 @@ function addMoreDependencyRow() {
     let mandatoryInputValidation = new MandatoryInputValidation();
     let isInputValid = mandatoryInputValidation.validateInputsForDependency(dependsOnColumn, expectedDependentFieldValue, expectedCurrentFieldValue)
     if (!isInputValid) {
-        alert("Please enter values for Expected Dependent Field and Expected Current Field")
+        alert("Please enter values for Dependency On Column, Dependent Field and Expected Current Field")
         return
     }
     let jsonObj = {}
@@ -147,7 +147,7 @@ function addDataToJson() {
     let mandatoryInputValidation = new MandatoryInputValidation();
     let isInputValid = mandatoryInputValidation.validateInputsForFields(field, type)
     if (!isInputValid) {
-        alert("Please enter type for the field !")
+        alert("Please enter field and type for the field !")
         return
     }
     let jsonObj = {}
