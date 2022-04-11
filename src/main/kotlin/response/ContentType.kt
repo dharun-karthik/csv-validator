@@ -3,6 +3,6 @@ package response
 enum class ContentType(
     val value: String
 ) {
-    JSON("text/json"),
+    JSON("application/json"),
     HTML("text/html")
 }

@@ -17,7 +17,7 @@ class Response {
     fun generateResponse(content: String, statusCode: Int, contentType: ContentType): String {
         val endOfHeader = "\r\n\r\n"
         val contentLength = content.length
-        return getHttpHead(statusCode) + """Content-Type: $contentType; charset=utf-8
+        return getHttpHead(statusCode) + """Content-Type: ${contentType.value}; charset=utf-8
             |Content-Length: $contentLength""".trimMargin() + endOfHeader + content
     }
 }

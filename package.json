@@ -2,6 +2,7 @@
   "devDependencies": {
     "jasmine": "^4.0.2"
   },
-  "scripts": { "test": "jasmine" }
+  "scripts": {
+    "test": "jasmine"
+  }
 }
-
