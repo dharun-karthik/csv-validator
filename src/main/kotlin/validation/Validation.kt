@@ -22,8 +22,49 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
         "Number" to Numbers()
     )
 
-    fun validate(dataInJSONArray: JSONArray):JSONArray{
-        TODO("group everything")
+    fun validate(dataInJSONArray: JSONArray): JSONArray {
+        val arrayOfAllErrors = List(3) { JSONArray() }
+        val typeValidation = TypeValidation()
+        val lengthValidation = LengthValidation()
+        val dependencyValidation = DependencyValidation()
+        val fieldArray = metaDataReaderWriter.readFields()
+        val errorMessageForType = "Type Error in "
+        val errorMessageForLength = "Length Error in "
+        val errorMessageForDependency = "Dependency Error in "
+
+        try {
+            dataInJSONArray.forEachIndexed { index, element ->
+                val fieldElement = (element as JSONObject)
+                val keys = fieldElement.keySet()
+                for (key in keys) {
+                    if (typeVal(fieldArray, key, fieldElement, typeValidation)) {
+                        addError(index, errorMessageForType, key, arrayOfAllErrors[0])
+                    }
+                    if (lengthVal(fieldArray, key, fieldElement, lengthValidation)) {
+                        addError(index, errorMessageForLength, key, arrayOfAllErrors[1])
+                    }
+                    if (depVal(fieldArray, key, fieldElement, dependencyValidation)) {
+                        addError(index, errorMessageForDependency, key, arrayOfAllErrors[2])
+                    }
+                }
+            }
+        } catch (err: Exception) {
+            println(err.message)
+            return JSONArray()
+        }
+        val rowMap = JSONArray()
+        for (errors in arrayOfAllErrors) {
+            rowMap.putAll(errors)
+        }
+        return rowMap
+    }
+
+    private fun addError(index: Int, errorMessage: String, key: String?, rowMap: JSONArray) {
+        val jsonObject = JSONObject().put(
+            (index + 1).toString(),
+            "$errorMessage$key"
+        )
+        rowMap.put(jsonObject)
     }
 
 

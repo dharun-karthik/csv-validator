@@ -36,12 +36,7 @@ class PostRouteHandler(
 
         val repeatedRowList = DuplicationValidation().getDuplicateRowNumberInJSON(jsonBody)
         val validation = Validation(metaDataReaderWriter)
-        val typeValidationResultList = validation.typeValidation(jsonBody)
-        val lengthValidationResultList = validation.lengthValidation(jsonBody)
-        val dependencyValidation = validation.dependencyValidation(jsonBody)
-        val responseBody =
-            repeatedRowList.putAll(typeValidationResultList).putAll(lengthValidationResultList)
-                .putAll(dependencyValidation)
+        val responseBody = repeatedRowList.putAll(validation.validate(jsonBody))
 
         return response.generateResponse(responseBody.toString(),200,ContentType.JSON)
     }
