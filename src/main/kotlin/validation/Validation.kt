@@ -55,6 +55,10 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
         return convertToSingleJsonArray(arrayOfAllErrors)
     }
 
+    private fun getErrorMessage(errorType: String): String{
+        return "$errorType Error in "
+    }
+
     private fun convertToSingleJsonArray(arrayOfAllErrors: List<JSONArray>): JSONArray {
         val rowMap = JSONArray()
         for (errors in arrayOfAllErrors) {
