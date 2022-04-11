@@ -5,4 +5,10 @@ describe("mandatory input validation", () => {
         let isValid = mandatoryInputValidation.validateInputsForFields("Price", "");
         expect(isValid).toBeFalse();
     })
+    it('should return true if mandatory input for field is not empty', ()=>{
+        let mandatoryInputValidation = new MandatoryInputValidation();
+        let isValid = mandatoryInputValidation.validateInputsForFields("Price", "Number");
+        expect(isValid).toBeTrue();
+    })
+    
 })
