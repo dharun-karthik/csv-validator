@@ -114,3 +114,46 @@ describe("Upload CSV", () => {
     })
 })
 
+describe("After selecting CSV, Display", () => {
+    it("no errors for valid csv", () => {
+        cy.reload()
+        cy.get('#csv_id').selectFile('cypress/fixtures/correctData.csv')
+        cy.get('#csv-submit-button').click()
+
+        cy.get('#error-msg h3').should(($h3) => {
+            expect($h3).to.contain('CSV IS VALID')
+        })
+
+    })
+
+    it("errors for duplicate data in csv", () => {
+        cy.reload()
+        cy.get('#csv_id').selectFile('cypress/fixtures/duplicateData.csv')
+        cy.get('#csv-submit-button').click()
+
+        cy.get('#error_msg_list li').should(($li) => {
+            expect($li).to.contain('Row Duplicated')
+        })
+    })
+
+    it("errors for incorrect column in csv", () => {
+        cy.reload()
+        cy.get('#csv_id').selectFile('cypress/fixtures/incorrectColumnData.csv')
+        cy.get('#csv-submit-button').click()
+
+        cy.get('#error_msg_list li').should(($li) => {
+            expect($li).to.contain('Column Name Error')
+        })
+    })
+
+    it("errors for incorrect dependency in csv", () => {
+        cy.reload()
+        cy.get('#csv_id').selectFile('cypress/fixtures/incorrectDependencyData.csv')
+        cy.get('#csv-submit-button').click()
+
+        cy.get('#error_msg_list li').should(($li) => {
+            expect($li).to.contain('Dependency Error')
+        })
+    })
+})
+
