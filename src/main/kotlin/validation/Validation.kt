@@ -52,6 +52,10 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
             println(err.message)
             return JSONArray()
         }
+        return convertToSingleJsonArray(arrayOfAllErrors)
+    }
+
+    private fun convertToSingleJsonArray(arrayOfAllErrors: List<JSONArray>): JSONArray {
         val rowMap = JSONArray()
         for (errors in arrayOfAllErrors) {
             rowMap.putAll(errors)
@@ -100,12 +104,12 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
     private fun lengthVal(
         fieldArray: Array<JsonMetaDataTemplate>,
         key: String?,
-        filedElement: JSONObject,
+        fieldElement: JSONObject,
         lengthValidation: LengthValidation
     ): Boolean {
         val field = fieldArray.first { it.fieldName == key }
         val isValid: Boolean
-        val value = filedElement.get(key) as String
+        val value = fieldElement.get(key) as String
 
         isValid = (lengthTypeMap[LengthType.FIXED_LENGTH]!!.validateLengthType(
             value,
