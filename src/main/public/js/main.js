@@ -194,7 +194,6 @@ function addDataToJson() {
     jsonObj["length"] = fixed_len.value
     jsonObj["dependencies"] = dependencyList
     payload.push(jsonObj)
-    configs.style.display = "block"
     displayConfigs(field.value, type.value, max_len.value, min_len.value, fixed_len.value)
     console.log(payload)
     alert("Field: " + field.value + " is added to configuration of CSV")
