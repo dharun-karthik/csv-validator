@@ -60,6 +60,10 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
         }
     }
 
+    private fun getLineMessageWithKey(index: Int): String{
+        return "Line Number $index"
+    }
+
     private fun getErrorMessage(errorType: String): String {
         return "$errorType Error in "
     }
@@ -74,7 +78,7 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
 
     private fun addError(index: Int, errorMessage: String, key: String?, rowMap: JSONArray) {
         val jsonObject = JSONObject().put(
-            (index + 1).toString(),
+            getLineMessageWithKey(index + 1),
             "$errorMessage$key"
         )
         rowMap.put(jsonObject)
