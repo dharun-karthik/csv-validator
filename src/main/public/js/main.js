@@ -107,27 +107,23 @@ async function sendRequest(result) {
 }
 
 function addMoreDependencyRow() {
-    let isInputValid = validateInputsForDependency()
+    const dependsOnColumn = document.getElementById("dependentOnColumn").value;
+    const expectedDependentFieldValue = document.getElementById("expectedDependentFieldValue").value;
+    const expectedCurrentFieldValue = document.getElementById("expectedCurrentFieldValue").value;
+    let isInputValid = validateInputsForDependency(dependsOnColumn, expectedDependentFieldValue, expectedCurrentFieldValue)
     if (!isInputValid) {
         return
     }
     let jsonObj = {}
-    const dependsOnColumn = document.getElementById("dependentOnColumn");
-    const expectedDependentFieldValue = document.getElementById("expectedDependentFieldValue");
-    const expectedCurrentFieldValue = document.getElementById("expectedCurrentFieldValue")
-    jsonObj["dependentOn"] = dependsOnColumn.value
-    jsonObj["expectedDependentFieldValue"] = expectedDependentFieldValue.value
-    jsonObj["expectedCurrentFieldValue"] = expectedCurrentFieldValue.value
+    jsonObj["dependentOn"] = dependsOnColumn
+    jsonObj["expectedDependentFieldValue"] = expectedDependentFieldValue
+    jsonObj["expectedCurrentFieldValue"] = expectedCurrentFieldValue
     dependencyList.push(jsonObj)
-    displayDependencyList(dependsOnColumn.value, expectedDependentFieldValue.value, expectedCurrentFieldValue.value)
+    displayDependencyList(dependsOnColumn, expectedDependentFieldValue, expectedCurrentFieldValue)
     clearDependencyInputs()
 }
 
-function validateInputsForDependency() {
-    const dependsOnColumn = document.getElementById("dependentOnColumn").value;
-    const expectedDependentFieldValue = document.getElementById("expectedDependentFieldValue").value
-    const expectedCurrentFieldValue = document.getElementById("expectedCurrentFieldValue").value
-
+function validateInputsForDependency(dependsOnColumn, expectedDependentFieldValue, expectedCurrentFieldValue) {
     if (dependsOnColumn != "" && expectedDependentFieldValue == "" || expectedCurrentFieldValue == "") {
         alert("Please enter values for Expected Dependent Field and Expected Current Field")
         return false
