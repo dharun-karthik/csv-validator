@@ -34,11 +34,22 @@ class PostRouteHandler(
         val body = requestHandle.getBody(bodySize, inputStream)
         val jsonBody = JSONArray(body)
 
+        val errorColumnsJson = getErrorColumns(jsonBody)
+        if(!errorColumnsJson.isEmpty){
+            return response.generateResponse(errorColumnsJson.toString(),200,ContentType.JSON)
+        }
+
         val repeatedRowList = DuplicationValidation().getDuplicateRowNumberInJSON(jsonBody)
         val validation = Validation(metaDataReaderWriter)
         val responseBody = repeatedRowList.putAll(validation.validate(jsonBody))
 
         return response.generateResponse(responseBody.toString(),200,ContentType.JSON)
+    }
+
+    private fun getErrorColumns(jsonBody: JSONArray): JSONArray {
+        val columnValidation = ColumnValidation()
+        val metaDataFields = metaDataReaderWriter.readRawContent()
+        return columnValidation.getInvalidFieldNames(metaDataFields, jsonBody)
     }
 
 

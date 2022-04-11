@@ -6,14 +6,13 @@ import org.json.JSONObject
 
 class ColumnValidation {
 
-    fun getInvalidFieldNames(configJSON: String, jsonData: String): JSONArray {
-        val configJSONArray = JSONArray(configJSON)
-        val jsonDataArray = JSONArray(jsonData)
+    fun getInvalidFieldNames(metaDataJson: String, jsonDataArray: JSONArray): JSONArray {
+        val metaDataJsonArray = JSONArray(metaDataJson)
         val errorJsonArray = JSONArray()
         val fieldsInJsonData = getAllFieldNames(jsonDataArray)
-        val noOfConfig = configJSONArray.length()
+        val noOfConfig = metaDataJsonArray.length()
         for (index in 0 until noOfConfig) {
-            val configJsonObject = configJSONArray.getJSONObject(index)
+            val configJsonObject = metaDataJsonArray.getJSONObject(index)
             val configFieldName = configJsonObject.get("fieldName").toString()
             if (!fieldsInJsonData.contains(configFieldName)) {
                 val obj = JSONObject()
