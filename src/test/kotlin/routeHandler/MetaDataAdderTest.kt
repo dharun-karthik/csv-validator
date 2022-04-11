@@ -4,21 +4,26 @@ import metaData.JsonMetaDataTemplate
 import metaData.MetaDataReaderWriter
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import routeHandler.post.MetaDataAdder
 import validation.FakeBufferedReader
-import java.io.Reader
 
-class PostRouteHandlerTest {
+class MetaDataAdderTest {
 
     @Test
     fun shouldBeAbleToAppendCsvMetaDataToEmptyFile() {
         val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/new-json-test.json")
-        val post = PostRouteHandler(metaDataReaderWriter)
+        val post = MetaDataAdder(metaDataReaderWriter)
         val data = """{
     "fieldName": "ProductId",
     "type": "AlphaNumeric",
     "length": 5
   }"""
-        post.addCsvMetaData(data)
+        val fakeBufferedReader = FakeBufferedReader(data)
+        val request = """
+            Content-Length: ${data.length}
+            
+        """
+        post.handleAddCsvMetaData(request, fakeBufferedReader)
         val fields = post.metaDataReaderWriter.readFields()
         val actual = fields[0]
         metaDataReaderWriter.clearFields()
@@ -32,22 +37,29 @@ class PostRouteHandlerTest {
     @Test
     fun shouldBeAbleToAppendCsvMetaData() {
         val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/append-json-test.json")
-        val post = PostRouteHandler(metaDataReaderWriter)
-        val oldData = """
+        val post = MetaDataAdder(metaDataReaderWriter)
+        val arrayOfData = listOf(
+            """
   {
     "fieldName": "Product Id",
     "type": "AlphaNumeric",
     "length": 5
   }
-  """
-        post.addCsvMetaData(oldData)
-        val data = """{
+  """, """{
     "fieldName": "Product Description",
     "type": "AlphaNumeric",
     "minLength": 7,
     "maxLength": 20
   }"""
-        post.addCsvMetaData(data)
+        )
+        for(data in arrayOfData) {
+            val request = """
+            Content-Length: ${data.length}
+            
+        """
+            val fakeBufferedReader = FakeBufferedReader(data)
+            post.handleAddCsvMetaData(request, fakeBufferedReader)
+        }
 
         val fields = post.metaDataReaderWriter.readFields()
         val actual = fields[1]
@@ -61,6 +73,4 @@ class PostRouteHandlerTest {
 
         assertEquals(expected, actual)
     }
-
-
 }
