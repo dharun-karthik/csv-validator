@@ -112,6 +112,7 @@ function addMoreDependencyRow() {
     let mandatoryInputValidation = new MandatoryInputValidation();
     let isInputValid = mandatoryInputValidation.validateInputsForDependency(dependsOnColumn, expectedDependentFieldValue, expectedCurrentFieldValue)
     if (!isInputValid) {
+        alert("Please enter values for Expected Dependent Field and Expected Current Field")
         return
     }
     let jsonObj = {}
