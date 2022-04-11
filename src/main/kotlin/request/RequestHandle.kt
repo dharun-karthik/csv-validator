@@ -10,7 +10,7 @@ class RequestHandle {
     fun getContentLength(request: String): Int {
         request.split("\n").forEach { headerString ->
             val keyValue = headerString.split(":", limit = 2)
-            if (keyValue[0].contains("Content-Length")) {
+            if (keyValue[0].lowercase().contains("content-length")) {
                 return keyValue[1].trim().toInt()
             }
         }
