@@ -25,10 +25,12 @@ class DuplicationValidation {
         }
 
         val jsonObject = JSONObject().put(
-            (index + 1).toString(),
+            getLineMessageWithKey(index + 1),
             "Row Duplicated From ${mapOfObjectsAndIndices[element.toString()]}"
         )
         jsonArrayOfDuplicateElements.put(jsonObject)
-
+    }
+    private fun getLineMessageWithKey(index: Int): String{
+        return "Line Number $index"
     }
 }

@@ -25,13 +25,7 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
     fun validate(dataInJSONArray: JSONArray): JSONArray {
         val arrayOfAllErrors = List(3) { JSONArray() }
         val metaDataList = metaDataReaderWriter.readFields()
-
-        try {
-            iterateJsonContent(dataInJSONArray, metaDataList, arrayOfAllErrors)
-        } catch (err: Exception) {
-            println(err.message)
-            return JSONArray()
-        }
+        iterateJsonContent(dataInJSONArray, metaDataList, arrayOfAllErrors)
         return convertToSingleJsonArray(arrayOfAllErrors)
     }
 
@@ -47,20 +41,20 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
                 val metaDataField = metaDataList.first { it.fieldName.contentEquals(key, ignoreCase = true) }
                 val currentFieldValue = currentRow.get(key) as String
 
-                if (typeValidation(metaDataField, currentFieldValue)) {
+                if (!typeValidation(metaDataField, currentFieldValue)) {
                     addError(index, getErrorMessage("Type"), key, arrayOfAllErrors[0])
                 }
-                if (lengthValidation(metaDataField, currentFieldValue)) {
+                if (!lengthValidation(metaDataField, currentFieldValue)) {
                     addError(index, getErrorMessage("Length"), key, arrayOfAllErrors[1])
                 }
-                if (dependencyValidation(metaDataField, currentFieldValue, currentRow)) {
+                if (!dependencyValidation(metaDataField, currentFieldValue, currentRow)) {
                     addError(index, getErrorMessage("Dependency"), key, arrayOfAllErrors[2])
                 }
             }
         }
     }
 
-    private fun getLineMessageWithKey(index: Int): String{
+    private fun getLineMessageWithKey(index: Int): String {
         return "Line Number $index"
     }
 
@@ -90,7 +84,7 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
     ): Boolean {
         val lengthValidation = LengthValidation()
         if (isFieldIsNull(currentFieldValue)) {
-            return false
+            return true
         }
 
         val isValid: Boolean = (lengthTypeMap[LengthType.FIXED_LENGTH]!!.validateLengthType(
@@ -110,9 +104,9 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
                 ))
 
         if (!isValid) {
-            return true
+            return false
         }
-        return false
+        return true
     }
 
     fun typeValidation(
@@ -121,15 +115,15 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
     ): Boolean {
         val typeValidation = TypeValidation()
         if (isFieldIsNull(currentFieldValue)) {
-            return false
+            return true
         }
 
         val isValid: Boolean = valueTypeMap[metaDataField.type]!!.validateValueType(currentFieldValue, typeValidation)
 
         if (!isValid) {
-            return true
+            return false
         }
-        return false
+        return true
     }
 
     private fun dependencyValidation(
@@ -144,18 +138,20 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
                 val dependentValue = currentRow.get(dependency.dependentOn) as String
                 val expectedCurrentValue = dependency.expectedCurrentFieldValue
                 val expectedDependentValue = dependency.expectedDependentFieldValue
+
                 val isValid: Boolean = dependencyValidation.validate(
                     currentFieldValue,
                     dependentValue,
                     expectedDependentValue,
                     expectedCurrentValue
                 )
+
                 if (!isValid) {
-                    return true
+                    return false
                 }
             }
         }
-        return false
+        return true
     }
 
     private fun isFieldIsNull(value: String?): Boolean {
