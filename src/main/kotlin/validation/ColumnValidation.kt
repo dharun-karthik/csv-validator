@@ -14,7 +14,7 @@ class ColumnValidation {
         for (index in 0 until noOfConfig) {
             val configJsonObject = metaDataJsonArray.getJSONObject(index)
             val configFieldName = configJsonObject.get("fieldName").toString()
-            if (!fieldsInJsonData.contains(configFieldName)) {
+            if (!fieldsInJsonData.contains(configFieldName.lowercase())) {
                 val obj = JSONObject()
                 obj.put("Column Name Error", configFieldName)
                 errorJsonArray.put(obj)
@@ -31,7 +31,7 @@ class ColumnValidation {
         }
         val jsonObjectKeyIterator = jsonDataArray.getJSONObject(0).keys()
         while (jsonObjectKeyIterator.hasNext()) {
-            fieldNames.add(jsonObjectKeyIterator.next())
+            fieldNames.add(jsonObjectKeyIterator.next().lowercase())
         }
         return fieldNames
     }

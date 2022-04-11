@@ -4,7 +4,7 @@ import org.json.JSONArray
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class ConfigValidationTest {
+class ColumnValidationTest {
 
     @Test
     fun shouldReturnEmptyJsonArrayIfAllConfigColumnsArePresentInCsvData() {
@@ -47,6 +47,22 @@ class ConfigValidationTest {
         )
         val columnValidator = ColumnValidation()
         val expected = """[{"Column Name Error":"ProductIDNumber"},{"Column Name Error":"ProductNamed"}]"""
+
+        val actual = columnValidator.getInvalidFieldNames(configJSON, jsonData).toString()
+
+        assertEquals(expected, actual)
+
+    }
+
+    @Test
+    fun shouldReturnEmptyJsonArrayIgnoringCaseSensitivity() {
+        val configJSON =
+            """[{"fieldName":"productid","type":"Number","length":"","minLength":"","maxLength":""},{"fieldName":"productname","type":"Alphabet","length":"","minLength":"","maxLength":""}]"""
+        val jsonData = JSONArray(
+            """[{"ProductID":"1564","ProductName":"Table","Price":"4500.59","Export":"N","CountryName":"Nagpur","SourceCity":"440001"},{"ProductID":"1234","ProductName":"Chairs","Price":"1000","Export":"Y","CountryName":"AUS","SourceCity":"Mumbai","CountryCode":"61","SourcePincode\\r":"400001"},{"ProductID":""}]"""
+        )
+        val columnValidator = ColumnValidation()
+        val expected = "[]"
 
         val actual = columnValidator.getInvalidFieldNames(configJSON, jsonData).toString()
 
