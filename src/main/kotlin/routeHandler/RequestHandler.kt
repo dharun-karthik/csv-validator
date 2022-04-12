@@ -1,6 +1,7 @@
 package routeHandler
 
 import metaData.MetaDataReaderWriter
+import routeHandler.get.GetRouteHandler
 import java.io.BufferedReader
 
 class RequestHandler(

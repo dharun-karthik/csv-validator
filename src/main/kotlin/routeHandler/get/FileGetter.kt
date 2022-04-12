@@ -1,13 +1,11 @@
-package routeHandler
+package routeHandler.get
 
-import request.RequestHandle
 import response.ContentType
 import response.Response
 import java.io.File
 
-class GetRouteHandler() {
+class FileGetter {
     private val response: Response = Response()
-    private val requestHandle = RequestHandle()
     private val contentTypeMap = mapOf(
         "html" to "text/html",
         "json" to "application/json",
@@ -16,21 +14,7 @@ class GetRouteHandler() {
         "ico" to "image/vnd.microsoft.icon"
     )
 
-
-    fun handleGetRequest(request: String): String {
-        return when (val path = requestHandle.getPath(request)) {
-            "/" -> serveFile("/index.html")
-            "/get-meta-data" -> serveMetaDataJson()
-            else -> serveFile(path)
-        }
-    }
-
-    private fun serveMetaDataJson(): String {
-        val responseBody = readFileContent("/csv-meta-data.json")
-        return response.generateResponse(responseBody, 200, ContentType.JSON.value)
-    }
-
-    private fun serveFile(path: String): String {
+    fun serveFile(path: String): String {
         if (!isFileExists(path)) {
             return getFileNotFound()
         }
@@ -41,7 +25,7 @@ class GetRouteHandler() {
 
     private fun getFileNotFound(): String {
         val responseBody = readFileContent("/pages/404.html")
-        return response.generateResponse(responseBody, 404,ContentType.HTML.value)
+        return response.generateResponse(responseBody, 404, ContentType.HTML.value)
     }
 
     private fun readFileContent(fileName: String): String {
