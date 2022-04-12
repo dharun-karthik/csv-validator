@@ -22,14 +22,14 @@ class CsvValidator(val metaDataReaderWriter: MetaDataReaderWriter) {
 
         val errorColumnsJson = getErrorColumns(jsonBody)
         if (!errorColumnsJson.isEmpty) {
-            return response.generateResponse(errorColumnsJson.toString(), 200, ContentType.JSON)
+            return response.generateResponse(errorColumnsJson.toString(), 200, ContentType.JSON.value)
         }
 
         val repeatedRowList = DuplicationValidation().getDuplicateRowNumberInJSON(jsonBody)
         val validation = Validation(metaDataReaderWriter)
         val responseBody = repeatedRowList.putAll(validation.validate(jsonBody))
 
-        return response.generateResponse(responseBody.toString(), 200, ContentType.JSON)
+        return response.generateResponse(responseBody.toString(), 200, ContentType.JSON.value)
     }
 
     private fun getErrorColumns(jsonBody: JSONArray): JSONArray {

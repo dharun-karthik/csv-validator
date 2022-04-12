@@ -6,6 +6,7 @@ class Response {
         200 to "Found",
         400 to "Bad Request",
         401 to "Unauthorized",
+        404 to "Not Found",
         204 to "No Content",
     )
 
@@ -14,10 +15,10 @@ class Response {
         return "HTTP/1.1 $statusCode $content\n"
     }
 
-    fun generateResponse(content: String, statusCode: Int, contentType: ContentType): String {
+    fun generateResponse(content: String, statusCode: Int, contentType: String): String {
         val endOfHeader = "\r\n\r\n"
         val contentLength = content.length
-        return getHttpHead(statusCode) + """Content-Type: ${contentType.value}; charset=utf-8
+        return getHttpHead(statusCode) + """Content-Type: ${contentType}; charset=utf-8
             |Content-Length: $contentLength""".trimMargin() + endOfHeader + content
     }
 }
