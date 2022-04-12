@@ -11,11 +11,11 @@ body {
     height: 100vh;
     background-size: 300% 300%;
     background-image: linear-gradient(
-            -45deg, 
-          #4700D8 0%, 
-          #9900F0 25%, 
-          #F900BF 51%, 
-          #FF85B3 100%
+            45deg, 
+          #000000 0%, 
+          #080808 25%, 
+          #2f363e 51%, 
+          #505050 100%
     );  
     animation: AnimateBG 10s ease infinite;
   }
@@ -31,7 +31,7 @@ header{
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #9900F0;
+    background-color: #181818;
 }
 
 #header_title{
@@ -44,7 +44,7 @@ header{
 
 h1, h3{
     color: #fff;
-    text-shadow: 0 0 20px red;
+    text-shadow: 0 0 20px rgb(10, 250, 10);
     padding-left: 5px;
 }
 
@@ -72,11 +72,12 @@ h1, h3{
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #FF85B3;
-    box-shadow: 25px 25px 25px rgb(219, 74, 212),
-                10px 10px 70px rgb(219, 74, 212),
-                inset 5px 5px 10px rgb(219, 74, 212),
-                inset 5px 5px 20px rgb(219, 74, 212);
+    background: #2f363e;
+    box-shadow: 10px 10px 15px rgb(10, 250, 10),
+                10px 10px 25px rgb(10, 250, 10),
+                inset 5px 5px 10px rgb(0,0,0,.5),
+                inset 5px 5px 10px rgb(255, 255, 255, 0.2),
+                inset -5px -5px 15px rgb(0, 0, 0, 0.75);
     border-radius: 30px;
     padding: 50px;
 }       
