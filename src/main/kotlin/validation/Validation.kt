@@ -22,7 +22,7 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
     )
 
     fun validate(dataInJSONArray: JSONArray): JSONArray {
-        val arrayOfAllErrors = List(3) { JSONArray() }
+        val arrayOfAllErrors = List(4) { JSONArray() }
         val metaDataList = metaDataReaderWriter.readFields()
         iterateJsonContent(dataInJSONArray, metaDataList, arrayOfAllErrors)
         return convertToSingleJsonArray(arrayOfAllErrors)
@@ -44,11 +44,20 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
                 if (!lengthValidation(metaDataField, currentFieldValue)) {
                     addError(index, getErrorMessage("Length"), key, arrayOfAllErrors[1])
                 }
+                if(!restrictedInputValidation(metaDataField,currentFieldValue)){
+                    addError(index,getErrorMessage("Foreign Value Found"),key,arrayOfAllErrors[2])
+                }
                 if (!dependencyValidation(metaDataField, currentFieldValue, currentRow)) {
-                    addError(index, getErrorMessage("Dependency"), key, arrayOfAllErrors[2])
+                    addError(index, getErrorMessage("Dependency"), key, arrayOfAllErrors[3])
                 }
             }
         }
+    }
+
+    private fun restrictedInputValidation(metaDataField: JsonMetaDataTemplate, currentFieldValue: String): Boolean {
+        val restrictedInputValidation = RestrictedInputValidation()
+        val restrictedInputList = metaDataField.values ?: return true
+        return restrictedInputValidation.validate(currentFieldValue,restrictedInputList)
     }
 
     private fun getLineMessageWithKey(index: Int): String {

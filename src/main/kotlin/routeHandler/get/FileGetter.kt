@@ -12,7 +12,9 @@ class FileGetter {
         "css" to "text/css",
         "js" to "text/javascript",
         "ico" to "image/vnd.microsoft.icon",
-        "svg" to "image/svg+xml"
+        "svg" to "image/svg+xml",
+        "csv" to "text/csv",
+        "txt" to "text/plain"
     )
 
     fun serveFile(path: String): String {
