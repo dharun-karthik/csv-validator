@@ -83,6 +83,10 @@ h1, h3{
     margin-bottom: 10px;
 }
 
+input{
+    margin: 3px;
+}
+
 #csv_svg {
     margin-left: 10%;
     width: 40%;
@@ -106,8 +110,8 @@ h1, h3{
 .form_container{
     position: relative;
     margin-bottom: 20px;
-    left: 130px;
-    width: 75%;
+    left: 25%;
+    width: 50%;
     top: 20%;
     min-height: 300px;
     display: flex;
