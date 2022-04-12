@@ -18,10 +18,9 @@ class Server(
         }
     }
 
-    fun stopServer(){
+    fun stopServer() {
         serverSocket.close()
     }
-
 
 
 }
