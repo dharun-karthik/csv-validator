@@ -35,7 +35,7 @@
         </div>
         <div class="form_container">
             <form id="myform">
-                <h3 class="header_text">Add Field to Validate</h3>
+                <h3 class="header_text" id="field_header">Add Field to Validate</h3>
                 <label for="field">Field: </label>
                 <input id="field" type="text">
                 <br>
@@ -63,7 +63,7 @@
                 <hr>
                 <div id="dependencies">
                 </div>
-
+                <h3 class="header_text" id="dependency_header">Add dependency(if Any)</h3>
                 <label for="dependentOnColumn">Dependency on column: </label>
                 <input type="text" id="dependentOnColumn">
 
@@ -93,7 +93,7 @@
     </div>
     <div>
         <h1>CSV PARSER</h1>
-        <label>CSV File: </label>
+        <label>CSV File:</label>
         <input type="file" name="csv-file" id="csv_id" accept=".csv">
         <button id="csv-submit-button" onclick="csvReader()">Submit</button>
     </div>

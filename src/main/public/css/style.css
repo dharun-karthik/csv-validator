@@ -74,6 +74,15 @@ h1, h3{
     padding-left: 5px;
 }
 
+#field_header{
+    margin-bottom: 10px;
+}
+
+#dependency_header{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 #csv_svg {
     margin-left: 10%;
     width: 40%;
