@@ -1,58 +1,41 @@
 package validation
 
 import org.json.JSONArray
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.json.JSONObject
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
 internal class DuplicationValidationTest {
-    private val duplicationValidation = DuplicationValidation()
 
     @Test
     fun shouldReturnEmptyListForNoDuplication() {
-        val jsonString = """[{ "a": "d", "b": "e", "c": "f" }, { "a": "g", "b": "h", "c": "i" }]"""
+        val duplicationValidation = DuplicationValidation()
+        val jsonString = """[{ "a": "d", "b": "e", "c": "f" }]"""
+        val testJson = JSONObject("""{ "a": "g", "b": "h", "c": "i" }""")
         val jsonArray = JSONArray(jsonString)
+        var index = 1
+        for (json in jsonArray) {
+            duplicationValidation.isDuplicateIndexAvailable(json, index++)
+        }
+        val actual = duplicationValidation.isDuplicateIndexAvailable(testJson, 2)
 
-        val actual = duplicationValidation.getDuplicateRowNumberInJSON(jsonArray)
-
-        assertTrue(actual.isEmpty)
+        assertNull(actual)
     }
 
     @Test
     fun shouldReturnMapWithDuplication() {
+        val duplicationValidation = DuplicationValidation()
         val jsonString =
-            """[{ "a": "d", "b": "e", "c": "f" }, { "a": "g", "b": "h", "c": "i" }, { "a": "d", "b": "e", "c": "f" }]"""
+            """[{ "a": "d", "b": "e", "c": "f" }, { "a": "g", "b": "h", "c": "i" }]"""
+        val testJson = JSONObject(""" { "a": "d", "b": "e", "c": "f" }""")
         val jsonArray = JSONArray(jsonString)
-        val expected = JSONArray("""[{"Line Number 3":"Row Duplicated From 1"}]""")
+        for ((index, json) in jsonArray.withIndex()) {
+            duplicationValidation.isDuplicateIndexAvailable(json, index)
+        }
 
-        val actual = duplicationValidation.getDuplicateRowNumberInJSON(jsonArray)
+        val expected = 1
+        val actual = duplicationValidation.isDuplicateIndexAvailable(testJson, 3)
 
-        assertEquals(expected.toList(), actual.toList())
+        assertEquals(expected, actual)
     }
-
-    @Test
-    fun shouldReturnRowNumbersForMultipleRepetitionOfOneRow() {
-        val jsonString =
-            """[{ "a": "d", "b": "e", "c": "f" }, { "a": "g", "b": "h", "c": "i" }, { "a": "d", "b": "e", "c": "f" }, { "a": "d", "b": "e", "c": "f" }]"""
-        val jsonArray = JSONArray(jsonString)
-        val expected = JSONArray("""[{"Line Number 3":"Row Duplicated From 1"},{"Line Number 4":"Row Duplicated From 1"}]""")
-
-        val actual = duplicationValidation.getDuplicateRowNumberInJSON(jsonArray)
-
-        assertEquals(expected.toList(), actual.toList())
-    }
-
-    @Test
-    fun shouldReturnTwoListOfRowNumbersForTwoRepeatedRows() {
-        val jsonString =
-            """[{ "a": "d", "b": "e", "c": "f" }, { "a": "g", "b": "h", "c": "i" }, { "a": "d", "b": "e", "c": "f" }, { "a": "d", "b": "e", "c": "f" }, { "a": "g", "b": "h", "c": "i" }, { "a": "g", "b": "h", "c": "z" }]"""
-        val jsonArray = JSONArray(jsonString)
-        val expected =
-            JSONArray("""[{"Line Number 3":"Row Duplicated From 1"},{"Line Number 4":"Row Duplicated From 1"},{"Line Number 5":"Row Duplicated From 2"}]""")
-
-        val actual = duplicationValidation.getDuplicateRowNumberInJSON(jsonArray)
-
-        assertEquals(expected.toList(), actual.toList())
-    }
-
 }

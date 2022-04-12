@@ -13,7 +13,6 @@ class DuplicationValidation {
             mapOfObjectsAndIndices[elementInString] = index + 1
             return null
         }
-        println("here $element")
         return previousDuplicateIndexValue
     }
 }
