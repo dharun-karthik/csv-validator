@@ -1,10 +1,8 @@
-package routeHandler
+package routeHandler.post
 
 import metaData.MetaDataReaderWriter
 import request.RequestHandle
 import routeHandler.get.FileGetter
-import routeHandler.post.MetaDataAdder
-import routeHandler.post.CsvValidator
 import java.io.BufferedReader
 
 

@@ -11,7 +11,8 @@ class FileGetter {
         "json" to "application/json",
         "css" to "text/css",
         "js" to "text/javascript",
-        "ico" to "image/vnd.microsoft.icon"
+        "ico" to "image/vnd.microsoft.icon",
+        "svg" to "image/svg+xml"
     )
 
     fun serveFile(path: String): String {

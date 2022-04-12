@@ -3,6 +3,7 @@ package routeHandler
 import metaData.MetaDataReaderWriter
 import routeHandler.get.FileGetter
 import routeHandler.get.GetRouteHandler
+import routeHandler.post.PostRouteHandler
 import java.io.BufferedReader
 
 class RequestHandler(
