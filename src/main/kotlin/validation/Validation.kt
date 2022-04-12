@@ -30,9 +30,14 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
         dataInJSONArray: JSONArray, metaDataList: Array<JsonMetaDataTemplate>
     ): JSONArray {
         val arrayOfAllErrors = JSONArray()
+        val duplicationValidation = DuplicationValidation()
         dataInJSONArray.forEachIndexed { index, element ->
             val currentRow = (element as JSONObject)
             val keys = currentRow.keySet()
+            val previousDuplicateIndex = duplicationValidation.isDuplicateIndexAvailable(currentRow, index)
+            if (previousDuplicateIndex != null) {
+                arrayOfAllErrors.put(getErrorInJson(index, "Row Duplication From ", previousDuplicateIndex.toString()))
+            }
             for (key in keys) {
                 val metaDataField = metaDataList.first { it.fieldName.contentEquals(key, ignoreCase = true) }
                 val currentFieldValue = currentRow.get(key) as String

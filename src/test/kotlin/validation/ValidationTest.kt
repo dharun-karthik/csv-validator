@@ -60,12 +60,12 @@ class ValidationTest {
         "Country Name": "USA",
         "Source City": "Mumbai",
         "Country Code": "null",
-        "Source Pincode": "400001"
+        "Source Pincode": "700001"
     }
 ]"""
         val jsonData = JSONArray(csvData)
         val expectedContent =
-            """[{"Line Number 1":"Length Error in Product Id"},{"Line Number 1":"Length Error in Product Description"},{"Line Number 2":"Length Error in Product Id"},{"Line Number 2":"Length Error in Product Description"},{"Line Number 3":"Length Error in Product Description"},{"Line Number 4":"Length Error in Product Description"},{"Line Number 5":"Length Error in Product Description"},{"Line Number 1":"Foreign Value Found Error in Source Pincode"},{"Line Number 3":"Foreign Value Found Error in Source Pincode"},{"Line Number 5":"Foreign Value Found Error in Source Pincode"},{"Line Number 1":"Dependency Error in Country Name"},{"Line Number 3":"Dependency Error in Country Name"},{"Line Number 3":"Dependency Error in Country Code"},{"Line Number 4":"Dependency Error in Country Name"},{"Line Number 4":"Dependency Error in Country Code"},{"Line Number 5":"Dependency Error in Country Name"},{"Line Number 5":"Dependency Error in Country Code"}]"""
+            """[{"Line Number 1":"Length Error in Product Id"},{"Line Number 1":"Dependency Error in Country Name"},{"Line Number 1":"Foreign Value Found Error in Source Pincode"},{"Line Number 1":"Length Error in Product Description"},{"Line Number 2":"Length Error in Product Id"},{"Line Number 2":"Length Error in Product Description"},{"Line Number 3":"Dependency Error in Country Name"},{"Line Number 3":"Foreign Value Found Error in Source Pincode"},{"Line Number 3":"Dependency Error in Country Code"},{"Line Number 3":"Length Error in Product Description"},{"Line Number 4":"Dependency Error in Country Name"},{"Line Number 4":"Dependency Error in Country Code"},{"Line Number 4":"Length Error in Product Description"},{"Line Number 5":"Row Duplication From 4"},{"Line Number 5":"Dependency Error in Country Name"},{"Line Number 5":"Dependency Error in Country Code"},{"Line Number 5":"Length Error in Product Description"}]"""
 
         val actual = validation.validate(jsonData)
 

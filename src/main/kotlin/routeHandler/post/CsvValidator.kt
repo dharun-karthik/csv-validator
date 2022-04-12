@@ -25,9 +25,8 @@ class CsvValidator(val metaDataReaderWriter: MetaDataReaderWriter) {
             return response.generateResponse(errorColumnsJson.toString(), 200, ContentType.JSON.value)
         }
 
-        val repeatedRowList = DuplicationValidation().getDuplicateRowNumberInJSON(jsonBody)
         val validation = Validation(metaDataReaderWriter)
-        val responseBody = repeatedRowList.putAll(validation.validate(jsonBody))
+        val responseBody = validation.validate(jsonBody)
 
         return response.generateResponse(responseBody.toString(), 200, ContentType.JSON.value)
     }

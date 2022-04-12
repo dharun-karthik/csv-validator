@@ -45,10 +45,10 @@ class CsvValidatorTest {
 ]"""
         val head = """HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
-Content-Length: 916"""
+Content-Length: 264"""
         val lineSeparator = System.lineSeparator()
         val expectedContent = head + lineSeparator + lineSeparator +
-            """[{"Line Number 5":"Row Duplicated From 4"},{"Line Number 1":"Length Error in Product Id"},{"Line Number 1":"Length Error in Product Description"},{"Line Number 2":"Length Error in Product Id"},{"Line Number 2":"Length Error in Product Description"},{"Line Number 3":"Length Error in Product Description"},{"Line Number 4":"Length Error in Product Description"},{"Line Number 5":"Length Error in Product Description"},{"Line Number 3":"Foreign Value Found Error in Source Pincode"},{"Line Number 5":"Foreign Value Found Error in Source Pincode"},{"Line Number 1":"Dependency Error in Country Name"},{"Line Number 3":"Dependency Error in Country Name"},{"Line Number 3":"Dependency Error in Country Code"},{"Line Number 4":"Dependency Error in Country Name"},{"Line Number 4":"Dependency Error in Country Code"},{"Line Number 5":"Dependency Error in Country Name"},{"Line Number 5":"Dependency Error in Country Code"}]"""
+                """[{"Line Number 1":"Length Error in Product Id"},{"Line Number 1":"Dependency Error in Country Name"},{"Line Number 1":"Foreign Value Found Error in Source Pincode"},{"Line Number 1":"Length Error in Product Description"},{"Line Number 3":"Row Duplication From 2"}]"""
         val request = """
             Content-Length: ${csvData.length}
         """.trimIndent()

@@ -1,37 +1,19 @@
 package validation
 
-import org.json.JSONArray
-import org.json.JSONObject
-
 class DuplicationValidation {
-    fun getDuplicateRowNumberInJSON(dataInJSONArray: JSONArray): JSONArray {
-        val mapOfObjectsAndIndices: MutableMap<String, Int> = mutableMapOf()
-        val jsonArrayOfDuplicateElements = JSONArray()
-        dataInJSONArray.forEachIndexed { index, element ->
-            addElementToMap(mapOfObjectsAndIndices, element, index, jsonArrayOfDuplicateElements)
-        }
-        return jsonArrayOfDuplicateElements
-    }
+    private val mapOfObjectsAndIndices: MutableMap<String, Int> = mutableMapOf()
 
-    private fun addElementToMap(
-        mapOfObjectsAndIndices: MutableMap<String, Int>,
+    fun isDuplicateIndexAvailable(
         element: Any,
         index: Int,
-        jsonArrayOfDuplicateElements: JSONArray
-    ) {
-        if (mapOfObjectsAndIndices[element.toString()] == null) {
-            mapOfObjectsAndIndices[element.toString()] = index + 1
-            return
+    ): Int? {
+        val elementInString = element.toString()
+        val previousDuplicateIndexValue = mapOfObjectsAndIndices[elementInString]
+        if (previousDuplicateIndexValue == null) {
+            mapOfObjectsAndIndices[elementInString] = index + 1
+            return null
         }
-
-        val jsonObject = JSONObject().put(
-            getLineMessageWithKey(index + 1),
-            "Row Duplicated From ${mapOfObjectsAndIndices[element.toString()]}"
-        )
-        jsonArrayOfDuplicateElements.put(jsonObject)
-    }
-
-    private fun getLineMessageWithKey(index: Int): String {
-        return "Line Number $index"
+        println("here $element")
+        return previousDuplicateIndexValue
     }
 }
