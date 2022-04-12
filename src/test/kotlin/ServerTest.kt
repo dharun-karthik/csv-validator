@@ -24,12 +24,13 @@ internal class ServerTest {
         val port = 3001
         var actual = true
 
-        Server(3001)
+        val server = Server(3001)
         try {
             Socket("0.0.0.0", port)
         } catch (e: Exception) {
             actual = false
         }
+        server.stopServer()
 
         assertTrue(actual)
     }
