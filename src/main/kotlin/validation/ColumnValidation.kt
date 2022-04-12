@@ -9,7 +9,7 @@ class ColumnValidation {
     fun getInvalidFieldNames(metaDataJson: String, jsonDataArray: JSONArray): JSONArray {
         val metaDataJsonArray = JSONArray(metaDataJson)
         val errorJsonArray = JSONArray()
-        val fieldsInJsonData = getAllFieldNames(jsonDataArray)
+        val fieldsInJsonData = getAllFieldNamesOfJsonData(jsonDataArray)
         val noOfConfig = metaDataJsonArray.length()
         for (index in 0 until noOfConfig) {
             val configJsonObject = metaDataJsonArray.getJSONObject(index)
@@ -24,7 +24,7 @@ class ColumnValidation {
 
     }
 
-    private fun getAllFieldNames(jsonDataArray: JSONArray): List<String> {
+    private fun getAllFieldNamesOfJsonData(jsonDataArray: JSONArray): List<String> {
         val fieldNames = mutableListOf<String>()
         if (jsonDataArray.isEmpty) {
             return fieldNames
@@ -32,6 +32,36 @@ class ColumnValidation {
         val jsonObjectKeyIterator = jsonDataArray.getJSONObject(0).keys()
         while (jsonObjectKeyIterator.hasNext()) {
             fieldNames.add(jsonObjectKeyIterator.next().lowercase())
+        }
+        return fieldNames
+    }
+
+    fun getColumnsNotInConfig(metaDataJson: String, jsonDataArray: JSONArray): JSONArray {
+        val metaDataJsonArray = JSONArray(metaDataJson)
+        val unavailableColumnJsonArray = JSONArray()
+        val fieldsInJsonData = getAllFieldNamesOfJsonData(jsonDataArray)
+        val fieldsInMetaData = getAllFieldNamesOfMetaData(metaDataJsonArray)
+        val unavailableFieldNames = fieldsInJsonData.filter { fieldName ->
+            !fieldsInMetaData.contains(fieldName)
+        }
+        unavailableFieldNames.forEach { fieldName ->
+            val obj = JSONObject()
+            obj.put("Column unavailable in config", fieldName)
+            unavailableColumnJsonArray.put(obj)
+        }
+        return unavailableColumnJsonArray
+    }
+
+    private fun getAllFieldNamesOfMetaData(metaDataJsonArray: JSONArray): List<String> {
+        val fieldNames = mutableListOf<String>()
+        if (metaDataJsonArray.isEmpty) {
+            return fieldNames
+        }
+        val noOfConfig = metaDataJsonArray.length()
+        for (index in 0 until noOfConfig) {
+            val configJsonObject = metaDataJsonArray.getJSONObject(index)
+            val configFieldName = configJsonObject.get("fieldName").toString().lowercase()
+            fieldNames.add(configFieldName)
         }
         return fieldNames
     }
