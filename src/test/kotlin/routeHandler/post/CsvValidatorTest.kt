@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import validation.FakeBufferedReader
 
-class CsvValidatorTet {
-    /*
+class CsvValidatorTest {
+
     @Test
     fun shouldBeAbleToGetEveryValidationErrorsFromTheJsonContent() {
         val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/csv-meta-data-test.json")
@@ -60,8 +60,6 @@ Content-Length: 916"""
         Assertions.assertEquals(expectedContent, actual)
     }
 
-     */
-
     @Test
     fun shouldGetColumnErrorWhenInvalidColumnNameIsGiven() {
         val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/csv-meta-data-test.json")
@@ -75,28 +73,17 @@ Content-Length: 916"""
         "Country Name": "null",
         "Source City": "Nagpur",
         "Country Code": "null",
-        "Source Pincode": "440001"
-    },
-    {
-        "Product Id": "1234",
-        "Product Description": "Chairs",
-        "Price": "1000",
-        "Export": "Y",
-        "Country Name": "AUS",
-        "Source City": "Mumbai",
-        "Country Code": "61",
-        "Source Pincode": "500001",
+        "Source Pincode": "440001",
         "Sourcekfja": "500001"
-        
     }
 ]"""
 
         val head = """HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
-Content-Length: 916"""
+Content-Length: 91"""
         val lineSeparator = System.lineSeparator()
         val expectedContent = head + lineSeparator + lineSeparator +
-            """[{"Column unavailable in config":"producid"},{"Column unavailable in config":"Sourcekfja"}]"""
+            """[{"Column unavailable in config":"sourcekfja"},{"Column unavailable in config":"producid"}]"""
         val request = """
             Content-Length: ${csvData.length}
         """.trimIndent()
