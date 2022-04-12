@@ -137,6 +137,7 @@ function addDependencyElement(dependencyType, dependsOnColumn) {
     let newElement = document.createElement('div');
     newElement.innerText = dependencyType;
     let spanColumn = document.createElement('span');
+    spanColumn.id = "input_text";
     spanColumn.innerText = dependsOnColumn;
     newElement.appendChild(spanColumn);
     return newElement;

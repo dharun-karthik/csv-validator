@@ -110,7 +110,20 @@ select{
 }
 
 #configs{
+    display: flex;
+    flex-direction: column;
     margin-bottom: 20px;
+    align-items: flex-start;
+    color: whitesomke;
+}
+
+#config{
+    margin: 5px;
+    background: rgb(73, 73, 88);
+}
+
+#input_text{
+    color: rgb(10, 250, 10);
 }
 
 .form_container{
