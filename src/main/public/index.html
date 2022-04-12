@@ -32,42 +32,56 @@
         <div class="form_container">
             <form id="myform">
                 <h3 class="header_text" id="field_header">Add Field to Validate</h3>
-                <label for="field">Field: </label>
-                <input id="field" type="text">
-                <br>
-                <label for="type">Type: </label>
-                <select id="type">
-                    <option value="">Choose here</option>
-                    <option value="Number">Number</option>
-                    <option value="AlphaNumeric">AlphaNumeric</option>
-                    <option value="Alphabets">Alphabets</option>
-                    <option value="Boolean">Boolean</option>
-                </select>
-                <br>
-                <label for="text_file_id">Values: </label>
-                <input type="file" name="text-file" id="text_file_id" accept=".txt">
-                <br>
-                <label for="max-len">Max-length: </label>
-                <input type="number" id="max-len">
-                <br>
-                <label for="min-len">Min-length: </label>
-                <input type="number" id="min-len">
-                <br>
-                <label for="fixed-len">Fixed-length: </label>
-                <input type="number" id="fixed-len">
-                <br>
-                <br>
+                <div class="row">
+                    <div class="column">
+                        <label for="field">Field: </label>
+                        <input id="field" type="text">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <label for="type">Type: </label>
+                        <select id="type">
+                            <option value="">Choose here</option>
+                            <option value="Number">Number</option>
+                            <option value="AlphaNumeric">AlphaNumeric</option>
+                            <option value="Alphabets">Alphabets</option>
+                            <option value="Boolean">Boolean</option>
+                        </select>
+                    </div>
+                    <div class="column">
+                        <label for="text_file_id">Values: </label>
+                        <input type="file" name="text-file" id="text_file_id" accept=".txt">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <label for="max-len">Max-length: </label>
+                        <input type="number" id="max-len">
+                    </div>
+                    <div class="column">
+                        <label for="min-len">Min-length: </label>
+                        <input type="number" id="min-len">
+                    </div>
+                    <div class="column">
+                        <label for="fixed-len">Fixed-length: </label>
+                        <input type="number" id="fixed-len">
+                    </div>
+                </div>
                 <hr>
-                <br>
                 <div id="dependencies">
                 </div>
-                <h3 class="header_text" id="dependency_header">Add dependency(if Any)</h3>
-                <label for="dependentOnColumn">Dependency on column: </label>
-                <input type="text" id="dependentOnColumn">
-                <br>
-                <label for="expectedDependentFieldValue">Dependent Field Value: </label>
-                <input type="text" id="expectedDependentFieldValue">
-                <br>
+                <h3 class="header_text" id="dependency_header">Add Dependency( if Any )</h3>
+                <div class="row">
+                    <div class="column">
+                        <label for="dependentOnColumn">Dependency on column: </label>
+                        <input type="text" id="dependentOnColumn">
+                    </div>
+                    <div class="column">
+                        <label for="expectedDependentFieldValue">Dependent Field Value: </label>
+                        <input type="text" id="expectedDependentFieldValue">
+                    </div>
+                </div>
                 <label for="expectedCurrentFieldValue">Expected Current Field Value: </label>
                 <select id="expectedCurrentFieldValue">
                     <option value="">Choose here</option>
@@ -75,14 +89,16 @@
                     <option value="null">Not Present</option>
                 </select>
                 <div class="button_container">
-                    <button class="btn" id="add-dependency-button" onclick="addMoreDependencyRow()">Add dependency</button>
-                    <br>
+                    <button class="btn" id="add-dependency-button" onclick="addMoreDependencyRow()">Add
+                        dependency</button>
                     <button class="btn" id="add-field-button" type="submit" onclick="addDataToJson()">Add
                         Field</button>
-                    <br>
-                    <button class="btn" id="value-submit-button" type="submit"
-                        onclick="sendConfigData()">Submit</button>
-                    <button class="btn-danger" id="reset_config" onclick="resetConfigData()">Reset Configuration</button>
+                    <div class="submit_reset_button">
+                        <button class="btn" id="value-submit-button" type="submit"
+                            onclick="sendConfigData()">Submit</button>
+                        <button class="btn-danger" id="reset_config" onclick="resetConfigData()">Reset
+                            Configuration</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -103,13 +119,13 @@
     <div class="footer">
     </div>
 
-    <div class="landing_page">
+    <!-- <div class="landing_page">
         <h1 class="hide">
             <span id="landing_page_title">CSV Parser</span>
         </h1>
         <img id="csv_svg" class="hide" src="assets/svgs/csv_green.svg" alt="CSV Parser">
     </div>
-    <div id="shuttle"></div>
+    <div id="shuttle"></div> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"
         integrity="sha512-IQLehpLoVS4fNzl7IfH8Iowfm5+RiMGtHykgZJl9AWMgqx0AmJ6cRWcB+GaGVtIsnC4voMfm8f2vwtY+6oPjpQ=="

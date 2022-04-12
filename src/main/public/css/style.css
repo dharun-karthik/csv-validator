@@ -9,7 +9,7 @@
 body {
     width: 100%;
     height: 100vh;
-    background-size: 300% 300%;
+    background-size: 500% 500%;
     background-image: linear-gradient(
             45deg, 
           #000000 0%, 
@@ -129,13 +129,10 @@ select{
 .form_container{
     position: relative;
     margin-bottom: 20px;
-    left: 25%;
-    width: 50%;
+    left: 20%;
+    width: 60%;
     top: 20%;
     min-height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background: #2f363e;
     box-shadow: 10px 10px 15px rgb(10, 250, 10),
                 10px 10px 25px rgb(10, 250, 10),
@@ -143,21 +140,73 @@ select{
                 inset 5px 5px 10px rgb(255, 255, 255, 0.2),
                 inset -5px -5px 15px rgb(0, 0, 0, 0.75);
     border-radius: 30px;
-    padding: 50px;
+    padding: 20px 50px 40px 50px;
 }
 
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  
+.column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+}
+
+#myform {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#field_header, #dependency_header {
+    font-size: 2rem;
+    margin: 2% 2% 2% 2%;
+}
+
+#myform label {
+    font-size: 1.5rem;
+    margin: 1% 1% 0% 1%;
+}
+
+#myform input, select {
+    font-size: 1.5rem;
+    margin: 0% 1% 1% 1%;
+}
+
+#expectedCurrentFieldValue {
+    max-width: 50%;
+}
+
+#text_file_id {
+    font-size: 1.4rem;
+    color: white;
+}
+
+
 .button_container {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    grid-column-gap: 10px;
-    grid-row-gap: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
     }
-    
-#add-dependency-button { grid-area: 1 / 3 / 2 / 4; }
-#add-field-button { grid-area: 2 / 3 / 3 / 4; }
-#value-submit-button { grid-area: 3 / 3 / 4 / 4; }
-#reset_config { grid-area: 3 / 5 / 4 / 6; }
+
+.button_container button {
+    width: 40%;
+    font-size: 1.2rem;
+}
+
+.submit_reset_button {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
 
 .btn{
     margin-top: 10px;
