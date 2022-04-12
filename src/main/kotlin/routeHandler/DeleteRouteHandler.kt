@@ -12,7 +12,7 @@ class DeleteRouteHandler(
     private val fileGetter = FileGetter()
     private val requestHandler = RequestHandle()
     fun handleDeleteRequest(request: String): String {
-        return when(requestHandler.getPath(request)){
+        return when (requestHandler.getPath(request)) {
             "/reset-config" -> deleteMetaData()
             else -> return fileGetter.getFileNotFound()
         }

@@ -20,7 +20,7 @@ class MetaDataAdder(val metaDataReaderWriter: MetaDataReaderWriter) {
     private fun addCsvMetaData(body: String): String {
         metaDataReaderWriter.appendField(body)
         val responseBody = JSONObject()
-        responseBody.put("value","Success")
-        return response.generateResponse(responseBody.toString(),201, ContentType.JSON.value)
+        responseBody.put("value", "Success")
+        return response.generateResponse(responseBody.toString(), 201, ContentType.JSON.value)
     }
 }

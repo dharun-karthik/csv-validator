@@ -1,9 +1,6 @@
 package routeHandler.get
 
 import request.RequestHandle
-import response.ContentType
-import response.Response
-import java.io.File
 
 class GetRouteHandler {
     private val requestHandle = RequestHandle()

@@ -30,7 +30,8 @@ class DuplicationValidation {
         )
         jsonArrayOfDuplicateElements.put(jsonObject)
     }
-    private fun getLineMessageWithKey(index: Int): String{
+
+    private fun getLineMessageWithKey(index: Int): String {
         return "Line Number $index"
     }
 }

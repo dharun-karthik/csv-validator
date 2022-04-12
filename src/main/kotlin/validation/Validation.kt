@@ -44,8 +44,8 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
                 if (!lengthValidation(metaDataField, currentFieldValue)) {
                     addError(index, getErrorMessage("Length"), key, arrayOfAllErrors[1])
                 }
-                if(!restrictedInputValidation(metaDataField,currentFieldValue)){
-                    addError(index,getErrorMessage("Foreign Value Found"),key,arrayOfAllErrors[2])
+                if (!restrictedInputValidation(metaDataField, currentFieldValue)) {
+                    addError(index, getErrorMessage("Foreign Value Found"), key, arrayOfAllErrors[2])
                 }
                 if (!dependencyValidation(metaDataField, currentFieldValue, currentRow)) {
                     addError(index, getErrorMessage("Dependency"), key, arrayOfAllErrors[3])
@@ -57,7 +57,7 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
     private fun restrictedInputValidation(metaDataField: JsonMetaDataTemplate, currentFieldValue: String): Boolean {
         val restrictedInputValidation = RestrictedInputValidation()
         val restrictedInputList = metaDataField.values ?: return true
-        return restrictedInputValidation.validate(currentFieldValue,restrictedInputList)
+        return restrictedInputValidation.validate(currentFieldValue, restrictedInputList)
     }
 
     private fun getLineMessageWithKey(index: Int): String {
@@ -158,7 +158,7 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
         val dependencyValidation = DependencyValidation()
         if (metaDataField.dependencies != null) {
             val dependencies = metaDataField.dependencies
-            if (checkDependency(dependencies, currentRow, dependencyValidation, currentFieldValue)){
+            if (checkDependency(dependencies, currentRow, dependencyValidation, currentFieldValue)) {
                 return false
             }
         }
