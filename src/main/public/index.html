@@ -17,10 +17,6 @@
         #configs #config div {
             display: inline;
         }
-
-        #reset_config:hover {
-            background-color: rgb(240, 112, 112);
-        }
     </style>
 </head>
 
@@ -79,14 +75,14 @@
                     <option value="null">Not Present</option>
                 </select>
                 <div class="button_container">
-                    <button id="add-dependency-button" onclick="addMoreDependencyRow()">Add dependency</button>
+                    <button class="btn" id="add-dependency-button" onclick="addMoreDependencyRow()">Add dependency</button>
                     <br>
-                    <button id="add-field-button" type="submit" style="margin-top: 10px;" onclick="addDataToJson()">Add
+                    <button class="btn" id="add-field-button" type="submit" onclick="addDataToJson()">Add
                         Field</button>
                     <br>
-                    <button id="value-submit-button" type="submit" style="margin-top: 10px;"
-                        onclick="sendConfigData()">SUBMIT</button>
-                    <button id="reset_config" onclick="resetConfigData()">Reset Config</button>
+                    <button class="btn" id="value-submit-button" type="submit"
+                        onclick="sendConfigData()">Submit</button>
+                    <button class="btn-danger" id="reset_config" onclick="resetConfigData()">Reset Configuration</button>
                 </div>
             </form>
         </div>
