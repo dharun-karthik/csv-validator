@@ -1,27 +1,25 @@
 package routeHandler
 
 import metaData.MetaDataReaderWriter
+import request.RequestHandle
 import response.Response
+import routeHandler.get.FileGetter
 
 class DeleteRouteHandler(
     private val metaDataReaderWriter: MetaDataReaderWriter,
     private val response: Response = Response()
 ) {
+    private val fileGetter = FileGetter()
+    private val requestHandler = RequestHandle()
     fun handleDeleteRequest(request: String): String {
-        return when(getPath(request)){
-            "/reset-config" -> deleteConfig()
-            else -> return response.getHttpHead(204)+"\r\n\r\n"
+        return when(requestHandler.getPath(request)){
+            "/reset-config" -> deleteMetaData()
+            else -> return fileGetter.getFileNotFound()
         }
     }
 
-    private fun deleteConfig(): String {
+    private fun deleteMetaData(): String {
         metaDataReaderWriter.clearFields()
-        val endOfHeader = "\r\n\r\n"
-        return response.getHttpHead(204) + endOfHeader
+        return response.onlyHeaderResponse(204)
     }
-
-    private fun getPath(request: String): String {
-        return request.split("\r\n")[0].split(" ")[1].substringBefore("?")
-    }
-
 }

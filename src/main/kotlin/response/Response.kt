@@ -3,21 +3,35 @@ package response
 class Response {
 
     private val statusMap = mapOf(
-        200 to "Found",
-        400 to "Bad Request",
-        401 to "Unauthorized",
+        200 to "OK",
+        201 to "Created",
         204 to "No Content",
+        400 to "Bad Request",
+        404 to "Not Found",
     )
+
+    private val lineSeparator: String = System.lineSeparator()
 
     fun getHttpHead(statusCode: Int): String {
         val content = statusMap[statusCode]
-        return "HTTP/1.1 $statusCode $content\n"
+        return "HTTP/1.1 $statusCode $content$lineSeparator"
     }
 
-    fun generateResponse(content: String, statusCode: Int, contentType: ContentType): String {
-        val endOfHeader = "\r\n\r\n"
+    fun generateResponse(content: String, statusCode: Int, contentType: String): String {
+        val endOfHeader = lineSeparator + lineSeparator
         val contentLength = content.length
-        return getHttpHead(statusCode) + """Content-Type: ${contentType.value}; charset=utf-8
-            |Content-Length: $contentLength""".trimMargin() + endOfHeader + content
+        return getHttpHead(statusCode) + generateContentType(contentType) + generateContentLength(contentLength) + endOfHeader + content
+    }
+
+    private fun generateContentType(contentType: String): String {
+        return "Content-Type: ${contentType}; charset=utf-8" + lineSeparator
+    }
+
+    private fun generateContentLength(length: Int): String {
+        return "Content-Length: $length"
+    }
+
+    fun onlyHeaderResponse(statusCode: Int): String {
+        return getHttpHead(statusCode) + lineSeparator
     }
 }

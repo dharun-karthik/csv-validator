@@ -1,6 +1,9 @@
 package routeHandler
 
 import metaData.MetaDataReaderWriter
+import routeHandler.get.FileGetter
+import routeHandler.get.GetRouteHandler
+import routeHandler.post.PostRouteHandler
 import java.io.BufferedReader
 
 class RequestHandler(
@@ -9,14 +12,14 @@ class RequestHandler(
     private val getRouteHandler = GetRouteHandler()
     private val postRouteHandler = PostRouteHandler(metaDataReaderWriter)
     private val deleteRouteHandler = DeleteRouteHandler(metaDataReaderWriter)
-    private val pageNotFoundResponse = PageNotFoundResponse()
+    private val fileGetter = FileGetter()
 
     fun handleRequest(request: String, inputStream: BufferedReader): String {
         return when (getRequestType(request)) {
             "GET" -> getRouteHandler.handleGetRequest(request)
             "POST" -> postRouteHandler.handlePostRequest(request, inputStream)
             "DELETE" -> deleteRouteHandler.handleDeleteRequest(request)
-            else -> pageNotFoundResponse.handleUnknownRequest()
+            else -> fileGetter.getFileNotFound()
         }
     }
 

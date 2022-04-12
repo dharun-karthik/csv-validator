@@ -1,9 +1,8 @@
-package routeHandler
+package routeHandler.post
 
 import metaData.MetaDataReaderWriter
 import request.RequestHandle
-import routeHandler.post.MetaDataAdder
-import routeHandler.post.CsvValidator
+import routeHandler.get.FileGetter
 import java.io.BufferedReader
 
 
@@ -11,7 +10,7 @@ class PostRouteHandler(
     val metaDataReaderWriter: MetaDataReaderWriter,
 ) {
     private val requestHandle = RequestHandle()
-    private val pageNotFoundResponse = PageNotFoundResponse()
+    private val fileGetter = FileGetter()
 
     fun handlePostRequest(
         request: String,
@@ -26,7 +25,7 @@ class PostRouteHandler(
                 val metaDataAdder = MetaDataAdder(metaDataReaderWriter)
                 metaDataAdder.handleAddCsvMetaData(request, inputStream)
             }
-            else -> pageNotFoundResponse.handleUnknownRequest()
+            else -> fileGetter.getFileNotFound()
         }
     }
 }

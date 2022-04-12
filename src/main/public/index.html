@@ -26,57 +26,61 @@
 
 <body>
     <div>
-        <h1>Set Configuration</h1>
+        <header>
+            <h1 id="header_title">CSV parser</h1>
+        </header>
+        <h1 class="header_text">Set Configuration</h1>
         <div id="configs">
-            <h3>Fields to Validates</h3>
+            <h3 class="header_text">Fields to Validates</h3>
         </div>
 
         <br>
-        <h3>Add Field to Validations</h3>
-        <form id="myform">
-            <label for="field">Field</label>
-            <input id="field" type="text">
+        <h3 class="header_text">Add Field to Validations</h3>
+        <div class="form_container">
+            <form id="myform">
+                <label for="field">Field</label>
+                <input id="field" type="text">
+                <br>
+                <label for="type">Type</label>
+                <select id="type">
+                    <option value="">Choose here</option>
+                    <option value="Number">Number</option>
+                    <option value="AlphaNumeric">AlphaNumeric</option>
+                    <option value="Alphabets">Alphabets</option>
+                    <option value="Boolean">Boolean</option>
+                </select>
+                <br>
+                <label for="text_file_id">Values</label>
+                <input type="file" name="text-file" id="text_file_id" accept=".txt">
+                <br>
+                <label for="max-len">Max-length</label>
+                <input type="number" id="max-len">
+                <br>
+                <label for="min-len">Min-length</label>
+                <input type="number" id="min-len">
+                <br>
+                <label for="fixed-len">Fixed-length</label>
+                <input type="number" id="fixed-len">
+                <br>
+                <hr>
+                <div id="dependencies">
+                </div>
 
-            <label for="type">Type</label>
-            <select id="type">
-                <option value="">Choose here</option>
-                <option value="Number">Number</option>
-                <option value="AlphaNumeric">AlphaNumeric</option>
-                <option value="Alphabets">Alphabets</option>
-                <option value="Boolean">Boolean</option>
-            </select>
+                <label for="dependentOnColumn">Dependency on column: </label>
+                <input type="text" id="dependentOnColumn">
 
-            <label for="text_file_id">Values</label>
-            <input type="file" name="text-file" id="text_file_id" accept=".txt">
+                <label for="expectedDependentFieldValue">Dependent Field Value</label>
+                <input type="text" id="expectedDependentFieldValue">
 
-            <label for="max-len">Max-length</label>
-            <input type="number" id="max-len">
+                <label for="expectedCurrentFieldValue">Expected Current Field Value</label>
+                <select id="expectedCurrentFieldValue">
+                    <option value="">Choose here</option>
+                    <option value="!null">Present</option>
+                    <option value="null">Not Present</option>
+                </select>
 
-            <label for="min-len">Min-length</label>
-            <input type="number" id="min-len">
-
-            <label for="fixed-len">Fixed-length</label>
-            <input type="number" id="fixed-len">
-
-            <br>
-            <hr>
-            <div id="dependencies">
-            </div>
-
-            <label for="dependentOnColumn">Dependency on column: </label>
-            <input type="text" id="dependentOnColumn">
-
-            <label for="expectedDependentFieldValue">Dependent Field Value</label>
-            <input type="text" id="expectedDependentFieldValue">
-
-            <label for="expectedCurrentFieldValue">Expected Current Field Value</label>
-            <select id="expectedCurrentFieldValue">
-                <option value="">Choose here</option>
-                <option value="!null">Present</option>
-                <option value="null">Not Present</option>
-            </select>
-
-        </form>
+            </form>
+        </div>
         <button id="add-dependency-button" onclick="addMoreDependencyRow()">Add dependency</button>
 
         <button id="add-field-button" type="submit" style="margin-top: 10px;" onclick="addDataToJson()">Add
