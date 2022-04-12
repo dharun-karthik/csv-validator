@@ -31,17 +31,15 @@
         </header>
         <h1 class="header_text">Set Configuration</h1>
         <div id="configs">
-            <h3 class="header_text">Fields to Validates</h3>
+            <h3 class="header_text">Fields to Validate</h3>
         </div>
-
-        <br>
-        <h3 class="header_text">Add Field to Validations</h3>
         <div class="form_container">
             <form id="myform">
-                <label for="field">Field</label>
+                <h3 class="header_text">Add Field to Validate</h3>
+                <label for="field">Field: </label>
                 <input id="field" type="text">
                 <br>
-                <label for="type">Type</label>
+                <label for="type">Type: </label>
                 <select id="type">
                     <option value="">Choose here</option>
                     <option value="Number">Number</option>
@@ -50,16 +48,16 @@
                     <option value="Boolean">Boolean</option>
                 </select>
                 <br>
-                <label for="text_file_id">Values</label>
+                <label for="text_file_id">Values: </label>
                 <input type="file" name="text-file" id="text_file_id" accept=".txt">
                 <br>
-                <label for="max-len">Max-length</label>
+                <label for="max-len">Max-length: </label>
                 <input type="number" id="max-len">
                 <br>
-                <label for="min-len">Min-length</label>
+                <label for="min-len">Min-length: </label>
                 <input type="number" id="min-len">
                 <br>
-                <label for="fixed-len">Fixed-length</label>
+                <label for="fixed-len">Fixed-length: </label>
                 <input type="number" id="fixed-len">
                 <br>
                 <hr>
@@ -69,10 +67,10 @@
                 <label for="dependentOnColumn">Dependency on column: </label>
                 <input type="text" id="dependentOnColumn">
 
-                <label for="expectedDependentFieldValue">Dependent Field Value</label>
+                <label for="expectedDependentFieldValue">Dependent Field Value: </label>
                 <input type="text" id="expectedDependentFieldValue">
 
-                <label for="expectedCurrentFieldValue">Expected Current Field Value</label>
+                <label for="expectedCurrentFieldValue">Expected Current Field Value: </label>
                 <select id="expectedCurrentFieldValue">
                     <option value="">Choose here</option>
                     <option value="!null">Present</option>
@@ -95,7 +93,7 @@
     </div>
     <div>
         <h1>CSV PARSER</h1>
-        <label>CSV File :</label>
+        <label>CSV File: </label>
         <input type="file" name="csv-file" id="csv_id" accept=".csv">
         <button id="csv-submit-button" onclick="csvReader()">Submit</button>
     </div>
@@ -104,10 +102,15 @@
     </div>
 
     <div class="landing_page">
+<<<<<<< HEAD
         <h1 class="hide">
             <span id="landing_page_title">CSV Parser</span>
         </h1>
         <img id="csv_svg" class="hide" src="assets/svgs/csv_parse.svg" alt="CSV Parser">
+=======
+        <div class="landing_page_title">CSV Parser</div>
+        <img id="csv_svg" src="assets/svgs/csv_parse.svg" alt="CSV Parser">
+>>>>>>> c50109c (added spaces and colon  in label text)
     </div>
     <div id="shuttle"></div>
 

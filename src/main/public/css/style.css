@@ -90,8 +90,13 @@ h1, h3{
     transform: translateY(100%);
 }
 
+#configs{
+    margin-bottom: 20px;
+}
+
 .form_container{
     position: relative;
+    margin-bottom: 20px;
     left: 130px;
     width: 75%;
     top: 20%;
