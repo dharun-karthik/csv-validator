@@ -4,7 +4,6 @@ import metaData.JsonMetaDataTemplate
 import metaData.MetaDataReaderWriter
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import routeHandler.post.MetaDataAdder
 import validation.FakeBufferedReader
 
 class MetaDataAdderTest {
@@ -52,7 +51,7 @@ class MetaDataAdderTest {
     "maxLength": 20
   }"""
         )
-        for(data in arrayOfData) {
+        for (data in arrayOfData) {
             val request = """
             Content-Length: ${data.length}
             

@@ -1,14 +1,14 @@
 package request
 
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-internal class RequestHandleTest{
+internal class RequestHandleTest {
 
-    internal class GetBodyTest{
+    internal class GetBodyTest {
 
         @Test
-        fun shouldReturnPathForGetRequest(){
+        fun shouldReturnPathForGetRequest() {
             val requestHandle = RequestHandle()
             val request = "GET /favicon.ico HTTP/1.1"
             val expected = "/favicon.ico"
@@ -19,7 +19,7 @@ internal class RequestHandleTest{
         }
 
         @Test
-        fun shouldReturnPathForPostRequest(){
+        fun shouldReturnPathForPostRequest() {
             val requestHandle = RequestHandle()
             val request = "POST /csv-meta-data HTTP/1.1"
             val expected = "/csv-meta-data"
@@ -30,5 +30,4 @@ internal class RequestHandleTest{
         }
     }
 
-    // TODO: Write test for other two functions
 }

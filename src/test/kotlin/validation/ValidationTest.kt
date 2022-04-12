@@ -5,7 +5,6 @@ import org.json.JSONArray
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
-//todo add more test cases
 class ValidationTest {
     @Test
     fun shouldBeAbleToGetEveryValidationErrorsFromTheJsonContent() {
@@ -73,7 +72,7 @@ class ValidationTest {
     }
 
     @Test
-    fun shouldGetEmptyJsonArrayWhenTheJsonContentIsValid(){
+    fun shouldGetEmptyJsonArrayWhenTheJsonContentIsValid() {
         val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/csv-meta-data-test.json")
         val validation = Validation(metaDataReaderWriter)
         val csvData = """[

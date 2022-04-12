@@ -1,10 +1,11 @@
 package valueValidator
 
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import validation.TypeValidation
 
-internal class AlphaNumericTest{
+internal class AlphaNumericTest {
     private val alphaNumeric = AlphaNumeric()
     private val typeValidation = TypeValidation()
 

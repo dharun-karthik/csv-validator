@@ -42,7 +42,7 @@ class ColumnValidationTest {
     fun shouldReturnTwoColumnNameIfTwoConfigColumnIsNotInCsvData() {
         val configJSON =
             """[{"fieldName":"ProductIDNumber","type":"Number","length":"","minLength":"","maxLength":""},{"fieldName":"ProductNamed","type":"Alphabet","length":"","minLength":"","maxLength":""},{"fieldName":"CountryName","type":"Alphabet","length":"","minLength":"","maxLength":""}]"""
-        val jsonData =JSONArray(
+        val jsonData = JSONArray(
             """[{"ProductID":"1564","ProductName":"Table","Price":"4500.59","Export":"N","CountryName":"Nagpur","SourceCity":"440001"},{"ProductID":"1234","ProductName":"Chairs","Price":"1000","Export":"Y","CountryName":"AUS","SourceCity":"Mumbai","CountryCode":"61","SourcePincode\\r":"400001"},{"ProductID":""}]"""
         )
         val columnValidator = ColumnValidation()
@@ -70,10 +70,10 @@ class ColumnValidationTest {
 
     }
 
-    internal class GetColumnsNotInConfigTest(){
+    internal class GetColumnsNotInConfigTest() {
 
         @Test
-        fun shouldReturnEmptyJsonIfAllColumnsArePresent(){
+        fun shouldReturnEmptyJsonIfAllColumnsArePresent() {
             val columnValidator = ColumnValidation()
             val configJSON =
                 """[{"fieldName":"ProductID","type":"Number","length":"","minLength":"","maxLength":""},{"fieldName":"ProductName","type":"Alphabet","length":"","minLength":"","maxLength":""}]"""
@@ -82,39 +82,41 @@ class ColumnValidationTest {
             )
             val expected = "[]"
 
-            val actual = columnValidator.getColumnsNotInConfig(configJSON,jsonData).toString()
+            val actual = columnValidator.getColumnsNotInConfig(configJSON, jsonData).toString()
 
-            assertEquals(expected,actual)
+            assertEquals(expected, actual)
         }
 
         @Test
-        fun shouldReturnAllTheColumnsNotInTest(){
+        fun shouldReturnAllTheColumnsNotInTest() {
             val columnValidator = ColumnValidation()
             val configJSON =
                 """[{"fieldName":"ProductID","type":"Number","length":"","minLength":"","maxLength":""},{"fieldName":"ProductName","type":"Alphabet","length":"","minLength":"","maxLength":""}]"""
             val jsonData = JSONArray(
                 """[{"ProductID":"1564","ProductName":"Table","Price":"4500.59","Export":"N","CountryName":"Nagpur","SourceCity":"440001"},{"ProductID":"1234","ProductName":"Chairs","Price":"1000","Export":"Y","CountryName":"AUS","SourceCity":"Mumbai","CountryCode":"61","SourcePincode\\r":"400001"},{"ProductID":""}]"""
             )
-            val expected = """[{"Column unavailable in config":"price"},{"Column unavailable in config":"countryname"},{"Column unavailable in config":"export"},{"Column unavailable in config":"sourcecity"}]"""
+            val expected =
+                """[{"Column unavailable in config":"price"},{"Column unavailable in config":"countryname"},{"Column unavailable in config":"export"},{"Column unavailable in config":"sourcecity"}]"""
 
-            val actual = columnValidator.getColumnsNotInConfig(configJSON,jsonData).toString()
+            val actual = columnValidator.getColumnsNotInConfig(configJSON, jsonData).toString()
 
-            assertEquals(expected,actual)
+            assertEquals(expected, actual)
         }
 
         @Test
-        fun shouldReturnAllTheColumnsNotInTestIgnoringCaseSensitivity(){
+        fun shouldReturnAllTheColumnsNotInTestIgnoringCaseSensitivity() {
             val columnValidator = ColumnValidation()
             val configJSON =
                 """[{"fieldName":"productid","type":"Number","length":"","minLength":"","maxLength":""},{"fieldName":"ProductName","type":"Alphabet","length":"","minLength":"","maxLength":""}]"""
             val jsonData = JSONArray(
                 """[{"ProductID":"1564","productname":"Table","Price":"4500.59","Export":"N","CountryName":"Nagpur","SourceCity":"440001"},{"ProductID":"1234","ProductName":"Chairs","Price":"1000","Export":"Y","CountryName":"AUS","SourceCity":"Mumbai","CountryCode":"61","SourcePincode\\r":"400001"},{"ProductID":""}]"""
             )
-            val expected = """[{"Column unavailable in config":"price"},{"Column unavailable in config":"countryname"},{"Column unavailable in config":"export"},{"Column unavailable in config":"sourcecity"}]"""
+            val expected =
+                """[{"Column unavailable in config":"price"},{"Column unavailable in config":"countryname"},{"Column unavailable in config":"export"},{"Column unavailable in config":"sourcecity"}]"""
 
-            val actual = columnValidator.getColumnsNotInConfig(configJSON,jsonData).toString()
+            val actual = columnValidator.getColumnsNotInConfig(configJSON, jsonData).toString()
 
-            assertEquals(expected,actual)
+            assertEquals(expected, actual)
         }
 
     }

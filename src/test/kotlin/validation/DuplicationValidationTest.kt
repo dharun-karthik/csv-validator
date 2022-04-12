@@ -2,7 +2,8 @@ package validation
 
 import org.json.JSONArray
 import org.json.JSONObject
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 
 internal class DuplicationValidationTest {
@@ -25,8 +26,7 @@ internal class DuplicationValidationTest {
     @Test
     fun shouldReturnMapWithDuplication() {
         val duplicationValidation = DuplicationValidation()
-        val jsonString =
-            """[{ "a": "d", "b": "e", "c": "f" }, { "a": "g", "b": "h", "c": "i" }]"""
+        val jsonString = """[{ "a": "d", "b": "e", "c": "f" }, { "a": "g", "b": "h", "c": "i" }]"""
         val testJson = JSONObject(""" { "a": "d", "b": "e", "c": "f" }""")
         val jsonArray = JSONArray(jsonString)
         for ((index, json) in jsonArray.withIndex()) {

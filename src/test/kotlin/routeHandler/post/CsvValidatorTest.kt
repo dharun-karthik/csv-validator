@@ -64,7 +64,7 @@ Content-Length: 264"""
     fun shouldGetColumnErrorWhenInvalidColumnNameIsGiven() {
         val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/csv-meta-data-test.json")
         val csvValidator = CsvValidator(metaDataReaderWriter)
-        val csvData =  """[
+        val csvData = """[
     {
         "ProducId": "1564",
         "Product Description": "Table",
@@ -83,7 +83,7 @@ Content-Type: application/json; charset=utf-8
 Content-Length: 91"""
         val lineSeparator = System.lineSeparator()
         val expectedContent = head + lineSeparator + lineSeparator +
-            """[{"Column unavailable in config":"sourcekfja"},{"Column unavailable in config":"producid"}]"""
+                """[{"Column unavailable in config":"sourcekfja"},{"Column unavailable in config":"producid"}]"""
         val request = """
             Content-Length: ${csvData.length}
         """.trimIndent()
