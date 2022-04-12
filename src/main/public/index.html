@@ -10,7 +10,7 @@
     <script src="js/Convert.js" type="text/javascript"></script>
     <link rel="stylesheet" href="css/style.css">
 
-    
+
     <title>Csv Parser</title>
     <style>
         #dependencies #dependency div {
@@ -20,6 +20,7 @@
         #configs #config div {
             display: inline;
         }
+
         #reset_config:hover {
             background-color: rgb(240, 112, 112);
         }
@@ -28,6 +29,9 @@
 
 <body>
     <div>
+        <header>
+            <h1 id="header_title">CSV parser</h1>
+        </header>
         <h1>Set Configuration</h1>
         <div id="configs">
             <h3>Fields to Validates</h3>
@@ -35,53 +39,55 @@
 
         <br>
         <h3>Add Field to Validations</h3>
-        <form id="myform">
-            <label for="field">Field</label>
-            <input id="field" type="text">
+        <div class="form_container">
+            <form id="myform">
+                <label for="field">Field</label>
+                <input id="field" type="text">
+                <br>
+                <label for="type">Type</label>
+                <select id="type">
+                    <option value="">Choose here</option>
+                    <option value="Number">Number</option>
+                    <option value="AlphaNumeric">AlphaNumeric</option>
+                    <option value="Alphabets">Alphabets</option>
+                    <option value="Boolean">Boolean</option>
+                </select>
+                <br>
+                <label for="text_file_id">Values</label>
+                <input type="file" name="text-file" id="text_file_id" accept=".txt">
+                <br>
+                <label for="max-len">Max-length</label>
+                <input type="number" id="max-len">
+                <br>
+                <label for="min-len">Min-length</label>
+                <input type="number" id="min-len">
+                <br>
+                <label for="fixed-len">Fixed-length</label>
+                <input type="number" id="fixed-len">
+                <br>
+                <hr>
+                <div id="dependencies">
+                </div>
 
-            <label for="type">Type</label>
-            <select id="type">
-                <option value="">Choose here</option>
-                <option value="Number">Number</option>
-                <option value="AlphaNumeric">AlphaNumeric</option>
-                <option value="Alphabets">Alphabets</option>
-                <option value="Boolean">Boolean</option>
-            </select>
+                <label for="dependentOnColumn">Dependency on column: </label>
+                <input type="text" id="dependentOnColumn">
 
-            <label for="text_file_id">Values</label>
-            <input type="file" name="text-file" id="text_file_id" accept=".txt">
+                <label for="expectedDependentFieldValue">Dependent Field Value</label>
+                <input type="text" id="expectedDependentFieldValue">
 
-            <label for="max-len">Max-length</label>
-            <input type="number" id="max-len">
+                <label for="expectedCurrentFieldValue">Expected Current Field Value</label>
+                <select id="expectedCurrentFieldValue">
+                    <option value="">Choose here</option>
+                    <option value="!null">Present</option>
+                    <option value="null">Not Present</option>
+                </select>
 
-            <label for="min-len">Min-length</label>
-            <input type="number" id="min-len">
-
-            <label for="fixed-len">Fixed-length</label>
-            <input type="number" id="fixed-len">
-
-            <br>
-            <hr>
-            <div id="dependencies">
-            </div>
-
-            <label for="dependentOnColumn">Dependency on column: </label>
-            <input type="text" id="dependentOnColumn">
-
-            <label for="expectedDependentFieldValue">Dependent Field Value</label>
-            <input type="text" id="expectedDependentFieldValue">
-
-            <label for="expectedCurrentFieldValue">Expected Current Field Value</label>
-            <select id="expectedCurrentFieldValue">
-                <option value="">Choose here</option>
-                <option value="!null">Present</option>
-                <option value="null">Not Present</option>
-            </select>
-
-        </form>
+            </form>
+        </div>
         <button id="add-dependency-button" onclick="addMoreDependencyRow()">Add dependency</button>
 
-        <button id="add-field-button" type="submit" style="margin-top: 10px;" onclick="addDataToJson()">Add Field</button>
+        <button id="add-field-button" type="submit" style="margin-top: 10px;" onclick="addDataToJson()">Add
+            Field</button>
 
         <button id="value-submit-button" type="submit" style="margin-top: 10px;"
             onclick="sendConfigData()">SUBMIT</button>
@@ -97,15 +103,15 @@
         <button id="csv-submit-button" onclick="csvReader()">Submit</button>
     </div>
     <div id="error-msg">
-        
+
     </div>
 
     <div class="landing_page">
         <div class="landing_page_title">CSV Parser</div>
-        <img id="csv_svg" src="assets/svgs/csv_parse.svg" alt="CSV Parser">
+            <img id="csv_svg" src="assets/svgs/csv_parse.svg" alt="CSV Parser">
     </div>
     <div class="shuttle">
-        
+
     </div>
 </body>
 
