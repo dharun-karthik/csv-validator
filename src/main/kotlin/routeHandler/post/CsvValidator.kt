@@ -35,7 +35,7 @@ class CsvValidator(val metaDataReaderWriter: MetaDataReaderWriter) {
     private fun getErrorColumns(jsonBody: JSONArray): JSONArray {
         val columnValidation = ColumnValidation()
         val metaDataFields = metaDataReaderWriter.readRawContent()
-        return columnValidation.getInvalidFieldNames(metaDataFields, jsonBody)
+        return columnValidation.getColumnsNotInConfig(metaDataFields, jsonBody)
     }
 
 }
