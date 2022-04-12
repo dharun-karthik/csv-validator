@@ -2,7 +2,6 @@ package routeHandler
 
 import metaData.MetaDataReaderWriter
 import request.RequestHandle
-import response.ContentType
 import response.Response
 
 class DeleteRouteHandler(
@@ -13,12 +12,12 @@ class DeleteRouteHandler(
     fun handleDeleteRequest(request: String): String {
         return when(requestHandler.getPath(request)){
             "/reset-config" -> deleteConfig()
-            else -> return response.getHttpHead(200)+"\r\n\r\n"
+            else -> return response.onlyHeaderResponse(200)
         }
     }
 
     private fun deleteConfig(): String {
         metaDataReaderWriter.clearFields()
-        return response.generateResponse("Content Deleted",200, ContentType.HTML.value)
+        return response.onlyHeaderResponse(204)
     }
 }

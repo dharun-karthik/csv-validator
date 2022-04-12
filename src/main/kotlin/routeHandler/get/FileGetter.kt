@@ -23,7 +23,7 @@ class FileGetter {
         return response.generateResponse(responseBody, 200, contentType)
     }
 
-    private fun getFileNotFound(): String {
+    fun getFileNotFound(): String {
         val responseBody = readFileContent("/pages/404.html")
         return response.generateResponse(responseBody, 404, ContentType.HTML.value)
     }

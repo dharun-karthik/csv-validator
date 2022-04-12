@@ -32,10 +32,11 @@ internal class GetRouteHandlerTest {
     @Test
     fun shouldReturnMetaDataJsonIfTheGetRequestIsMadeForMetaDataJson() {
         val getRouteHandler = GetRouteHandler()
-        val request = "GET /get-meta-data HTTP/1.1\n\n"
+        val lineSeparator = System.lineSeparator()
+        val request = "GET /get-meta-data HTTP/1.1$lineSeparator$lineSeparator"
         val expected = getMetaDataContent()
 
-        val actual = getRouteHandler.handleGetRequest(request).split("\r\n").last()
+        val actual = getRouteHandler.handleGetRequest(request).split(lineSeparator+lineSeparator)[1]
 
         assertEquals(expected, actual)
     }
