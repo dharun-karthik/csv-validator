@@ -33,7 +33,7 @@ class MetaDataReaderWriter(
     }
 
     fun clearFields() {
-        file.writeText("")
+        file.writeText("[]")
     }
 
     private fun getMetaDataFile(): File {
