@@ -15,12 +15,12 @@ class ClientHandler {
         println("request $request")
         val responseData = requestHandler.handleRequest(request, inputStream)
 
-        getResponseData(outputStream, responseData)
+        sendResponseToClient(outputStream, responseData)
 
         clientSocket.close()
     }
 
-    private fun getResponseData(outputStream: BufferedWriter, responseData: String) {
+    private fun sendResponseToClient(outputStream: BufferedWriter, responseData: String) {
         outputStream.write(responseData)
         outputStream.flush()
     }
