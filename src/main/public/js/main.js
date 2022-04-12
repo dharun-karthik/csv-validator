@@ -233,7 +233,12 @@ async function resetConfigData() {
     await fetch('reset-config', {
         method: 'DELETE',
     })
+    clearConfigDisplay()
     console.log("Configurations reset")
+}
+
+function clearConfigDisplay() {
+    document.getElementById("configs").innerHTML = '<h3>Fields to Validates</h3>'
 }
 
 function clearPayload() {
