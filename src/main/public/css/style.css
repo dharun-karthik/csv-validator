@@ -125,4 +125,17 @@ input{
                 inset -5px -5px 15px rgb(0, 0, 0, 0.75);
     border-radius: 30px;
     padding: 50px;
-}       
+}
+
+.button_container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 20px;
+    }
+    
+    #add-dependency-button { grid-area: 1 / 3 / 2 / 4; }
+    #add-field-button { grid-area: 2 / 3 / 3 / 4; }
+    #value-submit-button { grid-area: 3 / 3 / 4 / 4; }
+    #reset_config { grid-area: 3 / 5 / 4 / 6; }

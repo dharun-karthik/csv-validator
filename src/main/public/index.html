@@ -78,21 +78,20 @@
                     <option value="!null">Present</option>
                     <option value="null">Not Present</option>
                 </select>
-
+                <div class="button_container">
+                    <button id="add-dependency-button" onclick="addMoreDependencyRow()">Add dependency</button>
+                    <br>
+                    <button id="add-field-button" type="submit" style="margin-top: 10px;" onclick="addDataToJson()">Add
+                        Field</button>
+                    <br>
+                    <button id="value-submit-button" type="submit" style="margin-top: 10px;"
+                        onclick="sendConfigData()">SUBMIT</button>
+                    <button id="reset_config" onclick="resetConfigData()">Reset Config</button>
+                </div>
             </form>
         </div>
-        <button id="add-dependency-button" onclick="addMoreDependencyRow()">Add dependency</button>
-
-        <button id="add-field-button" type="submit" style="margin-top: 10px;" onclick="addDataToJson()">Add
-            Field</button>
-
-        <button id="value-submit-button" type="submit" style="margin-top: 10px;"
-            onclick="sendConfigData()">SUBMIT</button>
     </div>
     <br>
-    <div>
-        <button id="reset_config" onclick="resetConfigData()">Reset Config</button>
-    </div>
     <div>
         <h1>CSV PARSER</h1>
         <label>CSV File:</label>
