@@ -88,14 +88,19 @@
         </div>
     </div>
     <br>
-    <div>
-        <h1>CSV PARSER</h1>
-        <label>CSV File:</label>
-        <input type="file" name="csv-file" id="csv_id" accept=".csv">
-        <button id="csv-submit-button" onclick="csvReader()">Submit</button>
+    <div id="csv_part">
+        <div id="csv_div">
+            <div id="lightbackground"></div>
+            <h1 id="csv_parser_heading">CSV PARSER</h1>
+            <label for="csv_id" id="csv_label">CSV File:
+                <input type="file" name="csv-file" id="csv_id" accept=".csv">
+            </label>
+            <button id="csv-submit-button" onclick="csvReader()">Submit</button>
+        </div>
+        <div id="error-msg">
+        </div>
     </div>
-    <div id="error-msg">
-
+    <div class="footer">
     </div>
 
     <div class="landing_page">
