@@ -3,11 +3,10 @@ package response
 class Response {
 
     private val statusMap = mapOf(
-        200 to "Found",
+        200 to "OK",
+        201 to "Created",
         400 to "Bad Request",
-        401 to "Unauthorized",
         404 to "Not Found",
-        204 to "No Content",
     )
 
     fun getHttpHead(statusCode: Int): String {

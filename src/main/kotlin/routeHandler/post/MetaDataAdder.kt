@@ -21,6 +21,6 @@ class MetaDataAdder(val metaDataReaderWriter: MetaDataReaderWriter) {
         metaDataReaderWriter.appendField(body)
         val responseBody = JSONObject()
         responseBody.put("value","Success")
-        return response.generateResponse(responseBody.toString(),200, ContentType.JSON.value)
+        return response.generateResponse(responseBody.toString(),201, ContentType.JSON.value)
     }
 }
