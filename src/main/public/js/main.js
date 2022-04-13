@@ -116,9 +116,9 @@ function addMoreDependencyRow() {
         return
     }
     let jsonObj = {}
-    jsonObj["dependentOn"] = dependsOnColumn
-    jsonObj["expectedDependentFieldValue"] = expectedDependentFieldValue
-    jsonObj["expectedCurrentFieldValue"] = expectedCurrentFieldValue
+    jsonObj["dependentOn"] = String(dependsOnColumn).toLowerCase();
+    jsonObj["expectedDependentFieldValue"] = String(expectedDependentFieldValue).toLowerCase()
+    jsonObj["expectedCurrentFieldValue"] = String(expectedCurrentFieldValue).toLowerCase()
     if (payload[payload.length - 1]["dependencies"] == undefined) {
         payload[payload.length - 1]["dependencies"] = [jsonObj]
     } else {
@@ -177,12 +177,12 @@ function addDataToJson() {
     const max_len = document.getElementById("max-len").value;
     const min_len = document.getElementById("min-len").value;
     const fixed_len = document.getElementById("fixed-len").value;
-    jsonObj["fieldName"] = field
-    jsonObj["type"] = type
+    jsonObj["fieldName"] = String(field).toLowerCase();
+    jsonObj["type"] = String(type).toLowerCase()
     let reader = new FileReader();
     reader.addEventListener('load', function (e) {
         let text = e.target.result
-        jsonObj["values"] = text.split('\n')
+        jsonObj["values"] = text.split('\n').toLowerCase()
     });
     if (value != undefined) {
         reader.readAsText(value)
