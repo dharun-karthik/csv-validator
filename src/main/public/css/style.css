@@ -107,7 +107,7 @@ select{
 }
 
 #shuttle {
-    background-color: #9900F0;
+    background-color: rgb(82, 189, 82);
     position: fixed;
     top: 0;
     left: 0;
