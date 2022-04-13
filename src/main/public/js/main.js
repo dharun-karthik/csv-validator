@@ -182,7 +182,7 @@ function addDataToJson() {
     let reader = new FileReader();
     reader.addEventListener('load', function (e) {
         let text = e.target.result
-        jsonObj["values"] = text.split('\n').toLowerCase()
+        jsonObj["values"] = text.split('\n')
     });
     if (value != undefined) {
         reader.readAsText(value)
@@ -231,7 +231,7 @@ function displayConfigs(fieldName, typeValue, maxLengthValue, minLengthValue, fi
 }
 
 function clearConfigInputs() {
-    myform.reset()
+    field_form.reset()
 }
 
 async function sendConfigData() {
