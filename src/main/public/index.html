@@ -57,6 +57,10 @@
                         <input type="number" id="fixed-len">
                     </div>
                 </div>
+                <div class="add_field_button">
+                    <button class="btn" id="add-field-button" type="submit" onclick="addDataToJson()">Add
+                        Field</button>
+                </div>
                 <hr>
                 <div id="dependencies">
                 </div>
@@ -81,8 +85,6 @@
             <div class="button_container">
                 <button class="btn" id="add-dependency-button" onclick="addMoreDependencyRow()">Add
                     dependency</button>
-                <button class="btn" id="add-field-button" type="submit" onclick="addDataToJson()">Add
-                    Field</button>
                 <div class="submit_reset_button">
                     <button class="btn" id="value-submit-button" type="submit"
                         onclick="sendConfigData()">Submit</button>

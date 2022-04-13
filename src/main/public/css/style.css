@@ -181,6 +181,12 @@ select{
     flex: 1;
 }
 
+.add_field_button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 #myform {
     display: flex;
     flex-direction: column;
@@ -244,7 +250,8 @@ hr {
     border-radius: 5px;
     background: #2f363e;
     height: 7vh;
-    width: 155%;    
+    width: 40%;
+    font-size: 1.2rem;
 }
 
 .btn:hover{
