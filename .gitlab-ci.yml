@@ -1,0 +1,19 @@
+image: gradle:latest
+
+stages:
+  - build
+  - test
+
+build-job:
+  stage: build
+  script:
+    - echo "Creating Classes"
+    - gradle classes
+    - echo "Classes Created"
+
+unit-test:
+  stage: test
+  script:
+    - echo "Initiating Tests"
+    - gradle test
+    - echo "All Tests Passed"
