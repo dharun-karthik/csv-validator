@@ -24,4 +24,5 @@ frontend-test:
   script:
     - echo "Initiating frontend test"
     - npm install all
+    - npm test
     - echo "Done"
