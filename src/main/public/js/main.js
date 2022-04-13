@@ -19,12 +19,16 @@ async function loadMetaData() {
     }
 }
 
-function displayMetaData(jsonData) {
+async function displayMetaData(jsonData) {
     jsonData.forEach(obj => {
+        payload.push(obj);
         displayConfigs(obj["fieldName"] || "", obj["type"] || "", obj["maxLength"] || "", obj["minLength"] || "", obj["length"] || "")
         if(obj["dependencies"] != undefined) {
             displayDependencies(obj["dependencies"])
         }
+    })
+    await fetch('reset-config', {
+        method: 'DELETE',
     })
 }
 
@@ -118,7 +122,6 @@ function addMoreDependencyRow() {
     jsonObj["dependentOn"] = dependsOnColumn
     jsonObj["expectedDependentFieldValue"] = expectedDependentFieldValue
     jsonObj["expectedCurrentFieldValue"] = expectedCurrentFieldValue
-    console.log(payload[payload.length - 1]["dependencies"])
     if(payload[payload.length - 1]["dependencies"] == undefined){
         payload[payload.length - 1]["dependencies"] = [jsonObj]
     }else{
