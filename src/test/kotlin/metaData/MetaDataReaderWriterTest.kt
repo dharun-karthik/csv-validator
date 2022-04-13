@@ -10,70 +10,70 @@ class MetaDataReaderWriterTest {
         val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/csv-meta-data-test.json")
         val expected = """[
   {
-    "fieldName": "Product Id",
-    "type": "AlphaNumeric",
+    "fieldName": "product id",
+    "type": "alphanumeric",
     "length": 5
   },
   {
-    "fieldName": "Product Description",
-    "type": "AlphaNumeric",
+    "fieldName": "product description",
+    "type": "alphanumeric",
     "minLength": 7,
     "maxLength": 20
   },
   {
-    "fieldName": "Price",
-    "type": "Number"
+    "fieldName": "price",
+    "type": "number"
   },
   {
-    "fieldName": "Export",
-    "type": "Alphabet",
+    "fieldName": "export",
+    "type": "alphabets",
     "values": [
       "Y",
       "N"
     ]
   },
   {
-    "fieldName": "Country Name",
-    "type": "Alphabet",
+    "fieldName": "country name",
+    "type": "alphabets",
     "minLength": 3,
     "dependencies": [
       {
-        "dependentOn": "Export",
+        "dependentOn": "export",
         "expectedDependentFieldValue": "N",
         "expectedCurrentFieldValue": "null"
       },
       {
-        "dependentOn": "Export",
+        "dependentOn": "export",
         "expectedDependentFieldValue": "Y",
         "expectedCurrentFieldValue": "!null"
       }
     ]
   },
   {
-    "fieldName": "Source City",
-    "type": "Alphabet",
+    "fieldName": "source city",
+    "type": "alphabets",
     "minLength": 3
   },
   {
-    "fieldName": "Country Code",
-    "type": "Number",
+    "fieldName": "country code",
+    "type": "number",
     "maxLength": 3,
     "dependencies": [
       {
-        "dependentOn": "Country Name",
+        "dependentOn": "country name",
         "expectedDependentFieldValue": "null",
         "expectedCurrentFieldValue": "null"
       },
       {
-        "dependentOn": "Country Name",
+        "dependentOn": "country name",
         "expectedDependentFieldValue": "!null",
         "expectedCurrentFieldValue": "!null"
       }
     ]
   },
   {
-    "fieldName": "Source Pincode",
-    "type": "Number",
+    "fieldName": "source pincode",
+    "type": "number",
     "length": 6,
     "values": [
       "500020",
