@@ -44,7 +44,7 @@ describe("testing the entire application", () => {
         "  {\n" +
         "    \"fieldName\": \"source city\",\n" +
         "    \"type\": \"Alphabets\",\n" +
-        "    \"maxLength\": \"3\"\n" +
+        "    \"minLength\": \"3\"\n" +
         "  },\n" +
         "  {\n" +
         "    \"fieldName\": \"country code\",\n" +
@@ -110,5 +110,10 @@ describe("testing the entire application", () => {
             }
             cy.get('#value-submit-button').click()
         }
+    })
+
+    it("should be able to upload the file and validate",()=>{
+        cy.get("#csv_id").selectFile("cypress/fixtures/correctData.csv",{})
+        cy.get("#csv-submit-button").click()
     })
 })
