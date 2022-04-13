@@ -112,8 +112,11 @@ describe("testing the entire application", () => {
         }
     })
 
-    it("should be able to upload the file and validate",()=>{
-        cy.get("#csv_id").selectFile("cypress/fixtures/correctData.csv",{})
+    it("should be able to upload the file and validate", () => {
+        cy.get("#csv_id").selectFile("cypress/fixtures/correctData.csv", {})
         cy.get("#csv-submit-button").click()
+        cy.get("div[id='error-msg'] h3").should(error => {
+            expect(error).to.contain("CSV IS VALID")
+        })
     })
 })
