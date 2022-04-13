@@ -19,7 +19,7 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
         LengthType.MAX_LENGTH to MaxLength()
     )
     private val valueTypeMap: Map<String, ValueTypeValidator> = mapOf(
-        "alphaNumeric" to AlphaNumeric(), "alphabets" to Alphabet(), "number" to Numbers()
+        "alphanumeric" to AlphaNumeric(), "alphabets" to Alphabet(), "number" to Numbers()
     )
 
     fun validate(dataInJSONArray: JSONArray): JSONArray {
