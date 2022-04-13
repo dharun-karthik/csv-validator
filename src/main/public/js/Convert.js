@@ -1,7 +1,8 @@
 class Convert{
     csvToJson(lines) {
         const result = [];
-        const headers = lines[0].split(",");
+        const headerWithoutTrim = lines[0].split(",");
+        const headers = headerWithoutTrim.map( element => element.trim())
         for (let i = 1; i < lines.length; i++) {
             const obj = {};
             const currentLine = lines[i].split(",");
@@ -10,7 +11,7 @@ class Convert{
                     obj[headers[j]] = "null"
                     continue;
                 }
-                obj[headers[j]] = currentLine[j];
+                obj[headers[j]] = currentLine[j].trim();
             }
             result.push(obj);
         }
