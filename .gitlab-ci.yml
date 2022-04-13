@@ -23,6 +23,5 @@ frontend-test:
   stage: frontend-test
   script:
     - echo "Initiating frontend test"
-    - apt install npm
     - npm install
     - echo "Done"
