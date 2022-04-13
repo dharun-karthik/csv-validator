@@ -10,6 +10,7 @@ import valueValidator.AlphaNumeric
 import valueValidator.Alphabet
 import valueValidator.Numbers
 import valueValidator.ValueTypeValidator
+import java.util.*
 
 class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
     private val lengthTypeMap: Map<LengthType, LengthTypeValidator> = mapOf(
@@ -18,7 +19,7 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
         LengthType.MAX_LENGTH to MaxLength()
     )
     private val valueTypeMap: Map<String, ValueTypeValidator> = mapOf(
-        "AlphaNumeric" to AlphaNumeric(), "Alphabets" to Alphabet(), "Number" to Numbers()
+        "alphaNumeric" to AlphaNumeric(), "alphabets" to Alphabet(), "number" to Numbers()
     )
 
     fun validate(dataInJSONArray: JSONArray): JSONArray {
@@ -164,7 +165,7 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
         currentFieldValue: String
     ): Boolean {
         for (dependency in dependencies) {
-            val dependentValue = currentRow.get(dependency.dependentOn) as String
+            val dependentValue = currentRow.getString(dependency.dependentOn)
             val expectedCurrentValue = dependency.expectedCurrentFieldValue
             val expectedDependentValue = dependency.expectedDependentFieldValue
 
