@@ -3,20 +3,21 @@ image: gradle:latest
 stages:
   - build
   - test
+  - frontend-test
 
-build-job:
-  stage: build
-  script:
-    - echo "Creating Classes"
-    - gradle classes
-    - echo "Classes Created"
+# build-job:
+#   stage: build
+#   script:
+#     - echo "Creating Classes"
+#     - gradle classes
+#     - echo "Classes Created"
 
-unit-test:
-  stage: test
-  script:
-    - echo "Initiating Tests"
-    - gradle test
-    - echo "All Tests Passed"
+# unit-test:
+#   stage: test
+#   script:
+#     - echo "Initiating Tests"
+#     - gradle test
+#     - echo "All Tests Passed"
 
 frontend-test:
   stage: frontend-test
