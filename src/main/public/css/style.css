@@ -122,6 +122,13 @@ select{
     background: rgb(73, 73, 88);
 }
 
+#dependency{
+    margin-bottom: 5px;
+    margin-left: 5px;
+    align-items: flex-start;
+    background-color: rgb(73, 73, 88);
+}
+    
 #input_text{
     color: rgb(10, 250, 10);
 }
