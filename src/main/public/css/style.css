@@ -79,6 +79,14 @@ h1, h3{
     margin-bottom: 10px;
 }
 
+#dependencies #dependency div {
+    display: inline;
+}
+
+#configs #config div {
+    display: inline;
+}
+
 #dependency_header{
     margin-top: 10px;
     margin-bottom: 10px;
