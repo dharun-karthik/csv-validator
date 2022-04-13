@@ -17,6 +17,7 @@ async function loadMetaData() {
         const jsonData = await resp.json();
         displayMetaData(jsonData)
     }
+    loadFieldNameInDependencyHeader()
 }
 
 async function displayMetaData(jsonData) {
@@ -195,6 +196,7 @@ function addDataToJson() {
     console.log(payload)
     alert("Field: " + field + " is added to configuration of CSV")
     clearConfigInputs()
+    loadFieldNameInDependencyHeader()
 }
 
 function getNullOrEmpty(element) {
@@ -232,6 +234,12 @@ function displayConfigs(fieldName, typeValue, maxLengthValue, minLengthValue, fi
 
 function clearConfigInputs() {
     field_form.reset()
+}
+
+function loadFieldNameInDependencyHeader() {
+    console.log(payload)
+    let lastField = payload[payload.length-1]['fieldName']
+    field_name_in_dependency.innerText = " for " + lastField
 }
 
 async function sendConfigData() {
