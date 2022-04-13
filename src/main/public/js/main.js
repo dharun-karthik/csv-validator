@@ -27,9 +27,6 @@ async function displayMetaData(jsonData) {
             displayDependencies(obj["dependencies"])
         }
     })
-    await fetch('reset-config', {
-        method: 'DELETE',
-    })
 }
 
 function displayDependencies(dependencies){
@@ -231,6 +228,9 @@ function clearConfigInputs() {
 }
 
 async function sendConfigData() {
+    await fetch('reset-config', {
+        method: 'DELETE',
+    })
     for (var i = 0; i < payload.length; i++) {
         sendOneConfig(payload[i])
     }
