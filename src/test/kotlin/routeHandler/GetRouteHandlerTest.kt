@@ -21,7 +21,7 @@ internal class GetRouteHandlerTest {
     @Test
     fun shouldBeAbleToGetResponse() {
         val getRouteHandler = GetRouteHandler()
-        val expectedContentLength = "Content-Length: 3067"
+        val expectedContentLength = "Content-Length: 5668"
         val request = "GET / HTTP/1.1\n\n"
 
         val actualContentLength =
