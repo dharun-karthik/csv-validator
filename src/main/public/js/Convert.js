@@ -11,7 +11,12 @@ class Convert{
                     obj[headers[j]] = "null"
                     continue;
                 }
-                obj[headers[j]] = currentLine[j].trim();
+                if(currentLine[j] == undefined) {
+                    obj[headers[j]] = currentLine[j]
+                }
+                else{
+                    obj[headers[j]] = currentLine[j].trim();
+                } 
             }
             result.push(obj);
         }
