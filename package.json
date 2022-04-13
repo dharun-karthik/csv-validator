@@ -1,9 +1,10 @@
 {
   "devDependencies": {
-    "cypress": "^9.5.3",
+    "cypress": "^9.5.4",
     "jasmine": "^4.0.2"
   },
   "scripts": {
-    "test": "jasmine"
+    "test": "jasmine",
+    "cypress:open": "cypress open"
   }
 }
