@@ -17,3 +17,11 @@ unit-test:
     - echo "Initiating Tests"
     - gradle test
     - echo "All Tests Passed"
+
+frontend-test:
+  stage: frontend-test
+  script:
+    - echo "Initiating frontend test"
+    - apt install nodejs
+    - npm install
+    - echo "Done"
