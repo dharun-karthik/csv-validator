@@ -1,28 +1,19 @@
-image: skorochkin/gradle-node-phantomjs2:latest
+image: gradle:latest
 
 stages:
   - build
   - test
-  - frontend-test
 
-# build-job:
-#   stage: build
-#   script:
-#     - echo "Creating Classes"
-#     - gradle classes
-#     - echo "Classes Created"
-
-# unit-test:
-#   stage: test
-#   script:
-#     - echo "Initiating Tests"
-#     - gradle test
-#     - echo "All Tests Passed"
-
-frontend-test:
-  stage: frontend-test
+build-job:
+  stage: build
   script:
-    - echo "Initiating frontend test"
-    - npm install --save-dev jasmine
-    - npm test
-    - echo "Done"
+    - echo "Build Started"
+    - gradle classes
+    - echo "Build Completed"
+
+unit-test:
+  stage: test
+  script:
+    - echo "Test Started"
+    - gradle test
+    - echo "Test Passed"
