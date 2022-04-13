@@ -22,7 +22,16 @@ async function loadMetaData() {
 function displayMetaData(jsonData) {
     jsonData.forEach(obj => {
         displayConfigs(obj["fieldName"] || "", obj["type"] || "", obj["maxLength"] || "", obj["minLength"] || "", obj["length"] || "")
+        if(obj["dependencies"] != undefined) {
+            displayDependencies(obj["dependencies"])
+        }
     })
+}
+
+function displayDependencies(dependencies){
+    dependencies.forEach(depedencyObj => 
+        displayDependencyList(depedencyObj["dependentOn"],depedencyObj["expectedDependentFieldValue"],depedencyObj["expectedCurrentFieldValue"])
+    )
 }
 
 const csvReader = () => {
@@ -129,7 +138,7 @@ function displayDependencyList(dependsOnColumn, dependentFieldValue, currenField
     let currenFieldValueElement = addDependencyElement(" Expected Current Field: ", currenFieldValue)
     dependency.appendChild(currenFieldValueElement)
 
-    let dependencies = document.getElementById('dependencies')
+    let dependencies = document.getElementById('configs')
     dependencies.appendChild(dependency)
 }
 
