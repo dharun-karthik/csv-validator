@@ -2,7 +2,7 @@
 // Frontend Animation
 const t1 = gsap.timeline({ defaults: { ease: "power1.out" } })
     .to('#landing_page_title', { y: '0%', duration: 1, stagger: 0.25 })
-    .to("#shuttle", { y: "-100%", duration: 1.5, delay: 0.5 })
+    .to("#shuttle", { y: "-100%", duration: 1, delay: 0.5 })
     .to('.landing_page', { y: "-100%", duration: 1 }, "-=1")
 
 const payload = [];
