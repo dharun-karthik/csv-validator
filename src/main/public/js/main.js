@@ -1,9 +1,9 @@
 
 // Frontend Animation
 const t1 = gsap.timeline({ defaults: { ease: "power1.out" } })
-.to('#landing_page_title', {y: '0%', duration: 1, stagger: 0.25})
-.to("#shuttle", {y: "-100%", duration: 1.5, delay: 0.5})
-.to('.landing_page', {y: "-100%", duration: 1}, "-=1")
+    .to('#landing_page_title', { y: '0%', duration: 1, stagger: 0.25 })
+    .to("#shuttle", { y: "-100%", duration: 1.5, delay: 0.5 })
+    .to('.landing_page', { y: "-100%", duration: 1 }, "-=1")
 
 const payload = [];
 const dependencyList = [];
@@ -23,15 +23,15 @@ async function displayMetaData(jsonData) {
     jsonData.forEach(obj => {
         payload.push(obj);
         displayConfigs(obj["fieldName"] || "", obj["type"] || "", obj["maxLength"] || "", obj["minLength"] || "", obj["length"] || "")
-        if(obj["dependencies"] != undefined) {
+        if (obj["dependencies"] != undefined) {
             displayDependencies(obj["dependencies"])
         }
     })
 }
 
-function displayDependencies(dependencies){
-    dependencies.forEach(depedencyObj => 
-        displayDependencyList(depedencyObj["dependentOn"],depedencyObj["expectedDependentFieldValue"],depedencyObj["expectedCurrentFieldValue"])
+function displayDependencies(dependencies) {
+    dependencies.forEach(depedencyObj =>
+        displayDependencyList(depedencyObj["dependentOn"], depedencyObj["expectedDependentFieldValue"], depedencyObj["expectedCurrentFieldValue"])
     )
 }
 
@@ -119,9 +119,9 @@ function addMoreDependencyRow() {
     jsonObj["dependentOn"] = dependsOnColumn
     jsonObj["expectedDependentFieldValue"] = expectedDependentFieldValue
     jsonObj["expectedCurrentFieldValue"] = expectedCurrentFieldValue
-    if(payload[payload.length - 1]["dependencies"] == undefined){
+    if (payload[payload.length - 1]["dependencies"] == undefined) {
         payload[payload.length - 1]["dependencies"] = [jsonObj]
-    }else{
+    } else {
         payload[payload.length - 1]["dependencies"].push(jsonObj)
     }
     displayDependencyList(dependsOnColumn, expectedDependentFieldValue, expectedCurrentFieldValue)
@@ -187,14 +187,21 @@ function addDataToJson() {
     if (value != undefined) {
         reader.readAsText(value)
     }
-    jsonObj["maxLength"] = max_len
-    jsonObj["minLength"] = min_len
-    jsonObj["length"] = fixed_len
+    jsonObj["maxLength"] = getNullOrEmpty(max_len)
+    jsonObj["minLength"] = getNullOrEmpty(min_len)
+    jsonObj["length"] = getNullOrEmpty(fixed_len)
     payload.push(jsonObj)
     displayConfigs(field, type, max_len, min_len, fixed_len)
     console.log(payload)
     alert("Field: " + field + " is added to configuration of CSV")
     clearConfigInputs()
+}
+
+function getNullOrEmpty(element) {
+    if (element == "") {
+        return null
+    }
+    return element
 }
 
 function displayConfigs(fieldName, typeValue, maxLengthValue, minLengthValue, fixedLengthValue) {
