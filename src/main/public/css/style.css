@@ -120,6 +120,7 @@ select{
 #configs{
     display: flex;
     flex-direction: column;
+    max-width: 60%;
     margin-bottom: 20px;
     align-items: flex-start;
     color: whitesomke;
@@ -127,12 +128,15 @@ select{
 
 #config{
     margin: 5px;
+    padding: 5px;
+    width: 100%;
     background: rgb(73, 73, 88);
 }
 
 #dependency{
     margin-bottom: 5px;
     margin-left: 5px;
+    padding: 5px;
     align-items: flex-start;
     background-color: rgb(73, 73, 88);
 }
