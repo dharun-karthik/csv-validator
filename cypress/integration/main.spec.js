@@ -61,7 +61,7 @@ describe('Dependency test with one dependency', () => {
         const stub = cy.stub()
         cy.on('window:alert', stub)
         cy.get('#add-dependency-button').click().then(() => {
-            expect(stub.getCall(0)).to.be.calledWith('Please enter values for Expected Dependent Field and Expected Current Field')
+            expect(stub.getCall(0)).to.be.calledWith('Please enter values for Dependency On Column, Dependent Field and Expected Current Field')
         })
     })
 
@@ -79,7 +79,7 @@ describe('Dependency test with one dependency', () => {
         const stub = cy.stub()
         cy.on('window:alert', stub)
         cy.get('#add-dependency-button').click().then(() => {
-            expect(stub.getCall(0)).to.be.calledWith('Please enter values for Expected Dependent Field and Expected Current Field')
+            expect(stub.getCall(0)).to.be.calledWith('Please enter values for Dependency On Column, Dependent Field and Expected Current Field')
         })
     })
 
@@ -97,14 +97,14 @@ describe('Dependency test with one dependency', () => {
         const stub = cy.stub()
         cy.on('window:alert', stub)
         cy.get('#add-dependency-button').click().then(() => {
-            expect(stub.getCall(0)).to.be.calledWith('Please enter values for Expected Dependent Field and Expected Current Field')
+            expect(stub.getCall(0)).to.be.calledWith('Please enter values for Dependency On Column, Dependent Field and Expected Current Field')
         })
     })
 })
 
 describe("Upload CSV", () => {
     it("should upload csv for validation", () => {
-        cy.get('#csv_id').selectFile('src/main/public/assets/data.csv')
+        cy.get('#csv_id').selectFile('cypress/fixtures/incorrectColumnData.csv')
         
         const stub = cy.stub()
         cy.on('window:alert', stub)
@@ -132,7 +132,7 @@ describe("After selecting CSV, Display", () => {
         cy.get('#csv-submit-button').click()
 
         cy.get('#error_msg_list li').should(($li) => {
-            expect($li).to.contain('Row Duplicated')
+            expect($li).to.contain('Row Duplication')
         })
     })
 
@@ -142,7 +142,7 @@ describe("After selecting CSV, Display", () => {
         cy.get('#csv-submit-button').click()
 
         cy.get('#error_msg_list li').should(($li) => {
-            expect($li).to.contain('Column Name Error')
+            expect($li).to.contain('Column unavailable in config')
         })
     })
 
