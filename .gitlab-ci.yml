@@ -23,6 +23,6 @@ frontend-test:
   stage: frontend-test
   script:
     - echo "Initiating frontend test"
-    - npm install all
+    - npm install --save-dev jasmine
     - npm test
     - echo "Done"
