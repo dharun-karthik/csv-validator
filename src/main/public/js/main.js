@@ -118,7 +118,12 @@ function addMoreDependencyRow() {
     jsonObj["dependentOn"] = dependsOnColumn
     jsonObj["expectedDependentFieldValue"] = expectedDependentFieldValue
     jsonObj["expectedCurrentFieldValue"] = expectedCurrentFieldValue
-    dependencyList.push(jsonObj)
+    console.log(payload[payload.length - 1]["dependencies"])
+    if(payload[payload.length - 1]["dependencies"] == undefined){
+        payload[payload.length - 1]["dependencies"] = [jsonObj]
+    }else{
+        payload[payload.length - 1]["dependencies"].push(jsonObj)
+    }
     displayDependencyList(dependsOnColumn, expectedDependentFieldValue, expectedCurrentFieldValue)
     clearDependencyInputs()
 }
@@ -185,7 +190,6 @@ function addDataToJson() {
     jsonObj["maxLength"] = max_len
     jsonObj["minLength"] = min_len
     jsonObj["length"] = fixed_len
-    jsonObj["dependencies"] = dependencyList
     payload.push(jsonObj)
     displayConfigs(field, type, max_len, min_len, fixed_len)
     console.log(payload)
