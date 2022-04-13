@@ -52,12 +52,12 @@
   },
   {
     "fieldName": "country name",
-    "type": "alphaNumeric",
+    "type": "alphanumeric",
     "maxLength": "3"
   },
   {
     "fieldName": "product description",
-    "type": "alphaNumeric",
+    "type": "alphanumeric",
     "dependencies": [
       {
         "dependentOn": "country name",
