@@ -71,7 +71,7 @@ describe("testing the entire application", () => {
         "  }\n" +
         "]")
 
-    it("should be able to clear previous fields",()=>{
+    it("should be able to clear previous fields", () => {
         cy.get("#reset_config").click()
         cy.on('window:confirm', () => true);
     })

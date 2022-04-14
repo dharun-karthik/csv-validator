@@ -1,12 +1,10 @@
-
 // Frontend Animation
-const t1 = gsap.timeline({ defaults: { ease: "power1.out" } })
-    .to('#landing_page_title', { y: '0%', duration: 1, stagger: 0.25 })
-    .to("#shuttle", { y: "-100%", duration: 1, delay: 0.5 })
-    .to('.landing_page', { y: "-100%", duration: 1 }, "-=1")
+gsap.timeline({defaults: {ease: "power1.out"}})
+    .to('#landing_page_title', {y: '0%', duration: 1, stagger: 0.25})
+    .to("#shuttle", {y: "-100%", duration: 1, delay: 0.5})
+    .to('.landing_page', {y: "-100%", duration: 1}, "-=1")
 
 const payload = [];
-const dependencyList = [];
 window.addEventListener('load', async () => loadMetaData());
 
 async function loadMetaData() {
@@ -31,9 +29,7 @@ async function displayMetaData(jsonData) {
 }
 
 function displayDependencies(dependencies) {
-    dependencies.forEach(depedencyObj =>
-        displayDependencyList(depedencyObj["dependentOn"], depedencyObj["expectedDependentFieldValue"], depedencyObj["expectedCurrentFieldValue"])
-    )
+    dependencies.forEach(dependencyObj => displayDependencyList(dependencyObj["dependentOn"], dependencyObj["expectedDependentFieldValue"], dependencyObj["expectedCurrentFieldValue"]))
 }
 
 const csvReader = () => {
@@ -101,8 +97,7 @@ async function handleCsvFile(event) {
 
 async function sendRequest(result) {
     return await fetch('csv', {
-        method: 'POST',
-        body: JSON.stringify(result)
+        method: 'POST', body: JSON.stringify(result)
     });
 }
 
@@ -128,7 +123,6 @@ function addMoreDependencyRow() {
     displayDependencyList(dependsOnColumn, expectedDependentFieldValue, expectedCurrentFieldValue)
     clearDependencyInputs()
 }
-
 
 
 function displayDependencyList(dependsOnColumn, dependentFieldValue, currenFieldValue) {
@@ -159,20 +153,10 @@ function addDependencyElement(dependencyType, dependsOnColumn) {
 }
 
 function clearDependencyInputs() {
-    dependentOnColumn.value = ""
-    expectedDependentFieldValue.value = ""
-    expectedCurrentFieldValue.value = ""
+    document.getElementById("dependency_form").reset()
 }
 
-function addDataToJson() {
-    const field = document.getElementById("field").value;
-    const type = document.getElementById("type").value;
-    let mandatoryInputValidation = new MandatoryInputValidation();
-    let isInputValid = mandatoryInputValidation.validateInputsForFields(field, type)
-    if (!isInputValid) {
-        alert("Please enter field and type for the field !")
-        return
-    }
+function addFieldFormDataToPayload(field, type) {
     let jsonObj = {}
     const value = document.getElementById("text_file_id").files[0];
     const max_len = document.getElementById("max-len").value;
@@ -192,6 +176,19 @@ function addDataToJson() {
     jsonObj["minLength"] = getNullOrEmpty(min_len)
     jsonObj["length"] = getNullOrEmpty(fixed_len)
     payload.push(jsonObj)
+    return {max_len, min_len, fixed_len};
+}
+
+function addFieldData() {
+    const field = document.getElementById("field").value;
+    const type = document.getElementById("type").value;
+    let mandatoryInputValidation = new MandatoryInputValidation();
+    let isInputValid = mandatoryInputValidation.validateInputsForFields(field, type)
+    if (!isInputValid) {
+        alert("Please enter field and type for the field !")
+        return
+    }
+    const {max_len, min_len, fixed_len} = addFieldFormDataToPayload(field, type);
     displayConfigs(field, type, max_len, min_len, fixed_len)
     console.log(payload)
     alert("Field: " + field + " is added to configuration of CSV")
@@ -238,7 +235,7 @@ function clearConfigInputs() {
 
 function loadFieldNameInDependencyHeader() {
     console.log(payload)
-    let lastField = payload[payload.length-1]['fieldName']
+    let lastField = payload[payload.length - 1]['fieldName']
     field_name_in_dependency.innerText = " for " + lastField
 }
 
@@ -251,10 +248,10 @@ async function sendConfigData() {
     }
     alert("Submitted configuration of CSV\nNow you can add your csv file.")
 }
+
 async function sendOneConfig(oneConfig) {
     const resp = await fetch('add-meta-data', {
-        method: 'POST',
-        body: JSON.stringify(oneConfig)
+        method: 'POST', body: JSON.stringify(oneConfig)
     });
     if (resp.status === 200) {
         const jsonData = await resp.json();

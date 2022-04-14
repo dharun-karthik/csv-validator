@@ -1,4 +1,4 @@
-class MandatoryInputValidation{
+class MandatoryInputValidation {
     validateInputsForDependency(dependsOnColumn, expectedDependentFieldValue, expectedCurrentFieldValue) {
         if (dependsOnColumn == "" || expectedDependentFieldValue == "" || expectedCurrentFieldValue == "") {
             return false

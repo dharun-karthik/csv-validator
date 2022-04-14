@@ -105,7 +105,7 @@ describe('Dependency test with one dependency', () => {
 describe("Upload CSV", () => {
     it("should upload csv for validation", () => {
         cy.get('#csv_id').selectFile('cypress/fixtures/incorrectColumnData.csv')
-        
+
         const stub = cy.stub()
         cy.on('window:alert', stub)
         cy.get('#csv-submit-button').click().then(() => {
