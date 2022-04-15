@@ -18,7 +18,7 @@
             <a href="#"> Home </a>
         </div>
     </div>
-    <div class="csv-upload">
+    <div class="section">
         <div class="heading-div">
             <h1 class="heading">One place to Validate all your CSVs</h1>
             <h2 class="heading sub-heading">Validate your CSV File with 3 Easy Steps</h2>
@@ -26,16 +26,175 @@
             <div class="upload-csv-section">
                 <div class="heading heading-to-upload-csv">Upload CSV For Validation</div>
                 <div class="choose-csv">
-                    <label for="csv_id" id="csv_label">CSV File:
-                        <input type="file" name="csv-file" id="csv_id" accept=".csv">
+                    <label for="csv-id" id="csv-label">CSV File:
+                        <input type="file" name="csv-file" id="csv-id" accept=".csv">
                     </label>
                 </div>
-                <button class="upload-csv-button">Upload</button>
+                <button class="button">Upload</button>
             </div>
         </div>
+        <div class="heading-div" id="configs-upload">
+            <h1 class="configs-heading">Customize Validation Rules</h1>
+            <h2 class="configs-heading configs-sub-heading">Add rules for validating your csv</h2>
+
+            <div class="config-container">
+                <div class="row1">
+                    <div id="field-name">Field Name:
+                        <span> Product Id </span>
+                    </div>
+                    <div id="field-type">
+                        <label for="type">Type: </label>
+                        <select id="type" class="dropdowns">
+                            <option value="">Choose Type</option>
+                            <option value="Number">Number</option>
+                            <option value="AlphaNumeric">AlphaNumeric</option>
+                            <option value="Alphabets">Alphabets</option>
+                        </select>
+                    </div>
+                    <div id="field-value">
+                        <label for="text-file-id">Values: </label>
+                        <input type="file" name="text-file" id="text-file-id" accept=".txt">
+                        <input type="checkbox" name="use-text-for-value" id="use-text-for-value"
+                            onclick="toggleValueFieldTextBox()">
+                        <span>Enter Values</span>
+                        <textarea name="alternate-value" id="alternate-value" cols="10" rows="10"></textarea>
+                    </div>
+                </div>
+                <div class="row1">
+                    <div id="min-length">
+                        <label for="min-len">Min-length: </label>
+                        <input type="number" id="min-len" class="inputs">
+                    </div>
+                    <div id="max-length">
+                        <label for="max-len">Max-length: </label>
+                        <input type="number" id="max-len" class="inputs">
+                    </div>
+                    <div id="fixed-length">
+                        <label for="fixed-len">Fixed-length: </label>
+                        <input type="number" id="fixed-len" class="inputs">
+                    </div>
+                </div>
+                <div class="row1">
+                    <div id="depends-on-column">
+                        <label for="dependentOnColumn">Dependency on column: </label>
+                        <select id="depends-on" class="dropdowns" onchange="toggleDependencyInputs()">
+                            <option value="">Choose Field</option>
+                            <option value="pid">Product ID</option>
+                            <option value="pd">Product Description</option>
+                            <option value="cc">Country Code</option>
+                        </select>
+                    </div>
+                    <div id="dependent-value">
+                        <label for="dependent-field-value">Dependent Field Value: </label>
+                        <input type="text" class="inputs" id="dependent-field-value"
+                            placeholder="null for no value, !null for any value">
+                    </div>
+                    <div id="current-value">
+                        <label for="expectedCurrentFieldValue">Expected Current Field Value: </label>
+                        <select id="expectedCurrentFieldValue" class="dropdowns">
+                            <option value="">Choose here</option>
+                            <option value="!null">Present</option>
+                            <option value="null">Not Present</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="config-container">
+                <div class="row1">
+                    <div id="field-name">Field Name:
+                        <span> Price </span>
+                    </div>
+                    <div id="field-type">
+                        <label for="type">Type: </label>
+                        <select id="type" class="dropdowns">
+                            <option value="">Choose Type</option>
+                            <option value="Number">Number</option>
+                            <option value="AlphaNumeric">AlphaNumeric</option>
+                            <option value="Alphabets">Alphabets</option>
+                        </select>
+                    </div>
+                    <div id="field-value">
+                        <label for="text-file-id">Values: </label>
+                        <input type="file" name="text-file" id="text-file-id" accept=".txt">
+                        <input type="checkbox" name="use-text-for-value" id="use-text-for-value"
+                            onclick="toggleValueFieldTextBox()">
+                        <span>Enter Values</span>
+                        <textarea name="alternate-value" id="alternate-value" cols="10" rows="10"></textarea>
+                    </div>
+                </div>
+                <div class="row1">
+                    <div id="min-length">
+                        <label for="min-len">Min-length: </label>
+                        <input type="number" id="min-len" class="inputs">
+                    </div>
+                    <div id="max-length">
+                        <label for="max-len">Max-length: </label>
+                        <input type="number" id="max-len" class="inputs">
+                    </div>
+                    <div id="fixed-length">
+                        <label for="fixed-len">Fixed-length: </label>
+                        <input type="number" id="fixed-len" class="inputs">
+                    </div>
+                </div>
+                <div class="row1">
+                    <div id="depends-on-column">
+                        <label for="dependentOnColumn">Dependency on column: </label>
+                        <select id="depends-on" class="dropdowns" onchange="toggleDependencyInputs()">
+                            <option value="">Choose Field</option>
+                            <option value="pid">Product ID</option>
+                            <option value="pd">Product Description</option>
+                            <option value="cc">Country Code</option>
+                        </select>
+                    </div>
+                    <div id="dependent-value">
+                        <label for="dependent-field-value">Dependent Field Value: </label>
+                        <input type="text" class="inputs" id="dependent-field-value"
+                            placeholder="null for no value, !null for any value">
+                    </div>
+                    <div id="current-value">
+                        <label for="expectedCurrentFieldValue">Expected Current Field Value: </label>
+                        <select id="expectedCurrentFieldValue" class="dropdowns">
+                            <option value="">Choose here</option>
+                            <option value="!null">Present</option>
+                            <option value="null">Not Present</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button class="button" id="upload-configs">
+                Submit
+            </button>
+        </div>
     </div>
-    <div class="configs-upload"></div>
-    <div class="error-section"></div>
+    <div class="heading-div error-msg">
+        <h1 class="configs-heading">Get Validations For Your CSV</h1>
+        <h2 class="configs-heading configs-sub-heading">Check your errors</h2>
+    </div>
+
+    <script>
+        function toggleValueFieldTextBox() {
+            useTextForValue = document.getElementById('use-text-for-value').value
+            valueTextArea = document.getElementById('alternate-value')
+            if (valueTextArea.style.display == 'block') {
+                valueTextArea.style.display = 'none'
+            }
+            else {
+                valueTextArea.style.display = 'block'
+            }
+        }
+
+        function toggleDependencyInputs() {
+            dependsOnColumn = document.getElementById('depends-on').value
+            if (dependsOnColumn != "") {
+                document.getElementById('dependent-value').style.visibility = 'visible'
+                document.getElementById('current-value').style.visibility = 'visible'
+            }
+            else {
+                document.getElementById('dependent-value').style.visibility = 'hidden'
+                document.getElementById('current-value').style.visibility = 'hidden'
+            }
+        }
+    </script>
 </body>
 
 </html>
