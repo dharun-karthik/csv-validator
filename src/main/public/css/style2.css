@@ -241,6 +241,49 @@ body {
     background: url(../assets/bg-flipped.png);
 }
 
+.error-list-container {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 15px;
+    line-height: 27px;
+    font-weight: 400;
+    color: #8492af;
+    text-align: left;
+    width: 500px;
+}
+
+.error-list {
+    padding: 20px 0;
+    border-bottom-color: rgba(0,0,0,.2);
+    border-bottom: 1px dashed #E6E6E6;
+    display: flex;
+    align-items: center;
+}
+
+.line-number {
+    font-size: 13px;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    border-radius: 30px;
+    background-color: #f82424;
+    font-weight: 600;
+    padding: 10px 20px;
+}
+
+.errors {
+    margin-left: 20px;
+}
+
+.no-error {
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: green;
+}
+
 
 
 
