@@ -3,7 +3,12 @@ package validation
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.MethodSource
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class TypeValidationTest {
 
     @Test
@@ -84,6 +89,26 @@ class TypeValidationTest {
         val actual = typeValidation.isAlphaNumeric(value)
 
         assertFalse(actual)
+    }
+
+    @ParameterizedTest
+    @MethodSource("getDecimalValue")
+    fun shouldBeAbleToCheckIfValueIsDecimal(value : String) {
+        val typeValidation = TypeValidation()
+
+        val actual = typeValidation.isDecimal(value)
+
+        assertTrue(actual)
+    }
+
+    private fun getDecimalValue(): List<Arguments>{
+        return listOf(
+            Arguments.of("14.32"),
+            Arguments.of("-212.02"),
+            Arguments.of(".2"),
+            Arguments.of("11."),
+            Arguments.of("+231.220")
+        )
     }
 
 }
