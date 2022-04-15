@@ -30,7 +30,9 @@
                         <input type="file" name="csv-file" id="csv-id" accept=".csv">
                     </label>
                 </div>
-                <button class="button">Upload</button>
+                <a href="#configs-upload">
+                    <button class="button">Upload</button>
+                </a>
             </div>
         </div>
         <div class="heading-div" id="configs-upload">
@@ -161,12 +163,14 @@
                     </div>
                 </div>
             </div>
-            <button class="button" id="upload-configs">
-                Submit
-            </button>
+            <a href="#validations">
+                <button class="button" id="upload-configs">
+                    Submit
+                </button>
+            </a>
         </div>
     </div>
-    <div class="heading-div error-msg">
+    <div class="heading-div error-msg" id="validations">
         <h1 class="configs-heading">Get Validations For Your CSV</h1>
         <h2 class="configs-heading configs-sub-heading">Check your errors</h2>
 
@@ -177,7 +181,7 @@
                 </div>
             </div>
             <div class="error-list">
-                <div class="line-number">Line No: 
+                <div class="line-number">Line No:
                     <span>1</span>
                 </div>
                 <div class="errors">
@@ -190,7 +194,7 @@
                 </div>
             </div>
             <div class="error-list">
-                <div class="line-number">Line No: 
+                <div class="line-number">Line No:
                     <span>2</span>
                 </div>
                 <div class="errors">
