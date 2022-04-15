@@ -1,0 +1,120 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    font-family: "Roboto",Helvetica,Arial,sans-serif;
+}
+
+.header {
+    background-color: white;
+    z-index: 10;
+    position: sticky;
+    top: 0;
+    left: 0;
+    height: 70px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    margin-left: 10%;
+}
+
+.logo-image {
+    width: 125px;
+}
+
+.nav-links {
+    margin-right: 5%;
+    cursor: pointer;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: black;
+}
+
+.nav-links:hover a{
+    color: #004FEC;
+}
+
+.csv-upload {
+    background: url("../assets/bg-12.png");
+    background-position: 70% -10%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 200vh;
+}
+
+.heading-div {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.heading {
+    font-size: 60px;
+    font-weight: 200;
+}
+
+.sub-heading {
+    margin-top: 1%;
+    font-size: 30px;
+}
+
+.upload-csv-section {
+    background-color: white;
+    width: 50%;
+    height: 30vh;
+    margin: 5% 5%;
+    padding: 50px;
+    border-radius: 6px;
+    border-style: none;
+    box-shadow: 0 2px 15px rgb(0 0 0 / 13%);
+    color: #9daac7;
+    text-align: center;
+    font-size: 15px;
+    line-height: 27px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.heading-to-upload-csv {
+    color: #004FEC;
+    font-size: 25px;
+}
+
+.upload-csv-button {
+    border-radius: 20px;
+    border: 1px solid #9C9C9C;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: #004FEC;
+    border-color: #004FEC;
+    color: white;
+    margin-top: 20px;
+    padding: 8px 35px;
+    font-weight: 500;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.choose-csv {
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
