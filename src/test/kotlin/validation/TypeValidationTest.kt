@@ -101,6 +101,16 @@ class TypeValidationTest {
         assertTrue(actual)
     }
 
+    @Test
+    fun shouldBeAbleToCheckIfValueIsNotDecimal() {
+        val typeValidation = TypeValidation()
+        val value = "12.0.0"
+
+        val actual = typeValidation.isDecimal(value)
+
+        assertFalse(actual)
+    }
+
     private fun getDecimalValue(): List<Arguments>{
         return listOf(
             Arguments.of("14.32"),
