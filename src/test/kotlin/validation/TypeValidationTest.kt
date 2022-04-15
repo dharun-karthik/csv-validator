@@ -121,13 +121,22 @@ class TypeValidationTest {
         )
     }
 
-    @Test
+    @ParameterizedTest
+    @MethodSource("getDateValueInYYYYMMDDFormat")
     fun `shouldBeAbleToCheckIfValueIsDateInFormatOfYYYY-MM-DD`() {
         val typeValidation = TypeValidation()
         val value = "2022-04-15"
 
-        val actual = typeValidation.`isDateInYYYYMMDDFormat`(value)
+        val actual = typeValidation.isDateInYYYYMMDDFormat(value)
 
         assertTrue(actual)
+    }
+
+    private fun getDateValueInYYYYMMDDFormat(): List<Arguments>{
+        return listOf(
+            Arguments.of("2022-04-15"),
+            Arguments.of("2025-01-01"),
+            Arguments.of("2000-12-31")
+        )
     }
 }

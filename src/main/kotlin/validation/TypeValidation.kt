@@ -18,7 +18,7 @@ class TypeValidation {
         return value.matches("""^[+-]?(\d+\.?\d*|\.\d+)${'$'}""".toRegex())
     }
 
-    fun `isDateInYYYYMMDDFormat`(value: String): Boolean {
+    fun isDateInYYYYMMDDFormat(value: String): Boolean {
         return value.matches("""^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])${'$'}""".toRegex())
     }
 }
