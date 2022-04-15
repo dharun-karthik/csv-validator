@@ -1,4 +1,4 @@
-class MandatoryInputValidation {
+export default class MandatoryInputValidation {
     validateInputsForDependency(dependsOnColumn, expectedDependentFieldValue, expectedCurrentFieldValue) {
         if (dependsOnColumn == "" || expectedDependentFieldValue == "" || expectedCurrentFieldValue == "") {
             return false
@@ -14,5 +14,3 @@ class MandatoryInputValidation {
         return true
     }
 }
-
-module.exports = MandatoryInputValidation

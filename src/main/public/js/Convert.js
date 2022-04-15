@@ -1,4 +1,4 @@
-class Convert {
+export default class Convert {
     csvToJson(lines) {
         const result = [];
         const headerWithoutTrim = lines[0].split(",");
@@ -22,5 +22,3 @@ class Convert {
         return result;
     }
 }
-
-module.exports = Convert
