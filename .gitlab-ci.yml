@@ -17,3 +17,12 @@ unit-test:
     - echo "Test Started"
     - gradle test
     - echo "Test Passed"
+
+front-end-unit-test:
+  image: node:latest
+  stage: test
+  script:
+    - echo "Front end unit test Started"
+    - npm install
+    - npm test
+    - echo "Front end unit test Passed"
