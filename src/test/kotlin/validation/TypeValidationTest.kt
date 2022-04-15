@@ -93,7 +93,7 @@ class TypeValidationTest {
 
     @ParameterizedTest
     @MethodSource("getDecimalValue")
-    fun shouldBeAbleToCheckIfValueIsDecimal(value : String) {
+    fun shouldBeAbleToCheckIfValueIsDecimal(value: String) {
         val typeValidation = TypeValidation()
 
         val actual = typeValidation.isDecimal(value)
@@ -111,7 +111,7 @@ class TypeValidationTest {
         assertFalse(actual)
     }
 
-    private fun getDecimalValue(): List<Arguments>{
+    private fun getDecimalValue(): List<Arguments> {
         return listOf(
             Arguments.of("14.32"),
             Arguments.of("-212.02"),
@@ -121,4 +121,13 @@ class TypeValidationTest {
         )
     }
 
+    @Test
+    fun `shouldBeAbleToCheckIfValueIsDateInFormatOfYYYY-MM-DD`() {
+        val typeValidation = TypeValidation()
+        val value = "2022-04-15"
+
+        val actual = typeValidation.`isDateInYYYYMMDDFormat`(value)
+
+        assertTrue(actual)
+    }
 }

@@ -15,6 +15,6 @@ class TypeValidation {
     }
 
     fun isDecimal(value: String): Boolean {
-        return value.matches("""^[+-]?([0-9]+\.?[0-9]*|\.[0-9]+)${'$'}""".toRegex())
+        return value.matches("""^[+-]?(\d+\.?\d*|\.\d+)${'$'}""".toRegex())
     }
 }
