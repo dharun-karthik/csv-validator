@@ -6,3 +6,5 @@ cypress/h.txt
 node_modules
 package-lock.json
 .vscode
+cypress/videos
+cypress/screenshots
