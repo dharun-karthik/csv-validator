@@ -111,16 +111,6 @@ class TypeValidationTest {
         assertFalse(actual)
     }
 
-    private fun getDecimalValue(): List<Arguments> {
-        return listOf(
-            Arguments.of("14.32"),
-            Arguments.of("-212.02"),
-            Arguments.of(".2"),
-            Arguments.of("11."),
-            Arguments.of("+231.220")
-        )
-    }
-
     @ParameterizedTest
     @MethodSource("getDateValueInYYYYMMDDFormat")
     fun `shouldBeAbleToCheckIfValueIsDateInFormatOfYYYY-MM-DD`(value: String) {
@@ -129,14 +119,6 @@ class TypeValidationTest {
         val actual = typeValidation.isDateInYYYYMMDDFormat(value)
 
         assertTrue(actual)
-    }
-
-    private fun getDateValueInYYYYMMDDFormat(): List<Arguments>{
-        return listOf(
-            Arguments.of("2022-04-15"),
-            Arguments.of("2025-01-01"),
-            Arguments.of("2000-12-31")
-        )
     }
 
     @ParameterizedTest
@@ -149,12 +131,29 @@ class TypeValidationTest {
         assertTrue(actual)
     }
 
-    private fun getDateValueInDateTimeFormat(): List<Arguments>{
+    private fun getDecimalValue(): List<Arguments> {
+        return listOf(
+            Arguments.of("14.32"),
+            Arguments.of("-212.02"),
+            Arguments.of(".2"),
+            Arguments.of("11."),
+            Arguments.of("+231.220")
+        )
+    }
+
+    private fun getDateValueInYYYYMMDDFormat(): List<Arguments> {
+        return listOf(
+            Arguments.of("2022-04-15"),
+            Arguments.of("2025-01-01"),
+            Arguments.of("2000-12-31")
+        )
+    }
+
+    private fun getDateValueInDateTimeFormat(): List<Arguments> {
         return listOf(
             Arguments.of("2022-04-12T10:35:49.278Z"),
             Arguments.of("2012-03-01T00:00:00Z"),
             Arguments.of("2012-01-01T17:52:27.8116975-12:00")
         )
     }
-
 }
