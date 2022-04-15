@@ -123,9 +123,8 @@ class TypeValidationTest {
 
     @ParameterizedTest
     @MethodSource("getDateValueInYYYYMMDDFormat")
-    fun `shouldBeAbleToCheckIfValueIsDateInFormatOfYYYY-MM-DD`() {
+    fun `shouldBeAbleToCheckIfValueIsDateInFormatOfYYYY-MM-DD`(value: String) {
         val typeValidation = TypeValidation()
-        val value = "2022-04-15"
 
         val actual = typeValidation.isDateInYYYYMMDDFormat(value)
 
@@ -139,4 +138,23 @@ class TypeValidationTest {
             Arguments.of("2000-12-31")
         )
     }
+
+    @ParameterizedTest
+    @MethodSource("getDateValueInDateTimeFormat")
+    fun `shouldBeAbleToCheckIfValueIsInISODateTimeFormat`(value: String) {
+        val typeValidation = TypeValidation()
+
+        val actual = typeValidation.isDateTime(value)
+
+        assertTrue(actual)
+    }
+
+    private fun getDateValueInDateTimeFormat(): List<Arguments>{
+        return listOf(
+            Arguments.of("2022-04-12T10:35:49.278Z"),
+            Arguments.of("2012-03-01T00:00:00Z"),
+            Arguments.of("2012-01-01T17:52:27.8116975-12:00")
+        )
+    }
+
 }
