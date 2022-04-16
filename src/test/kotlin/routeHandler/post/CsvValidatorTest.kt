@@ -43,12 +43,12 @@ class CsvValidatorTest {
         "source pincode": "560001"
     }
 ]"""
+        val lineSeparator = System.lineSeparator()
+        val content = """[{"1":["Dependency Error in country name","Length Error in product description","Value Not Found Error in source pincode","Length Error in product id"]},{"3":["Row Duplication From 2"]}]"""
         val head = """HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
-Content-Length: 264"""
-        val lineSeparator = System.lineSeparator()
-        val expectedContent = head + lineSeparator + lineSeparator +
-                """[{"Line Number 1":"Dependency Error in country name"},{"Line Number 1":"Length Error in product description"},{"Line Number 1":"Foreign Value Found Error in source pincode"},{"Line Number 1":"Length Error in product id"},{"Line Number 3":"Row Duplication From 2"}]"""
+Content-Length: ${content.length}"""
+        val expectedContent = head + lineSeparator + lineSeparator + content
         val request = """
             Content-Length: ${csvData.length}
         """.trimIndent()

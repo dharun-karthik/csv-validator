@@ -64,7 +64,7 @@ class ValidationTest {
 ]"""
         val jsonData = JSONArray(csvData)
         val expectedContent =
-            """[{"Line Number 1":"Dependency Error in country name"},{"Line Number 1":"Length Error in product description"},{"Line Number 1":"Foreign Value Found Error in source pincode"},{"Line Number 1":"Length Error in product id"},{"Line Number 2":"Length Error in product description"},{"Line Number 2":"Length Error in product id"},{"Line Number 3":"Dependency Error in country name"},{"Line Number 3":"Length Error in product description"},{"Line Number 3":"Foreign Value Found Error in source pincode"},{"Line Number 3":"Dependency Error in country code"},{"Line Number 4":"Dependency Error in country name"},{"Line Number 4":"Length Error in product description"},{"Line Number 4":"Dependency Error in country code"},{"Line Number 5":"Row Duplication From 4"},{"Line Number 5":"Dependency Error in country name"},{"Line Number 5":"Length Error in product description"},{"Line Number 5":"Dependency Error in country code"}]"""
+            """[{"1":["Dependency Error in country name","Length Error in product description","Value Not Found Error in source pincode","Length Error in product id"]},{"2":["Length Error in product description","Length Error in product id"]},{"3":["Dependency Error in country name","Length Error in product description","Value Not Found Error in source pincode","Dependency Error in country code"]},{"4":["Dependency Error in country name","Length Error in product description","Dependency Error in country code"]},{"5":["Row Duplication From 4","Dependency Error in country name","Length Error in product description","Dependency Error in country code"]}]"""
 
         val actual = validation.validate(jsonData)
 
