@@ -38,11 +38,7 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
             val previousDuplicateIndex = duplicationValidation.isDuplicateIndexAvailable(currentRow, index)
             if (previousDuplicateIndex != null) {
                 val name = "Row Duplication Error"
-                var errorList = lineErrors[name]
-                if (errorList == null) {
-                    errorList = mutableListOf<String>()
-                    lineErrors[name] = errorList
-                }
+                val errorList = lineErrors.getOrPut(name) { mutableListOf() }
                 errorList.add(previousDuplicateIndex.toString())
             }
             for (key in keys) {
@@ -51,38 +47,22 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
 
                 if (!typeValidation(metaDataField, currentFieldValue)) {
                     val name = "Type Error"
-                    var errorList = lineErrors[name]
-                    if (errorList == null) {
-                        errorList = mutableListOf<String>()
-                        lineErrors[name] = errorList
-                    }
+                    val errorList = lineErrors.getOrPut(name) { mutableListOf() }
                     errorList.add(key)
                 }
                 if (!lengthValidation(metaDataField, currentFieldValue)) {
                     val name = "Length Error"
-                    var errorList = lineErrors[name]
-                    if (errorList == null) {
-                        errorList = mutableListOf<String>()
-                        lineErrors[name] = errorList
-                    }
+                    val errorList = lineErrors.getOrPut(name) { mutableListOf() }
                     errorList.add(key)
                 }
                 if (!restrictedInputValidation(metaDataField, currentFieldValue)) {
                     val name = "Value Not Found Error"
-                    var errorList = lineErrors[name]
-                    if (errorList == null) {
-                        errorList = mutableListOf<String>()
-                        lineErrors[name] = errorList
-                    }
+                    val errorList = lineErrors.getOrPut(name) { mutableListOf() }
                     errorList.add(key)
                 }
                 if (!dependencyValidation(metaDataField, currentFieldValue, currentRow)) {
                     val name = "Dependency Error"
-                    var errorList = lineErrors[name]
-                    if (errorList == null) {
-                        errorList = mutableListOf<String>()
-                        lineErrors[name] = errorList
-                    }
+                    val errorList = lineErrors.getOrPut(name) { mutableListOf() }
                     errorList.add(key)
                 }
             }
@@ -102,10 +82,6 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
         val restrictedInputValidation = RestrictedInputValidation()
         val restrictedInputList = metaDataField.values ?: return true
         return restrictedInputValidation.validate(currentFieldValue, restrictedInputList)
-    }
-
-    private fun getErrorMessage(errorType: String, key: String?): String {
-        return "$errorType Error in $key"
     }
 
     fun lengthValidation(
