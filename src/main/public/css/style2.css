@@ -124,6 +124,10 @@ body {
     margin-bottom: 15px;
 }
 
+#configs-upload {
+    height: fit-content;
+}
+
 .configs-heading {
     font-size: 45px;
     line-height: 60px;

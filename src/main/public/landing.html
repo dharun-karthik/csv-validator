@@ -30,9 +30,7 @@
                         <input type="file" name="csv-file" id="csv-id" accept=".csv">
                     </label>
                 </div>
-                <a href="#configs-upload">
-                    <button class="button">Upload</button>
-                </a>
+                <button class="button" onclick="uploadCSV()">Upload</button>
             </div>
         </div>
         <div class="heading-div" id="configs-upload">
@@ -46,7 +44,7 @@
                     </div>
                     <div id="field-type">
                         <label for="type">Type: </label>
-                        <select id="type" class="dropdowns">
+                        <select id="type" name="type" class="dropdowns">
                             <option value="">Choose Type</option>
                             <option value="Number">Number</option>
                             <option value="AlphaNumeric">AlphaNumeric</option>
@@ -57,7 +55,7 @@
                         <label for="text-file-id">Values: </label>
                         <input type="file" name="text-file" id="text-file-id" accept=".txt">
                         <input type="checkbox" name="use-text-for-value" id="use-text-for-value"
-                            onclick="toggleValueFieldTextBox()">
+                            onclick="toggleValueFieldTextBox(this)">
                         <span>Enter Values</span>
                         <textarea name="alternate-value" id="alternate-value" cols="10" rows="10"></textarea>
                     </div>
@@ -79,7 +77,7 @@
                 <div class="row1">
                     <div id="depends-on-column">
                         <label for="dependentOnColumn">Dependency on column: </label>
-                        <select id="depends-on" class="dropdowns" onchange="toggleDependencyInputs()">
+                        <select id="depends-on" class="dropdowns" onchange="toggleDependencyInputs(this)">
                             <option value="">Choose Field</option>
                             <option value="pid">Product ID</option>
                             <option value="pd">Product Description</option>
@@ -101,73 +99,6 @@
                     </div>
                 </div>
             </div>
-            <div class="config-container">
-                <div class="row1">
-                    <div id="field-name">Field Name:
-                        <span> Price </span>
-                    </div>
-                    <div id="field-type">
-                        <label for="type">Type: </label>
-                        <select id="type" class="dropdowns">
-                            <option value="">Choose Type</option>
-                            <option value="Number">Number</option>
-                            <option value="AlphaNumeric">AlphaNumeric</option>
-                            <option value="Alphabets">Alphabets</option>
-                        </select>
-                    </div>
-                    <div id="field-value">
-                        <label for="text-file-id">Values: </label>
-                        <input type="file" name="text-file" id="text-file-id" accept=".txt">
-                        <input type="checkbox" name="use-text-for-value" id="use-text-for-value"
-                            onclick="toggleValueFieldTextBox()">
-                        <span>Enter Values</span>
-                        <textarea name="alternate-value" id="alternate-value" cols="10" rows="10"></textarea>
-                    </div>
-                </div>
-                <div class="row1">
-                    <div id="min-length">
-                        <label for="min-len">Min-length: </label>
-                        <input type="number" id="min-len" class="inputs">
-                    </div>
-                    <div id="max-length">
-                        <label for="max-len">Max-length: </label>
-                        <input type="number" id="max-len" class="inputs">
-                    </div>
-                    <div id="fixed-length">
-                        <label for="fixed-len">Fixed-length: </label>
-                        <input type="number" id="fixed-len" class="inputs">
-                    </div>
-                </div>
-                <div class="row1">
-                    <div id="depends-on-column">
-                        <label for="dependentOnColumn">Dependency on column: </label>
-                        <select id="depends-on" class="dropdowns" onchange="toggleDependencyInputs()">
-                            <option value="">Choose Field</option>
-                            <option value="pid">Product ID</option>
-                            <option value="pd">Product Description</option>
-                            <option value="cc">Country Code</option>
-                        </select>
-                    </div>
-                    <div id="dependent-value">
-                        <label for="dependent-field-value">Dependent Field Value: </label>
-                        <input type="text" class="inputs" id="dependent-field-value"
-                            placeholder="null for no value, !null for any value">
-                    </div>
-                    <div id="current-value">
-                        <label for="expectedCurrentFieldValue">Expected Current Field Value: </label>
-                        <select id="expectedCurrentFieldValue" class="dropdowns">
-                            <option value="">Choose here</option>
-                            <option value="!null">Present</option>
-                            <option value="null">Not Present</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <a href="#validations">
-                <button class="button" id="upload-configs">
-                    Submit
-                </button>
-            </a>
         </div>
     </div>
     <div class="heading-div error-msg" id="validations">
@@ -210,6 +141,7 @@
     </div>
 
     <script src="js/app.js"></script>
+    <script src="js/Convert.js"></script>
 </body>
 
 </html>
