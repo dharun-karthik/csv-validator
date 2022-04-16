@@ -5,8 +5,8 @@ import org.json.JSONArray
 import request.RequestHandle
 import response.ContentType
 import response.Response
-import validation.implementation.ColumnValidation
 import validation.Validation
+import validation.implementation.ColumnValidation
 import java.io.BufferedReader
 
 class CsvValidator(val metaDataReaderWriter: MetaDataReaderWriter) {

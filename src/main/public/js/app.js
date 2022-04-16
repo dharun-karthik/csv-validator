@@ -8,8 +8,7 @@ function toggleValueFieldTextBox(element) {
     valueTextArea = document.getElementById(`alternate-value${index}`)
     if (valueTextArea.style.display == 'block') {
         valueTextArea.style.display = 'none'
-    }
-    else {
+    } else {
         valueTextArea.style.display = 'block'
     }
 }
@@ -20,8 +19,7 @@ function toggleDependencyInputs(element) {
     if (dependsOnColumn != "") {
         document.getElementById(`dependent-value${index}`).style.visibility = 'visible'
         document.getElementById(`current-value${index}`).style.visibility = 'visible'
-    }
-    else {
+    } else {
         document.getElementById('dependent-value0').style.visibility = 'hidden'
         document.getElementById('current-value0').style.visibility = 'hidden'
     }

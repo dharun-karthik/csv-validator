@@ -14,9 +14,7 @@ class TypeValidationOperation : ValidationOperation {
     )
 
     override fun validate(
-        metaDataField: JsonMetaDataTemplate,
-        currentFieldValue: String,
-        currentRow: JSONObject?
+        metaDataField: JsonMetaDataTemplate, currentFieldValue: String, currentRow: JSONObject?
     ): Boolean {
         val typeValidation = TypeValidation()
         if (isFieldIsNull(currentFieldValue)) {
