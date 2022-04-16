@@ -4,11 +4,12 @@ import metaData.JsonMetaDataTemplate
 import metaData.MetaDataReaderWriter
 import org.json.JSONArray
 import org.json.JSONObject
-import validation.validationOperation.DependencyValidationOperation
-import validation.validationOperation.LengthValidationOperation
-import validation.validationOperation.RestrictedInputValidationOperation
-import validation.validationOperation.TypeValidationOperation
-import validation.validationOperation.ValidationType.*
+import validation.implementation.DuplicationValidation
+import validation.operation.DependencyValidationOperation
+import validation.operation.LengthValidationOperation
+import validation.operation.RestrictedInputValidationOperation
+import validation.operation.TypeValidationOperation
+import validation.operation.ValidationType.*
 
 class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
     private val validationMap = mutableMapOf(

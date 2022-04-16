@@ -1,8 +1,8 @@
-package validation.validationOperation
+package validation.operation
 
 import metaData.JsonMetaDataTemplate
 import org.json.JSONObject
-import validation.RestrictedInputValidation
+import validation.implementation.RestrictedInputValidation
 
 class RestrictedInputValidationOperation : ValidationOperation {
     override fun validate(

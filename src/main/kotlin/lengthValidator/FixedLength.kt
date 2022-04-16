@@ -1,6 +1,6 @@
 package lengthValidator
 
-import validation.LengthValidation
+import validation.implementation.LengthValidation
 
 class FixedLength : LengthTypeValidator {
     override fun validateLengthType(value: String, length: Int?, lengthValidation: LengthValidation): Boolean {

@@ -1,4 +1,4 @@
-package validation
+package validation.implementation
 
 class RestrictedInputValidation {
     fun validate(value: String, restrictedInputList: List<String>): Boolean {

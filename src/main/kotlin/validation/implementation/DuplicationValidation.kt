@@ -1,4 +1,4 @@
-package validation
+package validation.implementation
 
 class DuplicationValidation {
     private val mapOfObjectsAndIndices: MutableMap<String, Int> = mutableMapOf()

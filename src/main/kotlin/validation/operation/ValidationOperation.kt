@@ -1,4 +1,4 @@
-package validation.validationOperation
+package validation.operation
 
 import metaData.JsonMetaDataTemplate
 import org.json.JSONObject

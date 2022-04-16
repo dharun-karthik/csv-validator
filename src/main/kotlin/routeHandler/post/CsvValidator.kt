@@ -5,7 +5,7 @@ import org.json.JSONArray
 import request.RequestHandle
 import response.ContentType
 import response.Response
-import validation.ColumnValidation
+import validation.implementation.ColumnValidation
 import validation.Validation
 import java.io.BufferedReader
 

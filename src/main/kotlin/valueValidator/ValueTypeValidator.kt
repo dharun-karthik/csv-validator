@@ -1,6 +1,6 @@
 package valueValidator
 
-import validation.TypeValidation
+import validation.implementation.TypeValidation
 
 interface ValueTypeValidator {
     fun validateValueType(value: String, typeValidation: TypeValidation): Boolean

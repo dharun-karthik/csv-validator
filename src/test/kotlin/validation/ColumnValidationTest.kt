@@ -3,6 +3,7 @@ package validation
 import org.json.JSONArray
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import validation.implementation.ColumnValidation
 
 class ColumnValidationTest {
 

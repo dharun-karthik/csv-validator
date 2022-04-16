@@ -1,9 +1,9 @@
-package validation.validationOperation
+package validation.operation
 
 import lengthValidator.*
 import metaData.JsonMetaDataTemplate
 import org.json.JSONObject
-import validation.LengthValidation
+import validation.implementation.LengthValidation
 
 class LengthValidationOperation : ValidationOperation {
     private val lengthTypeMap: Map<LengthType, LengthTypeValidator> = mapOf(

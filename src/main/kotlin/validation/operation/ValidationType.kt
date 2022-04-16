@@ -1,4 +1,4 @@
-package validation.validationOperation
+package validation.operation
 
 enum class ValidationType(val validationErrorName: String) {
     TYPE_VALIDATION("Type Error"),

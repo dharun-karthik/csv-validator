@@ -1,9 +1,9 @@
-package validation.validationOperation
+package validation.operation
 
 import metaData.DependencyTemplate
 import metaData.JsonMetaDataTemplate
 import org.json.JSONObject
-import validation.DependencyValidation
+import validation.implementation.DependencyValidation
 
 class DependencyValidationOperation : ValidationOperation {
     override fun validate(

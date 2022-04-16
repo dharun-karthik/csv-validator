@@ -1,8 +1,8 @@
-package validation.validationOperation
+package validation.operation
 
 import metaData.JsonMetaDataTemplate
 import org.json.JSONObject
-import validation.TypeValidation
+import validation.implementation.TypeValidation
 import valueValidator.AlphaNumeric
 import valueValidator.Alphabet
 import valueValidator.Numbers
