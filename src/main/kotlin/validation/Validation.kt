@@ -32,39 +32,67 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
         val arrayOfAllErrorsByLine = JSONArray()
         val duplicationValidation = DuplicationValidation()
         dataInJSONArray.forEachIndexed { index, element ->
-            val lineErrors = mutableListOf<String>()
+            val lineErrors = linkedMapOf<String, MutableList<String>>()
             val currentRow = (element as JSONObject)
             val keys = currentRow.keySet()
             val previousDuplicateIndex = duplicationValidation.isDuplicateIndexAvailable(currentRow, index)
             if (previousDuplicateIndex != null) {
-                lineErrors.add("Row Duplication From $previousDuplicateIndex")
+                val name = "Row Duplication Error"
+                var errorList = lineErrors[name]
+                if (errorList == null) {
+                    errorList = mutableListOf<String>()
+                    lineErrors[name] = errorList
+                }
+                errorList.add(previousDuplicateIndex.toString())
             }
             for (key in keys) {
                 val metaDataField = metaDataList.first { it.fieldName.contentEquals(key, ignoreCase = true) }
                 val currentFieldValue = currentRow.get(key) as String
 
                 if (!typeValidation(metaDataField, currentFieldValue)) {
-                    lineErrors.add(getErrorMessage("Type", key))
+                    val name = "Type Error"
+                    var errorList = lineErrors[name]
+                    if (errorList == null) {
+                        errorList = mutableListOf<String>()
+                        lineErrors[name] = errorList
+                    }
+                    errorList.add(key)
                 }
                 if (!lengthValidation(metaDataField, currentFieldValue)) {
-                    lineErrors.add(getErrorMessage("Length", key))
+                    val name = "Length Error"
+                    var errorList = lineErrors[name]
+                    if (errorList == null) {
+                        errorList = mutableListOf<String>()
+                        lineErrors[name] = errorList
+                    }
+                    errorList.add(key)
                 }
                 if (!restrictedInputValidation(metaDataField, currentFieldValue)) {
-                    lineErrors.add(getErrorMessage("Value Not Found", key))
+                    val name = "Value Not Found Error"
+                    var errorList = lineErrors[name]
+                    if (errorList == null) {
+                        errorList = mutableListOf<String>()
+                        lineErrors[name] = errorList
+                    }
+                    errorList.add(key)
                 }
                 if (!dependencyValidation(metaDataField, currentFieldValue, currentRow)) {
-                    lineErrors.add(getErrorMessage("Dependency", key))
+                    val name = "Dependency Error"
+                    var errorList = lineErrors[name]
+                    if (errorList == null) {
+                        errorList = mutableListOf<String>()
+                        lineErrors[name] = errorList
+                    }
+                    errorList.add(key)
                 }
             }
-            if (lineErrors.isNotEmpty()) {
-                val singleLineErrors = parseErrorsIntoSingleJson(index + 1, lineErrors)
-                arrayOfAllErrorsByLine.put(singleLineErrors)
-            }
+            val singleLineErrors = parseErrorsIntoSingleJson(index + 1, lineErrors)
+            arrayOfAllErrorsByLine.put(singleLineErrors)
         }
         return arrayOfAllErrorsByLine
     }
 
-    private fun parseErrorsIntoSingleJson(index: Int, lineErrors: MutableList<String>): JSONObject {
+    private fun parseErrorsIntoSingleJson(index: Int, lineErrors: MutableMap<String, MutableList<String>>): JSONObject {
         return JSONObject().put(index.toString(), lineErrors)
     }
 
@@ -72,10 +100,6 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
         val restrictedInputValidation = RestrictedInputValidation()
         val restrictedInputList = metaDataField.values ?: return true
         return restrictedInputValidation.validate(currentFieldValue, restrictedInputList)
-    }
-
-    private fun getErrorMessage(errorType: String, key: String?): String {
-        return "$errorType Error in $key"
     }
 
     fun lengthValidation(
