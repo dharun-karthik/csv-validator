@@ -86,8 +86,10 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
                     errorList.add(key)
                 }
             }
-            val singleLineErrors = parseErrorsIntoSingleJson(index + 1, lineErrors)
-            arrayOfAllErrorsByLine.put(singleLineErrors)
+            if (lineErrors.isNotEmpty()) {
+                val singleLineErrors = parseErrorsIntoSingleJson(index + 1, lineErrors)
+                arrayOfAllErrorsByLine.put(singleLineErrors)
+            }
         }
         return arrayOfAllErrorsByLine
     }
@@ -100,6 +102,10 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
         val restrictedInputValidation = RestrictedInputValidation()
         val restrictedInputList = metaDataField.values ?: return true
         return restrictedInputValidation.validate(currentFieldValue, restrictedInputList)
+    }
+
+    private fun getErrorMessage(errorType: String, key: String?): String {
+        return "$errorType Error in $key"
     }
 
     fun lengthValidation(
