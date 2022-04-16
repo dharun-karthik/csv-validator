@@ -10,7 +10,6 @@ import valueValidator.AlphaNumeric
 import valueValidator.Alphabet
 import valueValidator.Numbers
 import valueValidator.ValueTypeValidator
-import java.util.*
 
 class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
     private val lengthTypeMap: Map<LengthType, LengthTypeValidator> = mapOf(
@@ -30,34 +29,43 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
     private fun iterateJsonContent(
         dataInJSONArray: JSONArray, metaDataList: Array<JsonMetaDataTemplate>
     ): JSONArray {
-        val arrayOfAllErrors = JSONArray()
+        val arrayOfAllErrorsByLine = JSONArray()
         val duplicationValidation = DuplicationValidation()
         dataInJSONArray.forEachIndexed { index, element ->
+            val lineErrors = mutableListOf<String>()
             val currentRow = (element as JSONObject)
             val keys = currentRow.keySet()
             val previousDuplicateIndex = duplicationValidation.isDuplicateIndexAvailable(currentRow, index)
             if (previousDuplicateIndex != null) {
-                arrayOfAllErrors.put(getErrorInJson(index, "Row Duplication From ", previousDuplicateIndex.toString()))
+                lineErrors.add("Row Duplication From $previousDuplicateIndex")
             }
             for (key in keys) {
                 val metaDataField = metaDataList.first { it.fieldName.contentEquals(key, ignoreCase = true) }
                 val currentFieldValue = currentRow.get(key) as String
 
                 if (!typeValidation(metaDataField, currentFieldValue)) {
-                    arrayOfAllErrors.put(getErrorInJson(index, getErrorMessage("Type"), key))
+                    lineErrors.add(getErrorMessage("Type", key))
                 }
                 if (!lengthValidation(metaDataField, currentFieldValue)) {
-                    arrayOfAllErrors.put(getErrorInJson(index, getErrorMessage("Length"), key))
+                    lineErrors.add(getErrorMessage("Length", key))
                 }
                 if (!restrictedInputValidation(metaDataField, currentFieldValue)) {
-                    arrayOfAllErrors.put(getErrorInJson(index, getErrorMessage("Foreign Value Found"), key))
+                    lineErrors.add(getErrorMessage("Value Not Found", key))
                 }
                 if (!dependencyValidation(metaDataField, currentFieldValue, currentRow)) {
-                    arrayOfAllErrors.put(getErrorInJson(index, getErrorMessage("Dependency"), key))
+                    lineErrors.add(getErrorMessage("Dependency", key))
                 }
             }
+            if (lineErrors.isNotEmpty()) {
+                val singleLineErrors = parseErrorsIntoSingleJson(index + 1, lineErrors)
+                arrayOfAllErrorsByLine.put(singleLineErrors)
+            }
         }
-        return arrayOfAllErrors
+        return arrayOfAllErrorsByLine
+    }
+
+    private fun parseErrorsIntoSingleJson(index: Int, lineErrors: MutableList<String>): JSONObject {
+        return JSONObject().put(index.toString(), lineErrors)
     }
 
     private fun restrictedInputValidation(metaDataField: JsonMetaDataTemplate, currentFieldValue: String): Boolean {
@@ -66,18 +74,8 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
         return restrictedInputValidation.validate(currentFieldValue, restrictedInputList)
     }
 
-    private fun getLineMessageWithKey(index: Int): String {
-        return "Line Number $index"
-    }
-
-    private fun getErrorMessage(errorType: String): String {
-        return "$errorType Error in "
-    }
-
-    private fun getErrorInJson(index: Int, errorMessage: String, key: String?): JSONObject {
-        return JSONObject().put(
-            getLineMessageWithKey(index + 1), "$errorMessage$key"
-        )
+    private fun getErrorMessage(errorType: String, key: String?): String {
+        return "$errorType Error in $key"
     }
 
     fun lengthValidation(
