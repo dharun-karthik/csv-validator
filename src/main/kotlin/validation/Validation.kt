@@ -1,24 +1,21 @@
 package validation
 
-import lengthValidator.*
-import metaData.DependencyTemplate
 import metaData.JsonMetaDataTemplate
 import metaData.MetaDataReaderWriter
 import org.json.JSONArray
 import org.json.JSONObject
-import valueValidator.AlphaNumeric
-import valueValidator.Alphabet
-import valueValidator.Numbers
-import valueValidator.ValueTypeValidator
+import validation.validationOperation.DependencyValidationOperation
+import validation.validationOperation.LengthValidationOperation
+import validation.validationOperation.RestrictedInputValidationOperation
+import validation.validationOperation.TypeValidationOperation
+import validation.validationOperation.ValidationType.*
 
 class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
-    private val lengthTypeMap: Map<LengthType, LengthTypeValidator> = mapOf(
-        LengthType.FIXED_LENGTH to FixedLength(),
-        LengthType.MIN_LENGTH to MinLength(),
-        LengthType.MAX_LENGTH to MaxLength()
-    )
-    private val valueTypeMap: Map<String, ValueTypeValidator> = mapOf(
-        "alphanumeric" to AlphaNumeric(), "alphabets" to Alphabet(), "number" to Numbers()
+    private val validationMap = mutableMapOf(
+        TYPE_VALIDATION to TypeValidationOperation(),
+        LENGTH_VALIDATION to LengthValidationOperation(),
+        RESTRICTED_INPUT_VALIDATION to RestrictedInputValidationOperation(),
+        DEPENDENCY_VALIDATION to DependencyValidationOperation()
     )
 
     fun validate(dataInJSONArray: JSONArray): JSONArray {
@@ -32,7 +29,7 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
         val arrayOfAllErrorsByLine = JSONArray()
         val duplicationValidation = DuplicationValidation()
         dataInJSONArray.forEachIndexed { index, element ->
-            val lineErrors = linkedMapOf<String, MutableList<String>>()
+            val lineErrors = mutableMapOf<String, MutableList<String>>()
             val currentRow = (element as JSONObject)
             val keys = currentRow.keySet()
             val previousDuplicateIndex = duplicationValidation.isDuplicateIndexAvailable(currentRow, index)
@@ -41,31 +38,7 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
                 val errorList = lineErrors.getOrPut(name) { mutableListOf() }
                 errorList.add(previousDuplicateIndex.toString())
             }
-            for (key in keys) {
-                val metaDataField = metaDataList.first { it.fieldName.contentEquals(key, ignoreCase = true) }
-                val currentFieldValue = currentRow.get(key) as String
-
-                if (!typeValidation(metaDataField, currentFieldValue)) {
-                    val name = "Type Error"
-                    val errorList = lineErrors.getOrPut(name) { mutableListOf() }
-                    errorList.add(key)
-                }
-                if (!lengthValidation(metaDataField, currentFieldValue)) {
-                    val name = "Length Error"
-                    val errorList = lineErrors.getOrPut(name) { mutableListOf() }
-                    errorList.add(key)
-                }
-                if (!restrictedInputValidation(metaDataField, currentFieldValue)) {
-                    val name = "Value Not Found Error"
-                    val errorList = lineErrors.getOrPut(name) { mutableListOf() }
-                    errorList.add(key)
-                }
-                if (!dependencyValidation(metaDataField, currentFieldValue, currentRow)) {
-                    val name = "Dependency Error"
-                    val errorList = lineErrors.getOrPut(name) { mutableListOf() }
-                    errorList.add(key)
-                }
-            }
+            appendValidationErrors(keys, metaDataList, currentRow, lineErrors)
             if (lineErrors.isNotEmpty()) {
                 val singleLineErrors = parseErrorsIntoSingleJson(index + 1, lineErrors)
                 arrayOfAllErrorsByLine.put(singleLineErrors)
@@ -74,117 +47,35 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
         return arrayOfAllErrorsByLine
     }
 
+    private fun appendValidationErrors(
+        keys: MutableSet<String>,
+        metaDataList: Array<JsonMetaDataTemplate>,
+        currentRow: JSONObject,
+        lineErrors: MutableMap<String, MutableList<String>>
+    ) {
+        for (key in keys) {
+            appendValidationErrorForCurrentField(metaDataList, key, currentRow, lineErrors)
+        }
+    }
+
+    private fun appendValidationErrorForCurrentField(
+        metaDataList: Array<JsonMetaDataTemplate>,
+        key: String,
+        currentRow: JSONObject,
+        lineErrors: MutableMap<String, MutableList<String>>
+    ) {
+        val metaDataField = metaDataList.first { it.fieldName.contentEquals(key, ignoreCase = true) }
+        val currentFieldValue = currentRow.get(key) as String
+
+        validationMap.forEach { entry ->
+            if (!entry.value.validate(metaDataField, currentFieldValue, currentRow)) {
+                val errorList = lineErrors.getOrPut(entry.key.validationErrorName) { mutableListOf() }
+                errorList.add(key)
+            }
+        }
+    }
+
     private fun parseErrorsIntoSingleJson(index: Int, lineErrors: MutableMap<String, MutableList<String>>): JSONObject {
         return JSONObject().put(index.toString(), lineErrors)
-    }
-
-    private fun restrictedInputValidation(metaDataField: JsonMetaDataTemplate, currentFieldValue: String): Boolean {
-        val restrictedInputValidation = RestrictedInputValidation()
-        val restrictedInputList = metaDataField.values ?: return true
-        return restrictedInputValidation.validate(currentFieldValue, restrictedInputList)
-    }
-
-    fun lengthValidation(
-        metaDataField: JsonMetaDataTemplate, currentFieldValue: String
-    ): Boolean {
-        val lengthValidation = LengthValidation()
-        if (isFieldIsNull(currentFieldValue)) {
-            return true
-        }
-        return lengthCheck(currentFieldValue, metaDataField, lengthValidation)
-    }
-
-    private fun lengthCheck(
-        currentFieldValue: String, metaDataField: JsonMetaDataTemplate, lengthValidation: LengthValidation
-    ): Boolean {
-        val isValid = (checkFixedLength(currentFieldValue, metaDataField, lengthValidation) && checkMinLength(
-            currentFieldValue, metaDataField, lengthValidation
-        ) && checkMaxLength(currentFieldValue, metaDataField, lengthValidation))
-
-        if (!isValid) {
-            return false
-        }
-        return true
-    }
-
-    private fun checkMaxLength(
-        currentFieldValue: String, metaDataField: JsonMetaDataTemplate, lengthValidation: LengthValidation
-    ) = lengthTypeMap[LengthType.MAX_LENGTH]!!.validateLengthType(
-        currentFieldValue, metaDataField.maxLength?.toInt(), lengthValidation
-    )
-
-    private fun checkMinLength(
-        currentFieldValue: String, metaDataField: JsonMetaDataTemplate, lengthValidation: LengthValidation
-    ) = lengthTypeMap[LengthType.MIN_LENGTH]!!.validateLengthType(
-        currentFieldValue, metaDataField.minLength?.toInt(), lengthValidation
-    )
-
-    private fun checkFixedLength(
-        currentFieldValue: String, metaDataField: JsonMetaDataTemplate, lengthValidation: LengthValidation
-    ) = lengthTypeMap[LengthType.FIXED_LENGTH]!!.validateLengthType(
-        currentFieldValue, metaDataField.length?.toInt(), lengthValidation
-    )
-
-    fun typeValidation(
-        metaDataField: JsonMetaDataTemplate, currentFieldValue: String
-    ): Boolean {
-        val typeValidation = TypeValidation()
-        if (isFieldIsNull(currentFieldValue)) {
-            return true
-        }
-
-        return checkType(metaDataField, currentFieldValue, typeValidation)
-    }
-
-    private fun checkType(
-        metaDataField: JsonMetaDataTemplate, currentFieldValue: String, typeValidation: TypeValidation
-    ): Boolean {
-        val isValid = valueTypeMap[metaDataField.type]!!.validateValueType(currentFieldValue, typeValidation)
-
-        if (!isValid) {
-            return false
-        }
-        return true
-    }
-
-    private fun dependencyValidation(
-        metaDataField: JsonMetaDataTemplate,
-        currentFieldValue: String,
-        currentRow: JSONObject,
-    ): Boolean {
-        val dependencyValidation = DependencyValidation()
-        if (metaDataField.dependencies != null) {
-            val dependencies = metaDataField.dependencies
-            if (checkDependency(dependencies, currentRow, dependencyValidation, currentFieldValue)) {
-                return false
-            }
-        }
-        return true
-    }
-
-    private fun checkDependency(
-        dependencies: List<DependencyTemplate>,
-        currentRow: JSONObject,
-        dependencyValidation: DependencyValidation,
-        currentFieldValue: String
-    ): Boolean {
-        for (dependency in dependencies) {
-            val dependentValue = currentRow.getString(dependency.dependentOn)
-            val expectedCurrentValue = dependency.expectedCurrentFieldValue
-            val expectedDependentValue = dependency.expectedDependentFieldValue
-
-            val isValid = dependencyValidation.validate(
-                currentFieldValue, dependentValue, expectedDependentValue, expectedCurrentValue
-            )
-
-            if (!isValid) {
-                return true
-            }
-        }
-        return false
-    }
-
-    private fun isFieldIsNull(value: String?): Boolean {
-        return value.contentEquals("null", ignoreCase = true)
     }
 }
