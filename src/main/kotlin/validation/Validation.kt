@@ -32,12 +32,7 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
             val lineErrors = mutableMapOf<String, MutableList<String>>()
             val currentRow = (element as JSONObject)
             val keys = currentRow.keySet()
-            val previousDuplicateIndex = duplicationValidation.isDuplicateIndexAvailable(currentRow, index)
-            if (previousDuplicateIndex != null) {
-                val name = "Row Duplication Error"
-                val errorList = lineErrors.getOrPut(name) { mutableListOf() }
-                errorList.add(previousDuplicateIndex.toString())
-            }
+            appendDuplicationError(duplicationValidation, currentRow, index, lineErrors)
             appendValidationErrors(keys, metaDataList, currentRow, lineErrors)
             if (lineErrors.isNotEmpty()) {
                 val singleLineErrors = parseErrorsIntoSingleJson(index + 1, lineErrors)
@@ -45,6 +40,20 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
             }
         }
         return arrayOfAllErrorsByLine
+    }
+
+    private fun appendDuplicationError(
+        duplicationValidation: DuplicationValidation,
+        currentRow: JSONObject,
+        index: Int,
+        lineErrors: MutableMap<String, MutableList<String>>
+    ) {
+        val previousDuplicateIndex = duplicationValidation.isDuplicateIndexAvailable(currentRow, index)
+        if (previousDuplicateIndex != null) {
+            val name = "Row Duplication Error"
+            val errorList = lineErrors.getOrPut(name) { mutableListOf() }
+            errorList.add(previousDuplicateIndex.toString())
+        }
     }
 
     private fun appendValidationErrors(
