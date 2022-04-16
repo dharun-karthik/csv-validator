@@ -19,12 +19,91 @@
         </div>
     </div>
     <div class="section">
-        <div class="heading-div">
+        <div class="heading-div" id="configs-upload">
             <h1 class="heading">One place to Validate all your CSVs</h1>
             <h2 class="heading sub-heading">Validate your CSV File with 3 Easy Steps</h2>
 
+            <h1 class="configs-heading">Step 1: Add Validation Rules</h1>
+            <h2 class="configs-heading configs-sub-heading">Add rules for validating your csv</h2>
+
+            <div class="config-container">
+                <div class="row1">
+                    <div id="field-name">
+                        <label for="field0">Field Name: </label>
+                        <input type="text" id="field0" class="inputs" name="field" onchange="onChangeHandler(event)">
+                    </div>
+                    <div id="field-type">
+                        <label for="type0">Type: </label>
+                        <select id="type0" name="type" class="dropdowns" onchange="onChangeHandler(event)">
+                            <option value="">Choose Type</option>
+                            <option value="Number">Number</option>
+                            <option value="AlphaNumeric">AlphaNumeric</option>
+                            <option value="Alphabets">Alphabets</option>
+                        </select>
+                    </div>
+                    <div id="field-value">
+                        <label for="text-file-id0">Values: </label>
+                        <input type="file" class="choose-file" name="values" id="text-file-id0" accept=".txt" onchange="onChangeHandler(event)">
+                        <input type="checkbox" name="use-text-for-value" id="use-text-for-value0"
+                            onclick="toggleValueFieldTextBox(this)">
+                        <span>Enter Values</span>
+                        <textarea name="alternate-value" id="alternate-value0" cols="10" rows="10" class="displayNone alternate-value"></textarea>
+                    </div>
+                </div>
+                <div class="row1">
+                    <div id="min-length">
+                        <label for="min-len0">Min-length: </label>
+                        <input type="number" name="min-length" id="min-len0" class="inputs" onchange="onChangeHandler(event)">
+                    </div>
+                    <div id="max-length">
+                        <label for="max-len0">Max-length: </label>
+                        <input type="number" name="max-length" id="max-len0" class="inputs" onchange="onChangeHandler(event)">
+                    </div>
+                    <div id="fixed-length">
+                        <label for="fixed-len0">Fixed-length: </label>
+                        <input type="number" name="fixed-length" id="fixed-len0" class="inputs" onchange="onChangeHandler(event)">
+                    </div>
+                </div>
+                <div class="row1">
+                    <div id="depends-on-column">
+                        <label for="depends-on0">Dependency on column: </label>
+                        <select id="depends-on0" class="dropdowns" name="dependentField" onchange="toggleDependencyInputs(this)">
+                            <option value="">Choose Field</option>
+                            <option value="pid">Product ID</option>
+                            <option value="pd">Product Description</option>
+                            <option value="cc">Country Code</option>
+                        </select>
+                    </div>
+                    <div id="dependent-value0" class="hidden">
+                        <label for="dependent-field-value0">Dependent Field Value: </label>
+                        <input type="text" class="inputs extra-width" id="dependent-field-value0" name="expectedDependentFieldValue"
+                            placeholder="null for no value, !null for any value" onchange="onChangeHandler(event)">
+                    </div>
+                    <div id="current-value0" class="hidden">
+                        <label for="expectedCurrentFieldValue0">Expected Current Field Value: </label>
+                        <select id="expectedCurrentFieldValue0" class="dropdowns" name="expectedCurrentFieldValue" onchange="onChangeHandler(event)">
+                            <option value="">Choose here</option>
+                            <option value="!null">Present</option>
+                            <option value="null">Not Present</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="buttons" id="new-field-and-submit-button">
+                <button class="button big-font" id="add-new-field" onclick="addNewField()">
+                    Add New Field
+                </button>
+                <button class="button big-font" id="upload-configs">
+                    Submit
+                </button>
+            </div>
+        </div>
+        <div class="heading-div" id="csv-upload-section">
+            <h1 class="configs-heading">Step 2: Upload CSV</h1>
+            <h2 class="configs-heading configs-sub-heading">Now Upload CSV for validating</h2>
+
             <div class="upload-csv-section">
-                <div class="heading heading-to-upload-csv">Upload CSV For Validation</div>
+                <div class="heading heading-to-upload-csv">Choose or Drag CSV Here</div>
                 <div class="choose-csv">
                     <label for="csv-id" id="csv-label">CSV File:
                         <input type="file" name="csv-file" id="csv-id" accept=".csv">
@@ -33,76 +112,9 @@
                 <button class="button" onclick="uploadCSV()">Upload</button>
             </div>
         </div>
-        <div class="heading-div" id="configs-upload">
-            <h1 class="configs-heading">Customize Validation Rules</h1>
-            <h2 class="configs-heading configs-sub-heading">Add rules for validating your csv</h2>
-
-            <div class="config-container">
-                <div class="row1">
-                    <div id="field-name">Field Name:
-                        <span> Product Id </span>
-                    </div>
-                    <div id="field-type">
-                        <label for="type">Type: </label>
-                        <select id="type" name="type" class="dropdowns">
-                            <option value="">Choose Type</option>
-                            <option value="Number">Number</option>
-                            <option value="AlphaNumeric">AlphaNumeric</option>
-                            <option value="Alphabets">Alphabets</option>
-                        </select>
-                    </div>
-                    <div id="field-value">
-                        <label for="text-file-id">Values: </label>
-                        <input type="file" name="text-file" id="text-file-id" accept=".txt">
-                        <input type="checkbox" name="use-text-for-value" id="use-text-for-value"
-                            onclick="toggleValueFieldTextBox(this)">
-                        <span>Enter Values</span>
-                        <textarea name="alternate-value" id="alternate-value" cols="10" rows="10"></textarea>
-                    </div>
-                </div>
-                <div class="row1">
-                    <div id="min-length">
-                        <label for="min-len">Min-length: </label>
-                        <input type="number" id="min-len" class="inputs">
-                    </div>
-                    <div id="max-length">
-                        <label for="max-len">Max-length: </label>
-                        <input type="number" id="max-len" class="inputs">
-                    </div>
-                    <div id="fixed-length">
-                        <label for="fixed-len">Fixed-length: </label>
-                        <input type="number" id="fixed-len" class="inputs">
-                    </div>
-                </div>
-                <div class="row1">
-                    <div id="depends-on-column">
-                        <label for="dependentOnColumn">Dependency on column: </label>
-                        <select id="depends-on" class="dropdowns" onchange="toggleDependencyInputs(this)">
-                            <option value="">Choose Field</option>
-                            <option value="pid">Product ID</option>
-                            <option value="pd">Product Description</option>
-                            <option value="cc">Country Code</option>
-                        </select>
-                    </div>
-                    <div id="dependent-value">
-                        <label for="dependent-field-value">Dependent Field Value: </label>
-                        <input type="text" class="inputs" id="dependent-field-value"
-                            placeholder="null for no value, !null for any value">
-                    </div>
-                    <div id="current-value">
-                        <label for="expectedCurrentFieldValue">Expected Current Field Value: </label>
-                        <select id="expectedCurrentFieldValue" class="dropdowns">
-                            <option value="">Choose here</option>
-                            <option value="!null">Present</option>
-                            <option value="null">Not Present</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
     <div class="heading-div error-msg" id="validations">
-        <h1 class="configs-heading">Get Validations For Your CSV</h1>
+        <h1 class="configs-heading">Step 3: Get Validations For Your CSV</h1>
         <h2 class="configs-heading configs-sub-heading">Check your errors</h2>
 
         <div class="error-list-container">

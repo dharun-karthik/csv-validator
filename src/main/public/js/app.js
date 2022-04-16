@@ -1,10 +1,11 @@
 const payload = {};
 const headers = [];
+var numberOfFields = 0;
 
 function toggleValueFieldTextBox(element) {
-    console.log(element)
-    useTextForValue = document.getElementById('use-text-for-value').value
-    valueTextArea = document.getElementById('alternate-value')
+    let index = extractIndexFromId(element.id)
+    useTextForValue = document.getElementById(`use-text-for-value${index}`).value
+    valueTextArea = document.getElementById(`alternate-value${index}`)
     if (valueTextArea.style.display == 'block') {
         valueTextArea.style.display = 'none'
     }
@@ -14,16 +15,20 @@ function toggleValueFieldTextBox(element) {
 }
 
 function toggleDependencyInputs(element) {
-    console.log(element)
-    dependsOnColumn = document.getElementById('depends-on').value
+    let index = extractIndexFromId(element.id)
+    dependsOnColumn = document.getElementById(`depends-on${index}`).value
     if (dependsOnColumn != "") {
-        document.getElementById('dependent-value').style.visibility = 'visible'
-        document.getElementById('current-value').style.visibility = 'visible'
+        document.getElementById(`dependent-value${index}`).style.visibility = 'visible'
+        document.getElementById(`current-value${index}`).style.visibility = 'visible'
     }
     else {
-        document.getElementById('dependent-value').style.visibility = 'hidden'
-        document.getElementById('current-value').style.visibility = 'hidden'
+        document.getElementById('dependent-value0').style.visibility = 'hidden'
+        document.getElementById('current-value0').style.visibility = 'hidden'
     }
+}
+
+function extractIndexFromId(fieldId) {
+    return fieldId[fieldId.length - 1]
 }
 
 async function uploadCSV() {
@@ -49,8 +54,6 @@ function captureHeaders(headersString) {
     headersList.forEach(element => {
         headers.push(element)
     });
-    displayConfigurationsForCSV()
-    window.location.href = "#configs-upload"
 }
 
 async function sendRequest(result) {
@@ -76,27 +79,19 @@ async function handleResponse(response) {
     }
 }
 
-function displayConfigurationsForCSV() {
-    console.log(headers)
-    console.log(headers.pop())
-    headers.forEach((header, index) => {
-        console.log(`Header: ${header} and index ${index}`)
-        displayConfiguration(headers, header, index);
-    })
-    displaySubmitButton()
-}
-
-function displayConfiguration(headers, header, index) {
+function addNewField() {
+    numberOfFields += 1;
     let configContainer = document.createElement('div')
     configContainer.className = 'config-container'
     configContainer.innerHTML = `
     <div class="row1">
-        <div id="field-name">Field Name:
-            <span> ${header} </span>
+        <div id="field-name">
+            <label for="field${numberOfFields}">Field Name: </label>
+            <input type="text" id="field${numberOfFields}" class="inputs" name="field" onchange="onChangeHandler(event)">
         </div>
         <div id="field-type">
-            <label for="type">Type: </label>
-            <select id="type" name="type" class="dropdowns" onchange="onChangeHandler(event, '${header}')">
+            <label for="type${numberOfFields}">Type: </label>
+            <select id="type${numberOfFields}" name="type" class="dropdowns" onchange="onChangeHandler(event)">
                 <option value="">Choose Type</option>
                 <option value="Number">Number</option>
                 <option value="AlphaNumeric">AlphaNumeric</option>
@@ -104,46 +99,46 @@ function displayConfiguration(headers, header, index) {
             </select>
         </div>
         <div id="field-value">
-            <label for="text-file-id">Values: </label>
-            <input type="file" name="values" id="text-file-id" accept=".txt" onchange="onChangeHandler(event, '${header}')">
-            <input type="checkbox" name="use-text-for-value" id="use-text-for-value"
+            <label for="text-file-id${numberOfFields}">Values: </label>
+            <input type="file" class="choose-file" name="values" id="text-file-id${numberOfFields}" accept=".txt" onchange="onChangeHandler(event)">
+            <input type="checkbox" name="use-text-for-value" id="use-text-for-value${numberOfFields}"
                 onclick="toggleValueFieldTextBox(this)">
             <span>Enter Values</span>
-            <textarea name="alternate-value" id="alternate-value" cols="10" rows="10"></textarea>
+            <textarea name="alternate-value" id="alternate-value${numberOfFields}" cols="10" rows="10" class="displayNone alternate-value"></textarea>
         </div>
     </div>
     <div class="row1">
         <div id="min-length">
-            <label for="min-len">Min-length: </label>
-            <input type="number" id="min-len" name="min-length" class="inputs" onchange="onChangeHandler(event, '${header}')">
+            <label for="min-len${numberOfFields}">Min-length: </label>
+            <input type="number" name="min-length" id="min-len${numberOfFields}" class="inputs" onchange="onChangeHandler(event)">
         </div>
         <div id="max-length">
-            <label for="max-len">Max-length: </label>
-            <input type="number" id="max-len" name="max-length" class="inputs" onchange="onChangeHandler(event, '${header}')">
+            <label for="max-len${numberOfFields}">Max-length: </label>
+            <input type="number" name="max-length" id="max-len${numberOfFields}" class="inputs" onchange="onChangeHandler(event)">
         </div>
         <div id="fixed-length">
-            <label for="fixed-len">Fixed-length: </label>
-            <input type="number" id="fixed-len" name="fixed-length" class="inputs" onchange="onChangeHandler(event, '${header}')">
+            <label for="fixed-len${numberOfFields}">Fixed-length: </label>
+            <input type="number" name="fixed-length" id="fixed-len${numberOfFields}" class="inputs" onchange="onChangeHandler(event)">
         </div>
     </div>
     <div class="row1">
         <div id="depends-on-column">
-            <label for="dependentOnColumn">Dependency on column: </label>
-            <select id="depends-on" class="dropdowns" name="dependentField" onchange="onChangeHandler(event, '${header}')">
+            <label for="depends-on${numberOfFields}">Dependency on column: </label>
+            <select id="depends-on${numberOfFields}" class="dropdowns" name="dependentField" onchange="toggleDependencyInputs(this)">
                 <option value="">Choose Field</option>
                 <option value="pid">Product ID</option>
                 <option value="pd">Product Description</option>
                 <option value="cc">Country Code</option>
             </select>
         </div>
-        <div id="dependent-value">
-            <label for="dependent-field-value">Dependent Field Value: </label>
-            <input type="text" class="inputs" id="dependent-field-value"
-                placeholder="null for no value, !null for any value">
+        <div id="dependent-value${numberOfFields}" class="hidden">
+            <label for="dependent-field-value${numberOfFields}">Dependent Field Value: </label>
+            <input type="text" class="inputs extra-width" id="dependent-field-value${numberOfFields}" name="expectedDependentFieldValue"
+                placeholder="null for no value, !null for any value" onchange="onChangeHandler(event)">
         </div>
-        <div id="current-value">
-            <label for="expectedCurrentFieldValue">Expected Current Field Value: </label>
-            <select id="expectedCurrentFieldValue" class="dropdowns">
+        <div id="current-value${numberOfFields}" class="hidden">
+            <label for="expectedCurrentFieldValue${numberOfFields}">Expected Current Field Value: </label>
+            <select id="expectedCurrentFieldValue${numberOfFields}" class="dropdowns" name="expectedCurrentFieldValue" onchange="onChangeHandler(event)">
                 <option value="">Choose here</option>
                 <option value="!null">Present</option>
                 <option value="null">Not Present</option>
@@ -151,23 +146,18 @@ function displayConfiguration(headers, header, index) {
         </div>
     </div>
     `
-    document.getElementById('configs-upload').appendChild(configContainer)
+    let buttons = document.getElementById('new-field-and-submit-button')
+    document.getElementById('configs-upload').insertBefore(configContainer, buttons)
+
 }
 
-function displaySubmitButton() {
-    let configSubmitButton = document.createElement('button')
-    configSubmitButton.className = 'button'
-    configSubmitButton.id = 'upload-configs'
-    configSubmitButton.innerText = 'Submit'
-
-    document.getElementById('configs-upload').appendChild(configSubmitButton)
-}
-
-function onChangeHandler(event, fieldName) {
-    console.log(`event.target.name: ${event.target.name}`)
-    if (event.target.name == "dependentField") {
-        triggerNullValueField(fieldName)
-    }
+function onChangeHandler(event) {
+    index = extractIndexFromId(event.target.id)
+    let fieldName = document.getElementById(`field${index}`).value
+    console.log(`fieldname: ${fieldName}`)
+    // if (event.target.name == "dependentField") {
+    //     triggerNullValueField(fieldName)
+    // }
     if (payload[fieldName] == undefined) payload[fieldName] = {}
     if (event.target.name == "values") {
         let reader = new FileReader();
