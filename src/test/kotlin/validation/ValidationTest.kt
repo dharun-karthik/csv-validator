@@ -64,7 +64,7 @@ class ValidationTest {
 ]"""
         val jsonData = JSONArray(csvData)
         val expectedContent =
-            """[{"1":["Dependency Error in country name","Length Error in product description","Value Not Found Error in source pincode","Length Error in product id"]},{"2":["Length Error in product description","Length Error in product id"]},{"3":["Dependency Error in country name","Length Error in product description","Value Not Found Error in source pincode","Dependency Error in country code"]},{"4":["Dependency Error in country name","Length Error in product description","Dependency Error in country code"]},{"5":["Row Duplication From 4","Dependency Error in country name","Length Error in product description","Dependency Error in country code"]}]"""
+            """[{"1":{"Dependency Error":["country name"],"Length Error":["product description","product id"],"Value Not Found Error":["source pincode"]}},{"2":{"Length Error":["product description","product id"]}},{"3":{"Dependency Error":["country name","country code"],"Length Error":["product description"],"Value Not Found Error":["source pincode"]}},{"4":{"Dependency Error":["country name","country code"],"Length Error":["product description"]}},{"5":{"Row Duplication Error":["4"],"Dependency Error":["country name","country code"],"Length Error":["product description"]}}]"""
 
         val actual = validation.validate(jsonData)
 
