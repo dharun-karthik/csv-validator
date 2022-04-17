@@ -12,7 +12,8 @@
 <body>
     <div class="header">
         <div class="logo">
-            <img src="https://github.com/amitkhirdekar/Quiz_Time/blob/master/logo.png?raw=true" alt="CSV Validator" class="logo-image">
+            <img src="https://github.com/amitkhirdekar/Quiz_Time/blob/master/logo.png?raw=true" alt="CSV Validator"
+                class="logo-image">
         </div>
         <div class="nav-links">
             <a href="#"> Home </a>
@@ -30,7 +31,8 @@
                 <div class="row1">
                     <div id="field-name">
                         <label for="field0">Field Name<span class="required-field">*</span>: </label>
-                        <input type="text" id="field0" class="inputs" name="fieldName" onchange="onChangeHandler(event)">
+                        <input type="text" id="field0" class="inputs" name="fieldName"
+                            onchange="onChangeHandler(event)">
                     </div>
                     <div id="field-type">
                         <label for="type0">Type<span class="required-field">*</span>: </label>
@@ -39,45 +41,109 @@
                             <option value="Number">Number</option>
                             <option value="AlphaNumeric">AlphaNumeric</option>
                             <option value="Alphabets">Alphabets</option>
+                            <option value="Date">Date</option>
+                            <option value="Time">Time</option>
+                            <option value="Date-Time">Date-Time</option>
+                        </select>
+                    </div>
+                    <div id="date-format0" style="display: none;">
+                        <label for="date-format0">Date Format</label>
+                        <select id="date-format0" name="pattern" class="dropdowns" onchange="onChangeHandler(event)">
+                            <option value="">Choose Type</option>
+                            <option value="dd/MM/yyyy">dd/MM/yyyy</option>
+                            <option value="dd/yyyy/MM">dd/yyyy/MM</option>
+                            <option value="MM/dd/yyyy">MM/dd/yyyy</option>
+                            <option value="MM/yyyy/dd">MM/yyyy/dd</option>
+                            <option value="yyyy/dd/MM">yyyy/dd/MM</option>
+                            <option value="yyyy/MM/dd">yyyy/MM/dd</option>
+                            <option value="dd-MM-yyyy">dd-MM-yyyy</option>
+                            <option value="dd-yyyy-MM">dd-yyyy-MM</option>
+                            <option value="MM-dd-yyyy">MM-dd-yyyy</option>
+                            <option value="MM-yyyy-dd">MM-yyyy-dd</option>
+                            <option value="yyyy-dd-MM">yyyy-dd-MM</option>
+                            <option value="yyyy-MM-dd">yyyy-MM-dd</option>
+                        </select>
+                    </div>
+                    <div id="time-format0" style="display: none;">
+                        <label for="time-format0">Time Format</label>
+                        <select id="time-format0" name="pattern" class="dropdowns" onchange="onChangeHandler(event)">
+                            <option value="">Choose Type</option>
+                            <option value="HH:mm:ss">HH:mm:ss</option>
+                            <option value="HH:ss:mm">HH:ss:mm</option>
+                            <option value="ss:HH:mm">ss:HH:mm</option>
+                            <option value="HH:ss:mm:SSS">HH:ss:mm:SSS</option>
+                            <option value="hh:ss:mm a">hh:ss:mm a</option>
+                            <option value="hh:ss:mma">hh:ss:mma</option>
+                            <option value="ahh:ss:mm">ahh:ss:mm</option>
+                            <option value="hh:ass:mm">hh:ass:mm</option>
+                            <option value="hh:ass:mm:SSS">hh:ass:mm:SSS</option>
+                        </select>
+                    </div>
+                    <div id="date-time-format0" style="display: none;">
+                        <label for="date-time-format0">Date-Time Format</label>
+                        <select id="date-time-format0" name="pattern" class="dropdowns" onchange="onChangeHandler(event)">
+                            <option value="">Choose Type</option>
+                            <option value="HH:mm:ss dd/MM/yyyy">HH:mm:ss dd/MM/yyyy</option>
+                            <option value="HH:mm:ss?dd/yyyy/MM">HH:mm:ss?dd/yyyy/MM</option>
+                            <option value="HH:ss:mm:dd:MM:yyyy">HH:ss:mm:dd:MM:yyyy</option>
+                            <option value="ss:HH:mm/yyyy/MM/dd">ss:HH:mm/yyyy/MM/dd</option>
+                            <option value="HH:ss:mm-dd-yyyy-MM">HH:ss:mm-dd-yyyy-MM</option>
+                            <option value="HH:ss:mm:SSS dd MM yyyy">HH:ss:mm:SSS dd MM yyyy</option>
+                            <option value="hh:ss:mm a,yyyy-MM-dd">hh:ss:mm a,yyyy-MM-dd</option>
+                            <option value="hh:ss:mma+dd/MM/yyyy">hh:ss:mma+dd/MM/yyyy</option>
+                            <option value="ahh:ss:mm () dd/MM/yyyy">ahh:ss:mm () dd/MM/yyyy</option>
+                            <option value="dd/MM/yyyy hh:ass:mm">dd/MM/yyyy hh:ass:mm</option>
+                            <option value="dd/MM/yyyy == hh:ass:mm:SSS">dd/MM/yyyy == hh:ass:mm:SSS</option>
+                            <option value="dd MM yyyy hh:ass:mm">dd MM yyyy hh:ass:mm</option>
                         </select>
                     </div>
                     <div id="field-value">
                         <label for="text-file-id0">Values: </label>
-                        <input type="file" class="choose-file" name="values" id="text-file-id0" accept=".txt" onchange="onChangeHandler(event)">
-                        <input type="checkbox" name="use-text-for-value" id="use-text-for-value0"
-                            onclick="toggleValueFieldTextBox(this)">
-                        <span>Enter Values</span>
-                        <textarea name="alternate-value" id="alternate-value0" cols="10" rows="10" class="displayNone alternate-value"></textarea>
+                        <input type="file" class="choose-file" name="values" id="text-file-id0" accept=".txt"
+                            onchange="onChangeHandler(event)">
+                        <div class="extra-values">
+                            <input type="checkbox" name="use-text-for-value" id="use-text-for-value0"
+                                onclick="toggleValueFieldTextBox(this)">
+                            <span>Enter Values</span>
+                            <textarea name="alternate-value" id="alternate-value0" cols="10" rows="10"
+                                class="displayNone alternate-value"></textarea>
+                        </div>
                     </div>
                 </div>
                 <div class="row1">
                     <div id="min-length">
                         <label for="min-len0">Min-length: </label>
-                        <input type="number" name="minLength" id="min-len0" class="inputs" onchange="onChangeHandler(event)">
+                        <input type="number" name="minLength" id="min-len0" class="inputs"
+                            onchange="onChangeHandler(event)">
                     </div>
                     <div id="max-length">
                         <label for="max-len0">Max-length: </label>
-                        <input type="number" name="maxLength" id="max-len0" class="inputs" onchange="onChangeHandler(event)">
+                        <input type="number" name="maxLength" id="max-len0" class="inputs"
+                            onchange="onChangeHandler(event)">
                     </div>
                     <div id="fixed-length">
                         <label for="fixed-len0">Fixed-length: </label>
-                        <input type="number" name="length" id="fixed-len0" class="inputs" onchange="onChangeHandler(event)">
+                        <input type="number" name="length" id="fixed-len0" class="inputs"
+                            onchange="onChangeHandler(event)">
                     </div>
                 </div>
                 <div class="row1">
                     <div id="depends-on-column">
                         <label for="depends-on0">Dependency on column: </label>
-                        <input type="text" id="depends-on0" class="inputs" name="dependentOn" onchange="onChangeHandler(event)">
+                        <input type="text" id="depends-on0" class="inputs" name="dependentOn"
+                            onchange="onChangeHandler(event)">
                         </input>
                     </div>
                     <div id="dependent-value0" class="hidden">
                         <label for="dependent-field-value0">Dependent Field Value: </label>
-                        <input type="text" class="inputs extra-width" id="dependent-field-value0" name="expectedDependentFieldValue"
-                            placeholder="null for no value, !null for any value" onchange="onChangeHandler(event)">
+                        <input type="text" class="inputs extra-width" id="dependent-field-value0"
+                            name="expectedDependentFieldValue" placeholder="null for no value, !null for any value"
+                            onchange="onChangeHandler(event)">
                     </div>
                     <div id="current-value0" class="hidden">
                         <label for="expectedCurrentFieldValue0">Expected Current Field Value: </label>
-                        <select id="expectedCurrentFieldValue0" class="dropdowns" name="expectedCurrentFieldValue" onchange="onChangeHandler(event)">
+                        <select id="expectedCurrentFieldValue0" class="dropdowns" name="expectedCurrentFieldValue"
+                            onchange="onChangeHandler(event)">
                             <option value="">Choose here</option>
                             <option value="!null">Present</option>
                             <option value="null">Not Present</option>

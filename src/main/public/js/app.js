@@ -26,6 +26,39 @@ function toggleDependencyInputs(element) {
     }
 }
 
+function toggleDateInput(element) {
+    let index = extractIndexFromId(element.id)
+    dateType = document.getElementById(`type${index}`).value
+    if (dateType == "Date") {
+        document.getElementById(`date-format${index}`).style.display = 'block'
+    }
+    else {
+        document.getElementById(`date-format${index}`).style.display = 'none'
+    }
+}
+
+function toggleTimeInput(element) {
+    let index = extractIndexFromId(element.id)
+    timeType = document.getElementById(`type${index}`).value
+    if (timeType == "Time") {
+        document.getElementById(`time-format${index}`).style.display = 'block'
+    }
+    else {
+        document.getElementById(`time-format${index}`).style.display = 'none'
+    }
+}
+
+function toggleDateTimeInput(element) {
+    let index = extractIndexFromId(element.id)
+    dateTimeType = document.getElementById(`type${index}`).value
+    if (dateTimeType == "Date-Time") {
+        document.getElementById(`date-time-format${index}`).style.display = 'block'
+    }
+    else {
+        document.getElementById(`date-time-format${index}`).style.display = 'none'
+    }
+}
+
 function extractIndexFromId(fieldId) {
     return fieldId[fieldId.length - 1]
 }
@@ -105,6 +138,60 @@ function addNewField() {
                 <option value="Number">Number</option>
                 <option value="AlphaNumeric">AlphaNumeric</option>
                 <option value="Alphabets">Alphabets</option>
+                <option value="Date">Date</option>
+                <option value="Time">Time</option>
+                <option value="Date-Time">Date-Time</option>
+            </select>
+        </div>
+        <div id="date-format${numberOfFields}" style="display: none;">
+            <label for="date-format${numberOfFields}">Date Format</label>
+            <select id="date-format${numberOfFields}" name="pattern" class="dropdowns" onchange="onChangeHandler(event)">
+                <option value="">Choose Type</option>
+                <option value="dd/MM/yyyy">dd/MM/yyyy</option>
+                <option value="dd/yyyy/MM">dd/yyyy/MM</option>
+                <option value="MM/dd/yyyy">MM/dd/yyyy</option>
+                <option value="MM/yyyy/dd">MM/yyyy/dd</option>
+                <option value="yyyy/dd/MM">yyyy/dd/MM</option>
+                <option value="yyyy/MM/dd">yyyy/MM/dd</option>
+                <option value="dd-MM-yyyy">dd-MM-yyyy</option>
+                <option value="dd-yyyy-MM">dd-yyyy-MM</option>
+                <option value="MM-dd-yyyy">MM-dd-yyyy</option>
+                <option value="MM-yyyy-dd">MM-yyyy-dd</option>
+                <option value="yyyy-dd-MM">yyyy-dd-MM</option>
+                <option value="yyyy-MM-dd">yyyy-MM-dd</option>
+            </select>
+        </div>
+        <div id="time-format${numberOfFields}" style="display: none;">
+            <label for="time-format${numberOfFields}">Time Format</label>
+            <select id="time-format${numberOfFields}" name="pattern" class="dropdowns" onchange="onChangeHandler(event)">
+                <option value="">Choose Type</option>
+                <option value="HH:mm:ss">HH:mm:ss</option>
+                <option value="HH:ss:mm">HH:ss:mm</option>
+                <option value="ss:HH:mm">ss:HH:mm</option>
+                <option value="HH:ss:mm:SSS">HH:ss:mm:SSS</option>
+                <option value="hh:ss:mm a">hh:ss:mm a</option>
+                <option value="hh:ss:mma">hh:ss:mma</option>
+                <option value="ahh:ss:mm">ahh:ss:mm</option>
+                <option value="hh:ass:mm">hh:ass:mm</option>
+                <option value="hh:ass:mm:SSS">hh:ass:mm:SSS</option>
+            </select>
+        </div>
+        <div id="date-time-format${numberOfFields}" style="display: none;">
+            <label for="date-time-format${numberOfFields}">Date-Time Format</label>
+            <select id="date-time-format${numberOfFields}" name="pattern" class="dropdowns" onchange="onChangeHandler(event)">
+                <option value="">Choose Type</option>
+                <option value="HH:mm:ss dd/MM/yyyy">HH:mm:ss dd/MM/yyyy</option>
+                <option value="HH:mm:ss?dd/yyyy/MM">HH:mm:ss?dd/yyyy/MM</option>
+                <option value="HH:ss:mm:dd:MM:yyyy">HH:ss:mm:dd:MM:yyyy</option>
+                <option value="ss:HH:mm/yyyy/MM/dd">ss:HH:mm/yyyy/MM/dd</option>
+                <option value="HH:ss:mm-dd-yyyy-MM">HH:ss:mm-dd-yyyy-MM</option>
+                <option value="HH:ss:mm:SSS dd MM yyyy">HH:ss:mm:SSS dd MM yyyy</option>
+                <option value="hh:ss:mm a,yyyy-MM-dd">hh:ss:mm a,yyyy-MM-dd</option>
+                <option value="hh:ss:mma+dd/MM/yyyy">hh:ss:mma+dd/MM/yyyy</option>
+                <option value="ahh:ss:mm () dd/MM/yyyy">ahh:ss:mm () dd/MM/yyyy</option>
+                <option value="dd/MM/yyyy hh:ass:mm">dd/MM/yyyy hh:ass:mm</option>
+                <option value="dd/MM/yyyy == hh:ass:mm:SSS">dd/MM/yyyy == hh:ass:mm:SSS</option>
+                <option value="dd MM yyyy hh:ass:mm">dd MM yyyy hh:ass:mm</option>
             </select>
         </div>
         <div id="field-value">
@@ -163,6 +250,11 @@ function onChangeHandler(event) {
     if (event.target.name == "dependentOn") {
         toggleDependencyInputs(event.target)
     }
+    if (event.target.name == "type") {
+        toggleDateInput(event.target)
+        toggleTimeInput(event.target)
+        toggleDateTimeInput(event.target)
+    }
     if (event.target.name == "fieldName") {
         document.getElementById(`field${index}`).setAttribute('readonly', 'true');
     }
@@ -176,9 +268,15 @@ function onChangeHandler(event) {
         reader.readAsText(event.target.files[0])
         return
     }
-    payload[fieldName][event.target.name] = String(event.target.value).toLowerCase()
+    payload[fieldName][event.target.name] = lowerCase(event.target.value, event.target.name)
     console.log(payload)
-    convertPayloadToJsonArray(payload);
+}
+
+function lowerCase(data, field) {
+    if (field == 'pattern'){
+        return data
+    }
+    return String(data).toLowerCase()
 }
 
 function arrangeDependencies(payload) {
