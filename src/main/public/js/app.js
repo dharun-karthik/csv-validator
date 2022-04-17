@@ -181,9 +181,30 @@ function onChangeHandler(event) {
     convertPayloadToJsonArray(payload);    
 }
 
+function arrangeDependencies(payload){
+    for(let field in payload){
+        for(let key in payload[field]){
+            // console.log(key + ":" + payload[field][key]);
+            if(key=="dependentOn"){
+                assignDependencies(payload, field);
+            }
+        }
+    }
+    return payload;
+}
+
+function assignDependencies(payload, field) {
+    payload[field]["dependencies"] = {
+        "dependentOn": payload[field]["dependentOn"],
+        "expectedDependentFieldValue": payload[field]["expectedDependentFieldValue"],
+        "expectedCurrentFieldValue": payload[field]["expectedCurrentFieldValue"]
+    };
+}
+
 function convertPayloadToJsonArray(payload) {
     let jsonArray = []
     let index = 0;
+    payload = arrangeDependencies(payload);
     for(let field in payload){
         jsonArray[index++] = payload[field];
     }
