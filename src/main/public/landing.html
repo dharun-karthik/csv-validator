@@ -30,7 +30,7 @@
                 <div class="row1">
                     <div id="field-name">
                         <label for="field0">Field Name: </label>
-                        <input type="text" id="field0" class="inputs" name="field" onchange="onChangeHandler(event)">
+                        <input type="text" id="field0" class="inputs" name="fieldName" onchange="onChangeHandler(event)">
                     </div>
                     <div id="field-type">
                         <label for="type0">Type: </label>
@@ -53,26 +53,22 @@
                 <div class="row1">
                     <div id="min-length">
                         <label for="min-len0">Min-length: </label>
-                        <input type="number" name="min-length" id="min-len0" class="inputs" onchange="onChangeHandler(event)">
+                        <input type="number" name="minLength" id="min-len0" class="inputs" onchange="onChangeHandler(event)">
                     </div>
                     <div id="max-length">
                         <label for="max-len0">Max-length: </label>
-                        <input type="number" name="max-length" id="max-len0" class="inputs" onchange="onChangeHandler(event)">
+                        <input type="number" name="maxLength" id="max-len0" class="inputs" onchange="onChangeHandler(event)">
                     </div>
                     <div id="fixed-length">
                         <label for="fixed-len0">Fixed-length: </label>
-                        <input type="number" name="fixed-length" id="fixed-len0" class="inputs" onchange="onChangeHandler(event)">
+                        <input type="number" name="length" id="fixed-len0" class="inputs" onchange="onChangeHandler(event)">
                     </div>
                 </div>
                 <div class="row1">
                     <div id="depends-on-column">
                         <label for="depends-on0">Dependency on column: </label>
-                        <select id="depends-on0" class="dropdowns" name="dependentField" onchange="toggleDependencyInputs(this)">
-                            <option value="">Choose Field</option>
-                            <option value="pid">Product ID</option>
-                            <option value="pd">Product Description</option>
-                            <option value="cc">Country Code</option>
-                        </select>
+                        <input type="text" id="depends-on0" class="inputs" name="dependentOn" onchange="onChangeHandler(event)">
+                        </input>
                     </div>
                     <div id="dependent-value0" class="hidden">
                         <label for="dependent-field-value0">Dependent Field Value: </label>

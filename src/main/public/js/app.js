@@ -85,7 +85,7 @@ function addNewField() {
     <div class="row1">
         <div id="field-name">
             <label for="field${numberOfFields}">Field Name: </label>
-            <input type="text" id="field${numberOfFields}" class="inputs" name="field" onchange="onChangeHandler(event)">
+            <input type="text" id="field${numberOfFields}" class="inputs" name="fieldName" onchange="onChangeHandler(event)">
         </div>
         <div id="field-type">
             <label for="type${numberOfFields}">Type: </label>
@@ -108,26 +108,22 @@ function addNewField() {
     <div class="row1">
         <div id="min-length">
             <label for="min-len${numberOfFields}">Min-length: </label>
-            <input type="number" name="min-length" id="min-len${numberOfFields}" class="inputs" onchange="onChangeHandler(event)">
+            <input type="number" name="minLength" id="min-len${numberOfFields}" class="inputs" onchange="onChangeHandler(event)">
         </div>
         <div id="max-length">
             <label for="max-len${numberOfFields}">Max-length: </label>
-            <input type="number" name="max-length" id="max-len${numberOfFields}" class="inputs" onchange="onChangeHandler(event)">
+            <input type="number" name="maxLength" id="max-len${numberOfFields}" class="inputs" onchange="onChangeHandler(event)">
         </div>
         <div id="fixed-length">
             <label for="fixed-len${numberOfFields}">Fixed-length: </label>
-            <input type="number" name="fixed-length" id="fixed-len${numberOfFields}" class="inputs" onchange="onChangeHandler(event)">
+            <input type="number" name="length" id="fixed-len${numberOfFields}" class="inputs" onchange="onChangeHandler(event)">
         </div>
     </div>
     <div class="row1">
         <div id="depends-on-column">
             <label for="depends-on${numberOfFields}">Dependency on column: </label>
-            <select id="depends-on${numberOfFields}" class="dropdowns" name="dependentField" onchange="toggleDependencyInputs(this)">
-                <option value="">Choose Field</option>
-                <option value="pid">Product ID</option>
-                <option value="pd">Product Description</option>
-                <option value="cc">Country Code</option>
-            </select>
+            <input type="text" id="depends-on${numberOfFields}" class="inputs" name="dependentOn" onchange="onChangeHandler(event)">
+            </input>
         </div>
         <div id="dependent-value${numberOfFields}" class="hidden">
             <label for="dependent-field-value${numberOfFields}">Dependent Field Value: </label>
@@ -153,9 +149,12 @@ function onChangeHandler(event) {
     index = extractIndexFromId(event.target.id)
     let fieldName = document.getElementById(`field${index}`).value
     console.log(`fieldname: ${fieldName}`)
-    // if (event.target.name == "dependentField") {
-    //     triggerNullValueField(fieldName)
-    // }
+    if (event.target.name == "dependentOn") {
+        toggleDependencyInputs(event.target)
+    }
+    if (event.target.name == "fieldName") {
+        document.getElementById(`field${index}`).setAttribute('readonly', 'true');
+    }
     if (payload[fieldName] == undefined) payload[fieldName] = {}
     if (event.target.name == "values") {
         let reader = new FileReader();
