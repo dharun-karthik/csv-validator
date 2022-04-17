@@ -45,7 +45,7 @@ body {
 }
 
 .section {
-    background: url("../assets/bg.png");
+    background: url("https://github.com/amitkhirdekar/Quiz_Time/blob/master/bg.png?raw=true");
     background-position: 70% -10%;
     background-repeat: no-repeat;
     background-size: cover;
@@ -260,7 +260,7 @@ body {
 
 .error-msg {
     min-height: 90vh;
-    background: url(../assets/bg-flipped.png);
+    background: url("https://github.com/amitkhirdekar/Quiz_Time/blob/master/bg-flipped.png?raw=true");
 }
 
 .error-list-container {
