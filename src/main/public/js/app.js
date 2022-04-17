@@ -179,3 +179,26 @@ function convertPayloadToJsonArray(payload) {
     console.log(jsonArray);
     return jsonArray;
 }
+
+async function sendConfigData() {
+    let newPayload = convertPayloadToJsonArray(payload)
+    await fetch('reset-config', {
+        method: 'DELETE',
+    })
+    for (var i = 0; i < newPayload.length; i++) {
+        sendOneConfig(newPayload[i])
+    }
+    alert("Submitted configuration of CSV\nNow you can add your csv file.")
+    window.location.href = 'uploadCSV.html'
+}
+
+async function sendOneConfig(oneConfig) {
+    const resp = await fetch('add-meta-data', {
+        method: 'POST', body: JSON.stringify(oneConfig)
+    });
+    if (resp.status === 200) {
+        const jsonData = await resp.json();
+        console.log(jsonData)
+    }
+}
+
