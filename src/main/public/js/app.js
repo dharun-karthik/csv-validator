@@ -42,8 +42,7 @@ async function handleCsvFile(event) {
     const csv = event.target.result;
     const lines = csv.toString().split("\n");
     captureHeaders(lines[0])
-    let convert = new Convert();
-    const result = convert.csvToJson(lines);
+    const result = csvToJson(lines);
     const response = await sendRequest(result);
     await handleResponse(response);
 }
@@ -236,6 +235,7 @@ async function sendOneConfig(oneConfig) {
 
 function displayErrorsOrValid() {
     errors = JSON.parse(sessionStorage.getItem('errors'))
+    console.log(errors)
     if (errors.length == 0) {
         printCsvValid()
         return

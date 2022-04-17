@@ -1,35 +1,37 @@
-import MandatoryInputValidation from "../src/main/public/js/MandatoryInputValidation";
+
+const rewire = require("rewire")
+const mandatoryInputValidation = rewire("../src/main/public/js/MandatoryInputValidation");
 
 describe("mandatory input validation for field", () => {
     it('should return false if mandatory input for field is empty', () => {
-        let mandatoryInputValidation = new MandatoryInputValidation();
-        let isValid = mandatoryInputValidation.validateInputsForFields("Price", "");
+        let validateInputsForFields = mandatoryInputValidation.__get__("validateInputsForFields");
+        let isValid = validateInputsForFields("Price", "");
         expect(isValid).toBeFalse();
     })
 
     it('should return true if mandatory input for field is not empty', () => {
-        let mandatoryInputValidation = new MandatoryInputValidation();
-        let isValid = mandatoryInputValidation.validateInputsForFields("Price", "Number");
+        let validateInputsForFields = mandatoryInputValidation.__get__("validateInputsForFields");
+        let isValid = validateInputsForFields("Price", "Number");
         expect(isValid).toBeTrue();
     })
 })
 
 describe("mandatory input validation for dependency", () => {
     it('should return false if both mandatory input for dependency is empty', () => {
-        let mandatoryInputValidation = new MandatoryInputValidation();
-        let isValid = mandatoryInputValidation.validateInputsForDependency("Export", "", "");
+        let validateInputsForDependency = mandatoryInputValidation.__get__("validateInputsForDependency");
+        let isValid = validateInputsForDependency("Export", "", "");
         expect(isValid).toBeFalse();
     })
 
     it('should return false if any mandatory input for dependency is empty', () => {
-        let mandatoryInputValidation = new MandatoryInputValidation();
-        let isValid = mandatoryInputValidation.validateInputsForDependency("Export", "Y", "");
+        let validateInputsForDependency = mandatoryInputValidation.__get__("validateInputsForDependency");
+        let isValid = validateInputsForDependency("Export", "Y", "");
         expect(isValid).toBeFalse();
     })
 
     it('should return false if mandatory input for dependency is not empty', () => {
-        let mandatoryInputValidation = new MandatoryInputValidation();
-        let isValid = mandatoryInputValidation.validateInputsForDependency("Export", "Y", "Present");
+        let validateInputsForDependency = mandatoryInputValidation.__get__("validateInputsForDependency");
+        let isValid = validateInputsForDependency("Export", "Y", "Present");
         expect(isValid).toBeTrue();
     })
 })
