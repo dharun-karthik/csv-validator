@@ -1,5 +1,6 @@
 const payload = {};
 const headers = [];
+const errors = [{"1":{"Dependency Error":["country name"],"Length Error":["product description","product id"],"Value Not Found Error":["source pincode"]}},{"3":{"Row Duplication Error":["2"]}}]
 var numberOfFields = 0;
 
 function toggleValueFieldTextBox(element) {
@@ -69,11 +70,7 @@ async function handleResponse(response) {
             printCsvValid()
             return
         }
-        for (let key in jsonData) {
-            const obj = jsonData[key]
-            console.log("obj ", obj)
-            // printLines(obj)
-        }
+        displayErrors(jsonData)
     } else {
         console.log("Error : ", response)
     }
@@ -216,6 +213,52 @@ async function sendOneConfig(oneConfig) {
     if (resp.status === 200) {
         const jsonData = await resp.json();
         console.log(jsonData)
+    }
+}
+
+//todo: Handle proper errors and not default errors
+function displayErrors(errorJSON) {
+    for (key in errors) {
+        let errorListContainer = document.createElement('div')
+        errorListContainer.className = 'error-list'
+
+        displayErrorsForAllLines(errorListContainer);
+        document.getElementById('display-errors').appendChild(errorListContainer)
+    }
+}
+function displayErrorsForAllLines(errorListContainer) {
+    for (lineNumber in errors[key]) {
+        errorsInLineNumber = errors[key][lineNumber];
+        let lineNo = document.createElement('div');
+        lineNo.className = 'line-number';
+        lineNo.innerHTML = `Line No:
+            <span>${lineNumber}</span>`;
+
+        errorListContainer.appendChild(lineNo);
+
+        let allErrorsInOneLine = document.createElement('div');
+        allErrorsInOneLine.className = 'errors';
+
+        displayErrorsForOneLine(allErrorsInOneLine);
+        errorListContainer.appendChild(allErrorsInOneLine);
+    }
+}
+
+function displayErrorsForOneLine(allErrorsInOneLine) {
+    for (errorType in errorsInLineNumber) {
+        displayOneTypeOfError(allErrorsInOneLine);
+    }
+}
+
+function displayOneTypeOfError(allErrorsInOneLine) {
+    for (errorIndex in errorsInLineNumber[errorType]) {
+        let errorField = errorsInLineNumber[errorType][errorIndex];
+        let errorDiv = document.createElement('div');
+        errorDiv.className = 'error';
+
+        errorDiv.innerText = `${errorType} in ${errorField}`;
+
+        allErrorsInOneLine.appendChild(errorDiv);
     }
 }
 
