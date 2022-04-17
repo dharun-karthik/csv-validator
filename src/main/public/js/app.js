@@ -245,7 +245,7 @@ function displayErrorsOrValid() {
 
 
 function displayErrors() {
-    console.log(errors.keys)
+    clearPreviousErrors()
     for (key in errors) {
         let errorListContainer = document.createElement('div')
         errorListContainer.className = 'error-list'
@@ -257,6 +257,10 @@ function displayErrors() {
 function displayErrorsForAllLines(errorListContainer) {
     for (lineNumber in errors[key]) {
         errorsInLineNumber = errors[key][lineNumber];
+        if (lineNumber == '0') {
+            displayColumnErrors(errorsInLineNumber)
+            return
+        }
         let lineNo = document.createElement('div');
         lineNo.className = 'line-number';
         lineNo.innerHTML = `Line No:
@@ -290,3 +294,19 @@ function displayOneTypeOfError(allErrorsInOneLine) {
     }
 }
 
+function displayColumnErrors(incorrectColumns) {
+    let columnNameContainer = document.createElement('div')
+    columnNameContainer.className = 'all-column-errors'
+    incorrectColumns.forEach(incorrectColumn => {
+        let oneColumnErrorDiv = document.createElement('div')
+        oneColumnErrorDiv.className = 'column-error'
+        oneColumnErrorDiv.innerText = `Column Name Error in ${incorrectColumn}`;
+
+        columnNameContainer.appendChild(oneColumnErrorDiv)
+    })
+    document.getElementById('display-errors').appendChild(columnNameContainer)
+}
+
+function clearPreviousErrors() {
+    document.getElementById('display-errors').innerText = "";
+}
