@@ -9,7 +9,7 @@ class TimeValidator {
             val format = DateTimeFormatter.ofPattern(pattern)
             LocalTime.parse(timeValue, format)
             true
-        } catch (e : Exception){
+        } catch (e: Exception) {
             false
         }
     }

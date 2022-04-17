@@ -1,13 +1,14 @@
 package validation.valueValidator
 
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-internal class TimeValidatorTest{
+internal class TimeValidatorTest {
     @ParameterizedTest
     @MethodSource("validTimeArguments")
     fun shouldReturnTrueWhenValidTimeAndPatternIsGiven(pattern: String, timeValue: String) {
@@ -36,11 +37,11 @@ internal class TimeValidatorTest{
             Arguments.of("ss:HH:mm", "56:23:35"),
             Arguments.of("HH:ss:mm", "23:58:59"),
             Arguments.of("HH:ss:mm:SSS", "23:58:59:978"),
-            Arguments.of("hh:ss:mm a", "12:00:58 am"),
-            Arguments.of("hh:ss:mma", "12:00:58am"),
-            Arguments.of("ahh:ss:mm", "am12:00:58"),
-            Arguments.of("hh:ass:mm", "12:am00:58"),
-            Arguments.of("hh:ass:mm:SSS", "12:am00:58:917"),
+            Arguments.of("hh:ss:mm a zzz", "12:00:58 am IST"),
+            Arguments.of("hh:ss:mma zzz", "12:00:58am IST"),
+            Arguments.of("ahh:ss:mm zzz", "am12:00:58 IST"),
+            Arguments.of("hh:ass:mm zzz", "12:am00:58 IST"),
+            Arguments.of("hh:ass:mm:SSS zzz", "12:am00:58:917 IST"),
         )
     }
 
