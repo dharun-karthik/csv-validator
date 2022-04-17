@@ -35,6 +35,7 @@ async function uploadCSV() {
     reader.onload = await handleCsvFile
     reader.readAsText(csvElement)
     alert("CSV file submitted")
+    window.location.href = "errors.html"
 }
 
 async function handleCsvFile(event) {
@@ -43,8 +44,8 @@ async function handleCsvFile(event) {
     captureHeaders(lines[0])
     let convert = new Convert();
     const result = convert.csvToJson(lines);
-    // const response = await sendRequest(result);
-    // await handleResponse(response);
+    const response = await sendRequest(result);
+    await handleResponse(response);
 }
 
 function captureHeaders(headersString) {
@@ -66,15 +67,31 @@ async function handleResponse(response) {
         console.log(jsonData)
         if (jsonData.length == 0) {
             printCsvValid()
+            return
         }
         for (let key in jsonData) {
             const obj = jsonData[key]
             console.log("obj ", obj)
-            printLines(obj)
+            // printLines(obj)
         }
     } else {
         console.log("Error : ", response)
     }
+}
+
+function printCsvValid() {
+    let container = document.getElementById('display-errors')
+    container.innerHTML = ""
+
+    let outerDiv = document.createElement('div')
+    outerDiv.className = 'no-error';
+
+    let innerDiv = document.createElement('div')
+    innerDiv.className = 'valid-csv';
+    innerDiv.innerText = 'CSV Has No Errors'
+    
+    outerDiv.appendChild(innerDiv)
+    container.appendChild(outerDiv)
 }
 
 function addNewField() {
