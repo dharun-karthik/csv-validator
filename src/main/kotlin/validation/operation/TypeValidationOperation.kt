@@ -6,9 +6,9 @@ import validation.implementation.valueValidator.*
 
 class TypeValidationOperation : ValidationOperation {
     private val valueTypeMap: Map<String, ValueTypeValidator> = mapOf(
-        "alphanumeric" to AlphaNumeric(),
-        "alphabets" to Alphabet(),
-        "number" to Numbers(),
+        "alphanumeric" to AlphaNumericValidator(),
+        "alphabets" to AlphabetValidator(),
+        "number" to NumberValidator(),
         "date" to DateValidator(),
         "time" to TimeValidator(),
         "datetime" to DateTimeValidator()

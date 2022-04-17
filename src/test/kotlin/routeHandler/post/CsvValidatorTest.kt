@@ -44,7 +44,8 @@ class CsvValidatorTest {
     }
 ]"""
         val lineSeparator = System.lineSeparator()
-        val content = """[{"1":{"Dependency Error":["country name"],"Length Error":["product description","product id"],"Value Not Found Error":["source pincode"]}},{"3":{"Row Duplication Error":["2"]}}]"""
+        val content =
+            """[{"1":{"Dependency Error":["country name"],"Length Error":["product description","product id"],"Value Not Found Error":["source pincode"]}},{"3":{"Row Duplication Error":["2"]}}]"""
         val head = """HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
 Content-Length: ${content.length}"""

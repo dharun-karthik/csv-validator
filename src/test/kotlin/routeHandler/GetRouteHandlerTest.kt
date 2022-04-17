@@ -37,7 +37,7 @@ internal class GetRouteHandlerTest {
         val request = "GET /get-meta-data HTTP/1.1$lineSeparator$lineSeparator"
         val expected = getMetaDataContent()
 
-        val actual = getRouteHandler.handleGetRequest(request).split(lineSeparator+lineSeparator)[1]
+        val actual = getRouteHandler.handleGetRequest(request).split(lineSeparator + lineSeparator)[1]
 
         assertEquals(expected, actual)
     }

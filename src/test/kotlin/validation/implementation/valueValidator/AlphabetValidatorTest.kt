@@ -1,19 +1,17 @@
-package validation.valueValidator
+package validation.implementation.valueValidator
 
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import validation.implementation.valueValidator.Alphabet
 
-internal class AlphabetTest {
-    private val alphabet = Alphabet()
-    private val typeValidation = TypeValidation()
+internal class AlphabetValidatorTest {
+    private val alphabetValidator = AlphabetValidator()
 
     @Test
     fun shouldReturnTrueIfInputTextIsAlphabetic() {
         val inputText = "abcABC"
 
-        val actual = alphabet.validateValueType(inputText, typeValidation)
+        val actual = alphabetValidator.validate(inputText)
 
         assertTrue(actual)
     }
@@ -22,7 +20,7 @@ internal class AlphabetTest {
     fun shouldReturnFalseIfInputTextIsNotAlphabetic() {
         val inputText = "abcABC12:@"
 
-        val actual = alphabet.validateValueType(inputText, typeValidation)
+        val actual = alphabetValidator.validate(inputText)
 
         assertFalse(actual)
     }

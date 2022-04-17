@@ -82,7 +82,7 @@ function printCsvValid() {
     let innerDiv = document.createElement('div')
     innerDiv.className = 'valid-csv';
     innerDiv.innerText = 'CSV Has No Errors'
-    
+
     outerDiv.appendChild(innerDiv)
     container.appendChild(outerDiv)
 }
@@ -177,14 +177,14 @@ function onChangeHandler(event) {
     }
     payload[fieldName][event.target.name] = String(event.target.value).toLowerCase()
     console.log(payload)
-    convertPayloadToJsonArray(payload);    
+    convertPayloadToJsonArray(payload);
 }
 
-function arrangeDependencies(payload){
-    for(let field in payload){
-        for(let key in payload[field]){
+function arrangeDependencies(payload) {
+    for (let field in payload) {
+        for (let key in payload[field]) {
             // console.log(key + ":" + payload[field][key]);
-            if(key=="dependentOn"){
+            if (key == "dependentOn") {
                 assignDependencies(payload, field);
             }
         }
@@ -204,7 +204,7 @@ function convertPayloadToJsonArray(payload) {
     let jsonArray = []
     let index = 0;
     payload = arrangeDependencies(payload);
-    for(let field in payload){
+    for (let field in payload) {
         jsonArray[index++] = payload[field];
     }
     console.log(jsonArray);
@@ -254,6 +254,7 @@ function displayErrors() {
         document.getElementById('display-errors').appendChild(errorListContainer)
     }
 }
+
 function displayErrorsForAllLines(errorListContainer) {
     for (lineNumber in errors[key]) {
         errorsInLineNumber = errors[key][lineNumber];

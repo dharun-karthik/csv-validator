@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
-import validation.implementation.DependencyValidation
 import java.util.stream.Stream
 
 class DependencyValidationTest {
@@ -103,50 +102,50 @@ class DependencyValidationTest {
     }
 
     @Test
-    fun shouldPassWhenNullIsPassedToIsNull(){
+    fun shouldPassWhenNullIsPassedToIsNull() {
         val dependencyValidation = DependencyValidation()
         val nullString = "null"
 
-        assertTrue( dependencyValidation.isNull(nullString))
+        assertTrue(dependencyValidation.isNull(nullString))
     }
 
     @Test
-    fun shouldFailWhenNotNullValueIsPassedToIsNull(){
+    fun shouldFailWhenNotNullValueIsPassedToIsNull() {
         val dependencyValidation = DependencyValidation()
         val notNullString = "!null"
 
-        assertFalse( dependencyValidation.isNull(notNullString))
+        assertFalse(dependencyValidation.isNull(notNullString))
     }
 
     @Test
-    fun shouldFailWhenRandomValueIsPassedToIsNull(){
+    fun shouldFailWhenRandomValueIsPassedToIsNull() {
         val dependencyValidation = DependencyValidation()
         val randomString = "hell22"
 
-        assertFalse( dependencyValidation.isNull(randomString))
+        assertFalse(dependencyValidation.isNull(randomString))
     }
 
     @Test
-    fun shouldPassWhenNotNullIsPassedToIsNotNull(){
+    fun shouldPassWhenNotNullIsPassedToIsNotNull() {
         val dependencyValidation = DependencyValidation()
         val nullString = "!null"
 
-        assertTrue( dependencyValidation.isNotNull(nullString))
+        assertTrue(dependencyValidation.isNotNull(nullString))
     }
 
     @Test
-    fun shouldFailWhenNullValueIsPassedToIsNotNull(){
+    fun shouldFailWhenNullValueIsPassedToIsNotNull() {
         val dependencyValidation = DependencyValidation()
         val notNullString = "null"
 
-        assertFalse( dependencyValidation.isNotNull(notNullString))
+        assertFalse(dependencyValidation.isNotNull(notNullString))
     }
 
     @Test
-    fun shouldFailWhenRandomValueIsPassedToIsNotNull(){
+    fun shouldFailWhenRandomValueIsPassedToIsNotNull() {
         val dependencyValidation = DependencyValidation()
         val randomString = "hell22"
 
-        assertFalse( dependencyValidation.isNotNull(randomString))
+        assertFalse(dependencyValidation.isNotNull(randomString))
     }
 }

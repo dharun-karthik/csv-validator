@@ -1,19 +1,17 @@
-package validation.valueValidator
+package validation.implementation.valueValidator
 
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import validation.implementation.valueValidator.AlphaNumeric
 
-internal class AlphaNumericTest {
-    private val alphaNumeric = AlphaNumeric()
-    private val typeValidation = TypeValidation()
+internal class AlphaNumericValidatorTest {
+    private val alphaNumericValidator = AlphaNumericValidator()
 
     @Test
     fun shouldReturnTrueIfInputTextIsAlphaNumeric() {
         val inputText = "abcABC12"
 
-        val actual = alphaNumeric.validateValueType(inputText, typeValidation)
+        val actual = alphaNumericValidator.validate(inputText)
 
         assertTrue(actual)
     }
@@ -22,7 +20,7 @@ internal class AlphaNumericTest {
     fun shouldReturnFalseIfInputTextIsNotAlphaNumeric() {
         val inputText = "abcABC1:"
 
-        val actual = alphaNumeric.validateValueType(inputText, typeValidation)
+        val actual = alphaNumericValidator.validate(inputText)
 
         assertFalse(actual)
     }
@@ -31,7 +29,7 @@ internal class AlphaNumericTest {
     fun shouldReturnTrueIfInputTextHavingAlphabetsOnlyIsAlphaNumeric() {
         val inputText = "abcABC"
 
-        val actual = alphaNumeric.validateValueType(inputText, typeValidation)
+        val actual = alphaNumericValidator.validate(inputText)
 
         assertTrue(actual)
     }
@@ -40,7 +38,7 @@ internal class AlphaNumericTest {
     fun shouldReturnTrueIfInputTextHavingDigitsOnlyIsAlphaNumeric() {
         val inputText = "1234"
 
-        val actual = alphaNumeric.validateValueType(inputText, typeValidation)
+        val actual = alphaNumericValidator.validate(inputText)
 
         assertTrue(actual)
     }

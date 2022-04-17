@@ -3,7 +3,6 @@ package validation.implementation
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import validation.implementation.LengthValidation
 
 internal class LengthValidationTest {
 

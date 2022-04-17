@@ -1,7 +1,7 @@
 package validation.implementation.valueValidator
 
-class Numbers : ValueTypeValidator {
+class AlphabetValidator : ValueTypeValidator {
     override fun validate(value: String, pattern: String?): Boolean {
-        return value.matches("-?\\d+(\\.\\d+)?".toRegex())
+        return value.matches("""^[A-Za-z\s]*$""".toRegex())
     }
 }

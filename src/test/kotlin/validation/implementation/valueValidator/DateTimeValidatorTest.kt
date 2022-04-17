@@ -1,4 +1,4 @@
-package validation.valueValidator
+package validation.implementation.valueValidator
 
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -6,7 +6,6 @@ import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
-import validation.implementation.valueValidator.DateTimeValidator
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class DateTimeValidatorTest {
@@ -17,7 +16,7 @@ internal class DateTimeValidatorTest {
     fun shouldReturnTrueWhenValidDateTimeAndPatternIsGiven(pattern: String, dateTimeValue: String) {
         val dateTimeValidator = DateTimeValidator()
 
-        val actual = dateTimeValidator.validate(pattern, dateTimeValue)
+        val actual = dateTimeValidator.validate(dateTimeValue, pattern)
 
         assertTrue(actual)
     }
@@ -27,7 +26,7 @@ internal class DateTimeValidatorTest {
     fun shouldReturnFalseWhenInValidDateTimeAndPatternIsGiven(pattern: String, dateTimeValue: String) {
         val dateTimeValidator = DateTimeValidator()
 
-        val actual = dateTimeValidator.validate(pattern, dateTimeValue)
+        val actual = dateTimeValidator.validate(dateTimeValue, pattern)
 
         assertFalse(actual)
     }
