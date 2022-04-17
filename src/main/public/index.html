@@ -5,132 +5,99 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <title>Csv Parser</title>
+    <link rel="stylesheet" href="css/style2.css">
+    <title>Home | CSV Validator</title>
 </head>
 
 <body>
-<div>
-    <header>
-        <h1 id="header_title">CSV parser</h1>
-    </header>
-    <h1 class="header_text">Set Configuration</h1>
-    <div id="configs">
-        <h3 class="header_text">Fields to Validate</h3>
+    <div class="header">
+        <div class="logo">
+            <img src="assets/logo.png" alt="CSV Validator" class="logo-image">
+        </div>
+        <div class="nav-links">
+            <a href="#"> Home </a>
+        </div>
     </div>
-    <div class="form_container">
-        <form class="myform" id="field_form">
-            <h3 class="header_text" id="field_header">Add Field</h3>
-            <div class="row">
-                <div class="column">
-                    <label for="field">Field: </label>
-                    <input id="field" type="text">
+    <div class="section">
+        <div class="heading-div" id="configs-upload">
+            <h1 class="heading">One place to Validate all your CSVs</h1>
+            <h2 class="heading sub-heading">Validate your CSV File with 3 Easy Steps</h2>
+
+            <h1 class="configs-heading">Step 1: Add Validation Rules</h1>
+            <h2 class="configs-heading configs-sub-heading">Add rules for validating your csv</h2>
+
+            <div class="config-container">
+                <div class="row1">
+                    <div id="field-name">
+                        <label for="field0">Field Name: </label>
+                        <input type="text" id="field0" class="inputs" name="fieldName" onchange="onChangeHandler(event)">
+                    </div>
+                    <div id="field-type">
+                        <label for="type0">Type: </label>
+                        <select id="type0" name="type" class="dropdowns" onchange="onChangeHandler(event)">
+                            <option value="">Choose Type</option>
+                            <option value="Number">Number</option>
+                            <option value="AlphaNumeric">AlphaNumeric</option>
+                            <option value="Alphabets">Alphabets</option>
+                        </select>
+                    </div>
+                    <div id="field-value">
+                        <label for="text-file-id0">Values: </label>
+                        <input type="file" class="choose-file" name="values" id="text-file-id0" accept=".txt" onchange="onChangeHandler(event)">
+                        <input type="checkbox" name="use-text-for-value" id="use-text-for-value0"
+                            onclick="toggleValueFieldTextBox(this)">
+                        <span>Enter Values</span>
+                        <textarea name="alternate-value" id="alternate-value0" cols="10" rows="10" class="displayNone alternate-value"></textarea>
+                    </div>
+                </div>
+                <div class="row1">
+                    <div id="min-length">
+                        <label for="min-len0">Min-length: </label>
+                        <input type="number" name="minLength" id="min-len0" class="inputs" onchange="onChangeHandler(event)">
+                    </div>
+                    <div id="max-length">
+                        <label for="max-len0">Max-length: </label>
+                        <input type="number" name="maxLength" id="max-len0" class="inputs" onchange="onChangeHandler(event)">
+                    </div>
+                    <div id="fixed-length">
+                        <label for="fixed-len0">Fixed-length: </label>
+                        <input type="number" name="length" id="fixed-len0" class="inputs" onchange="onChangeHandler(event)">
+                    </div>
+                </div>
+                <div class="row1">
+                    <div id="depends-on-column">
+                        <label for="depends-on0">Dependency on column: </label>
+                        <input type="text" id="depends-on0" class="inputs" name="dependentOn" onchange="onChangeHandler(event)">
+                        </input>
+                    </div>
+                    <div id="dependent-value0" class="hidden">
+                        <label for="dependent-field-value0">Dependent Field Value: </label>
+                        <input type="text" class="inputs extra-width" id="dependent-field-value0" name="expectedDependentFieldValue"
+                            placeholder="null for no value, !null for any value" onchange="onChangeHandler(event)">
+                    </div>
+                    <div id="current-value0" class="hidden">
+                        <label for="expectedCurrentFieldValue0">Expected Current Field Value: </label>
+                        <select id="expectedCurrentFieldValue0" class="dropdowns" name="expectedCurrentFieldValue" onchange="onChangeHandler(event)">
+                            <option value="">Choose here</option>
+                            <option value="!null">Present</option>
+                            <option value="null">Not Present</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="column">
-                    <label for="type">Type: </label>
-                    <select id="type">
-                        <option value="">Choose here</option>
-                        <option value="Number">Number</option>
-                        <option value="AlphaNumeric">AlphaNumeric</option>
-                        <option value="Alphabets">Alphabets</option>
-                        <option value="Boolean">Boolean</option>
-                    </select>
-                </div>
-                <div class="column">
-                    <label for="text_file_id">Values: </label>
-                    <input type="file" name="text-file" id="text_file_id" accept=".txt">
-                </div>
-            </div>
-            <div class="row">
-                <div class="column">
-                    <label for="min-len">Min-length: </label>
-                    <input type="number" id="min-len">
-                </div>
-                <div class="column">
-                    <label for="max-len">Max-length: </label>
-                    <input type="number" id="max-len">
-                </div>
-                <div class="column">
-                    <label for="fixed-len">Fixed-length: </label>
-                    <input type="number" id="fixed-len">
-                </div>
-            </div>
-        </form>
-        <div class="add_field_button">
-            <button class="btn" id="add-field-button" type="submit" onclick="addFieldData()">Add
-                Field
-            </button>
-        </div>
-        <hr>
-        <div id="dependencies">
-        </div>
-        <form class="myform" id="dependency_form">
-            <h3 class="header_text" id="dependency_header">Add Dependency <span id="field_name_in_dependency"></span>
-            </h3>
-            <div class="row">
-                <div class="column">
-                    <label for="dependentOnColumn">Dependency on column: </label>
-                    <input type="text" id="dependentOnColumn" placeholder="This field depends on which field">
-                </div>
-                <div class="column">
-                    <label for="expectedDependentFieldValue">Dependent Field Value: </label>
-                    <input type="text" id="expectedDependentFieldValue"
-                           placeholder="null for no value, !null for any value">
-                </div>
-            </div>
-            <label for="expectedCurrentFieldValue">Expected Current Field Value: </label>
-            <select id="expectedCurrentFieldValue">
-                <option value="">Choose here</option>
-                <option value="!null">Present</option>
-                <option value="null">Not Present</option>
-            </select>
-        </form>
-        <div class="button_container">
-            <button class="btn" id="add-dependency-button" onclick="addMoreDependencyRow()">Add
-                dependency
-            </button>
-            <div class="submit_reset_button">
-                <button class="btn" id="value-submit-button" type="submit"
-                        onclick="sendConfigData()">Submit
+            <div class="buttons" id="new-field-and-submit-button">
+                <button class="button big-font" id="add-new-field" onclick="addNewField()">
+                    Add New Field
                 </button>
-                <button class="btn-danger" id="reset_config" onclick="resetConfigData()">Reset
-                    Configuration
+                <button class="button big-font" id="upload-configs" onclick="sendConfigData()">
+                    Submit
                 </button>
             </div>
         </div>
     </div>
-</div>
-<br>
-<div id="csv_part">
-    <div id="csv_div">
-        <div id="lightbackground"></div>
-        <h1 id="csv_parser_heading">CSV PARSER</h1>
-        <label for="csv_id" id="csv_label">CSV File:
-            <input type="file" name="csv-file" id="csv_id" accept=".csv">
-        </label>
-        <button id="csv-submit-button" class="btn" onclick="csvReader()">Submit</button>
-    </div>
-    <div id="error-msg">
-    </div>
-</div>
-<div class="footer">
-</div>
+    <div class="footer" id="footer"></div>
 
-<div class="landing_page">
-    <h1 class="hide">
-        <span id="landing_page_title">CSV Parser</span>
-    </h1>
-    <img id="csv_svg" class="hide" src="assets/svgs/csv_green.svg" alt="CSV Parser">
-</div>
-<div id="shuttle"></div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"
-        integrity="sha512-IQLehpLoVS4fNzl7IfH8Iowfm5+RiMGtHykgZJl9AWMgqx0AmJ6cRWcB+GaGVtIsnC4voMfm8f2vwtY+6oPjpQ=="
-        crossorigin="anonymous"></script>
-<script src="js/main.js" type="text/javascript"></script>
-<script src="js/MandatoryInputValidation.js" type="module"></script>
-<script src="js/Convert.js" type="module"></script>
+    <script src="js/app.js"></script>
 </body>
+
 </html>
