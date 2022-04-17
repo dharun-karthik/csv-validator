@@ -6,6 +6,7 @@ import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
+import validation.implementation.valueValidator.DateValidator
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class DateValidatorTest {
@@ -63,6 +64,7 @@ class DateValidatorTest {
         return listOf(
             Arguments.of("dd/MM/yyyy", "2000/07/20"),
             Arguments.of("dd/MM/yyyy", "20:07:2000"),
+            Arguments.of("dd/MM/yyyy", "31/02/2001"),
             Arguments.of("dd/MM/yyyy", "38/02/2000"),
             Arguments.of("dd/MM/yyyy", "38/13/2000"),
         )

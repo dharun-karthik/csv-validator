@@ -2,32 +2,32 @@ package validation.operation
 
 import metaData.JsonMetaDataTemplate
 import org.json.JSONObject
-import validation.implementation.TypeValidation
-import validation.valueValidator.AlphaNumeric
-import validation.valueValidator.Alphabet
-import validation.valueValidator.Numbers
-import validation.valueValidator.ValueTypeValidator
+import validation.implementation.valueValidator.*
 
 class TypeValidationOperation : ValidationOperation {
     private val valueTypeMap: Map<String, ValueTypeValidator> = mapOf(
-        "alphanumeric" to AlphaNumeric(), "alphabets" to Alphabet(), "number" to Numbers()
+        "alphanumeric" to AlphaNumeric(),
+        "alphabets" to Alphabet(),
+        "number" to Numbers(),
+        "date" to DateValidator(),
+        "time" to TimeValidator(),
+        "datetime" to DateTimeValidator()
     )
 
     override fun validate(
         metaDataField: JsonMetaDataTemplate, currentFieldValue: String, currentRow: JSONObject?
     ): Boolean {
-        val typeValidation = TypeValidation()
         if (isFieldIsNull(currentFieldValue)) {
             return true
         }
 
-        return checkType(metaDataField, currentFieldValue, typeValidation)
+        return checkType(metaDataField, currentFieldValue)
     }
 
     private fun checkType(
-        metaDataField: JsonMetaDataTemplate, currentFieldValue: String, typeValidation: TypeValidation
+        metaDataField: JsonMetaDataTemplate, currentFieldValue: String
     ): Boolean {
-        val isValid = valueTypeMap[metaDataField.type]!!.validateValueType(currentFieldValue, typeValidation)
+        val isValid = valueTypeMap[metaDataField.type]!!.validate(currentFieldValue, metaDataField.pattern)
 
         if (!isValid) {
             return false

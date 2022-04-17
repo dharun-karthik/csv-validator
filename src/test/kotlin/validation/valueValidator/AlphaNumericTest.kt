@@ -3,8 +3,7 @@ package validation.valueValidator
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import validation.implementation.TypeValidation
-import validation.valueValidator.AlphaNumeric
+import validation.implementation.valueValidator.AlphaNumeric
 
 internal class AlphaNumericTest {
     private val alphaNumeric = AlphaNumeric()
