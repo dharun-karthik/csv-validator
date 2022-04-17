@@ -43,6 +43,7 @@ internal class TimeValidatorTest {
             Arguments.of("hh:ass:mm", "12:AM00:58"),
             Arguments.of("hh:ass:mm:SSS", "12:am00:58:917"),
             Arguments.of("hh:ass:mm:SSS", "12:Pm00:58:917"),
+            Arguments.of("hh:mm:ss a", "12:58:58 AM"),
         )
     }
 

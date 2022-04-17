@@ -1,0 +1,7 @@
+[
+  {
+    "fieldName": "time",
+    "type": "time",
+    "pattern": "hh:mm:ss a"
+  }
+]

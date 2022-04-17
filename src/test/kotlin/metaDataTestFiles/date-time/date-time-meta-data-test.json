@@ -1,0 +1,7 @@
+[
+  {
+    "fieldName": "datetime",
+    "type": "datetime",
+    "pattern": "HH:mm:ss dd/MM/yyyy"
+  }
+]

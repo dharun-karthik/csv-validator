@@ -4,7 +4,12 @@ import metaData.MetaDataReaderWriter
 import org.json.JSONArray
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.MethodSource
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ValidationTest {
     @Test
     fun shouldBeAbleToGetEveryValidationErrorsFromTheJsonContent() {
@@ -104,4 +109,37 @@ class ValidationTest {
 
         Assertions.assertEquals(expectedContent, actual.toString())
     }
+
+    @ParameterizedTest
+    @MethodSource("inValidDateTimeArguments")
+    fun shouldGetValidationErrorForDate(path: String, csvData: String, expectedContent: String) {
+        val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/date-time/$path")
+        val validation = Validation(metaDataReaderWriter)
+        val jsonData = JSONArray(csvData)
+
+        val actual = validation.validate(jsonData)
+
+        Assertions.assertEquals(expectedContent, actual.toString())
+    }
+
+    private fun inValidDateTimeArguments(): List<Arguments> {
+        return listOf(
+            Arguments.of(
+                "date-meta-data-test.json",
+                """[{"date": "11/02/2000",},{"date": "15/22/2002",},{"date": "15/02/23",}]""",
+                """[{"2":{"Type Error":["date"]}},{"3":{"Type Error":["date"]}}]"""
+            ),
+            Arguments.of(
+                "time-meta-data-test.json",
+                """[{"time": "11:88:02 AM",},{"time": "11:23:02 AM",},{"time": "11:23:2 AM",}]""",
+                """[{"1":{"Type Error":["time"]}},{"3":{"Type Error":["time"]}}]"""
+            ),
+            Arguments.of(
+                "date-time-meta-data-test.json",
+                """[{"datetime": "33:12:18 20/07/2000",},{"datetime": "00:12:18 20/77/2000",},{"datetime": "00:12:18 20/07/2000",}]""",
+                """[{"1":{"Type Error":["datetime"]}},{"2":{"Type Error":["datetime"]}}]"""
+            ),
+        )
+    }
+
 }

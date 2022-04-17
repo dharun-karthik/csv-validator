@@ -1,0 +1,7 @@
+[
+  {
+    "fieldName": "date",
+    "type": "date",
+    "pattern": "dd/MM/yyyy"
+  }
+]
