@@ -4,7 +4,7 @@ import metaData.JsonMetaDataTemplate
 import metaData.MetaDataReaderWriter
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import validation.FakeBufferedReader
+import validation.implementation.FakeBufferedReader
 
 class MetaDataAdderTest {
 

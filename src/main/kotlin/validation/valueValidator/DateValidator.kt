@@ -7,7 +7,7 @@ class DateValidator {
     fun validate(pattern: String, value: String): Boolean {
         return try {
             val format = DateTimeFormatter.ofPattern(pattern)
-            LocalDate.parse(value, format).atStartOfDay()
+            println(LocalDate.parse(value, format).atStartOfDay())
             true
         } catch (e: Exception) {
             false
