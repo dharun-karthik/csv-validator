@@ -1,6 +1,6 @@
 const payload = {};
 const headers = [];
-const errors = [{"1":{"Dependency Error":["country name"],"Length Error":["product description","product id"],"Value Not Found Error":["source pincode"]}},{"3":{"Row Duplication Error":["2"]}}]
+var errors = [];
 var numberOfFields = 0;
 
 function toggleValueFieldTextBox(element) {
@@ -36,7 +36,6 @@ async function uploadCSV() {
     reader.onload = await handleCsvFile
     reader.readAsText(csvElement)
     alert("CSV file submitted")
-    window.location.href = "errors.html"
 }
 
 async function handleCsvFile(event) {
@@ -63,21 +62,19 @@ async function sendRequest(result) {
 }
 
 async function handleResponse(response) {
+    console.log(response)
     if (response.status === 200) {
         const jsonData = await response.json();
-        console.log(jsonData)
-        if (jsonData.length == 0) {
-            printCsvValid()
-            return
-        }
-        displayErrors(jsonData)
+        sessionStorage.setItem('errors', JSON.stringify(jsonData))
     } else {
         console.log("Error : ", response)
     }
+    window.location.href = "errors.html"
 }
 
 function printCsvValid() {
     let container = document.getElementById('display-errors')
+    console.log(container)
     container.innerHTML = ""
 
     let outerDiv = document.createElement('div')
@@ -179,7 +176,7 @@ function onChangeHandler(event) {
         reader.readAsText(event.target.files[0])
         return
     }
-    payload[fieldName][event.target.name] = event.target.value
+    payload[fieldName][event.target.name] = String(event.target.value).toLowerCase()
     console.log(payload)
     convertPayloadToJsonArray(payload);    
 }
@@ -216,8 +213,18 @@ async function sendOneConfig(oneConfig) {
     }
 }
 
-//todo: Handle proper errors and not default errors
-function displayErrors(errorJSON) {
+function displayErrorsOrValid() {
+    errors = JSON.parse(sessionStorage.getItem('errors'))
+    if (errors.length == 0) {
+        printCsvValid()
+        return
+    }
+    displayErrors()
+}
+
+
+function displayErrors() {
+    console.log(errors.keys)
     for (key in errors) {
         let errorListContainer = document.createElement('div')
         errorListContainer.className = 'error-list'
