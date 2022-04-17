@@ -197,10 +197,13 @@ function addNewField() {
         <div id="field-value">
             <label for="text-file-id${numberOfFields}">Values: </label>
             <input type="file" class="choose-file" name="values" id="text-file-id${numberOfFields}" accept=".txt" onchange="onChangeHandler(event)">
-            <input type="checkbox" name="use-text-for-value" id="use-text-for-value${numberOfFields}"
-                onclick="toggleValueFieldTextBox(this)">
-            <span>Enter Values</span>
-            <textarea name="alternate-value" id="alternate-value${numberOfFields}" cols="10" rows="10" class="displayNone alternate-value"></textarea>
+            <div class="extra-values">
+                <input type="checkbox" name="use-text-for-value" id="use-text-for-value${numberOfFields}"
+                    onclick="toggleValueFieldTextBox(this)">
+                <span>Enter Values</span>
+                <textarea name="alt-values" id="alternate-value${numberOfFields}" cols="10" rows="10"
+                    class="displayNone alternate-value" onchange="onChangeHandler(event)"></textarea>
+            </div>
         </div>
     </div>
     <div class="row1">
@@ -266,6 +269,10 @@ function onChangeHandler(event) {
             payload[fieldName][event.target.name] = text.split('\n')
         });
         reader.readAsText(event.target.files[0])
+        return
+    }
+    if (event.target.name == "alt-values") {
+        payload[fieldName]['values'] = String(event.target.value).split('\n')
         return
     }
     payload[fieldName][event.target.name] = lowerCase(event.target.value, event.target.name)
