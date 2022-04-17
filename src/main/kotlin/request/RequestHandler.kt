@@ -2,7 +2,7 @@ package request
 
 import java.io.BufferedReader
 
-class RequestHandle {
+class RequestHandler {
     fun getPath(request: String): String {
         return request.split("\r\n")[0].split(" ")[1].substringBefore("?")
     }

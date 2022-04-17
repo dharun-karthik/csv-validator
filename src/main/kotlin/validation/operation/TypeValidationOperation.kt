@@ -3,10 +3,10 @@ package validation.operation
 import metaData.JsonMetaDataTemplate
 import org.json.JSONObject
 import validation.implementation.TypeValidation
-import valueValidator.AlphaNumeric
-import valueValidator.Alphabet
-import valueValidator.Numbers
-import valueValidator.ValueTypeValidator
+import validation.valueValidator.AlphaNumeric
+import validation.valueValidator.Alphabet
+import validation.valueValidator.Numbers
+import validation.valueValidator.ValueTypeValidator
 
 class TypeValidationOperation : ValidationOperation {
     private val valueTypeMap: Map<String, ValueTypeValidator> = mapOf(

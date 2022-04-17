@@ -1,7 +1,7 @@
 package routeHandler
 
 import metaData.MetaDataReaderWriter
-import request.RequestHandle
+import request.RequestHandler
 import response.Response
 import routeHandler.get.FileGetter
 
@@ -10,7 +10,7 @@ class DeleteRouteHandler(
     private val response: Response = Response()
 ) {
     private val fileGetter = FileGetter()
-    private val requestHandler = RequestHandle()
+    private val requestHandler = RequestHandler()
     fun handleDeleteRequest(request: String): String {
         return when (requestHandler.getPath(request)) {
             "/reset-config" -> deleteMetaData()

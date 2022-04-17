@@ -1,7 +1,7 @@
 package routeHandler.post
 
 import metaData.MetaDataReaderWriter
-import request.RequestHandle
+import request.RequestHandler
 import routeHandler.get.FileGetter
 import java.io.BufferedReader
 
@@ -9,14 +9,14 @@ import java.io.BufferedReader
 class PostRouteHandler(
     val metaDataReaderWriter: MetaDataReaderWriter,
 ) {
-    private val requestHandle = RequestHandle()
+    private val requestHandler = RequestHandler()
     private val fileGetter = FileGetter()
 
     fun handlePostRequest(
         request: String,
         inputStream: BufferedReader,
     ): String {
-        return when (requestHandle.getPath(request)) {
+        return when (requestHandler.getPath(request)) {
             "/csv" -> {
                 val csvValidator = CsvValidator(metaDataReaderWriter)
                 csvValidator.handleCsv(request, inputStream)

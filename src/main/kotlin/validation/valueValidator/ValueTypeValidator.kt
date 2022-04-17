@@ -1,4 +1,4 @@
-package valueValidator
+package validation.valueValidator
 
 import validation.implementation.TypeValidation
 
