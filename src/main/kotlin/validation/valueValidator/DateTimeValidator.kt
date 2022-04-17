@@ -2,17 +2,18 @@ package validation.valueValidator
 
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 class DateTimeValidator {
     fun validate(pattern: String, dateTimeValue: String): Boolean {
-        try {
+        return try {
             val lowerCasedDateTime = dateTimeValue.lowercase()
-            val format = DateTimeFormatter.ofPattern(pattern)
+            val format = DateTimeFormatter.ofPattern(pattern, Locale.UK)
             LocalDateTime.parse(lowerCasedDateTime, format)
-            return true
-        } catch (e : Exception){
+            true
+        } catch (e: Exception) {
             println(e)
-            return false
+            false
         }
     }
 }
