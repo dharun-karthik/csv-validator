@@ -14,7 +14,8 @@ class FileGetter {
         "ico" to "image/vnd.microsoft.icon",
         "svg" to "image/svg+xml",
         "csv" to "text/csv",
-        "txt" to "text/plain"
+        "txt" to "text/plain",
+        "png" to "image/png"
     )
 
     fun serveFile(path: String): String {
