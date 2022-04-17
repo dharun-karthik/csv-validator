@@ -1,7 +1,7 @@
 .gradle
 .idea
 build/
-.DS_Store
+.DS_Store/
 cypress/h.txt
 node_modules
 package-lock.json
