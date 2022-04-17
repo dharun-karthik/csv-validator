@@ -167,5 +167,15 @@ function onChangeHandler(event) {
     }
     payload[fieldName][event.target.name] = event.target.value
     console.log(payload)
+    convertPayloadToJsonArray(payload);    
 }
 
+function convertPayloadToJsonArray(payload) {
+    let jsonArray = []
+    let index = 0;
+    for(let field in payload){
+        jsonArray[index++] = payload[field];
+    }
+    console.log(jsonArray);
+    return jsonArray;
+}
