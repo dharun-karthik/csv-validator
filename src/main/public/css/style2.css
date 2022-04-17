@@ -50,7 +50,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
-    min-height: 200vh;
+    min-height: 100vh;
 }
 
 .heading-div {
@@ -72,6 +72,7 @@ body {
     margin-top: 1%;
     font-size: 30px;
 }
+
 
 .upload-csv-section {
     background-color: white;
@@ -133,6 +134,10 @@ body {
 
 #configs-upload {
     height: fit-content;
+}
+
+#csv-page {
+    max-height: 90vh;
 }
 
 .configs-heading {
@@ -301,6 +306,8 @@ body {
     color: green;
 }
 
-
+.footer {
+    height: 15vh;
+}
 
 

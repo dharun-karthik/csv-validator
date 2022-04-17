@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style2.css">
-    <title>CSV Validator</title>
+    <title>Home | CSV Validator</title>
 </head>
 
 <body>
@@ -98,62 +98,10 @@
                 </button>
             </div>
         </div>
-        <div class="heading-div" id="csv-upload-section">
-            <h1 class="configs-heading">Step 2: Upload CSV</h1>
-            <h2 class="configs-heading configs-sub-heading">Now Upload CSV for validating</h2>
-
-            <div class="upload-csv-section">
-                <div class="heading heading-to-upload-csv">Choose or Drag CSV Here</div>
-                <div class="choose-csv">
-                    <label for="csv-id" id="csv-label">CSV File:
-                        <input type="file" name="csv-file" id="csv-id" accept=".csv">
-                    </label>
-                </div>
-                <button class="button" onclick="uploadCSV()">Upload</button>
-            </div>
-        </div>
     </div>
-    <div class="heading-div error-msg" id="validations">
-        <h1 class="configs-heading">Step 3: Get Validations For Your CSV</h1>
-        <h2 class="configs-heading configs-sub-heading">Check your errors</h2>
-
-        <div class="error-list-container">
-            <div class="no-error">
-                <div class="valid-csv">
-                    CSV Has No Errors
-                </div>
-            </div>
-            <div class="error-list">
-                <div class="line-number">Line No:
-                    <span>1</span>
-                </div>
-                <div class="errors">
-                    <div class="error">
-                        Type Error in Price
-                    </div>
-                    <div class="error">
-                        Length Error in Product Id
-                    </div>
-                </div>
-            </div>
-            <div class="error-list">
-                <div class="line-number">Line No:
-                    <span>2</span>
-                </div>
-                <div class="errors">
-                    <div class="error">
-                        Type Error in Price
-                    </div>
-                    <div class="error">
-                        Length Error in Product Id
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="footer" id="footer"></div>
 
     <script src="js/app.js"></script>
-    <script src="js/Convert.js"></script>
 </body>
 
 </html>
