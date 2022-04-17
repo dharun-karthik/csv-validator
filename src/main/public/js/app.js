@@ -64,6 +64,7 @@ async function handleResponse(response) {
     console.log(response)
     if (response.status === 200) {
         const jsonData = await response.json();
+        sessionStorage.clear();
         sessionStorage.setItem('errors', JSON.stringify(jsonData))
     } else {
         console.log("Error : ", response)
@@ -94,11 +95,11 @@ function addNewField() {
     configContainer.innerHTML = `
     <div class="row1">
         <div id="field-name">
-            <label for="field${numberOfFields}">Field Name: </label>
+            <label for="field${numberOfFields}">Field Name<span class="required-field">*</span>: </label>
             <input type="text" id="field${numberOfFields}" class="inputs" name="fieldName" onchange="onChangeHandler(event)">
         </div>
         <div id="field-type">
-            <label for="type${numberOfFields}">Type: </label>
+            <label for="type${numberOfFields}">Type<span class="required-field">*</span>: </label>
             <select id="type${numberOfFields}" name="type" class="dropdowns" onchange="onChangeHandler(event)">
                 <option value="">Choose Type</option>
                 <option value="Number">Number</option>
@@ -212,6 +213,11 @@ function convertPayloadToJsonArray(payload) {
 }
 
 async function sendConfigData() {
+    let isInputValid = validateInputFields()
+    if (!isInputValid) {
+        alert("Enter Mandatory Fields!")
+        return
+    }
     let newPayload = convertPayloadToJsonArray(payload)
     await fetch('reset-config', {
         method: 'DELETE',
@@ -221,6 +227,17 @@ async function sendConfigData() {
     }
     alert("Submitted configuration of CSV\nNow you can add your csv file.")
     window.location.href = 'uploadCSV.html'
+}
+
+function validateInputFields() {
+    for (let index = 0; index <= numberOfFields; index++) {
+        let isFieldEmpty = document.getElementById(`field${index}`).value == ""
+        let isTypeEmpty = document.getElementById(`type${index}`).value == ""
+        if (isFieldEmpty || isTypeEmpty) {
+            return false
+        }
+    }
+    return true
 }
 
 async function sendOneConfig(oneConfig) {
