@@ -1,7 +1,7 @@
 const payload = {};
 const headers = [];
-var errors = [];
 var numberOfFields = 0;
+
 
 function toggleValueFieldTextBox(element) {
     let index = extractIndexFromId(element.id)
