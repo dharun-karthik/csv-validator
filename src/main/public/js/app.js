@@ -299,11 +299,11 @@ function arrangeDependencies(payload) {
 }
 
 function assignDependencies(payload, field) {
-    payload[field]["dependencies"] = {
+    payload[field]["dependencies"] = [{
         "dependentOn": payload[field]["dependentOn"],
         "expectedDependentFieldValue": payload[field]["expectedDependentFieldValue"],
         "expectedCurrentFieldValue": payload[field]["expectedCurrentFieldValue"]
-    };
+    }];
 }
 
 function convertPayloadToJsonArray(payload) {
