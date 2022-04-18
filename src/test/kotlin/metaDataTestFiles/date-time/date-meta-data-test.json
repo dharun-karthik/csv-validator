@@ -2,6 +2,6 @@
   {
     "fieldName": "date",
     "type": "date",
-    "pattern": "dd/MM/yyyy"
+    "pattern": "dd/MM/uuuu"
   }
 ]
