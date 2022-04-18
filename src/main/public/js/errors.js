@@ -20,6 +20,7 @@ function printCsvValid() {
 
     let innerDiv = document.createElement('div')
     innerDiv.className = 'valid-csv';
+    innerDiv.id = "valid-csv-id"
     innerDiv.innerText = 'CSV Has No Errors'
 
     outerDiv.appendChild(innerDiv)
