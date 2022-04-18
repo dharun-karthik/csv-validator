@@ -80,10 +80,10 @@ Content-Length: ${content.length}"""
 
         val head = """HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
-Content-Length: 91"""
+Content-Length: 33"""
         val lineSeparator = System.lineSeparator()
         val expectedContent = head + lineSeparator + lineSeparator +
-                """[{"Column unavailable in config":"sourcekfja"},{"Column unavailable in config":"producid"}]"""
+                """[{"0":["sourcekfja","producid"]}]"""
         val request = """
             Content-Length: ${csvData.length}
         """.trimIndent()
