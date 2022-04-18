@@ -153,16 +153,6 @@ body {
     text-align: center;
 }
 
-.configs-sub-heading {
-    margin-top: 0;
-    letter-spacing: .5px;
-    font-size: 15px;
-    line-height: 27px;
-    font-weight: 400;
-    color: #8492af;
-    margin-bottom: 20px;
-}
-
 .config-container {
     width: 70%;
     background-color: white;
