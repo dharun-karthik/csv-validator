@@ -4,13 +4,6 @@ stages:
   - build
   - test
 
-build-job:
-  stage: build
-  script:
-    - echo "Build Started"
-    - gradle classes
-    - echo "Build Completed"
-
 unit-test:
   stage: test
   script:
