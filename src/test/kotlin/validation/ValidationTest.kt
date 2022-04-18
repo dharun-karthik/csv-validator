@@ -69,7 +69,7 @@ class ValidationTest {
 ]"""
         val jsonData = JSONArray(csvData)
         val expectedContent =
-            """[{"1":{"Dependency Error":["country name"],"Length Error":["product description","product id"],"Value Not Found Error":["source pincode"]}},{"2":{"Length Error":["product description","product id"]}},{"3":{"Dependency Error":["country name","country code"],"Length Error":["product description"],"Value Not Found Error":["source pincode"]}},{"4":{"Dependency Error":["country name","country code"],"Length Error":["product description"]}},{"5":{"Row Duplication Error":["4"],"Dependency Error":["country name","country code"],"Length Error":["product description"]}}]"""
+            """[{"2":{"Dependency Error":["country name"],"Length Error":["product description","product id"],"Value Not Found Error":["source pincode"]}},{"3":{"Length Error":["product description","product id"]}},{"4":{"Dependency Error":["country name","country code"],"Length Error":["product description"],"Value Not Found Error":["source pincode"]}},{"5":{"Dependency Error":["country name","country code"],"Length Error":["product description"]}},{"6":{"Row Duplication Error":["4"],"Dependency Error":["country name","country code"],"Length Error":["product description"]}}]"""
 
         val actual = validation.validate(jsonData)
 
@@ -127,17 +127,17 @@ class ValidationTest {
             Arguments.of(
                 "date-meta-data-test.json",
                 """[{"date": "11/02/2000",},{"date": "15/22/2002",},{"date": "15/02/23",}]""",
-                """[{"2":{"Type Error":["date"]}},{"3":{"Type Error":["date"]}}]"""
+                """[{"3":{"Type Error":["date"]}},{"4":{"Type Error":["date"]}}]"""
             ),
             Arguments.of(
                 "time-meta-data-test.json",
                 """[{"time": "11:88:02 AM",},{"time": "11:23:02 AM",},{"time": "11:23:2 AM",}]""",
-                """[{"1":{"Type Error":["time"]}},{"3":{"Type Error":["time"]}}]"""
+                """[{"2":{"Type Error":["time"]}},{"4":{"Type Error":["time"]}}]"""
             ),
             Arguments.of(
                 "date-time-meta-data-test.json",
                 """[{"datetime": "33:12:18 20/07/2000",},{"datetime": "00:12:18 20/77/2000",},{"datetime": "00:12:18 20/07/2000",}]""",
-                """[{"1":{"Type Error":["datetime"]}},{"2":{"Type Error":["datetime"]}}]"""
+                """[{"2":{"Type Error":["datetime"]}},{"3":{"Type Error":["datetime"]}}]"""
             ),
         )
     }

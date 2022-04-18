@@ -35,8 +35,9 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
             val keys = currentRow.keySet()
             appendDuplicationError(duplicationValidation, currentRow, index, lineErrors)
             appendValidationErrors(keys, metaDataList, currentRow, lineErrors)
+            val lineNumberInCsv = index + 2
             if (lineErrors.isNotEmpty()) {
-                val singleLineErrors = parseErrorsIntoSingleJson(index + 1, lineErrors)
+                val singleLineErrors = parseErrorsIntoSingleJson(lineNumberInCsv, lineErrors)
                 arrayOfAllErrorsByLine.put(singleLineErrors)
             }
         }
