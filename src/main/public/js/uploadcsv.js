@@ -3,7 +3,6 @@ async function uploadCSV() {
     const reader = new FileReader();
     reader.onload = await handleCsvFile
     reader.readAsText(csvElement)
-    alert("CSV file submitted")
 }
 
 async function handleCsvFile(event) {
