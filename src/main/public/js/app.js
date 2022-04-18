@@ -30,10 +30,10 @@ function toggleDateInput(element) {
     let index = extractIndexFromId(element.id)
     dateType = document.getElementById(`type${index}`).value
     if (dateType == "Date") {
-        document.getElementById(`date-format${index}`).style.display = 'block'
+        document.getElementById(`date-format-div${index}`).style.display = 'block'
     }
     else {
-        document.getElementById(`date-format${index}`).style.display = 'none'
+        document.getElementById(`date-format-div${index}`).style.display = 'none'
     }
 }
 
@@ -41,10 +41,10 @@ function toggleTimeInput(element) {
     let index = extractIndexFromId(element.id)
     timeType = document.getElementById(`type${index}`).value
     if (timeType == "Time") {
-        document.getElementById(`time-format${index}`).style.display = 'block'
+        document.getElementById(`time-format-div${index}`).style.display = 'block'
     }
     else {
-        document.getElementById(`time-format${index}`).style.display = 'none'
+        document.getElementById(`time-format-div${index}`).style.display = 'none'
     }
 }
 
@@ -52,10 +52,10 @@ function toggleDateTimeInput(element) {
     let index = extractIndexFromId(element.id)
     dateTimeType = document.getElementById(`type${index}`).value
     if (dateTimeType == "Date-Time") {
-        document.getElementById(`date-time-format${index}`).style.display = 'block'
+        document.getElementById(`date-time-format-div${index}`).style.display = 'block'
     }
     else {
-        document.getElementById(`date-time-format${index}`).style.display = 'none'
+        document.getElementById(`date-time-format-div${index}`).style.display = 'none'
     }
 }
 
@@ -85,7 +85,7 @@ function addNewField() {
                 <option value="Date-Time">Date-Time</option>
             </select>
         </div>
-        <div id="date-format${numberOfFields}" style="display: none;">
+        <div id="date-format-div${numberOfFields}" style="display: none;">
             <label for="date-format${numberOfFields}">Date Format</label>
             <select id="date-format${numberOfFields}" name="pattern" class="dropdowns" onchange="onChangeHandler(event)">
                 <option value="">Choose Type</option>
@@ -103,7 +103,7 @@ function addNewField() {
                 <option value="uuuu-MM-dd">yyyy-MM-dd</option>
             </select>
         </div>
-        <div id="time-format${numberOfFields}" style="display: none;">
+        <div id="time-format-div${numberOfFields}" style="display: none;">
             <label for="time-format${numberOfFields}">Time Format</label>
             <select id="time-format${numberOfFields}" name="pattern" class="dropdowns" onchange="onChangeHandler(event)">
                 <option value="">Choose Type</option>
@@ -118,7 +118,7 @@ function addNewField() {
                 <option value="hh:ass:mm:SSS">hh:ass:mm:SSS</option>
             </select>
         </div>
-        <div id="date-time-format${numberOfFields}" style="display: none;">
+        <div id="date-time-format-div${numberOfFields}" style="display: none;">
             <label for="date-time-format${numberOfFields}">Date-Time Format</label>
             <select id="date-time-format${numberOfFields}" name="pattern" class="dropdowns" onchange="onChangeHandler(event)">
                 <option value="">Choose Type</option>
