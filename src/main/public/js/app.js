@@ -147,18 +147,18 @@ function addNewField() {
             <label for="date-format${numberOfFields}">Date Format</label>
             <select id="date-format${numberOfFields}" name="pattern" class="dropdowns" onchange="onChangeHandler(event)">
                 <option value="">Choose Type</option>
-                <option value="dd/MM/yyyy">dd/MM/yyyy</option>
-                <option value="dd/yyyy/MM">dd/yyyy/MM</option>
-                <option value="MM/dd/yyyy">MM/dd/yyyy</option>
-                <option value="MM/yyyy/dd">MM/yyyy/dd</option>
-                <option value="yyyy/dd/MM">yyyy/dd/MM</option>
-                <option value="yyyy/MM/dd">yyyy/MM/dd</option>
-                <option value="dd-MM-yyyy">dd-MM-yyyy</option>
-                <option value="dd-yyyy-MM">dd-yyyy-MM</option>
-                <option value="MM-dd-yyyy">MM-dd-yyyy</option>
-                <option value="MM-yyyy-dd">MM-yyyy-dd</option>
-                <option value="yyyy-dd-MM">yyyy-dd-MM</option>
-                <option value="yyyy-MM-dd">yyyy-MM-dd</option>
+                <option value="dd/MM/uuuu">dd/MM/yyyy</option>
+                <option value="dd/uuuu/MM">dd/yyyy/MM</option>
+                <option value="MM/dd/uuuu">MM/dd/yyyy</option>
+                <option value="MM/uuuu/dd">MM/yyyy/dd</option>
+                <option value="uuuu/dd/MM">yyyy/dd/MM</option>
+                <option value="uuuu/MM/dd">yyyy/MM/dd</option>
+                <option value="dd-MM-uuuu">dd-MM-yyyy</option>
+                <option value="dd-uuuu-MM">dd-yyyy-MM</option>
+                <option value="MM-dd-uuuu">MM-dd-yyyy</option>
+                <option value="MM-uuuu-dd">MM-yyyy-dd</option>
+                <option value="uuuu-dd-MM">yyyy-dd-MM</option>
+                <option value="uuuu-MM-dd">yyyy-MM-dd</option>
             </select>
         </div>
         <div id="time-format${numberOfFields}" style="display: none;">
@@ -180,18 +180,18 @@ function addNewField() {
             <label for="date-time-format${numberOfFields}">Date-Time Format</label>
             <select id="date-time-format${numberOfFields}" name="pattern" class="dropdowns" onchange="onChangeHandler(event)">
                 <option value="">Choose Type</option>
-                <option value="HH:mm:ss dd/MM/yyyy">HH:mm:ss dd/MM/yyyy</option>
-                <option value="HH:mm:ss?dd/yyyy/MM">HH:mm:ss?dd/yyyy/MM</option>
-                <option value="HH:ss:mm:dd:MM:yyyy">HH:ss:mm:dd:MM:yyyy</option>
-                <option value="ss:HH:mm/yyyy/MM/dd">ss:HH:mm/yyyy/MM/dd</option>
-                <option value="HH:ss:mm-dd-yyyy-MM">HH:ss:mm-dd-yyyy-MM</option>
-                <option value="HH:ss:mm:SSS dd MM yyyy">HH:ss:mm:SSS dd MM yyyy</option>
-                <option value="hh:ss:mm a,yyyy-MM-dd">hh:ss:mm a,yyyy-MM-dd</option>
-                <option value="hh:ss:mma+dd/MM/yyyy">hh:ss:mma+dd/MM/yyyy</option>
-                <option value="ahh:ss:mm () dd/MM/yyyy">ahh:ss:mm () dd/MM/yyyy</option>
-                <option value="dd/MM/yyyy hh:ass:mm">dd/MM/yyyy hh:ass:mm</option>
-                <option value="dd/MM/yyyy == hh:ass:mm:SSS">dd/MM/yyyy == hh:ass:mm:SSS</option>
-                <option value="dd MM yyyy hh:ass:mm">dd MM yyyy hh:ass:mm</option>
+                <option value="HH:mm:ss dd/MM/uuuu">HH:mm:ss dd/MM/yyyy</option>
+                <option value="HH:mm:ss?dd/uuuu/MM">HH:mm:ss?dd/yyyy/MM</option>
+                <option value="HH:ss:mm:dd:MM:uuuu">HH:ss:mm:dd:MM:yyyy</option>
+                <option value="ss:HH:mm/uuuu/MM/dd">ss:HH:mm/yyyy/MM/dd</option>
+                <option value="HH:ss:mm-dd-uuuu-MM">HH:ss:mm-dd-yyyy-MM</option>
+                <option value="HH:ss:mm:SSS dd MM uuuu">HH:ss:mm:SSS dd MM yyyy</option>
+                <option value="hh:ss:mm a,uuuu-MM-dd">hh:ss:mm a,yyyy-MM-dd</option>
+                <option value="hh:ss:mma+dd/MM/uuuu">hh:ss:mma+dd/MM/yyyy</option>
+                <option value="ahh:ss:mm () dd/MM/uuuu">ahh:ss:mm () dd/MM/yyyy</option>
+                <option value="dd/MM/uuuu hh:ass:mm">dd/MM/yyyy hh:ass:mm</option>
+                <option value="dd/MM/uuuu == hh:ass:mm:SSS">dd/MM/yyyy == hh:ass:mm:SSS</option>
+                <option value="dd MM uuuu hh:ass:mm">dd MM yyyy hh:ass:mm</option>
             </select>
         </div>
         <div id="field-value">
