@@ -1,7 +1,55 @@
 const payload = {};
 const headers = [];
 var numberOfFields = 0;
+const nameIdMap = {
+    "fieldName": "field",
+    "type": "type",
+    "pattern": "date-time-format",
+    "datePattern": "date-format",
+    "timePattern": "time-format",
+    "datTimePattern": "date-time-format",
+    "values": "alternate-value",
+    "minLength": "min-len",
+    "maxLength": "max-len",
+    "length": "fixed-len",
+    "dependentOn": "depends-on",
+    "expectedDependentFieldValue": "dependent-field-value",
+    "expectedCurrentFieldValue": "expectedCurrentFieldValue"
+}
 
+window.addEventListener('load', async () => loadMetaData());
+
+async function loadMetaData() {
+    const resp = await fetch('get-meta-data', {
+        method: 'GET',
+    });
+    if (resp.status === 200) {
+        const jsonData = await resp.json();
+        displayConfigDataFromServer(jsonData);
+    }
+}
+
+function displayConfigDataFromServer(jsonData) {
+    let numberOfRows = jsonData.length - 1
+    displayEmptyContainers(numberOfRows)
+    fillDataInContainer(jsonData)
+}
+
+function displayEmptyContainers(numberOfRows) {
+    for (let index = 1; index <= numberOfRows; index++) {
+        addNewField();
+    }
+}
+
+function fillDataInContainer(jsonData) {
+    jsonData.forEach((element, index) => {
+        for (key in element) {
+            console.log(`${index} - key: ${key}: ${element[key]}`)
+            console.log(`idToEdit: ${nameIdMap[key]}${index}`)
+            document.getElementById(`${nameIdMap[key]}${index}`).value = element[key]
+        }
+    });
+}
 
 function toggleValueFieldTextBox(element) {
     let index = extractIndexFromId(element.id)
@@ -29,7 +77,7 @@ function toggleDependencyInputs(element) {
 function toggleDateInput(element) {
     let index = extractIndexFromId(element.id)
     dateType = document.getElementById(`type${index}`).value
-    if (dateType == "Date") {
+    if (dateType == "date") {
         document.getElementById(`date-format-div${index}`).style.display = 'block'
     }
     else {
@@ -40,7 +88,7 @@ function toggleDateInput(element) {
 function toggleTimeInput(element) {
     let index = extractIndexFromId(element.id)
     timeType = document.getElementById(`type${index}`).value
-    if (timeType == "Time") {
+    if (timeType == "time") {
         document.getElementById(`time-format-div${index}`).style.display = 'block'
     }
     else {
@@ -51,7 +99,7 @@ function toggleTimeInput(element) {
 function toggleDateTimeInput(element) {
     let index = extractIndexFromId(element.id)
     dateTimeType = document.getElementById(`type${index}`).value
-    if (dateTimeType == "Date-Time") {
+    if (dateTimeType == "date-time") {
         document.getElementById(`date-time-format-div${index}`).style.display = 'block'
     }
     else {
@@ -77,12 +125,12 @@ function addNewField() {
             <label for="type${numberOfFields}">Type<span class="required-field">*</span>: </label>
             <select id="type${numberOfFields}" name="type" class="dropdowns" onchange="onChangeHandler(event)">
                 <option value="">Choose Type</option>
-                <option value="Number">Number</option>
-                <option value="AlphaNumeric">AlphaNumeric</option>
-                <option value="Alphabets">Alphabets</option>
-                <option value="Date">Date</option>
-                <option value="Time">Time</option>
-                <option value="Date-Time">Date-Time</option>
+                <option value="number">Number</option>
+                <option value="alphanumeric">AlphaNumeric</option>
+                <option value="alphabets">Alphabets</option>
+                <option value="date">Date</option>
+                <option value="time">Time</option>
+                <option value="date-time">Date-Time</option>
             </select>
         </div>
         <div id="date-format-div${numberOfFields}" style="display: none;">
@@ -223,7 +271,7 @@ function onChangeHandler(event) {
 }
 
 function lowerCase(data, field) {
-    if (field == 'pattern'){
+    if (field == 'pattern') {
         return data
     }
     return String(data).toLowerCase()
