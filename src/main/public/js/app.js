@@ -4,7 +4,6 @@ var numberOfFields = 0;
 const nameIdMap = {
     "fieldName": "field",
     "type": "type",
-    "pattern": "date-time-format",
     "values": "alternate-value",
     "minLength": "min-len",
     "maxLength": "max-len",
@@ -42,10 +41,20 @@ function fillDataInContainer(jsonData) {
     jsonData.forEach((element, index) => {
         for (key in element) {
             console.log(`${index} - key: ${key}: ${element[key]}`)
+            if (key == "pattern") {
+                insertPatternInRespectiveField(index, element);
+                continue
+            }
             console.log(`idToEdit: ${nameIdMap[key]}${index}`)
             document.getElementById(`${nameIdMap[key]}${index}`).value = element[key]
         }
     });
+}
+
+function insertPatternInRespectiveField(index, element) {
+    let typeOfPattern = document.getElementById(`${nameIdMap['type']}${index}`).value;
+    console.log(`IdToEdit: ${typeOfPattern}-format${index}`);
+    document.getElementById(`${typeOfPattern}-format${index}`).value = element[key];
 }
 
 function toggleValueFieldTextBox(element) {
@@ -237,7 +246,6 @@ function addNewField() {
 function onChangeHandler(event) {
     index = extractIndexFromId(event.target.id)
     let fieldName = document.getElementById(`field${index}`).value
-    console.log(`fieldname: ${fieldName}`)
     if (event.target.name == "dependentOn") {
         toggleDependencyInputs(event.target)
     }
@@ -246,25 +254,6 @@ function onChangeHandler(event) {
         toggleTimeInput(event.target)
         toggleDateTimeInput(event.target)
     }
-    if (event.target.name == "fieldName") {
-        document.getElementById(`field${index}`).setAttribute('readonly', 'true');
-    }
-    if (payload[fieldName] == undefined) payload[fieldName] = {}
-    if (event.target.name == "values") {
-        let reader = new FileReader();
-        reader.addEventListener('load', function (e) {
-            let text = e.target.result
-            payload[fieldName][event.target.name] = text.split('\n')
-        });
-        reader.readAsText(event.target.files[0])
-        return
-    }
-    if (event.target.name == "alt-values") {
-        payload[fieldName]['values'] = String(event.target.value).split('\n')
-        return
-    }
-    payload[fieldName][event.target.name] = lowerCase(event.target.value, event.target.name)
-    console.log(payload)
 }
 
 function lowerCase(data, field = "") {
