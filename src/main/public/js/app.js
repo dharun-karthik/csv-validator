@@ -270,11 +270,10 @@ async function sendConfigData() {
     await fetch('reset-config', {
         method: 'DELETE',
     })
-    for (var i = 0; i < newPayload.length; i++) {
+    for (var i = 0; i < newPayload.length; i++) {   
         sendOneConfig(newPayload[i])
-    }
-    alert("Submitted configuration of CSV\nNow you can add your csv file.")
-    window.location.href = 'uploadCSV.html'
+    }   
+    customConfirm()
 }
 
 function customAlert(){
@@ -282,6 +281,17 @@ function customAlert(){
     blurBg.classList.toggle('active')
     var alertPopup = document.getElementById("alert-popup")
     alertPopup.classList.toggle('active')
+}
+
+function customConfirm(){
+    var blurBg = document.getElementById("blur")
+    blurBg.classList.toggle('active')
+    const okButton = document.getElementById('ok-btn')
+    okButton.addEventListener("click", () => {
+	    window.location.href = 'uploadCSV.html'
+    });
+    var confirmPopup = document.getElementById("confirm-popup")
+    confirmPopup.classList.toggle('active')
 }
 
 function validateInputFields() {
