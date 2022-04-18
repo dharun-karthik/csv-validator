@@ -46,6 +46,19 @@ class ValidationTest {
         Assertions.assertEquals(expectedContent, actual.toString())
     }
 
+    @Test
+    fun shouldGetEmptyJsonArrayWhenThereIsNoContent() {
+        val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/csv-meta-data-test.json")
+        val validation = Validation(metaDataReaderWriter)
+        val csvData = """[]"""
+        val jsonData = JSONArray(csvData)
+        val expectedContent = "[]"
+
+        val actual = validation.validate(jsonData)
+
+        Assertions.assertEquals(expectedContent, actual.toString())
+    }
+
     @ParameterizedTest
     @MethodSource("inValidValidationArguments")
     fun shouldGetValidationErrorForDate(path: String, csvData: String, expectedContent: String) {
