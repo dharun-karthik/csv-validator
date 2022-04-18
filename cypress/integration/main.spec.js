@@ -52,6 +52,18 @@ describe('Add config data', () => {
     })
 })
 
+describe("Upload CSV", () => {
+    it("should upload csv for validation", () => {
+        cy.get('#csv-id').selectFile('cypress/fixtures/incorrectColumnData.csv')
+
+        const stub = cy.stub()
+        cy.on('window:alert', stub)
+        cy.get('#csv-submit-button').click().then(() => {
+            expect(stub.getCall(0)).to.be.calledWith('CSV file submitted')
+        })
+    })
+})
+
 describe("After selecting CSV, Display", () => {
 
     beforeEach(()=>{
@@ -98,21 +110,21 @@ describe("After selecting CSV, Display", () => {
         
         
     })
-    // it("no errors for valid csv", () => {
-    //     const stub = cy.stub()
-    //     cy.on('window:alert', stub)
-    //     cy.get('#upload-configs').click().then(() => {
-    //         expect(stub.getCall(0)).to.be.calledWith('Submitted configuration of CSV\nNow you can add your csv file.')
-    //     })
-    //     cy.get('#csv-id').selectFile('cypress/fixtures/correctData.csv')
-    //     cy.get('#csv-submit-button').click()
+    it("no errors for valid csv", () => {
+        const stub = cy.stub()
+        cy.on('window:alert', stub)
+        cy.get('#upload-configs').click().then(() => {
+            expect(stub.getCall(0)).to.be.calledWith('Submitted configuration of CSV\nNow you can add your csv file.')
+        })
+        cy.get('#csv-id').selectFile('cypress/fixtures/correctData.csv')
+        cy.get('#csv-submit-button').click()
 
 
-    //     cy.get('#valid-csv-id').should(($h3) => {
-    //         expect($h3).to.contain('CSV Has No Errors')
-    //     })
+        cy.get('#valid-csv-id').should(($h3) => {
+            expect($h3).to.contain('CSV Has No Errors')
+        })
 
-    // })
+    })
 
     // it("errors for duplicate data in csv", () => {
     //     cy.get('#csv-id').selectFile('cypress/fixtures/duplicateData.csv')
@@ -142,17 +154,7 @@ describe("After selecting CSV, Display", () => {
     // })
 })
 
-describe("Upload CSV", () => {
-    it("should upload csv for validation", () => {
-        cy.get('#csv-id').selectFile('cypress/fixtures/incorrectColumnData.csv')
 
-        const stub = cy.stub()
-        cy.on('window:alert', stub)
-        cy.get('#csv-submit-button').click().then(() => {
-            expect(stub.getCall(0)).to.be.calledWith('CSV file submitted')
-        })
-    })
-})
 
 
 
