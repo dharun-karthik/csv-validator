@@ -54,7 +54,7 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
         if (previousDuplicateIndex != null) {
             val name = "Row Duplication Error"
             val errorList = lineErrors.getOrPut(name) { mutableListOf() }
-            errorList.add(previousDuplicateIndex.toString())
+            errorList.add((previousDuplicateIndex + 1).toString())
         }
     }
 
@@ -79,9 +79,11 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
         val currentFieldValue = currentRow.get(key) as String
 
         validationMap.forEach { entry ->
-            if (!entry.value.validate(metaDataField, currentFieldValue, currentRow)) {
-                val errorList = lineErrors.getOrPut(entry.key.validationErrorName) { mutableListOf() }
-                errorList.add(key)
+            val validationType = entry.value
+            if (!validationType.validate(metaDataField, currentFieldValue, currentRow)) {
+                val validationTypeName = entry.key
+                val errorList = lineErrors.getOrPut(validationTypeName.validationErrorName) { mutableListOf() }
+                errorList.add(currentFieldValue)
             }
         }
     }
