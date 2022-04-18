@@ -5,9 +5,6 @@ const nameIdMap = {
     "fieldName": "field",
     "type": "type",
     "pattern": "date-time-format",
-    "datePattern": "date-format",
-    "timePattern": "time-format",
-    "datTimePattern": "date-time-format",
     "values": "alternate-value",
     "minLength": "min-len",
     "maxLength": "max-len",
@@ -270,7 +267,7 @@ function onChangeHandler(event) {
     console.log(payload)
 }
 
-function lowerCase(data, field) {
+function lowerCase(data, field = "") {
     if (field == 'pattern') {
         return data
     }
@@ -313,8 +310,9 @@ async function sendConfigData() {
     if (!isInputValid) {
         customAlert();
         return
-    }   
-    let newPayload = convertPayloadToJsonArray(payload)
+    }
+    let newConfigData = generatePayload()
+    let newPayload = convertPayloadToJsonArray(newConfigData)
     await fetch('reset-config', {
         method: 'DELETE',
     })
@@ -377,5 +375,52 @@ async function sendOneConfig(oneConfig) {
     if (resp.status === 200) {
         const jsonData = await resp.json();
         console.log(jsonData)
+    }
+}
+
+function generatePayload() {
+    finalJson = {}
+    for (let index = 0; index <= numberOfFields; index++) {
+        let singleJson = {}
+        let fieldName = lowerCase(document.getElementById(`field${index}`).value)
+        let type = document.getElementById(`type${index}`).value
+        singleJson["fieldName"] = fieldName
+        singleJson["type"] = type
+        singleJson["minLength"] = document.getElementById(`min-len${index}`).value
+        singleJson["maxLength"] = document.getElementById(`max-len${index}`).value
+        singleJson["length"] = document.getElementById(`fixed-len${index}`).value
+        singleJson["dependentOn"] = lowerCase(document.getElementById(`depends-on${index}`).value)
+        singleJson["expectedDependentFieldValue"] = lowerCase(document.getElementById(`dependent-field-value${index}`).value)
+        singleJson["expectedCurrentFieldValue"] = lowerCase(document.getElementById(`expectedCurrentFieldValue${index}`).value)
+
+        addValuesToPayload(index, singleJson);
+        if (type == "date" || type == 'date-time' || type == 'time') {
+            singleJson["pattern"] = document.getElementById(`${type}-format${index}`).value
+        }
+
+        finalJson[fieldName] = singleJson
+    }
+    return finalJson
+}
+
+function addValuesToPayload(index, singleJson) {
+    let values = document.getElementById(`text-file-id${index}`).files[0];
+    let reader = new FileReader();
+    reader.addEventListener('load', function (e) {
+        let text = e.target.result;
+        singleJson["values"] = text.split('\n');
+    });
+    if (values != undefined) {
+        reader.readAsText(values);
+    }
+    else {
+        let alternateValue = document.getElementById(`alternate-value${index}`).value;
+        console.log(typeof(alternateValue))
+        if (String(alternateValue).search(',') != -1) {
+            singleJson["values"] = String(alternateValue).split(',');
+        }
+        else {
+            singleJson["values"] = String(alternateValue).split('\n');
+        }
     }
 }
