@@ -263,9 +263,9 @@ function convertPayloadToJsonArray(payload) {
 async function sendConfigData() {
     let isInputValid = validateInputFields()
     if (!isInputValid) {
-        alert("Enter Mandatory Fields!")
+        customAlert();
         return
-    }
+    }   
     let newPayload = convertPayloadToJsonArray(payload)
     await fetch('reset-config', {
         method: 'DELETE',
@@ -275,6 +275,13 @@ async function sendConfigData() {
     }
     alert("Submitted configuration of CSV\nNow you can add your csv file.")
     window.location.href = 'uploadCSV.html'
+}
+
+function customAlert(){
+    var blurBg = document.getElementById("blur")
+    blurBg.classList.toggle('active')
+    var alertPopup = document.getElementById("alert-popup")
+    alertPopup.classList.toggle('active')
 }
 
 function validateInputFields() {
