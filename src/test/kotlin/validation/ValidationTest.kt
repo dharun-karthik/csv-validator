@@ -76,22 +76,22 @@ class ValidationTest {
             Arguments.of(
                 "date-meta-data-test.json",
                 """[{"date": "11/02/2000",},{"date": "15/22/2002",},{"date": "15/02/23",}]""",
-                """[{"3":{"Type Error":["15/22/2002"]}},{"4":{"Type Error":["15/02/23"]}}]"""
+                """[{"3":{"Type Error":["date : 15/22/2002"]}},{"4":{"Type Error":["date : 15/02/23"]}}]"""
             ),
             Arguments.of(
                 "length-meta-data-test.json",
                 """[{"product description": "Table"}]""",
-                """[{"2":{"Length Error":["Table"]}}]"""
+                """[{"2":{"Length Error":["product description : Table"]}}]"""
             ),
             Arguments.of(
                 "restricted-input-meta-data-test.json",
                 """[{"export": "fa"}]""",
-                """[{"2":{"Value Not Found Error":["fa"]}}]"""
+                """[{"2":{"Value Not Found Error":["export : fa"]}}]"""
             ),
             Arguments.of(
                 "dependency-meta-data-test.json",
                 """[{"export": "N","country name": "usa"}]""",
-                """[{"2":{"Dependency Error":["not expected country name = hen, when export is N"]}}]"""
+                """[{"2":{"Dependency Error":["country name : usa"]}}]"""
             ),
             Arguments.of(
                 "restricted-input-meta-data-test.json",

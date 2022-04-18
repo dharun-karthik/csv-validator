@@ -83,7 +83,7 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
             if (!validationType.validate(metaDataField, currentFieldValue, currentRow)) {
                 val validationTypeName = entry.key
                 val errorList = lineErrors.getOrPut(validationTypeName.validationErrorName) { mutableListOf() }
-                errorList.add(currentFieldValue)
+                errorList.add("$key : $currentFieldValue")
             }
         }
     }
