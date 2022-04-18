@@ -96,7 +96,7 @@ class ColumnValidationTest {
                 """[{"ProductID":"1564","ProductName":"Table","Price":"4500.59","Export":"N","CountryName":"Nagpur","SourceCity":"440001"},{"ProductID":"1234","ProductName":"Chairs","Price":"1000","Export":"Y","CountryName":"AUS","SourceCity":"Mumbai","CountryCode":"61","SourcePincode\\r":"400001"},{"ProductID":""}]"""
             )
             val expected =
-                """[{"Column unavailable in config":"price"},{"Column unavailable in config":"countryname"},{"Column unavailable in config":"export"},{"Column unavailable in config":"sourcecity"}]"""
+                """[{"0":["price","countryname","export","sourcecity"]}]"""
 
             val actual = columnValidator.getColumnsNotInConfig(configJSON, jsonData).toString()
 
@@ -112,7 +112,7 @@ class ColumnValidationTest {
                 """[{"ProductID":"1564","productname":"Table","Price":"4500.59","Export":"N","CountryName":"Nagpur","SourceCity":"440001"},{"ProductID":"1234","ProductName":"Chairs","Price":"1000","Export":"Y","CountryName":"AUS","SourceCity":"Mumbai","CountryCode":"61","SourcePincode\\r":"400001"},{"ProductID":""}]"""
             )
             val expected =
-                """[{"Column unavailable in config":"price"},{"Column unavailable in config":"countryname"},{"Column unavailable in config":"export"},{"Column unavailable in config":"sourcecity"}]"""
+                """[{"0":["price","countryname","export","sourcecity"]}]"""
 
             val actual = columnValidator.getColumnsNotInConfig(configJSON, jsonData).toString()
 
