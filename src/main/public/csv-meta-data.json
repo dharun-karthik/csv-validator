@@ -6,12 +6,12 @@
   {
     "fieldName": "requestedat",
     "type": "date-time",
-    "pattern": "dd MM yyyy hh:ass:mm"
+    "pattern": "uuuu-MM-dd't'HH:mm:ss.SSS'z'"
   },
   {
     "fieldName": "completedat",
     "type": "date-time",
-    "pattern": "dd MM yyyy hh:ass:mm"
+    "pattern": "uuuu-MM-dd't'HH:mm:ss.SSS'z'"
   },
   {
     "fieldName": "status",
@@ -21,6 +21,7 @@
     "fieldName": "mediaowner",
     "type": "alphabets",
     "values": [
+      "Clear Channel Outdoor",
       "Ocean Outdoor",
       "JCDecaux",
       "Global"

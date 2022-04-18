@@ -5,6 +5,8 @@ plugins {
 group 'org.example'
 version '1.0-SNAPSHOT'
 
+apply plugin: 'application'
+
 repositories {
     mavenCentral()
 }
@@ -24,4 +26,7 @@ test {
     testLogging {
         events = ["passed", "failed", "skipped"]
     }
+}
+application {
+    mainClassName = "MainKt"
 }
