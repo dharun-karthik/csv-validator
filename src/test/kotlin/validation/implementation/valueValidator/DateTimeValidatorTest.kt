@@ -45,6 +45,7 @@ internal class DateTimeValidatorTest {
             Arguments.of("dd/MM/uuuu hh:ass:mm", "20/07/2000 12:AM00:58"),
             Arguments.of("dd/MM/uuuu == hh:ass:mm:SSS", "20/07/2000 == 12:am00:58:917"),
             Arguments.of("dd MM uuuu hh:ass:mm", "20 07 2001 12:aM00:58"),
+            Arguments.of("uuuu-MM-dd't'HH:mm:ss.SSS'z'", "2011-08-12T20:17:46.384Z"),
         )
     }
 
