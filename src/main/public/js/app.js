@@ -411,6 +411,17 @@ function isDateTimeEmpty(index) {
     return (document.getElementById(`date-time-format-div${index}`).style.display == "block"
         && document.getElementById(`date-time-format${index}`).value == "")
 }
+
+function isDependentFieldValueEmpty(index) {
+    return (document.getElementById(`dependent-value${index}`).style.visibility == 'visible'
+        && document.getElementById(`dependent-field-value${index}`).value == "")
+}
+
+function isExpectedCurrentFieldValueEmpty(index) {
+    return (document.getElementById(`current-value${index}`).style.visibility == 'visible'
+        && document.getElementById(`expectedCurrentFieldValue${index}`).value == "")
+}
+
 function validateInputFields() {
     for (let index = 0; index <= numberOfFields; index++) {
         let isFieldEmpty = document.getElementById(`field${index}`).value == ""
@@ -418,7 +429,8 @@ function validateInputFields() {
         console.log("inside validate input")
         console.log(document.getElementById(`date-format-div${index}`).style.display == "block")
         console.log(document.getElementById(`date-format${index}`).value == "")
-        if (isFieldEmpty || isTypeEmpty || isDateEmpty(index) || isTimeEmpty(index) || isDateTimeEmpty(index)) {
+        if (isFieldEmpty || isTypeEmpty || isDateEmpty(index) || isTimeEmpty(index) ||
+            isDateTimeEmpty(index) || isDependentFieldValueEmpty(index) || isExpectedCurrentFieldValueEmpty(index)) {
             return false
         }
     }
