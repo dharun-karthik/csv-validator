@@ -4,6 +4,7 @@ describe('cypress connect test', () => {
     })
 })
 
+/*
 describe('Upload empty configuration', () => {
     it('should give alert', () => {
         const stub = cy.stub()
@@ -32,7 +33,7 @@ describe('Add config data', () => {
         cy.get('#type0').select(2)
         cy.get('#max-len0').type(19)
         cy.get('#min-len0').type(7)
-        
+
     })
 
     it('should add another field and fill the values', () => {
@@ -83,13 +84,13 @@ describe("After selecting CSV, Display", () => {
         cy.get("#type2").select(1)
 
         cy.get("#add-new-field").click()
-        
+
         cy.get("#field3").type("Export")
         cy.get("#type3").select(3)
         cy.get("#fixed-len3").type("1")
 
         cy.get("#add-new-field").click()
-        
+
         cy.get("#field4").type("Country Name")
         cy.get("#type4").select(3)
 
@@ -99,16 +100,16 @@ describe("After selecting CSV, Display", () => {
         cy.get("#type5").select(3)
 
         cy.get("#add-new-field").click()
-        
+
         cy.get("#field6").type("Country Code")
         cy.get("#type6").select(1)
 
         cy.get("#add-new-field").click()
-        
+
         cy.get("#field7").type("Source Pincode")
         cy.get("#type7").select(1)
-        
-        
+
+
     })
     it("no errors for valid csv", () => {
         const stub = cy.stub()
@@ -153,7 +154,7 @@ describe("After selecting CSV, Display", () => {
     //     })
     // })
 })
-
+*/
 
 
 

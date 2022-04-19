@@ -1,3 +1,4 @@
+/*
 describe("testing the entire application", () => {
     it('Open link', () => {
         cy.visit("http://localhost:3000")
@@ -120,3 +121,5 @@ describe("testing the entire application", () => {
         })
     })
 })
+
+ */
