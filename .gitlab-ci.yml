@@ -1,10 +1,9 @@
-image: gradle:latest
-
 stages:
   - dependencies
   - test
 
 install-node-dependencies:
+  image: node:latest
   stage: dependencies
   cache:
     key: node-modules
