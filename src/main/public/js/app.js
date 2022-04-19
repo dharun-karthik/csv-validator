@@ -469,16 +469,20 @@ function addValueDataToPayload(index, singleJson) {
     }
 }
 
+var tempValues
+
 function displayValues(elementId) {
     let configNumber = elementId[elementId.length - 1]
     let modalDiv = document.getElementById(`value-modal${configNumber}`)
     modalDiv.style.display = "block"
+    tempValues = document.getElementById(`value-textbox${configNumber}`).value
 }
 
 function hideValues(elementId) {
     let configNumber = elementId[elementId.length - 1]
     let modalDiv = document.getElementById(`value-modal${configNumber}`)
     modalDiv.style.display = "none"
+    document.getElementById(`value-textbox${configNumber}`).value = tempValues
 }
 
 function uploadFileAndChangeContents(elementId) {
@@ -491,5 +495,5 @@ function uploadFileAndChangeContents(elementId) {
         textBox.value = fileReader.result;
     });
     fileReader.readAsText(uploadedFile, "UTF-8");
-    fileInputTag.value =''
+    fileInputTag.value = ''
 }
