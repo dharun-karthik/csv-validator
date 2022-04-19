@@ -15,6 +15,7 @@ install-node-dependencies:
 
 
 unit-test:
+  image: gradle:latest
   stage: test
   script:
     - echo "Test Started"
