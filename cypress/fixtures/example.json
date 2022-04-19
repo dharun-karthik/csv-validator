@@ -1,5 +1,40 @@
-{
-  "name": "Using fixtures to represent data",
-  "email": "hello@cypress.io",
-  "body": "Fixtures are a great way to mock data for responses to routes"
-}
+[
+  {
+    "fieldName": "Strategy Id",
+    "type": "alphanumeric"
+  },
+  {
+    "fieldName": "Strategy Name",
+    "type": "alphanumeric"
+  },
+  {
+    "fieldName": "Country",
+    "type": "alphabets"
+  },
+  {
+    "fieldName": "Strategy Start Date",
+    "type": "date",
+    "pattern": "uuuu-MM-dd"
+  },
+  {
+    "fieldName": "Strategy Status",
+    "type": "alphabets",
+    "values": [
+      "COMPLETED",
+      "TERMINATED",
+      "PAUSED"
+    ]
+  },
+  {
+    "fieldName": "Booked Agency Fee",
+    "type": "number"
+  },
+  {
+    "fieldName": "Booked By",
+    "type": "alphanumeric"
+  },
+  {
+    "fieldName": "Total Played Impacts",
+    "type": "number"
+  }
+]
