@@ -86,7 +86,7 @@ function addNewField() {
             </select>
         </div>
         <div id="date-format-div${numberOfFields}" style="display: none;">
-            <label for="date-format${numberOfFields}">Date Format</label>
+            <label for="date-format${numberOfFields}">Date Format<span class="required-field">*</span>: </label>
             <select id="date-format${numberOfFields}" name="pattern" class="dropdowns" onchange="onChangeHandler(event)">
                 <option value="">Choose Type</option>
                 <option value="dd/MM/uuuu">dd/MM/yyyy</option>
@@ -104,7 +104,7 @@ function addNewField() {
             </select>
         </div>
         <div id="time-format-div${numberOfFields}" style="display: none;">
-            <label for="time-format${numberOfFields}">Time Format</label>
+            <label for="time-format${numberOfFields}">Time Format<span class="required-field">*</span>: </label>
             <select id="time-format${numberOfFields}" name="pattern" class="dropdowns" onchange="onChangeHandler(event)">
                 <option value="">Choose Type</option>
                 <option value="HH:mm:ss">HH:mm:ss</option>
@@ -119,7 +119,7 @@ function addNewField() {
             </select>
         </div>
         <div id="date-time-format-div${numberOfFields}" style="display: none;">
-            <label for="date-time-format${numberOfFields}">Date-Time Format</label>
+            <label for="date-time-format${numberOfFields}">Date-Time Format<span class="required-field">*</span>: </label>
             <select id="date-time-format${numberOfFields}" name="pattern" class="dropdowns" onchange="onChangeHandler(event)">
                 <option value="">Choose Type</option>
                 <option value="HH:mm:ss dd/MM/uuuu">HH:mm:ss dd/MM/yyyy</option>
@@ -294,11 +294,28 @@ function customConfirm(){
     confirmPopup.classList.toggle('active')
 }
 
+function isDateEmpty(index) {
+    return (document.getElementById(`date-format-div${index}`).style.display == "block"
+        && document.getElementById(`date-format${index}`).value == "")
+}
+
+function isTimeEmpty(index) {
+    return (document.getElementById(`time-format-div${index}`).style.display == "block"
+        && document.getElementById(`time-format${index}`).value == "")
+}
+
+function isDateTimeEmpty(index) {
+    return (document.getElementById(`date-time-format-div${index}`).style.display == "block"
+        && document.getElementById(`date-time-format${index}`).value == "")
+}
 function validateInputFields() {
     for (let index = 0; index <= numberOfFields; index++) {
         let isFieldEmpty = document.getElementById(`field${index}`).value == ""
         let isTypeEmpty = document.getElementById(`type${index}`).value == ""
-        if (isFieldEmpty || isTypeEmpty) {
+        console.log("inside validate input")
+        console.log(document.getElementById(`date-format-div${index}`).style.display == "block")
+        console.log(document.getElementById(`date-format${index}`).value == "")
+        if (isFieldEmpty || isTypeEmpty || isDateEmpty(index) || isTimeEmpty(index) || isDateTimeEmpty(index)) {
             return false
         }
     }
