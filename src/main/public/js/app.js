@@ -243,20 +243,28 @@ function addNewField() {
             <label for="text-file-id${numberOfFields}">Values: </label>
             <button id="edit-button${numberOfFields}" onclick="displayValues(this.id)" class="button-on-config-form">ADD</button>
             <div class="modal" id="value-modal${numberOfFields}">
-                <div class="modal-content">
-                    <span class="close" id="close-modal${numberOfFields}" onclick="hideValues(this.id)">&times;</span>
-                    <div class="modal-container">
-                        <div class="text-box">
-                            <p>Enter Values</p>
+            <div class="modal-content">
+                <span class="close" id="close-modal${numberOfFields}" onclick="hideValues(this.id)">&times;</span>
+                <div class="modal-container">
+                    <div class="text-box">
+                        <h3>Enter Values</h3>
                             <textarea class="value-text" id="value-textbox${numberOfFields}" rows="30" cols="50"></textarea>
                         </div>
-                        <div class="uplaod-values">
-                            <input type="file" class="choose-file" id="value-file${numberOfFields}" name="values" accept=".txt">
-                            <input type="submit" value="Upload" id="value-fileupload-btn${numberOfFields}" onclick="uploadFileAndChangeContents(this.id)">
+                        <div class="upload-values">
+                            <div class="upload-div">
+                                <input type="file" class="choose-file config-file" id="value-file${numberOfFields}" name="values" accept=".txt">
+                                <input type="submit" class="button-on-config-form" value="Fetch Values From File" id="value-fileupload-btn${numberOfFields}" onclick="uploadFileAndChangeContents(this.id)">
+                            </div>
+                            <div class="hints">
+                                <h2>Hints: </h2>
+                                <h3>- Choose txt file for values and click "Fetch Values From File" to display in text box</h3>
+                                <h3>- In text box, <span class="important">Enter values on new lines</span> </h3>
+                                <h3>- If values are seperated by comma(,), don't give any space</h3>
+                            </div>
                         </div>
                     </div>
                     <div class="save-button">
-                        <button class="button big-font" id="save-btn${numberOfFields}" name="save-btn${numberOfFields}"onclick="saveValue(this.id)">Save</button>
+                        <button class="button big-font" id="save-btn${numberOfFields}" name="save-btn${numberOfFields}" onclick="saveValue(this.id)">Save</button>
                     </div>
                 </div>
             </div>
