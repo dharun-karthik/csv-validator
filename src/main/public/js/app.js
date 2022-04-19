@@ -324,25 +324,25 @@ async function sendConfigData() {
     await fetch('reset-config', {
         method: 'DELETE',
     })
-    for (var i = 0; i < newPayload.length; i++) {   
+    for (var i = 0; i < newPayload.length; i++) {
         sendOneConfig(newPayload[i])
-    }   
+    }
     customConfirm()
 }
 
-function customAlert(){
+function customAlert() {
     var blurBg = document.getElementById("blur")
     blurBg.classList.toggle('active')
     var alertPopup = document.getElementById("alert-popup")
     alertPopup.classList.toggle('active')
 }
 
-function customConfirm(){
+function customConfirm() {
     var blurBg = document.getElementById("blur")
     blurBg.classList.toggle('active')
     const okButton = document.getElementById('ok-btn')
     okButton.addEventListener("click", () => {
-	    window.location.href = 'uploadCSV.html'
+        window.location.href = 'uploadCSV.html'
     });
     var confirmPopup = document.getElementById("confirm-popup")
     confirmPopup.classList.toggle('active')
@@ -423,7 +423,7 @@ function addValuesToPayload(index, singleJson) {
     }
     else {
         let alternateValue = document.getElementById(`alternate-value${index}`).value;
-        console.log(typeof(alternateValue))
+        console.log(typeof (alternateValue))
         if (String(alternateValue).search(',') != -1) {
             singleJson["values"] = String(alternateValue).split(',');
         }
@@ -433,13 +433,15 @@ function addValuesToPayload(index, singleJson) {
     }
 }
 
-function displayValues(element) {
-    let modalDiv = element.parentNode.childNodes[5];
+function displayValues(elementId) {
+    let configNumber = elementId[elementId.length - 1]
+    let modalDiv = document.getElementById(`value-modal${configNumber}`)
     modalDiv.style.display = "block"
 }
 
-function hideValues(element) {
-    let modalDiv = element.parentNode.parentNode
+function hideValues(elementId) {
+    let configNumber = elementId[elementId.length - 1]
+    let modalDiv = document.getElementById(`value-modal${configNumber}`)
     modalDiv.style.display = "none"
 }
 
@@ -449,6 +451,6 @@ function uploadFileAndChangeContents(element) {
     var textBox = element.parentNode.parentNode.childNodes[1].childNodes[3]
     fileReader.addEventListener("load", () => {
         textBox.value = fileReader.result;
-      });
+    });
     fileReader.readAsText(uploadedFile, "UTF-8");
 }
