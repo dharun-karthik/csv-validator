@@ -1,8 +1,0 @@
-[
-  {
-    "fieldName": "product description",
-    "type": "alphanumeric",
-    "minLength": 7,
-    "maxLength": 20
-  }
-]
