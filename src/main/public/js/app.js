@@ -106,7 +106,20 @@ function disableLengthInput(index) {
     document.getElementById(`max-len${index}`).style.cssText = "background-color: #ffeded; cursor: not-allowed";
     document.getElementById(`fixed-len${index}`).disabled = true
     document.getElementById(`fixed-len${index}`).style.cssText = "background-color: #ffeded; cursor: not-allowed";
-}   
+}
+
+function enableLengthInput(element) {
+    let index = extractIndexFromId(element.id)
+    unknownType = document.getElementById(`type${index}`).value
+    if(unknownType=="number" || unknownType=="alphanumeric" || unknownType=="alphabets") {
+        document.getElementById(`min-len${index}`).disabled = false
+        document.getElementById(`min-len${index}`).style.cssText = "background-color: #f4f9fe; cursor: auto";
+        document.getElementById(`max-len${index}`).disabled = false
+        document.getElementById(`max-len${index}`).style.cssText = "background-color: #f4f9fe; cursor: auto";
+        document.getElementById(`fixed-len${index}`).disabled = false
+        document.getElementById(`fixed-len${index}`).style.cssText = "background-color: #f4f9fe; cursor: auto";
+    }
+}
 
 function toggleDateInput(element) {
     let index = extractIndexFromId(element.id)
@@ -293,6 +306,7 @@ function onChangeHandler(event) {
         toggleDateInput(event.target)
         toggleTimeInput(event.target)
         toggleDateTimeInput(event.target)
+        enableLengthInput(event.target)
     }
 }
 
