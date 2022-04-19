@@ -4,7 +4,7 @@ var numberOfFields = 0;
 const nameIdMap = {
     "fieldName": "field",
     "type": "type",
-    "values": "alternate-value",
+    "values": "value-textbox",
     "minLength": "min-len",
     "maxLength": "max-len",
     "length": "fixed-len",
@@ -429,7 +429,6 @@ function generatePayload() {
         let type = document.getElementById(`type${index}`).value
 
         singleJson = addOptionalDataToPayload(index, singleJson)
-        singleJson = addValuesToPayload(index, singleJson);
         
         if (type == "date" || type == 'date-time' || type == 'time') {
             singleJson["pattern"] = document.getElementById(`${type}-format${index}`).value
@@ -440,32 +439,15 @@ function generatePayload() {
     return finalJson
 }
 
-function addValuesToPayload(index, singleJson) {
-    let values = document.getElementById(`text-file-id${index}`).files[0];
-    let reader = new FileReader();
-    reader.addEventListener('load', function (e) {
-        let text = e.target.result;
-        singleJson["values"] = text.split('\n');
-    });
-    if (values != undefined) {
-        reader.readAsText(values);
-        return singleJson
-    }
-    let alternateValue = document.getElementById(`alternate-value${index}`).value;
-    if (String(alternateValue).search(',') != -1) {
-        singleJson["values"] = String(alternateValue).split(',');
-        return singleJson
-    }
-    if (alternateValue != "") {
-        singleJson["values"] = String(alternateValue).split('\n');
-    }
-    return singleJson
-}
+
 function addOptionalDataToPayload(index, singleJson) {
     for (fieldName in nameIdMap) {
-        fieldsHandelledSeperately = ["values"]
-        if (fieldName in fieldsHandelledSeperately) continue
         fieldId = nameIdMap[fieldName]
+        fieldsHandelledSeperately = ["values"]
+        if (fieldName in fieldsHandelledSeperately) {
+            addValueDataToPayload(index, singleJson);
+            continue
+        }
         let data = document.getElementById(`${fieldId}${index}`).value
         let isDataEmpty = data != ""
         if (isDataEmpty) {
@@ -473,6 +455,18 @@ function addOptionalDataToPayload(index, singleJson) {
         }
     }
     return singleJson
+}
+
+function addValueDataToPayload(index, singleJson) {
+    let data = document.getElementById(`${fieldId}${index}`).value;
+    let doesDataContainComma = String(data).search(',') != -1
+    if (doesDataContainComma) {
+        singleJson["values"] = String(data).split(',');
+        return
+    }
+    if (data != "") {
+        singleJson["values"] = String(data).split('\n');
+    }
 }
 
 function displayValues(elementId) {
