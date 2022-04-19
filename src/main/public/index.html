@@ -77,7 +77,8 @@
                     </div>
                     <div id="date-time-format-div0" style="display: none;">
                         <label for="date-time-format0">Date-Time Format<span class="required-field">*</span>: </label>
-                        <select id="date-time-format0" name="pattern" class="dropdowns" onchange="onChangeHandler(event)">
+                        <select id="date-time-format0" name="pattern" class="dropdowns"
+                            onchange="onChangeHandler(event)">
                             <option value="">Choose Type</option>
                             <option value="HH:mm:ss dd/MM/uuuu">HH:mm:ss dd/MM/yyyy</option>
                             <option value="HH:mm:ss?dd/uuuu/MM">HH:mm:ss?dd/yyyy/MM</option>
@@ -96,18 +97,18 @@
                     </div>
                     <div id="field-value">
                         <label for="text-file-id0">Values: </label>
-                        <button id ="edit-button0" onclick="displayValues(this)">Edit</button>
-                        <div class="value-modal">
+                        <button id="edit-button0" onclick="displayValues(this)">Edit</button>
+                        <div class="modal" id="value-modal0">
                             <div class="modal-content">
                                 <span class="close" onclick="hideValues(this)">&times;</span>
                                 <div class="modal-container">
                                     <div class="text-box">
                                         <p>Enter Values</p>
-                                        <textarea class="value-text" id="value0" rows="30" cols="50"></textarea>
+                                        <textarea class="value-text" id="value-textbox0" rows="30" cols="50"></textarea>
                                     </div>
                                     <div class="uplaod-values">
-                                        <input type="file" class="choose-file" name="values" accept=".txt">
-                                        <input type="submit" value = "Upload" onclick="uploadFileAndChangeContents(this)">
+                                        <input type="file" class="choose-file" id="value-file0" name="values" accept=".txt">
+                                        <input type="submit" value="Upload" id="value-fileupload-btn" onclick="uploadFileAndChangeContents(this)">
                                     </div>
                                 </div>
 
