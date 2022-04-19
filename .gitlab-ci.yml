@@ -8,7 +8,7 @@ install-node-dependencies:
   cache:
     key: node-modules
     paths:
-      - node-modules/
+      - node_modules/
     policy: pull-push
   script:
     - npm install
@@ -27,7 +27,7 @@ front-end-unit-test:
   cache:
     key: node-modules
     paths:
-      - node-modules/
+      - node_modules/
     policy: pull
   script:
     - echo "Front end unit test Started"
@@ -41,7 +41,7 @@ integration-test:
   cache:
     key: node-modules
     paths:
-      - node-modules/
+      - node_modules/
   script:
     - echo "Integeration test Started"
     - apt-get --allow-releaseinfo-change update
