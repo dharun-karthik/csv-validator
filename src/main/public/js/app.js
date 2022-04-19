@@ -252,6 +252,9 @@ function addNewField() {
                             <input type="submit" value="Upload" id="value-fileupload-btn${numberOfFields}" onclick="uploadFileAndChangeContents(this.id)">
                         </div>
                     </div>
+                    <div class="save-button">
+                        <button class="button big-font" id="save-btn${numberOfFields}" name="save-btn${numberOfFields}"onclick="saveValue(this.id)">Save</button>
+                    </div>
                 </div>
             </div>
         </div>
