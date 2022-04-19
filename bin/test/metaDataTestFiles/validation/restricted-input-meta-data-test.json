@@ -1,0 +1,10 @@
+[
+  {
+    "fieldName": "export",
+    "type": "alphabets",
+    "values": [
+      "Y",
+      "N"
+    ]
+  }
+]
