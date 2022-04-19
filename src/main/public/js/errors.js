@@ -85,7 +85,7 @@ function displayColumnErrors(incorrectColumns) {
     incorrectColumns.forEach(incorrectColumn => {
         let oneColumnErrorDiv = document.createElement('div')
         oneColumnErrorDiv.className = 'column-error'
-        oneColumnErrorDiv.innerText = `Column Name Error in ${incorrectColumn}`;
+        oneColumnErrorDiv.innerText = `Column ${incorrectColumn} not found in CSV`;
 
         columnNameContainer.appendChild(oneColumnErrorDiv)
     })
