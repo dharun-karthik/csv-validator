@@ -99,11 +99,21 @@ function toggleDependencyInputs(element) {
     }
 }
 
+function disableLengthInput(index) {
+    document.getElementById(`min-len${index}`).disabled = true
+    document.getElementById(`min-len${index}`).style.cssText = "background-color: #ffeded; cursor: not-allowed";
+    document.getElementById(`max-len${index}`).disabled = true
+    document.getElementById(`max-len${index}`).style.cssText = "background-color: #ffeded; cursor: not-allowed";
+    document.getElementById(`fixed-len${index}`).disabled = true
+    document.getElementById(`fixed-len${index}`).style.cssText = "background-color: #ffeded; cursor: not-allowed";
+}   
+
 function toggleDateInput(element) {
     let index = extractIndexFromId(element.id)
     dateType = document.getElementById(`type${index}`).value
     if (dateType == "date") {
         document.getElementById(`date-format-div${index}`).style.display = 'block'
+        disableLengthInput(index)
     }
     else {
         document.getElementById(`date-format-div${index}`).style.display = 'none'
@@ -115,6 +125,7 @@ function toggleTimeInput(element) {
     timeType = document.getElementById(`type${index}`).value
     if (timeType == "time") {
         document.getElementById(`time-format-div${index}`).style.display = 'block'
+        disableLengthInput(index)
     }
     else {
         document.getElementById(`time-format-div${index}`).style.display = 'none'
@@ -126,6 +137,7 @@ function toggleDateTimeInput(element) {
     dateTimeType = document.getElementById(`type${index}`).value
     if (dateTimeType == "date-time") {
         document.getElementById(`date-time-format-div${index}`).style.display = 'block'
+        disableLengthInput(index)
     }
     else {
         document.getElementById(`date-time-format-div${index}`).style.display = 'none'
