@@ -446,12 +446,14 @@ function hideValues(elementId) {
 }
 
 function uploadFileAndChangeContents(elementId) {
-    let configNumber = elementId[elementId.length - 1]
-    var uploadedFile = document.getElementById(`value-file${configNumber}`).files[0]
+    var configNumber = elementId[elementId.length - 1]
+    var fileInputTag = document.getElementById(`value-file${configNumber}`)
+    var uploadedFile = fileInputTag.files[0]
     var fileReader = new FileReader();
     var textBox = document.getElementById(`value-textbox${configNumber}`)
     fileReader.addEventListener("load", () => {
         textBox.value = fileReader.result;
     });
     fileReader.readAsText(uploadedFile, "UTF-8");
+    fileInputTag.value =''
 }
