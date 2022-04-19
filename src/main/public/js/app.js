@@ -517,8 +517,10 @@ function changeButtonToEditIfValuesAdded(configNumber){
     console.log(textBoxValue)
     if(textBoxValue == ""){
         button.innerText = "ADD"
+        button.style.backgroundColor = "#f4f9fe"
     }
     else{
         button.innerText = "EDIT"
+        button.style.backgroundColor = "#dffddf"
     }
 }
