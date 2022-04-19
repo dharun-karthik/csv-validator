@@ -445,10 +445,11 @@ function hideValues(elementId) {
     modalDiv.style.display = "none"
 }
 
-function uploadFileAndChangeContents(element) {
-    var uploadedFile = element.parentNode.childNodes[1].files[0]
+function uploadFileAndChangeContents(elementId) {
+    let configNumber = elementId[elementId.length - 1]
+    var uploadedFile = document.getElementById(`value-file${configNumber}`).files[0]
     var fileReader = new FileReader();
-    var textBox = element.parentNode.parentNode.childNodes[1].childNodes[3]
+    var textBox = document.getElementById(`value-textbox${configNumber}`)
     fileReader.addEventListener("load", () => {
         textBox.value = fileReader.result;
     });
