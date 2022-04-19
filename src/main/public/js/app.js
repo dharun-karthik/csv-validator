@@ -497,3 +497,9 @@ function uploadFileAndChangeContents(elementId) {
     fileReader.readAsText(uploadedFile, "UTF-8");
     fileInputTag.value = ''
 }
+
+function saveValue(elementId){
+    let configNumber = elementId[elementId.length - 1]
+    let modalDiv = document.getElementById(`value-modal${configNumber}`)
+    modalDiv.style.display = "none"
+}
