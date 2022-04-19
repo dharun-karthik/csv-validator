@@ -478,21 +478,21 @@ function addValueDataToPayload(index, singleJson) {
 var tempValues
 
 function displayValues(elementId) {
-    let configNumber = elementId[elementId.length - 1]
+    let configNumber = extractIndexFromId(elementId)
     let modalDiv = document.getElementById(`value-modal${configNumber}`)
     modalDiv.style.display = "block"
     tempValues = document.getElementById(`value-textbox${configNumber}`).value
 }
 
 function hideValues(elementId) {
-    let configNumber = elementId[elementId.length - 1]
+    let configNumber = extractIndexFromId(elementId)
     let modalDiv = document.getElementById(`value-modal${configNumber}`)
     modalDiv.style.display = "none"
     document.getElementById(`value-textbox${configNumber}`).value = tempValues
 }
 
 function uploadFileAndChangeContents(elementId) {
-    var configNumber = elementId[elementId.length - 1]
+    var configNumber = extractIndexFromId(elementId)
     var fileInputTag = document.getElementById(`value-file${configNumber}`)
     var uploadedFile = fileInputTag.files[0]
     var fileReader = new FileReader();
@@ -505,7 +505,7 @@ function uploadFileAndChangeContents(elementId) {
 }
 
 function saveValue(elementId){
-    let configNumber = elementId[elementId.length - 1]
+    let configNumber = extractIndexFromId(elementId)
     let modalDiv = document.getElementById(`value-modal${configNumber}`)
     modalDiv.style.display = "none"
 }
