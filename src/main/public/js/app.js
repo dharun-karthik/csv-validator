@@ -334,7 +334,6 @@ function lowerCase(data, field = "") {
 function arrangeDependencies(payload) {
     for (let field in payload) {
         for (let key in payload[field]) {
-            // console.log(key + ":" + payload[field][key]);
             if (key == "dependentOn") {
                 assignDependencies(payload, field);
             }
@@ -376,7 +375,7 @@ async function sendConfigData() {
     for (var i = 0; i < newPayload.length; i++) {
         sendOneConfig(newPayload[i])
     }
-    customConfirm()
+    window.location.href = 'uploadCSV.html'
 }
 
 function customAlert() {
@@ -389,10 +388,6 @@ function customAlert() {
 function customConfirm() {
     var blurBg = document.getElementById("blur")
     blurBg.classList.toggle('active')
-    const okButton = document.getElementById('ok-btn')
-    okButton.addEventListener("click", () => {
-        window.location.href = 'uploadCSV.html'
-    });
     var confirmPopup = document.getElementById("confirm-popup")
     confirmPopup.classList.toggle('active')
 }
