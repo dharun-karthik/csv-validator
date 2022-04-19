@@ -464,7 +464,8 @@ function generatePayload() {
 function addOptionalDataToPayload(index, singleJson) {
     for (fieldName in nameIdMap) {
         fieldId = nameIdMap[fieldName]
-        if (fieldName == "values") {
+        fieldsHandelledSeperately = ["values"]
+        if (fieldName in fieldsHandelledSeperately) {
             addValueDataToPayload(index, singleJson);
             continue
         }
