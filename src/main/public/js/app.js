@@ -45,10 +45,29 @@ function fillDataInContainer(jsonData) {
                 insertPatternInRespectiveField(index, element);
                 continue
             }
+            if (key == "dependencies") {
+                displayDependencies(element, index);
+                continue
+            }
             console.log(`idToEdit: ${nameIdMap[key]}${index}`)
             document.getElementById(`${nameIdMap[key]}${index}`).value = element[key]
         }
     });
+}
+
+function displayDependencies(element, index) {
+    for (dependencyField in element[key]) {
+        oneDepenedency = element[key][dependencyField];
+        document.getElementById(`dependent-value${index}`).style.visibility = 'visible';
+        document.getElementById(`current-value${index}`).style.visibility = 'visible';
+        displayOneDependency(index);
+    }
+}
+
+function displayOneDependency(index) {
+    for (dependencyKey in oneDepenedency) {
+        document.getElementById(`${nameIdMap[dependencyKey]}${index}`).value = oneDepenedency[dependencyKey];
+    }
 }
 
 function insertPatternInRespectiveField(index, element) {
