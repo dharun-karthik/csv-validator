@@ -72,7 +72,7 @@ function displayOneDependency(index) {
 
 function insertPatternInRespectiveField(index, element) {
     let typeOfPattern = document.getElementById(`${nameIdMap['type']}${index}`).value;
-    console.log(`IdToEdit: ${typeOfPattern}-format${index}`);
+    document.getElementById(`${typeOfPattern}-format-div${index}`).style.display = 'block'
     document.getElementById(`${typeOfPattern}-format${index}`).value = element[key];
 }
 
@@ -427,16 +427,10 @@ function generatePayload() {
         let singleJson = {}
         let fieldName = lowerCase(document.getElementById(`field${index}`).value)
         let type = document.getElementById(`type${index}`).value
-        singleJson["fieldName"] = fieldName
-        singleJson["type"] = type
-        singleJson["minLength"] = document.getElementById(`min-len${index}`).value
-        singleJson["maxLength"] = document.getElementById(`max-len${index}`).value
-        singleJson["length"] = document.getElementById(`fixed-len${index}`).value
-        singleJson["dependentOn"] = lowerCase(document.getElementById(`depends-on${index}`).value)
-        singleJson["expectedDependentFieldValue"] = lowerCase(document.getElementById(`dependent-field-value${index}`).value)
-        singleJson["expectedCurrentFieldValue"] = lowerCase(document.getElementById(`expectedCurrentFieldValue${index}`).value)
 
-        addValuesToPayload(index, singleJson);
+        singleJson = addOptionalDataToPayload(index, singleJson)
+        singleJson = addValuesToPayload(index, singleJson);
+        
         if (type == "date" || type == 'date-time' || type == 'time') {
             singleJson["pattern"] = document.getElementById(`${type}-format${index}`).value
         }
@@ -455,17 +449,30 @@ function addValuesToPayload(index, singleJson) {
     });
     if (values != undefined) {
         reader.readAsText(values);
+        return singleJson
     }
-    else {
-        let alternateValue = document.getElementById(`alternate-value${index}`).value;
-        console.log(typeof (alternateValue))
-        if (String(alternateValue).search(',') != -1) {
-            singleJson["values"] = String(alternateValue).split(',');
-        }
-        else {
-            singleJson["values"] = String(alternateValue).split('\n');
+    let alternateValue = document.getElementById(`alternate-value${index}`).value;
+    if (String(alternateValue).search(',') != -1) {
+        singleJson["values"] = String(alternateValue).split(',');
+        return singleJson
+    }
+    if (alternateValue != "") {
+        singleJson["values"] = String(alternateValue).split('\n');
+    }
+    return singleJson
+}
+function addOptionalDataToPayload(index, singleJson) {
+    for (fieldName in nameIdMap) {
+        fieldsHandelledSeperately = ["values"]
+        if (fieldName in fieldsHandelledSeperately) continue
+        fieldId = nameIdMap[fieldName]
+        let data = document.getElementById(`${fieldId}${index}`).value
+        let isDataEmpty = data != ""
+        if (isDataEmpty) {
+            singleJson[`${fieldName}`] = data
         }
     }
+    return singleJson
 }
 
 function displayValues(elementId) {
