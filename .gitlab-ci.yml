@@ -9,7 +9,8 @@ install-node-dependencies:
     key: node-modules
     paths:
       - node_modules/
-      - /root/.cache/Cypress/
+      - .npm/
+      - cache/Cypress
     policy: pull-push
   script:
     - npm install
@@ -44,7 +45,8 @@ integration-test:
     key: node-modules
     paths:
       - node_modules/
-      - /root/.cache/Cypress/
+      - .npm/
+      - cache/Cypress
   script:
     - echo "Integeration test Started"
     - apt-get --allow-releaseinfo-change update
