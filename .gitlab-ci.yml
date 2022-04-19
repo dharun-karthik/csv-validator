@@ -24,6 +24,7 @@ integration-test:
   stage: test
   script:
     - echo "Integeration test Started"
+    - apt-get update -y
     - apt-get install -y default-jdk
     - ./gradlew run &
     - echo "Server is running"
