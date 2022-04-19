@@ -102,9 +102,12 @@ function toggleDependencyInputs(element) {
 function disableLengthInput(index) {
     document.getElementById(`min-len${index}`).disabled = true
     document.getElementById(`min-len${index}`).style.cssText = "background-color: #ffeded; cursor: not-allowed";
+    document.getElementById(`min-len${index}`).value = ""
     document.getElementById(`max-len${index}`).disabled = true
     document.getElementById(`max-len${index}`).style.cssText = "background-color: #ffeded; cursor: not-allowed";
+    document.getElementById(`max-len${index}`).value = ""
     document.getElementById(`fixed-len${index}`).disabled = true
+    document.getElementById(`fixed-len${index}`).value = ""
     document.getElementById(`fixed-len${index}`).style.cssText = "background-color: #ffeded; cursor: not-allowed";
 }
 
