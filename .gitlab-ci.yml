@@ -1,7 +1,18 @@
 image: gradle:latest
 
 stages:
+  - dependencies
   - test
+
+install-node-dependencies:
+  stage: dependencies
+  cache:
+    key: node-modules
+    paths: node_modules/
+    policy: pull-push
+  script:
+    - npm install
+
 
 unit-test:
   stage: test
@@ -13,6 +24,10 @@ unit-test:
 front-end-unit-test:
   image: node:latest
   stage: test
+  cache:
+    key: node-modules
+    paths: node_modules/
+    policy: pull
   script:
     - echo "Front end unit test Started"
     - npm install
@@ -22,6 +37,10 @@ front-end-unit-test:
 integration-test:
   image: cypress/browsers:node12.14.1-chrome85-ff81
   stage: test
+  cache:
+    key: node-modules
+    paths: node_modules/
+    policy: pull
   script:
     - echo "Integeration test Started"
     - apt-get --allow-releaseinfo-change update
