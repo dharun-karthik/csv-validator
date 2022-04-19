@@ -94,8 +94,8 @@ function toggleDependencyInputs(element) {
         document.getElementById(`dependent-value${index}`).style.visibility = 'visible'
         document.getElementById(`current-value${index}`).style.visibility = 'visible'
     } else {
-        document.getElementById('dependent-value0').style.visibility = 'hidden'
-        document.getElementById('current-value0').style.visibility = 'hidden'
+        document.getElementById(`dependent-value${index}`).style.visibility = 'hidden'
+        document.getElementById(`current-value${index}`).style.visibility = 'hidden'
     }
 }
 
