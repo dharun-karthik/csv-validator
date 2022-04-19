@@ -196,7 +196,7 @@ body {
 
 .dropdowns {
     border: none;
-    padding: 0 20px;
+    padding: 0 15px;
     border-radius: 6px;
     background-color: #f4f9fe;
     height: 34px;
@@ -435,4 +435,16 @@ body {
     resize: none;
     max-width: 100%;
     max-height: 85%;
+}
+
+.button-on-config-form {
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 2px 15px;
+    height: 34px;
+    background-color: #f4f9fe;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #555555;
 }
