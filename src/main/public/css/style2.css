@@ -215,10 +215,6 @@ body {
     color: #555555;
 }
 
-#field-value {
-    position: relative;
-}
-
 .alternate-value {
     position: absolute;
     top: 0;
