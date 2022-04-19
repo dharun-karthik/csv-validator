@@ -241,7 +241,7 @@ function addNewField() {
         <div id="field-value">
 
             <label for="text-file-id${numberOfFields}">Values: </label>
-            <button id="edit-button${numberOfFields}" onclick="displayValues(this.id)" class="button-on-config-form">Edit</button>
+            <button id="edit-button${numberOfFields}" onclick="displayValues(this.id)" class="button-on-config-form">ADD</button>
             <div class="modal" id="value-modal${numberOfFields}">
                 <div class="modal-content">
                     <span class="close" id="close-modal${numberOfFields}" onclick="hideValues(this.id)">&times;</span>
@@ -508,4 +508,17 @@ function saveValue(elementId){
     let configNumber = extractIndexFromId(elementId)
     let modalDiv = document.getElementById(`value-modal${configNumber}`)
     modalDiv.style.display = "none"
+    changeButtonToEditIfValuesAdded(configNumber)
+}
+
+function changeButtonToEditIfValuesAdded(configNumber){
+    var textBoxValue = document.getElementById(`value-textbox${configNumber}`).value
+    var button = document.getElementById(`edit-button${configNumber}`)
+    console.log(textBoxValue)
+    if(textBoxValue == ""){
+        button.innerText = "ADD"
+    }
+    else{
+        button.innerText = "EDIT"
+    }
 }
