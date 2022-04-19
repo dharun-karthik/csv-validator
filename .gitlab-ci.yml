@@ -1,7 +1,6 @@
 image: gradle:latest
 
 stages:
-  - build
   - test
 
 unit-test:
@@ -19,3 +18,16 @@ front-end-unit-test:
     - npm install
     - npm test
     - echo "Front end unit test Passed"
+
+integration-test:
+  image: cypress/browsers:node12.14.1-chrome85-ff81
+  stage: test
+  script:
+    - echo "Integeration test Started"
+    - apt update
+    - apt install -y default-jdk
+    - ./gradlew run &
+    - echo "Server is running"
+    - npm install
+    - npm run e2e
+    - echo "Integeration test Passed"
