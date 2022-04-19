@@ -211,14 +211,23 @@ function addNewField() {
             </select>
         </div>
         <div id="field-value">
+
             <label for="text-file-id${numberOfFields}">Values: </label>
-            <input type="file" class="choose-file" name="values" id="text-file-id${numberOfFields}" accept=".txt" onchange="onChangeHandler(event)">
-            <div class="extra-values">
-                <input type="checkbox" name="use-text-for-value" id="use-text-for-value${numberOfFields}"
-                    onclick="toggleValueFieldTextBox(this)">
-                <span>Enter Values</span>
-                <textarea name="alt-values" id="alternate-value${numberOfFields}" cols="10" rows="10"
-                    class="displayNone alternate-value" onchange="onChangeHandler(event)"></textarea>
+            <button id="edit-button${numberOfFields}" onclick="displayValues(this.id)">Edit</button>
+            <div class="modal" id="value-modal${numberOfFields}">
+                <div class="modal-content">
+                    <span class="close" id="close-modal${numberOfFields}" onclick="hideValues(this.id)">&times;</span>
+                    <div class="modal-container">
+                        <div class="text-box">
+                            <p>Enter Values</p>
+                            <textarea class="value-text" id="value-textbox${numberOfFields}" rows="30" cols="50"></textarea>
+                        </div>
+                        <div class="uplaod-values">
+                            <input type="file" class="choose-file" id="value-file${numberOfFields}" name="values" accept=".txt">
+                            <input type="submit" value="Upload" id="value-fileupload-btn${numberOfFields}" onclick="uploadFileAndChangeContents(this.id)">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
