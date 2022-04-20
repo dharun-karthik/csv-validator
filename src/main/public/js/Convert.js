@@ -52,3 +52,10 @@ function convertPayloadToJsonArray(payload) {
     console.log(jsonArray);
     return jsonArray;
 }
+
+function lowerCase(data, field = "") {
+    if (field == 'pattern') {
+        return data
+    }
+    return String(data).toLowerCase()
+}

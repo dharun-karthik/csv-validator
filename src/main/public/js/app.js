@@ -325,13 +325,6 @@ function onChangeHandler(event) {
     }
 }
 
-function lowerCase(data, field = "") {
-    if (field == 'pattern') {
-        return data
-    }
-    return String(data).toLowerCase()
-}
-
 async function sendConfigData() {
     let isInputValid = validateInputFields()
     if (!isInputValid) {
