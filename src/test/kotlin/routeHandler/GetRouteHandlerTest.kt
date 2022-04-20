@@ -13,8 +13,8 @@ internal class GetRouteHandlerTest {
     companion object {
         @JvmStatic
         fun contentTypeArguments() = Stream.of(
-            Arguments.of("/css/style.css", "text/css"),
-            Arguments.of("/js/main.js", "text/javascript"),
+            Arguments.of("/css/style2.css", "text/css"),
+            Arguments.of("/js/app.js", "text/javascript"),
         )
     }
 
