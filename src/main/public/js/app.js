@@ -333,10 +333,16 @@ async function sendConfigData() {
     let newConfigData = generatePayload()
     let newPayload = convertPayloadToJsonArray(newConfigData)
     await sendResetConfigRequest();
-    for (var i = 0; i < newPayload.length; i++) {
-        sendOneConfig(newPayload[i])
+    const response = await fetch('add-meta-data', {
+        method: 'POST', body: JSON.stringify(newPayload)
+    });
+    if (response.status === 200) {
+        const jsonData = await response.json();
+        sessionStorage.removeItem('errors')
+        sessionStorage.setItem('errors', JSON.stringify(jsonData))
+        window.location.href = 'errors.html'
     }
-    window.location.href = 'errors.html'
+    window.location.href = 'pages/404.html'
 }
 
 async function resetConfigs() {
@@ -407,16 +413,6 @@ function validateInputFields() {
         }
     }
     return true
-}
-
-async function sendOneConfig(oneConfig) {
-    const resp = await fetch('add-meta-data', {
-        method: 'POST', body: JSON.stringify(oneConfig)
-    });
-    if (resp.status === 200) {
-        const jsonData = await resp.json();
-        console.log(jsonData)
-    }
 }
 
 function generatePayload() {
