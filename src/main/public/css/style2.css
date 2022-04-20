@@ -6,7 +6,7 @@
 
 body {
     position: relative;
-    font-family: "Roboto",Helvetica,Arial,sans-serif;
+    font-family: "Roboto", Helvetica, Arial, sans-serif;
 }
 
 .header {
@@ -40,7 +40,7 @@ body {
     color: black;
 }
 
-.nav-links:hover a{
+.nav-links:hover a {
     color: #004FEC;
 }
 
@@ -53,7 +53,7 @@ body {
     min-height: 100vh;
 }
 
-.section#blur.active{
+.section#blur.active {
     filter: blur(10px);
     pointer-events: none;
     user-select: none;
@@ -288,7 +288,7 @@ body {
 
 .error-list {
     padding: 20px 0;
-    border-bottom-color: rgba(0,0,0,.2);
+    border-bottom-color: rgba(0, 0, 0, .2);
     border-bottom: 1px dashed #E6E6E6;
     display: flex;
     align-items: center;
@@ -342,7 +342,7 @@ body {
     height: 15vh;
 }
 
-#alert-popup{
+#alert-popup {
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -369,7 +369,7 @@ body {
     transition: 0.5s;
 }
 
-#alert-message{
+#alert-message {
     margin-bottom: 20px;
 }
 

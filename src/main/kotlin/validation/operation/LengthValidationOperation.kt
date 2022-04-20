@@ -1,10 +1,10 @@
 package validation.operation
 
 import lengthValidator.*
+import lengthValidator.LengthType.*
 import metaData.JsonMetaDataTemplate
 import org.json.JSONObject
 import validation.implementation.LengthValidation
-import lengthValidator.LengthType.*
 
 class LengthValidationOperation : ValidationOperation {
     private val lengthTypeMap: Map<LengthType, LengthTypeValidator> = mapOf(
@@ -15,7 +15,7 @@ class LengthValidationOperation : ValidationOperation {
 
     override fun validate(
         metaDataField: JsonMetaDataTemplate, currentFieldValue: String, currentRow: JSONObject?
-    ): String?{
+    ): String? {
         val lengthValidation = LengthValidation()
         if (isFieldIsNull(currentFieldValue)) {
             return null
@@ -25,7 +25,7 @@ class LengthValidationOperation : ValidationOperation {
 
     private fun lengthCheck(
         currentFieldValue: String, metaDataField: JsonMetaDataTemplate, lengthValidation: LengthValidation
-    ): String?{
+    ): String? {
         val isValid = (checkFixedLength(currentFieldValue, metaDataField, lengthValidation) && checkMinLength(
             currentFieldValue, metaDataField, lengthValidation
         ) && checkMaxLength(currentFieldValue, metaDataField, lengthValidation))

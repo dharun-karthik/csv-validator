@@ -12,7 +12,7 @@ class TextValidatorTest {
 
     @ParameterizedTest
     @MethodSource("validTextArguments")
-    fun shouldReturnTrueWhenTextIsValid(value:String){
+    fun shouldReturnTrueWhenTextIsValid(value: String) {
         val textValidator = TextValidator()
 
         val actual = textValidator.validate(value)
@@ -22,7 +22,7 @@ class TextValidatorTest {
 
     @ParameterizedTest
     @MethodSource("inValidTextArguments")
-    fun shouldReturnFalseWhenTextIsInValid(value:String){
+    fun shouldReturnFalseWhenTextIsInValid(value: String) {
         val textValidator = TextValidator()
 
         val actual = textValidator.validate(value)
@@ -40,7 +40,7 @@ class TextValidatorTest {
         )
     }
 
-    private fun inValidTextArguments(): List<Arguments>{
+    private fun inValidTextArguments(): List<Arguments> {
         return listOf(
             Arguments.of("ºhello"),
             Arguments.of("£"),

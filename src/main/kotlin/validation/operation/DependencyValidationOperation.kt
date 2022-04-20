@@ -1,6 +1,5 @@
 package validation.operation
 
-import arrow.core.Either
 import metaData.DependencyTemplate
 import metaData.JsonMetaDataTemplate
 import org.json.JSONObject

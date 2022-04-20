@@ -14,9 +14,9 @@ class ColumnValidation {
         val unavailableFieldNames = fieldsInJsonData.filter { fieldName ->
             !fieldsInMetaData.contains(fieldName)
         }
-        if (unavailableFieldNames.isNotEmpty()){
+        if (unavailableFieldNames.isNotEmpty()) {
             val obj = JSONObject()
-            obj.put("0",unavailableFieldNames)
+            obj.put("0", unavailableFieldNames)
             unavailableColumnJsonArray.put(obj)
         }
         return unavailableColumnJsonArray

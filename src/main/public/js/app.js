@@ -114,7 +114,7 @@ function disableLengthInput(index) {
 function enableLengthInput(element) {
     let index = extractIndexFromId(element.id)
     unknownType = document.getElementById(`type${index}`).value
-    if(unknownType=="number" || unknownType=="alphanumeric" || unknownType=="alphabets") {
+    if (unknownType == "number" || unknownType == "alphanumeric" || unknownType == "alphabets") {
         document.getElementById(`min-len${index}`).disabled = false
         document.getElementById(`min-len${index}`).style.cssText = "background-color: #f4f9fe; cursor: auto";
         document.getElementById(`max-len${index}`).disabled = false
@@ -130,8 +130,7 @@ function toggleDateInput(element) {
     if (dateType == "date") {
         document.getElementById(`date-format-div${index}`).style.display = 'block'
         disableLengthInput(index)
-    }
-    else {
+    } else {
         document.getElementById(`date-format-div${index}`).style.display = 'none'
     }
 }
@@ -142,8 +141,7 @@ function toggleTimeInput(element) {
     if (timeType == "time") {
         document.getElementById(`time-format-div${index}`).style.display = 'block'
         disableLengthInput(index)
-    }
-    else {
+    } else {
         document.getElementById(`time-format-div${index}`).style.display = 'none'
     }
 }
@@ -154,8 +152,7 @@ function toggleDateTimeInput(element) {
     if (dateTimeType == "date-time") {
         document.getElementById(`date-time-format-div${index}`).style.display = 'block'
         disableLengthInput(index)
-    }
-    else {
+    } else {
         document.getElementById(`date-time-format-div${index}`).style.display = 'none'
     }
 }
@@ -424,7 +421,7 @@ function generatePayload() {
         let type = document.getElementById(`type${index}`).value
 
         singleJson = addOptionalDataToPayload(index, singleJson)
-        
+
         if (type == "date" || type == 'date-time' || type == 'time') {
             singleJson["pattern"] = document.getElementById(`${type}-format${index}`).value
         }
@@ -492,22 +489,21 @@ function uploadFileAndChangeContents(elementId) {
     fileInputTag.value = ''
 }
 
-function saveValue(elementId){
+function saveValue(elementId) {
     let configNumber = extractIndexFromId(elementId)
     let modalDiv = document.getElementById(`value-modal${configNumber}`)
     modalDiv.style.display = "none"
     changeButtonToEditIfValuesAdded(configNumber)
 }
 
-function changeButtonToEditIfValuesAdded(configNumber){
+function changeButtonToEditIfValuesAdded(configNumber) {
     var textBoxValue = document.getElementById(`value-textbox${configNumber}`).value
     var button = document.getElementById(`edit-button${configNumber}`)
     console.log(textBoxValue)
-    if(textBoxValue == ""){
+    if (textBoxValue == "") {
         button.innerText = "ADD"
         button.style.backgroundColor = "#f4f9fe"
-    }
-    else{
+    } else {
         button.innerText = "EDIT"
         button.style.backgroundColor = "#dffddf"
     }

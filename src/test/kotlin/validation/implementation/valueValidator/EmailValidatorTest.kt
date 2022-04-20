@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-    class EmailValidatorTest {
+class EmailValidatorTest {
 
     @ParameterizedTest
     @MethodSource("validEmailArguments")
@@ -30,7 +30,7 @@ import org.junit.jupiter.params.provider.MethodSource
         assertFalse(actual)
     }
 
-    private fun inValidEmailArguments(): List<Arguments>{
+    private fun inValidEmailArguments(): List<Arguments> {
         return listOf(
             Arguments.of("Abc.example.com"),
             Arguments.of("A@b@c@example.com"),
