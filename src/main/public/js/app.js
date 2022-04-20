@@ -31,7 +31,6 @@ async function loadMetaData() {
 }
 
 function displayHeadersInContainers(headers) {
-    console.log(headers)
     let numberOfHeaders = headers.length - 1
     displayEmptyContainers(numberOfHeaders)
     fillHeadersInContainers(headers)
@@ -40,6 +39,7 @@ function displayHeadersInContainers(headers) {
 function fillHeadersInContainers(headers) {
     headers.forEach((fieldName, index) => {
         document.getElementById(`field${index}`).value = fieldName
+        document.getElementById(`type${index}`).value = 'text'
     })
 }
 
