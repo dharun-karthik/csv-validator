@@ -318,7 +318,7 @@ async function sendConfigData() {
     for (var i = 0; i < newPayload.length; i++) {
         sendOneConfig(newPayload[i])
     }
-    window.location.href = 'uploadCSV.html'
+    window.location.href = 'errors.html'
 }
 
 async function resetConfigs() {

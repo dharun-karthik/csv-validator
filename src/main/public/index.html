@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style2.css">
     <title>Home | CSV Validator</title>
+    <link rel="stylesheet" href="css/style2.css">
 </head>
 
 <body>
@@ -16,202 +16,26 @@
              class="logo-image">
     </div>
 </div>
-<div class="section" id="blur">
-    <div class="heading-div" id="configs-upload">
+<div class="section" id="csv-page">
+    <div class="heading-div" id="csv-upload">
         <h1 class="heading">One place to Validate all your CSVs</h1>
         <h2 class="heading sub-heading">In just 3 Easy Steps</h2>
 
-        <h1 class="configs-heading">Step 1: Add Validation Rules</h1>
+        <h1 class="configs-heading">Step 1: Upload CSV</h1>
 
-        <div class="config-container">
-            <div class="row1">
-                <div id="field-name">
-                    <label for="field0">Field Name<span class="required-field">*</span>: </label>
-                    <input type="text" id="field0" class="inputs" name="fieldName"
-                           onchange="onChangeHandler(event)">
-                </div>
-                <div id="field-type">
-                    <label for="type0">Type<span class="required-field">*</span>: </label>
-                    <select id="type0" name="type" class="dropdowns" onchange="onChangeHandler(event)">
-                        <option value="">Choose Type</option>
-                        <option value="number">Number</option>
-                        <option value="alphanumeric">AlphaNumeric</option>
-                        <option value="alphabets">Alphabets</option>
-                        <option value="date">Date</option>
-                        <option value="time">Time</option>
-                        <option value="date-time">Date-Time</option>
-                        <option value="email">Email</option>
-                        <option value="text">Text</option>
-                    </select>
-                </div>
-                <div id="date-format-div0" style="display: none;">
-                    <label for="date-format0">Date Format<span class="required-field">*</span>: </label>
-                    <select id="date-format0" name="pattern" class="dropdowns" onchange="onChangeHandler(event)">
-                        <option value="">Choose Type</option>
-                        <option value="dd/MM/uuuu">dd/MM/yyyy</option>
-                        <option value="dd/uuuu/MM">dd/yyyy/MM</option>
-                        <option value="MM/dd/uuuu">MM/dd/yyyy</option>
-                        <option value="MM/uuuu/dd">MM/yyyy/dd</option>
-                        <option value="uuuu/dd/MM">yyyy/dd/MM</option>
-                        <option value="uuuu/MM/dd">yyyy/MM/dd</option>
-                        <option value="dd-MM-uuuu">dd-MM-yyyy</option>
-                        <option value="dd-uuuu-MM">dd-yyyy-MM</option>
-                        <option value="MM-dd-uuuu">MM-dd-yyyy</option>
-                        <option value="MM-uuuu-dd">MM-yyyy-dd</option>
-                        <option value="uuuu-dd-MM">yyyy-dd-MM</option>
-                        <option value="uuuu-MM-dd">yyyy-MM-dd</option>
-                    </select>
-                </div>
-                <div id="time-format-div0" style="display: none;">
-                    <label for="time-format0">Time Format<span class="required-field">*</span>: </label>
-                    <select id="time-format0" name="pattern" class="dropdowns" onchange="onChangeHandler(event)">
-                        <option value="">Choose Type</option>
-                        <option value="HH:mm:ss">HH:mm:ss</option>
-                        <option value="HH:ss:mm">HH:ss:mm</option>
-                        <option value="ss:HH:mm">ss:HH:mm</option>
-                        <option value="HH:ss:mm:SSS">HH:ss:mm:SSS</option>
-                        <option value="hh:ss:mm a">hh:ss:mm a</option>
-                        <option value="hh:ss:mma">hh:ss:mma</option>
-                        <option value="ahh:ss:mm">ahh:ss:mm</option>
-                        <option value="hh:ass:mm">hh:ass:mm</option>
-                        <option value="hh:ass:mm:SSS">hh:ass:mm:SSS</option>
-                    </select>
-                </div>
-                <div id="date-time-format-div0" style="display: none;">
-                    <label for="date-time-format0">Date-Time Format<span class="required-field">*</span>: </label>
-                    <select id="date-time-format0" name="pattern" class="dropdowns"
-                            onchange="onChangeHandler(event)">
-                        <option value="">Choose Type</option>
-                        <option value="HH:mm:ss dd/MM/uuuu">HH:mm:ss dd/MM/yyyy</option>
-                        <option value="HH:mm:ss?dd/uuuu/MM">HH:mm:ss?dd/yyyy/MM</option>
-                        <option value="HH:ss:mm:dd:MM:uuuu">HH:ss:mm:dd:MM:yyyy</option>
-                        <option value="ss:HH:mm/uuuu/MM/dd">ss:HH:mm/yyyy/MM/dd</option>
-                        <option value="HH:ss:mm-dd-uuuu-MM">HH:ss:mm-dd-yyyy-MM</option>
-                        <option value="HH:ss:mm:SSS dd MM uuuu">HH:ss:mm:SSS dd MM yyyy</option>
-                        <option value="hh:ss:mm a,uuuu-MM-dd">hh:ss:mm a,yyyy-MM-dd</option>
-                        <option value="hh:ss:mma+dd/MM/uuuu">hh:ss:mma+dd/MM/yyyy</option>
-                        <option value="ahh:ss:mm () dd/MM/uuuu">ahh:ss:mm () dd/MM/yyyy</option>
-                        <option value="dd/MM/uuuu hh:ass:mm">dd/MM/yyyy hh:ass:mm</option>
-                        <option value="dd/MM/uuuu == hh:ass:mm:SSS">dd/MM/yyyy == hh:ass:mm:SSS</option>
-                        <option value="dd MM uuuu hh:ass:mm">dd MM yyyy hh:ass:mm</option>
-                        <option value="uuuu-MM-dd't'HH:mm:ss.SSS'z'">yyyy-MM-dd'T'HH:mm:ss.SSSZ</option>
-                    </select>
-                </div>
-                <div id="field-value">
-                    <label for="text-file-id0">Values: </label>
-                    <button id="edit-button0" onclick="displayValues(this.id)" class="button-on-config-form">ADD
-                    </button>
-                    <div class="modal" id="value-modal0">
-                        <div class="modal-content">
-                            <span class="close" id="close-modal0" onclick="hideValues(this.id)">&times;</span>
-                            <div class="modal-container">
-                                <div class="text-box">
-                                    <h3>Enter Values</h3>
-                                    <textarea class="value-text" id="value-textbox0" rows="30" cols="50"></textarea>
-                                </div>
-                                <div class="upload-values">
-                                    <div class="upload-div">
-                                        <input type="file" class="choose-file config-file" id="value-file0"
-                                               name="values" accept=".txt">
-                                        <input type="submit" class="button-on-config-form"
-                                               value="Fetch Values From File" id="value-fileupload-btn0"
-                                               onclick="uploadFileAndChangeContents(this.id)">
-                                    </div>
-                                    <div class="hints">
-                                        <h2>Hints: </h2>
-                                        <h3>- Choose txt file for values and click "Fetch Values From File" to display
-                                            in text box</h3>
-                                        <h3>- In text box, <span class="important">Enter values on new lines</span></h3>
-                                        <h3>- If values are seperated by comma(,), don't give any space</h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="save-button">
-                                <button class="button big-font" id="save-btn0" name="save-btn0"
-                                        onclick="saveValue(this.id)">Save
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="upload-csv-section">
+            <div class="heading heading-to-upload-csv">Choose or Drag CSV Here</div>
+            <div class="choose-csv">
+                <label for="csv-id" id="csv-label">CSV File:
+                    <input type="file" name="csv-file" id="csv-id" accept=".csv">
+                </label>
             </div>
-            <div class="row1" id="row0">
-                <div id="min-length">
-                    <label for="min-len0">Min-length: </label>
-                    <input type="number" name="minLength" id="min-len0" class="inputs"
-                           onchange="onChangeHandler(event)">
-                </div>
-                <div id="max-length">
-                    <label for="max-len0">Max-length: </label>
-                    <input type="number" name="maxLength" id="max-len0" class="inputs"
-                           onchange="onChangeHandler(event)">
-                </div>
-                <div id="fixed-length">
-                    <label for="fixed-len0">Fixed-length: </label>
-                    <input type="number" name="length" id="fixed-len0" class="inputs"
-                           onchange="onChangeHandler(event)">
-                </div>
-            </div>
-            <div class="row1">
-                <div id="depends-on-column">
-                    <label for="depends-on0">Dependency on column: </label>
-                    <input type="text" id="depends-on0" class="inputs" name="dependentOn"
-                           onchange="onChangeHandler(event)">
-                    </input>
-                </div>
-                <div id="dependent-value0" class="hidden">
-                    <label for="dependent-field-value0">Dependent Field Value<span class="required-field">*</span>:
-                    </label>
-                    <input type="text" class="inputs extra-width" id="dependent-field-value0"
-                           name="expectedDependentFieldValue" placeholder="null for no value, !null for any value"
-                           onchange="onChangeHandler(event)">
-                </div>
-                <div id="current-value0" class="hidden">
-                    <label for="expectedCurrentFieldValue0">Expected Current Field Value<span
-                            class="required-field">*</span>: </label>
-                    <select id="expectedCurrentFieldValue0" class="dropdowns" name="expectedCurrentFieldValue"
-                            onchange="onChangeHandler(event)">
-                        <option value="">Choose here</option>
-                        <option value="!null">Present</option>
-                        <option value="null">Not Present</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="buttons" id="new-field-and-submit-button">
-            <button class="button big-font" id="add-new-field" onclick="addNewField()">
-                Add New Field
-            </button>
-            <button class="button big-font" id="upload-configs" onclick="customConfirm()">
-                Submit
-            </button>
-            <button id="reset-configurations" class="button big-font reset-button" onclick="resetConfigs()">
-                Reset Rules
-            </button>
+            <button class="button big-font" id="csv-submit-button" onclick="uploadCSV()">Upload</button>
         </div>
     </div>
 </div>
-<div id="alert-popup">
-    <p id="alert-message">Enter mandatory fields</p>
-    <button class="button big-font" onclick="customAlert()">
-        Close
-    </button>
-</div>
-<div id="confirm-popup">
-    <p id="alert-message">Submitting Configuration</p>
-    <div>
-        <button class="button big-font" onclick="customConfirm()">
-            Cancel
-        </button>
-        <button class="button big-font" id="ok-btn" onclick="sendConfigData()">
-            Ok
-        </button>
-    </div>
-</div>
-<div class="footer" id="footer"></div>
-
-<script src="js/app.js"></script>
 <script src="js/Convert.js"></script>
+<script src="js/uploadcsv.js"></script>
 </body>
 
 </html>
