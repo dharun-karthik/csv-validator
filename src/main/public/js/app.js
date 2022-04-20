@@ -16,13 +16,31 @@ const nameIdMap = {
 window.addEventListener('load', async () => loadMetaData());
 
 async function loadMetaData() {
+    let headers = JSON.parse(sessionStorage.getItem('headers'))
     const resp = await fetch('get-meta-data', {
         method: 'GET',
     });
     if (resp.status === 200) {
         const jsonData = await resp.json();
+        if (jsonData.length == 0) {
+            displayHeadersInContainers(headers);
+            return
+        }
         displayConfigDataFromServer(jsonData);
     }
+}
+
+function displayHeadersInContainers(headers) {
+    console.log(headers)
+    let numberOfHeaders = headers.length - 1
+    displayEmptyContainers(numberOfHeaders)
+    fillHeadersInContainers(headers)
+}
+
+function fillHeadersInContainers(headers) {
+    headers.forEach((fieldName, index) => {
+        document.getElementById(`field${index}`).value = fieldName
+    })
 }
 
 function displayConfigDataFromServer(jsonData) {
