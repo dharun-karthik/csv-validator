@@ -76,7 +76,7 @@ describe("After selecting CSV, Display", () => {
     it("no errors for valid csv", () => {
         cy.get('#upload-configs').click()
         cy.get('#ok-btn').click()
-        cy.get('#csv-id').selectFile('cypress/fixtures/correctData.csv')
+        cy.get('#csv-id',{ timeout: 40000 }).selectFile('cypress/fixtures/correctData.csv')
         cy.get('#csv-submit-button').click()
 
         cy.get('#valid-csv-id').then(($validHeading) => {
