@@ -11,7 +11,8 @@ class TypeValidationOperation : ValidationOperation {
         "number" to NumberValidator(),
         "date" to DateValidator(),
         "time" to TimeValidator(),
-        "date-time" to DateTimeValidator()
+        "date-time" to DateTimeValidator(),
+        "email" to EmailValidator(),
     )
 
     override fun validate(

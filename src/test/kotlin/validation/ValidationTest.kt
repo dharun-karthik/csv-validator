@@ -98,6 +98,11 @@ class ValidationTest {
                 """[{"export": "N"},{"export": "N"}]""",
                 """[{"3":{"Row Duplication Error":["2"]}}]"""
             ),
+            Arguments.of(
+                "email-meta-data-test.json",
+                """[{"email": "talon.atlas+managedsahaj.ai"}]""",
+                """[{"2":{"Type Error":["email : talon.atlas+managedsahaj.ai"]}}]"""
+            ),
         )
     }
 
