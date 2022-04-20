@@ -2,44 +2,47 @@ package validation.implementation.valueValidator
 
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.MethodSource
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class AlphaNumericValidatorTest {
     private val alphaNumericValidator = AlphaNumericValidator()
 
-    @Test
-    fun shouldReturnTrueIfInputTextIsAlphaNumeric() {
-        val inputText = "abcABC12"
-
+    @ParameterizedTest
+    @MethodSource("validAlphaNumericArguments")
+    fun shouldReturnTrueIfInputTextIsAlphaNumeric(inputText: String) {
         val actual = alphaNumericValidator.validate(inputText)
 
         assertTrue(actual)
     }
 
-    @Test
-    fun shouldReturnFalseIfInputTextIsNotAlphaNumeric() {
-        val inputText = "abcABC1:"
-
+    @ParameterizedTest
+    @MethodSource("inValidAlphaNumericArguments")
+    fun shouldReturnFalseIfInputTextIsNotAlphaNumeric(inputText: String) {
         val actual = alphaNumericValidator.validate(inputText)
 
         assertFalse(actual)
     }
 
-    @Test
-    fun shouldReturnTrueIfInputTextHavingAlphabetsOnlyIsAlphaNumeric() {
-        val inputText = "abcABC"
-
-        val actual = alphaNumericValidator.validate(inputText)
-
-        assertTrue(actual)
+    private fun validAlphaNumericArguments(): List<Arguments> {
+        return listOf(
+            Arguments.of("abc"),
+            Arguments.of("Abc"),
+            Arguments.of("AA"),
+            Arguments.of("Ad12222"),
+            Arguments.of("a22"),
+        )
     }
 
-    @Test
-    fun shouldReturnTrueIfInputTextHavingDigitsOnlyIsAlphaNumeric() {
-        val inputText = "1234"
-
-        val actual = alphaNumericValidator.validate(inputText)
-
-        assertTrue(actual)
+    private fun inValidAlphaNumericArguments(): List<Arguments> {
+        return listOf(
+            Arguments.of("abc fj"),
+            Arguments.of("abc 12"),
+            Arguments.of("abc:12"),
+            Arguments.of("abc12,"),
+        )
     }
 }
