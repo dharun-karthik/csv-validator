@@ -100,27 +100,15 @@ function toggleDependencyInputs(element) {
 }
 
 function disableLengthInput(index) {
-    document.getElementById(`min-len${index}`).disabled = true
-    document.getElementById(`min-len${index}`).style.cssText = "background-color: #ffeded; cursor: not-allowed";
-    document.getElementById(`min-len${index}`).value = ""
-    document.getElementById(`max-len${index}`).disabled = true
-    document.getElementById(`max-len${index}`).style.cssText = "background-color: #ffeded; cursor: not-allowed";
-    document.getElementById(`max-len${index}`).value = ""
-    document.getElementById(`fixed-len${index}`).disabled = true
-    document.getElementById(`fixed-len${index}`).value = ""
-    document.getElementById(`fixed-len${index}`).style.cssText = "background-color: #ffeded; cursor: not-allowed";
+    document.getElementById(`row${index}`).style.display = "none"
 }
 
 function enableLengthInput(element) {
     let index = extractIndexFromId(element.id)
-    unknownType = document.getElementById(`type${index}`).value
-    if (unknownType == "number" || unknownType == "alphanumeric" || unknownType == "alphabets") {
-        document.getElementById(`min-len${index}`).disabled = false
-        document.getElementById(`min-len${index}`).style.cssText = "background-color: #f4f9fe; cursor: auto";
-        document.getElementById(`max-len${index}`).disabled = false
-        document.getElementById(`max-len${index}`).style.cssText = "background-color: #f4f9fe; cursor: auto";
-        document.getElementById(`fixed-len${index}`).disabled = false
-        document.getElementById(`fixed-len${index}`).style.cssText = "background-color: #f4f9fe; cursor: auto";
+    let unknownType = document.getElementById(`type${index}`).value
+    let lengthRequiredDataTypeList = ["number", "alphanumeric", "alphabets", "email", "text"]
+    if(lengthRequiredDataTypeList.includes(unknownType)) {
+        document.getElementById(`row${index}`).style.display = "flex"
     }
 }
 
@@ -269,7 +257,7 @@ function addNewField() {
             </div>
         </div>
     </div>
-    <div class="row1">
+    <div class="row1" id="row${numberOfFields}">
         <div id="min-length">
             <label for="min-len${numberOfFields}">Min-length: </label>
             <input type="number" name="minLength" id="min-len${numberOfFields}" class="inputs" onchange="onChangeHandler(event)">
