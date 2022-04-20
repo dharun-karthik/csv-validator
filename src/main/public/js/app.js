@@ -340,13 +340,22 @@ async function sendConfigData() {
     }
     let newConfigData = generatePayload()
     let newPayload = convertPayloadToJsonArray(newConfigData)
-    await fetch('reset-config', {
-        method: 'DELETE',
-    })
+    await sendResetConfigRequest();
     for (var i = 0; i < newPayload.length; i++) {
         sendOneConfig(newPayload[i])
     }
     window.location.href = 'uploadCSV.html'
+}
+
+async function resetConfigs() {
+    await sendResetConfigRequest();
+    location.reload()
+}
+
+async function sendResetConfigRequest() {
+    await fetch('reset-config', {
+        method: 'DELETE',
+    });
 }
 
 function customAlert() {
