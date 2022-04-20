@@ -1,1 +1,1 @@
-[]
+[{"fieldName":"operations","type":"alphanumeric","maxLength":"19"},{"fieldName":"completedat","type":"date-time","pattern":"ahh:ss:mm () dd/MM/uuuu"}]
