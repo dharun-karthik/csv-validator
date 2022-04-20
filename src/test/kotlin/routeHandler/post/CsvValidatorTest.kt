@@ -25,7 +25,7 @@ class CsvValidatorTest {
 ]"""
         val lineSeparator = System.lineSeparator()
         val content =
-            """[{"2":{"Length":["product description : Table","product id : 1564"],"Value Not Found":["source pincode : 440001"],"Dependency":["country name : null"]}}]"""
+            """[{"2":{"Length Error in":["product description : Table","product id : 1564"],"Value Not Found":["source pincode : 440001"],"export is Y but":["country name : null"]}}]"""
         val head = """HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
 Content-Length: ${content.length}"""

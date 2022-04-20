@@ -8,7 +8,7 @@ interface ValidationOperation {
         metaDataField: JsonMetaDataTemplate,
         currentFieldValue: String,
         currentRow: JSONObject? = null,
-    ): Boolean
+    ): String?
 
     fun isFieldIsNull(value: String?): Boolean {
         return value.contentEquals("null", ignoreCase = true)

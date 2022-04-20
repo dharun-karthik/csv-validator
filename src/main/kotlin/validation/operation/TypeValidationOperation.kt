@@ -18,9 +18,9 @@ class TypeValidationOperation : ValidationOperation {
 
     override fun validate(
         metaDataField: JsonMetaDataTemplate, currentFieldValue: String, currentRow: JSONObject?
-    ): Boolean {
+    ): String? {
         if (isFieldIsNull(currentFieldValue)) {
-            return true
+            return null
         }
 
         return checkType(metaDataField, currentFieldValue)
@@ -28,12 +28,13 @@ class TypeValidationOperation : ValidationOperation {
 
     private fun checkType(
         metaDataField: JsonMetaDataTemplate, currentFieldValue: String
-    ): Boolean {
+    ): String? {
         val isValid = valueTypeMap[metaDataField.type]!!.validate(currentFieldValue, metaDataField.pattern)
 
         if (!isValid) {
-            return false
+            return "Type expected '${metaDataField.type}' in"
+
         }
-        return true
+        return null
     }
 }

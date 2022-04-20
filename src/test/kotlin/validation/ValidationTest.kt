@@ -76,12 +76,12 @@ class ValidationTest {
             Arguments.of(
                 "date-meta-data-test.json",
                 """[{"date": "11/02/2000",},{"date": "15/22/2002",},{"date": "15/02/23",}]""",
-                """[{"3":{"Type":["date : 15/22/2002"]}},{"4":{"Type":["date : 15/02/23"]}}]"""
+                """[{"3":{"Type expected 'date' in":["date : 15/22/2002"]}},{"4":{"Type expected 'date' in":["date : 15/02/23"]}}]"""
             ),
             Arguments.of(
                 "length-meta-data-test.json",
                 """[{"product description": "Table"}]""",
-                """[{"2":{"Length":["product description : Table"]}}]"""
+                """[{"2":{"Length Error in":["product description : Table"]}}]"""
             ),
             Arguments.of(
                 "restricted-input-meta-data-test.json",
@@ -91,7 +91,7 @@ class ValidationTest {
             Arguments.of(
                 "dependency-meta-data-test.json",
                 """[{"export": "N","country name": "usa"}]""",
-                """[{"2":{"Dependency":["country name : usa"]}}]"""
+                """[{"2":{"export is N but":["country name : usa"]}}]"""
             ),
             Arguments.of(
                 "restricted-input-meta-data-test.json",
@@ -101,12 +101,12 @@ class ValidationTest {
             Arguments.of(
                 "email-meta-data-test.json",
                 """[{"email": "talon.atlas+managedsahaj.ai"}]""",
-                """[{"2":{"Type":["email : talon.atlas+managedsahaj.ai"]}}]"""
+                """[{"2":{"Type expected 'email' in":["email : talon.atlas+managedsahaj.ai"]}}]"""
             ),
             Arguments.of(
                 "text-meta-data-test.json",
                 """[{"text": "£ new one"}]""",
-                """[{"2":{"Type":["text : £ new one"]}}]"""
+                """[{"2":{"Type expected 'text' in":["text : £ new one"]}}]"""
             )
         )
     }

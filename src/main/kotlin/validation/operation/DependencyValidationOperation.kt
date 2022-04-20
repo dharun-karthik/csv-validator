@@ -1,5 +1,6 @@
 package validation.operation
 
+import arrow.core.Either
 import metaData.DependencyTemplate
 import metaData.JsonMetaDataTemplate
 import org.json.JSONObject
@@ -7,18 +8,16 @@ import validation.implementation.DependencyValidation
 
 class DependencyValidationOperation : ValidationOperation {
     override fun validate(
-        metaDataField: JsonMetaDataTemplate,
-        currentFieldValue: String,
-        currentRow: JSONObject?
-    ): Boolean {
+        metaDataField: JsonMetaDataTemplate, currentFieldValue: String, currentRow: JSONObject?
+    ): String? {
         val dependencyValidation = DependencyValidation()
         if (metaDataField.dependencies != null) {
             val dependencies = metaDataField.dependencies
-            if (checkDependency(dependencies, currentRow!!, dependencyValidation, currentFieldValue)) {
-                return false
-            }
+            return checkDependency(
+                dependencies, currentRow!!, dependencyValidation, currentFieldValue
+            )
         }
-        return true
+        return null
     }
 
     private fun checkDependency(
@@ -26,7 +25,7 @@ class DependencyValidationOperation : ValidationOperation {
         currentRow: JSONObject,
         dependencyValidation: DependencyValidation,
         currentFieldValue: String
-    ): Boolean {
+    ): String? {
         for (dependency in dependencies) {
             val dependentValue = currentRow.getString(dependency.dependentOn)
             val expectedCurrentValue = dependency.expectedCurrentFieldValue
@@ -37,10 +36,10 @@ class DependencyValidationOperation : ValidationOperation {
             )
 
             if (!isValid) {
-                return true
+                return "${dependency.dependentOn} is $dependentValue but"
             }
         }
-        return false
+        return null
     }
 
 }
