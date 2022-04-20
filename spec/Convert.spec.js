@@ -51,3 +51,36 @@ describe("convert payload to jsonarray", () => {
     })
 })
 
+describe("convert to lowercase", () => {
+    it("should convert data to lowercase", () => {
+        let data = "SampleText"
+        let lowerCase = convert.__get__("lowerCase")
+        let expected = "sampletext"
+
+        let actual = lowerCase(data);
+
+        expect(actual).toEqual(expected)
+    })
+
+    it("should not convert data to lowercase if field is pattern", () => {
+        let data = "SampleText"
+        let field = "pattern"
+        let lowerCase = convert.__get__("lowerCase")
+        let expected = "SampleText"
+
+        let actual = lowerCase(data, field);
+
+        expect(actual).toEqual(expected)
+    })
+
+    it("should convert data to lowercase if field is anything except pattern", () => {
+        let data = "SampleText"
+        let field = "fieldName"
+        let lowerCase = convert.__get__("lowerCase")
+        let expected = "sampletext"
+
+        let actual = lowerCase(data, field);
+
+        expect(actual).toEqual(expected)
+    })
+})
