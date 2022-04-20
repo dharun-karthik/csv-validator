@@ -76,6 +76,7 @@ describe("After selecting CSV, Display", () => {
     it("no errors for valid csv", () => {
         cy.get('#upload-configs').click()
         cy.get('#ok-btn').click()
+        cy.visit("http://localhost:3000/uploadCSV.html")
         cy.get('#csv-id',{ timeout: 40000 }).selectFile('cypress/fixtures/correctData.csv')
         cy.get('#csv-submit-button').click()
 
