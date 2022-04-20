@@ -103,6 +103,11 @@ class ValidationTest {
                 """[{"email": "talon.atlas+managedsahaj.ai"}]""",
                 """[{"2":{"Type":["email : talon.atlas+managedsahaj.ai"]}}]"""
             ),
+            Arguments.of(
+                "text-meta-data-test.json",
+                """[{"text": "£ new one"}]""",
+                """[{"2":{"Type":["text : £ new one"]}}]"""
+            )
         )
     }
 
