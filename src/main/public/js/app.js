@@ -184,6 +184,7 @@ function addNewField() {
                 <option value="date">Date</option>
                 <option value="time">Time</option>
                 <option value="date-time">Date-Time</option>
+                <option value="email">Email</option>
             </select>
         </div>
         <div id="date-format-div${numberOfFields}" style="display: none;">
