@@ -21,31 +21,11 @@ class CsvValidatorTest {
         "source city": "Nagpur",
         "country code": "null",
         "source pincode": "440001"
-    },
-    {
-        "product id": "15645",
-        "product description": "Table with flower",
-        "price": "4500.59",
-        "export": "Y",
-        "country name": "USA",
-        "source city": "Nagpur",
-        "country code": "08",
-        "source pincode": "560001"
-    },
-    {
-        "product id": "15645",
-        "product description": "Table with flower",
-        "price": "4500.59",
-        "export": "Y",
-        "country name": "USA",
-        "source city": "Nagpur",
-        "country code": "08",
-        "source pincode": "560001"
     }
 ]"""
         val lineSeparator = System.lineSeparator()
         val content =
-            """[{"2":{"Dependency Error":["country name : null"],"Length Error":["product description : Table","product id : 1564"],"Value Not Found Error":["source pincode : 440001"]}},{"4":{"Row Duplication Error":["3"]}}]"""
+            """[{"2":{"Length":["product description : Table","product id : 1564"],"Value Not Found":["source pincode : 440001"],"Dependency":["country name : null"]}}]"""
         val head = """HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
 Content-Length: ${content.length}"""

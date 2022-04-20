@@ -52,7 +52,7 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
     ) {
         val previousDuplicateIndex = duplicationValidation.isDuplicateIndexAvailable(currentRow, index)
         if (previousDuplicateIndex != null) {
-            val name = "Row Duplication Error"
+            val name = "Row Duplication"
             val errorList = lineErrors.getOrPut(name) { mutableListOf() }
             errorList.add((previousDuplicateIndex + 1).toString())
         }

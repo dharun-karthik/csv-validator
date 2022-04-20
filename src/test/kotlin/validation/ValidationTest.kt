@@ -19,7 +19,7 @@ class ValidationTest {
         val csvData = """[
     {
         "product id": "15645",
-        "product description": "Table with flower",
+        "product description": "TableIsT",
         "price": "4500.59",
         "export": "Y",
         "country name": "USA",
@@ -29,7 +29,7 @@ class ValidationTest {
     },
     {
         "product id": "12369",
-        "product description": "wooden Chairs",
+        "product description": "woodenIs",
         "price": "1000",
         "export": "N",
         "country name": "null",
@@ -76,32 +76,32 @@ class ValidationTest {
             Arguments.of(
                 "date-meta-data-test.json",
                 """[{"date": "11/02/2000",},{"date": "15/22/2002",},{"date": "15/02/23",}]""",
-                """[{"3":{"Type Error":["date : 15/22/2002"]}},{"4":{"Type Error":["date : 15/02/23"]}}]"""
+                """[{"3":{"Type":["date : 15/22/2002"]}},{"4":{"Type":["date : 15/02/23"]}}]"""
             ),
             Arguments.of(
                 "length-meta-data-test.json",
                 """[{"product description": "Table"}]""",
-                """[{"2":{"Length Error":["product description : Table"]}}]"""
+                """[{"2":{"Length":["product description : Table"]}}]"""
             ),
             Arguments.of(
                 "restricted-input-meta-data-test.json",
                 """[{"export": "fa"}]""",
-                """[{"2":{"Value Not Found Error":["export : fa"]}}]"""
+                """[{"2":{"Value Not Found":["export : fa"]}}]"""
             ),
             Arguments.of(
                 "dependency-meta-data-test.json",
                 """[{"export": "N","country name": "usa"}]""",
-                """[{"2":{"Dependency Error":["country name : usa"]}}]"""
+                """[{"2":{"Dependency":["country name : usa"]}}]"""
             ),
             Arguments.of(
                 "restricted-input-meta-data-test.json",
                 """[{"export": "N"},{"export": "N"}]""",
-                """[{"3":{"Row Duplication Error":["2"]}}]"""
+                """[{"3":{"Row Duplication":["2"]}}]"""
             ),
             Arguments.of(
                 "email-meta-data-test.json",
                 """[{"email": "talon.atlas+managedsahaj.ai"}]""",
-                """[{"2":{"Type Error":["email : talon.atlas+managedsahaj.ai"]}}]"""
+                """[{"2":{"Type":["email : talon.atlas+managedsahaj.ai"]}}]"""
             ),
         )
     }
