@@ -1,3 +1,5 @@
+const headers = [];
+
 async function uploadCSV() {
     let csvElement = document.getElementById('csv-id').files[0];
     const reader = new FileReader();
@@ -8,10 +10,21 @@ async function uploadCSV() {
 async function handleCsvFile(event) {
     const csv = event.target.result;
     const lines = csv.toString().split("\n");
+    captureHeaders(lines[0])
     const result = csvToJson(lines);
     const response = await sendRequest(result);
     await handleResponse(response);
 }
+
+function captureHeaders(headersString) {
+    headersList = headersString.split(',')
+    headersList.forEach(element => {
+        headers.push(element)
+    });
+    sessionStorage.removeItem('headers')
+    sessionStorage.setItem('headers', JSON.stringify(headers))
+}
+
 
 async function sendRequest(result) {
     return await fetch('csv', {
@@ -23,10 +36,8 @@ async function handleResponse(response) {
     console.log(response)
     if (response.status === 200) {
         const jsonData = await response.json();
-        sessionStorage.clear();
-        sessionStorage.setItem('errors', JSON.stringify(jsonData))
-    } else {
-        console.log("Error : ", response)
+        window.location.href = 'addRules.html'
+        return
     }
-    window.location.href = "errors.html"
+    window.location.href = "pages/404.html"
 }
