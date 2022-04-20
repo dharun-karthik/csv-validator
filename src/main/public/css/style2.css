@@ -123,6 +123,11 @@ body {
     transition: all 0.5s;
 }
 
+.reset-button {
+    background-color: #c20000;
+    border-color: #c20000;
+}
+
 .required-field {
     color: #f82424;
 }
@@ -133,6 +138,10 @@ body {
 
 .button:hover {
     background-color: #00297c;
+}
+
+.reset-button:hover {
+    background-color: #850000;
 }
 
 .buttons {
