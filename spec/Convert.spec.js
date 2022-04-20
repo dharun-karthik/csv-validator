@@ -16,10 +16,35 @@ describe("convert", () => {
 
 describe("convert payload to jsonarray", () => {
     it("should convert payload to jsonArray", () => {
-        let payload = {"Product id": {"field": "Product Id", "type": "AlphaNumeric"}, "CName": {"field": "Product Description", "type": "Alphanumeric"}}
+        let payload = {
+            "Product id": { "field": "Product Id", "type": "AlphaNumeric" },
+            "CName": { "field": "Product Description", "type": "Alphanumeric" }
+        }
         let convertPayloadToJsonArray = convert.__get__("convertPayloadToJsonArray")
-        let expected = [{"field": "Product Id", "type": "AlphaNumeric"}, {"field": "Product Description", "type": "Alphanumeric"}]
-        
+        let expected = [{ "field": "Product Id", "type": "AlphaNumeric" },
+        { "field": "Product Description", "type": "Alphanumeric" }]
+
+        let actual = convertPayloadToJsonArray(payload);
+
+        expect(actual).toEqual(expected)
+    })
+
+    it("should convert payload with dependencies to jsonArray", () => {
+        let payload = {
+            "Product id": { "field": "Product Id", "type": "AlphaNumeric" },
+            "CName": {
+                "field": "Product Description", "type": "Alphanumeric",
+                "dependentOn": "Product Id", "expectedDependentFieldValue": "Y", "expectedCurrentFieldValue": "null"
+            }
+        }
+        let convertPayloadToJsonArray = convert.__get__("convertPayloadToJsonArray")
+        let expected = [{ "field": "Product Id", "type": "AlphaNumeric" },
+        {
+            "field": "Product Description", "type": "Alphanumeric",
+            "dependencies": [{ "dependentOn": "Product Id", "expectedDependentFieldValue": "Y", "expectedCurrentFieldValue": "null" }],
+            "dependentOn": "Product Id", "expectedDependentFieldValue": "Y", "expectedCurrentFieldValue": "null"
+        }]
+
         let actual = convertPayloadToJsonArray(payload);
 
         expect(actual).toEqual(expected)
