@@ -2,9 +2,16 @@ const headers = [];
 
 async function uploadCSV() {
     let csvElement = document.getElementById('csv-id').files[0];
+    await sendResetConfigRequest()
     const reader = new FileReader();
     reader.onload = await handleCsvFile
     reader.readAsText(csvElement)
+}
+
+async function sendResetConfigRequest() {
+    await fetch('reset-config', {
+        method: 'DELETE',
+    });
 }
 
 async function handleCsvFile(event) {
