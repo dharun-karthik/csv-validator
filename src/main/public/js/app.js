@@ -327,11 +327,6 @@ function onChangeHandler(event) {
 }
 
 async function sendConfigData() {
-    let isInputValid = validateInputFields()
-    if (!isInputValid) {
-        customAlert();
-        return
-    }
     let newConfigData = generatePayload()
     let newPayload = convertPayloadToJsonArray(newConfigData)
     await sendResetConfigRequest();
@@ -360,6 +355,11 @@ function customAlert() {
 }
 
 function customConfirm() {
+    let isInputValid = validateInputFields()
+    if (!isInputValid) {
+        customAlert();
+        return
+    }
     var blurBg = document.getElementById("blur")
     blurBg.classList.toggle('active')
     var confirmPopup = document.getElementById("confirm-popup")
