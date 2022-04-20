@@ -451,7 +451,7 @@ function addOptionalDataToPayload(index, singleJson) {
         let data = document.getElementById(`${fieldId}${index}`).value
         let isDataEmpty = data != ""
         if (isDataEmpty) {
-            singleJson[`${fieldName}`] = data
+            singleJson[`${fieldName}`] = lowerCase(data, fieldName)
         }
     }
     return singleJson
