@@ -10,7 +10,7 @@ class RequestHandler(
     configReaderWriter: ConfigReaderWriter
 ) {
     private val getRouteHandler = GetRouteHandler()
-    private val postRouteHandler = PostRouteHandler(configReaderWriter)
+    private val postRouteHandler = PostRouteHandler()
     private val deleteRouteHandler = DeleteRouteHandler(configReaderWriter)
     private val fileGetter = FileGetter()
 

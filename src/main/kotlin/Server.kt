@@ -5,7 +5,7 @@ import java.net.ServerSocket
 
 class Server(
     private val port: Int = 3000,
-    metaDataPath: String = "src/main/public/csv-meta-data.json"
+    metaDataPath: String = "src/main/public/files/csv-config.json"
 ) {
     private val configReaderWriter = ConfigReaderWriter(metaDataPath)
     private val requestHandler = RequestHandler(configReaderWriter)

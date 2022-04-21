@@ -44,7 +44,7 @@ internal class GetRouteHandlerTest {
 
     private fun getMetaDataContent(): String {
         val path = System.getProperty("user.dir")
-        val file = File("$path/src/main/public/csv-meta-data.json")
+        val file = File("$path/src/main/public/files/csv-config.json")
         return file.readText(Charsets.UTF_8)
     }
 
