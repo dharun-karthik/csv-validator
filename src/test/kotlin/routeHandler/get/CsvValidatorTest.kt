@@ -37,6 +37,22 @@ class CsvValidatorTest {
         assertEquals(expected, actual)
     }
 
+    @Test
+    fun shouldReturnEmptyArrayWhenValidationIsSuccess(){
+        val configFileReaderWriter =
+            ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/csvValidation/csv-config-test.json")
+        val jsonContentReaderWriter =
+            JsonContentReaderWriter("src/test/kotlin/metaDataTestFiles/csvValidation/content-with-no-error-test.json")
+        val csvValidator = CsvValidator(configFileReaderWriter, jsonContentReaderWriter)
+
+        val actual = csvValidator.handleCsv()
+        val content = """[]"""
+        val expected = getBodyWithSuccessHeader(content)
+
+        assertEquals(expected, actual)
+    }
+
+
     private fun getBodyWithSuccessHeader(body: String): String {
         val lineBreak = System.lineSeparator()
         return """HTTP/1.1 200 OK
