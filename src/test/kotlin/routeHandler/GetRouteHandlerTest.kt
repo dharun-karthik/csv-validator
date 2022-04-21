@@ -9,7 +9,7 @@ import routeHandler.get.GetRouteHandler
 import java.io.File
 import java.util.stream.Stream
 
-internal class GetRouteHandlerTest {
+class GetRouteHandlerTest {
     companion object {
         @JvmStatic
         fun contentTypeArguments() = Stream.of(
