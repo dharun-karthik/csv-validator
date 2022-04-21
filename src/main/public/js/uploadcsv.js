@@ -41,7 +41,7 @@ async function sendRequest(result) {
 
 async function handleResponse(response) {
     console.log(response)
-    if (response.status === 201) {
+    if (response.status === 200) {
         const jsonData = await response.json();
         window.location.href = 'addRules.html'
         return

@@ -339,7 +339,7 @@ async function sendConfigData() {
         const jsonData = await response.json();
         storeErrorsInSessionStorage()
     }
-    window.location.href = 'pages/404.html'
+    //window.location.href = 'pages/404.html'
 }
 
 async function storeErrorsInSessionStorage() {
@@ -352,7 +352,7 @@ async function storeErrorsInSessionStorage() {
         sessionStorage.setItem('errors', JSON.stringify(jsonData))
         window.location.href = 'errors.html'
     }
-    window.location.href = 'pages/404.html'
+    //window.location.href = 'pages/404.html'
 }
 
 async function resetConfigs() {
@@ -546,13 +546,20 @@ function hideRuleUploadModal() {
 }
 
 function uploadConfig() {
+    //location.reload();
     var jsonFile = document.getElementById('rules-json-id').files[0]
     var fileReader = new FileReader()
     fileReader.addEventListener("load", () => {
         let jsonData = JSON.parse(fileReader.result)
-        location.reload();
-        displayConfigDataFromServer(jsonData);
+        console.log(jsonData)
+        displayConfigDataFromServers(jsonData);
         hideRuleUploadModal()
     });
     fileReader.readAsText(jsonFile, "UTF-8");
+}
+
+function displayConfigDataFromServers(jsonData) {
+    let numberOfRows = jsonData.length - 1
+    //displayEmptyContainers(numberOfRows)
+    fillDataInContainer(jsonData)
 }
