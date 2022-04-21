@@ -39,7 +39,6 @@ function displayHeadersInContainers(headers) {
 function fillHeadersInContainers(headers) {
     headers.forEach((fieldName, index) => {
         document.getElementById(`field${index}`).value = fieldName
-        // document.getElementById(`type${index}`).value = 'text'
     })
 }
 
@@ -316,8 +315,6 @@ function addNewField() {
 }
 
 function onChangeHandler(event) {
-    index = extractIndexFromId(event.target.id)
-    let fieldName = document.getElementById(`field${index}`).value
     if (event.target.name == "dependentOn") {
         toggleDependencyInputs(event.target)
     }
@@ -465,25 +462,25 @@ function addValueDataToPayload(index, singleJson) {
 var tempValues
 
 function displayValues(elementId) {
-    let configNumber = extractIndexFromId(elementId)
-    let modalDiv = document.getElementById(`value-modal${configNumber}`)
+    let index = extractIndexFromId(elementId)
+    let modalDiv = document.getElementById(`value-modal${index}`)
     modalDiv.style.display = "block"
-    tempValues = document.getElementById(`value-textbox${configNumber}`).value
+    tempValues = document.getElementById(`value-textbox${index}`).value
 }
 
 function hideValues(elementId) {
-    let configNumber = extractIndexFromId(elementId)
-    let modalDiv = document.getElementById(`value-modal${configNumber}`)
+    let index = extractIndexFromId(elementId)
+    let modalDiv = document.getElementById(`value-modal${index}`)
     modalDiv.style.display = "none"
-    document.getElementById(`value-textbox${configNumber}`).value = tempValues
+    document.getElementById(`value-textbox${index}`).value = tempValues
 }
 
 function uploadFileAndChangeContents(elementId) {
-    var configNumber = extractIndexFromId(elementId)
-    var fileInputTag = document.getElementById(`value-file${configNumber}`)
+    var index = extractIndexFromId(elementId)
+    var fileInputTag = document.getElementById(`value-file${index}`)
     var uploadedFile = fileInputTag.files[0]
     var fileReader = new FileReader();
-    var textBox = document.getElementById(`value-textbox${configNumber}`)
+    var textBox = document.getElementById(`value-textbox${index}`)
     fileReader.addEventListener("load", () => {
         textBox.value = fileReader.result;
     });
@@ -492,15 +489,15 @@ function uploadFileAndChangeContents(elementId) {
 }
 
 function saveValue(elementId) {
-    let configNumber = extractIndexFromId(elementId)
-    let modalDiv = document.getElementById(`value-modal${configNumber}`)
+    let index = extractIndexFromId(elementId)
+    let modalDiv = document.getElementById(`value-modal${index}`)
     modalDiv.style.display = "none"
-    changeButtonToEditIfValuesAdded(configNumber)
+    changeButtonToEditIfValuesAdded(index)
 }
 
-function changeButtonToEditIfValuesAdded(configNumber) {
-    var textBoxValue = document.getElementById(`value-textbox${configNumber}`).value
-    var button = document.getElementById(`edit-button${configNumber}`)
+function changeButtonToEditIfValuesAdded(index) {
+    var textBoxValue = document.getElementById(`value-textbox${index}`).value
+    var button = document.getElementById(`edit-button${index}`)
     console.log(textBoxValue)
     if (textBoxValue == "") {
         button.innerText = "ADD"
