@@ -63,41 +63,4 @@ Content-Length: ${content.length}"""
         return csvWriter.uploadCsvContent(request, fakeBufferedReader)
 
     }
-
-    /*
-    @Test
-    fun shouldGetColumnErrorWhenInvalidColumnNameIsGiven() {
-        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/csv-config-content-test.json")
-        val csvValidator = CsvValidator(configReaderWriter)
-        val csvData = """[
-    {
-        "Producid": "1564",
-        "product description": "Table",
-        "price": "4500.59",
-        "export": "Y",
-        "country name": "null",
-        "source city": "Nagpur",
-        "country code": "null",
-        "source pincode": "440001",
-        "Sourcekfja": "500001"
-    }
-]"""
-
-        val head = """HTTP/1.1 200 OK
-Content-Type: application/json; charset=utf-8
-Content-Length: 33"""
-        val lineSeparator = System.lineSeparator()
-        val expectedContent = head + lineSeparator + lineSeparator +
-                """[{"0":["sourcekfja","producid"]}]"""
-        val request = """
-            Content-Length: ${csvData.length}
-        """.trimIndent()
-        val fakeBufferedReader = FakeBufferedReader(csvData)
-
-        val actual = csvValidator.uploadCsvContent(request, fakeBufferedReader)
-        println(actual)
-
-        assertEquals(expectedContent, actual)
-    }
-     */
 }
