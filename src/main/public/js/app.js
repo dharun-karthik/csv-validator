@@ -163,7 +163,8 @@ function toggleDateTimeInput(element) {
 }
 
 function extractIndexFromId(fieldId) {
-    return fieldId[fieldId.length - 1]
+    let id = fieldId.match(/(\d+)/)
+    return id[0]
 }
 
 function addNewField() {
