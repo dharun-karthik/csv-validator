@@ -33,13 +33,20 @@
                     <span class="close" id="close-rule-modal" onclick="hideRuleUploadModal()">&times;</span>
                     <div class="modal-container">
                         <div class="upload-file-section">
-                            <div class="heading heading-to-upload-file">Choose or Drag Rules JSON Here</div>
+                            <div class="heading heading-to-upload-file">Choose File Here</div>
                             <div class="choose-file">
                                 <label for="json-id" id="Rules-Json">Rules JSON File:
                                     <input type="file" name="json-file" id="rules-json-id" accept=".json">
                                 </label>
                             </div>
                             <button class="button big-font" id="rules-json-submit-button" onclick="uploadConfig()">Upload</button>
+                        </div>
+                        <div class="upload-values">
+                            <div class="hints">
+                                <h2>Hints: </h2>
+                                <h3>- Choose JSON file only if downloaded earlier from <span class="important">Download Rules</span> button below</h3>
+                                <h3>- After uploading Rules file, you can edit the Rules before submitting</h3>
+                            </div>
                         </div>
                     </div>
                 </div>

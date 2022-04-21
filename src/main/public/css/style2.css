@@ -445,6 +445,11 @@ body {
     flex-direction: column;
 }
 
+.hints {
+    color: #8492af;
+    line-height: 1.5;
+}
+
 .upload-div {
     border: 1px solid #9daac7;
     border-radius: 10px;
