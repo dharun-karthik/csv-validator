@@ -1,6 +1,6 @@
 package validation.operation
 
-import metaData.JsonMetaDataTemplate
+import metaData.template.JsonMetaDataTemplate
 import org.json.JSONObject
 import validation.implementation.RestrictedInputValidation
 

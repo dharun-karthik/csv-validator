@@ -1,19 +1,15 @@
 package metaData
 
 import com.google.gson.Gson
-import java.io.File
+import metaData.template.JsonMetaDataTemplate
 
-class MetaDataReaderWriter(
-    private val path: String
-) {
-    private val file = getMetaDataFile()
-
+class ConfigReaderWriter(path: String) : FileWriterReader(path) {
     fun appendField(data: String) {
         val gson = Gson()
         val fieldInJson = gson.fromJson(data, JsonMetaDataTemplate::class.java)
         val existingFields = readFields()
         val newFields = existingFields.plus(fieldInJson)
-        writeJsonContent(newFields)
+        writeConfigContent(newFields)
     }
 
     fun readFields(): Array<JsonMetaDataTemplate> {
@@ -22,25 +18,13 @@ class MetaDataReaderWriter(
         return gson.fromJson(data, Array<JsonMetaDataTemplate>::class.java) ?: return arrayOf()
     }
 
-    fun readRawContent(): String {
-        return file.readText()
-    }
-
-    fun writeJsonContent(jsonData: Array<JsonMetaDataTemplate>) {
+    fun writeConfigContent(jsonData: Array<JsonMetaDataTemplate>) {
         val gson = Gson()
         val stringData = gson.toJson(jsonData, Array<JsonMetaDataTemplate>::class.java)
-        file.writeText(stringData)
+        writeRawContent(stringData)
     }
 
     fun clearFields() {
-        file.writeText("[]")
-    }
-
-    private fun getMetaDataFile(): File {
-        val currentFile = File(path)
-        if (!currentFile.exists()) {
-            currentFile.createNewFile()
-        }
-        return currentFile
+        writeRawContent("[]")
     }
 }

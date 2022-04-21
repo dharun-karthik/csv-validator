@@ -1,6 +1,6 @@
 package routeHandler.post
 
-import metaData.MetaDataReaderWriter
+import metaData.ConfigReaderWriter
 import org.json.JSONArray
 import request.RequestHandler
 import response.ContentType
@@ -9,7 +9,7 @@ import validation.Validation
 import validation.implementation.ColumnValidation
 import java.io.BufferedReader
 
-class CsvValidator(val metaDataReaderWriter: MetaDataReaderWriter) {
+class CsvValidator(val configReaderWriter: ConfigReaderWriter) {
 
     private val response = Response()
     private val requestHandler = RequestHandler()
@@ -24,7 +24,7 @@ class CsvValidator(val metaDataReaderWriter: MetaDataReaderWriter) {
             return response.generateResponse(errorColumnsJson.toString(), 200, ContentType.JSON.value)
         }
 
-        val validation = Validation(metaDataReaderWriter)
+        val validation = Validation(configReaderWriter)
         val responseBody = validation.validate(jsonBody)
 
         return response.generateResponse(responseBody.toString(), 200, ContentType.JSON.value)
@@ -32,7 +32,7 @@ class CsvValidator(val metaDataReaderWriter: MetaDataReaderWriter) {
 
     private fun getErrorColumns(jsonBody: JSONArray): JSONArray {
         val columnValidation = ColumnValidation()
-        val metaDataFields = metaDataReaderWriter.readRawContent()
+        val metaDataFields = configReaderWriter.readRawContent()
         return columnValidation.getColumnsNotInConfig(metaDataFields, jsonBody)
     }
 

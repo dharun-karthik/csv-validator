@@ -1,7 +1,7 @@
 package routeHandler.post
 
-import metaData.JsonMetaDataTemplate
-import metaData.MetaDataReaderWriter
+import metaData.template.JsonMetaDataTemplate
+import metaData.ConfigReaderWriter
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import validation.implementation.FakeBufferedReader
@@ -10,8 +10,8 @@ class MetaDataAdderTest {
 
     @Test
     fun shouldBeAbleToAppendCsvMetaDataToEmptyFile() {
-        val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/new-json-test.json")
-        val post = MetaDataAdder(metaDataReaderWriter)
+        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/new-json-test.json")
+        val post = MetaDataAdder(configReaderWriter)
         val data = """{
     "fieldName": "ProductId",
     "type": "AlphaNumeric",
@@ -23,9 +23,9 @@ class MetaDataAdderTest {
             
         """
         post.handleAddCsvMetaData(request, fakeBufferedReader)
-        val fields = post.metaDataReaderWriter.readFields()
+        val fields = post.configReaderWriter.readFields()
         val actual = fields[0]
-        metaDataReaderWriter.clearFields()
+        configReaderWriter.clearFields()
 
         val expected =
             JsonMetaDataTemplate(fieldName = "ProductId", type = "AlphaNumeric", length = "5")
@@ -35,8 +35,8 @@ class MetaDataAdderTest {
 
     @Test
     fun shouldBeAbleToAppendCsvMetaData() {
-        val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/append-json-test.json")
-        val post = MetaDataAdder(metaDataReaderWriter)
+        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/append-json-test.json")
+        val post = MetaDataAdder(configReaderWriter)
         val arrayOfData = listOf(
             """
   {
@@ -60,7 +60,7 @@ class MetaDataAdderTest {
             post.handleAddCsvMetaData(request, fakeBufferedReader)
         }
 
-        val fields = post.metaDataReaderWriter.readFields()
+        val fields = post.configReaderWriter.readFields()
         val actual = fields[1]
         val expected = JsonMetaDataTemplate(
             fieldName = "Product Description",
@@ -68,7 +68,7 @@ class MetaDataAdderTest {
             minLength = "7",
             maxLength = "20"
         )
-        post.metaDataReaderWriter.clearFields()
+        post.configReaderWriter.clearFields()
 
         assertEquals(expected, actual)
     }

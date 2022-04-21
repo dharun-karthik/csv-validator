@@ -1,13 +1,13 @@
 package routeHandler.post
 
-import metaData.MetaDataReaderWriter
+import metaData.ConfigReaderWriter
 import request.RequestHandler
 import routeHandler.get.FileGetter
 import java.io.BufferedReader
 
 
 class PostRouteHandler(
-    val metaDataReaderWriter: MetaDataReaderWriter,
+    val configReaderWriter: ConfigReaderWriter,
 ) {
     private val requestHandler = RequestHandler()
     private val fileGetter = FileGetter()
@@ -18,11 +18,11 @@ class PostRouteHandler(
     ): String {
         return when (requestHandler.getPath(request)) {
             "/csv" -> {
-                val csvValidator = CsvValidator(metaDataReaderWriter)
+                val csvValidator = CsvValidator(configReaderWriter)
                 csvValidator.handleCsv(request, inputStream)
             }
             "/add-meta-data" -> {
-                val metaDataAdder = MetaDataAdder(metaDataReaderWriter)
+                val metaDataAdder = MetaDataAdder(configReaderWriter)
                 metaDataAdder.handleAddCsvMetaData(request, inputStream)
             }
             else -> fileGetter.getFileNotFound()

@@ -1,13 +1,14 @@
 package metaData
 
+import metaData.template.JsonMetaDataTemplate
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 
-class MetaDataReaderWriterTest {
+class ConfigReaderWriterTest {
     @Test
     fun shouldBeAbleToReadRawContent() {
-        val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/csv-meta-data-test.json")
+        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/csv-meta-data-test.json")
         val expected = """[
   {
     "fieldName": "product id",
@@ -95,15 +96,15 @@ class MetaDataReaderWriterTest {
   }
 ]"""
 
-        val actual = metaDataReaderWriter.readRawContent()
+        val actual = configReaderWriter.readRawContent()
 
         assertEquals(expected, actual)
     }
 
     @Test
     fun shouldBeAbleToGiveMetaDataInJson() {
-        val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/csv-meta-data-test.json")
-        val fields = metaDataReaderWriter.readFields()
+        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/csv-meta-data-test.json")
+        val fields = configReaderWriter.readFields()
         val expected = "500020"
 
         val actual = fields[7].values?.get(0)
@@ -113,16 +114,16 @@ class MetaDataReaderWriterTest {
 
     @Test
     fun shouldBeAbleToGiveMetaDataInJsonWhenThereIsNoContent() {
-        val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/empty-json-test.json")
+        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/empty-json-test.json")
 
-        val expected = metaDataReaderWriter.readFields()
+        val expected = configReaderWriter.readFields()
 
         assertNotNull(expected)
     }
 
     @Test
     fun shouldBeAbleToWriteJsonToFile() {
-        val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/meta-data-write-test.json")
+        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/meta-data-write-test.json")
         val jsonData: Array<JsonMetaDataTemplate> =
             arrayOf(
                 JsonMetaDataTemplate(
@@ -134,29 +135,29 @@ class MetaDataReaderWriterTest {
                     values = listOf("22")
                 )
             )
-        metaDataReaderWriter.writeJsonContent(jsonData)
+        configReaderWriter.writeConfigContent(jsonData)
         val expected =
             """[{"fieldName":"test field","type":"Alphabet","length":"2","minLength":"1","maxLength":"3","values":["22"]}]"""
 
-        val actual = metaDataReaderWriter.readRawContent()
+        val actual = configReaderWriter.readRawContent()
 
         assertEquals(expected, actual)
     }
 
     @Test
     fun shouldBeAbleToAppendFieldToFile() {
-        val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/meta-data-append-test.json")
+        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/meta-data-append-test.json")
         val oldField =
             """{"fieldName":"test field","type":"Alphabet","length":2,"minLength":1,"maxLength":3,"values":["22"]}"""
-        metaDataReaderWriter.appendField(oldField)
+        configReaderWriter.appendField(oldField)
         val field = """{"fieldName": "ProductDescription","type": "AlphaNumeric","minLength": 7,"maxLength": 20}"""
-        metaDataReaderWriter.appendField(field)
+        configReaderWriter.appendField(field)
         val expected =
             """[{"fieldName":"test field","type":"Alphabet","length":"2","minLength":"1","maxLength":"3","values":["22"]},{"fieldName":"ProductDescription","type":"AlphaNumeric","minLength":"7","maxLength":"20"}]"""
 
-        val actual = metaDataReaderWriter.readRawContent()
+        val actual = configReaderWriter.readRawContent()
 
-        metaDataReaderWriter.clearFields()
+        configReaderWriter.clearFields()
         assertEquals(expected, actual)
     }
 }

@@ -2,7 +2,7 @@ package validation.operation
 
 import lengthValidator.*
 import lengthValidator.LengthType.*
-import metaData.JsonMetaDataTemplate
+import metaData.template.JsonMetaDataTemplate
 import org.json.JSONObject
 import validation.implementation.LengthValidation
 

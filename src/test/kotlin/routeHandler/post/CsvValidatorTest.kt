@@ -1,6 +1,6 @@
 package routeHandler.post
 
-import metaData.MetaDataReaderWriter
+import metaData.ConfigReaderWriter
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import validation.implementation.FakeBufferedReader
@@ -9,8 +9,8 @@ class CsvValidatorTest {
 
     @Test
     fun shouldBeAbleToGetEveryValidationErrorsFromTheJsonContent() {
-        val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/csv-meta-data-test.json")
-        val csvValidator = CsvValidator(metaDataReaderWriter)
+        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/csv-meta-data-test.json")
+        val csvValidator = CsvValidator(configReaderWriter)
         val csvData = """[
     {
         "product id": "1564",
@@ -42,8 +42,8 @@ Content-Length: ${content.length}"""
 
     @Test
     fun shouldGetColumnErrorWhenInvalidColumnNameIsGiven() {
-        val metaDataReaderWriter = MetaDataReaderWriter("src/test/kotlin/metaDataTestFiles/csv-meta-data-test.json")
-        val csvValidator = CsvValidator(metaDataReaderWriter)
+        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/csv-meta-data-test.json")
+        val csvValidator = CsvValidator(configReaderWriter)
         val csvData = """[
     {
         "Producid": "1564",

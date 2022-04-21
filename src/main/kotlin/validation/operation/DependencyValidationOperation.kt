@@ -1,7 +1,7 @@
 package validation.operation
 
-import metaData.DependencyTemplate
-import metaData.JsonMetaDataTemplate
+import metaData.template.DependencyTemplate
+import metaData.template.JsonMetaDataTemplate
 import org.json.JSONObject
 import validation.implementation.DependencyValidation
 

@@ -1,12 +1,12 @@
 package routeHandler
 
-import metaData.MetaDataReaderWriter
+import metaData.ConfigReaderWriter
 import request.RequestHandler
 import response.Response
 import routeHandler.get.FileGetter
 
 class DeleteRouteHandler(
-    private val metaDataReaderWriter: MetaDataReaderWriter,
+    private val configReaderWriter: ConfigReaderWriter,
     private val response: Response = Response()
 ) {
     private val fileGetter = FileGetter()
@@ -19,7 +19,7 @@ class DeleteRouteHandler(
     }
 
     private fun deleteMetaData(): String {
-        metaDataReaderWriter.clearFields()
+        configReaderWriter.clearFields()
         return response.onlyHeaderResponse(204)
     }
 }

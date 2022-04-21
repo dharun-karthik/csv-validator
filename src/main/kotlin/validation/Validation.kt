@@ -1,7 +1,7 @@
 package validation
 
-import metaData.JsonMetaDataTemplate
-import metaData.MetaDataReaderWriter
+import metaData.template.JsonMetaDataTemplate
+import metaData.ConfigReaderWriter
 import org.json.JSONArray
 import org.json.JSONObject
 import validation.implementation.DuplicationValidation
@@ -11,7 +11,7 @@ import validation.operation.RestrictedInputValidationOperation
 import validation.operation.TypeValidationOperation
 import validation.operation.ValidationType.*
 
-class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
+class Validation(private val configReaderWriter: ConfigReaderWriter) {
     private val validationMap = mutableMapOf(
         TYPE_VALIDATION to TypeValidationOperation(),
         LENGTH_VALIDATION to LengthValidationOperation(),
@@ -20,7 +20,7 @@ class Validation(private val metaDataReaderWriter: MetaDataReaderWriter) {
     )
 
     fun validate(dataInJSONArray: JSONArray): JSONArray {
-        val metaDataList = metaDataReaderWriter.readFields()
+        val metaDataList = configReaderWriter.readFields()
         return iterateJsonContent(dataInJSONArray, metaDataList)
     }
 
