@@ -3,7 +3,7 @@ package metaData
 import com.google.gson.Gson
 import metaData.template.JsonMetaDataTemplate
 
-class ConfigReaderWriter(path: String) : FileWriterReader(path) {
+class ConfigReaderWriter(path: String) : FileReaderWriter(path) {
     fun appendField(data: String) {
         val gson = Gson()
         val fieldInJson = gson.fromJson(data, JsonMetaDataTemplate::class.java)

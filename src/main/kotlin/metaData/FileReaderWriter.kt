@@ -2,10 +2,10 @@ package metaData
 
 import java.io.File
 
-open class FileWriterReader(
+open class FileReaderWriter(
     private val path: String
 ) {
-    val file = getMetaDataFile()
+    private val file = getMetaDataFile()
 
     fun readRawContent(): String {
         return file.readText()
