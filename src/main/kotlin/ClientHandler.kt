@@ -1,4 +1,4 @@
-import routeHandler.RequestHandler
+import routeHandler.RouteHandler
 import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.InputStreamReader
@@ -7,13 +7,13 @@ import java.net.Socket
 
 class ClientHandler {
 
-    fun handleClient(clientSocket: Socket, requestHandler: RequestHandler) {
+    fun handleClient(clientSocket: Socket, routeHandler: RouteHandler) {
         val outputStream = BufferedWriter(OutputStreamWriter(clientSocket.getOutputStream()))
         val inputStream = BufferedReader(InputStreamReader(clientSocket.getInputStream()))
 
         val request = readRequest(inputStream)
         println("request $request")
-        val responseData = requestHandler.handleRequest(request, inputStream)
+        val responseData = routeHandler.handleRequest(request, inputStream)
 
         sendResponseToClient(outputStream, responseData)
 

@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import validation.implementation.FakeBufferedReader
 
-class MetaDataAdderTest {
+class ConfigWriterTest {
 
     @Test
     fun shouldBeAbleToAppendCsvMetaDataToEmptyFile() {
         val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/new-json-test.json")
-        val post = MetaDataAdder(configReaderWriter)
+        val post = ConfigWriter(configReaderWriter)
         val data = """{
     "fieldName": "ProductId",
     "type": "AlphaNumeric",
@@ -36,7 +36,7 @@ class MetaDataAdderTest {
     @Test
     fun shouldBeAbleToAppendCsvMetaData() {
         val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/append-json-test.json")
-        val post = MetaDataAdder(configReaderWriter)
+        val post = ConfigWriter(configReaderWriter)
         val arrayOfData = listOf(
             """
   {
