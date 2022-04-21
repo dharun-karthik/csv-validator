@@ -9,8 +9,8 @@ import validation.implementation.FakeBufferedReader
 class ConfigWriterTest {
 
     @Test
-    fun shouldBeAbleToAppendCsvMetaDataToEmptyFile() {
-        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/new-json-test.json")
+    fun shouldBeAbleToWriteConfigToEmptyFile() {
+        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/new-json-test.json")
         val post = ConfigWriter(configReaderWriter)
         val data = """[
   {

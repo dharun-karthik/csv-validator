@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class ConfigReaderWriterTest {
 
     @Test
-    fun shouldBeAbleToGiveMetaDataInJson() {
+    fun shouldBeAbleToGiveConfigInJson() {
         val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/csv-config-content-test.json")
         val fields = configReaderWriter.readFields()
         val expected = "500020"
@@ -19,8 +19,8 @@ class ConfigReaderWriterTest {
     }
 
     @Test
-    fun shouldBeAbleToGiveMetaDataInJsonWhenThereIsNoContent() {
-        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/empty-json-test.json")
+    fun shouldBeAbleToGiveConfigInJsonWhenThereIsNoContent() {
+        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/empty-json-test.json")
 
         val expected = configReaderWriter.readFields()
 
