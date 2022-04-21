@@ -529,11 +529,11 @@ function openUploadRulesModal() {
     document.getElementById('upload-rules-modal').style.display = 'block';
 }
 
-function hideRuleUploadModal(){
+function hideRuleUploadModal() {
     document.getElementById('upload-rules-modal').style.display = 'none';
 }
 
-function uploadConfig(){
+function uploadConfig() {
     var jsonFile = document.getElementById('rules-json-id').files[0]
     var fileReader = new FileReader()
     fileReader.addEventListener("load", () => {

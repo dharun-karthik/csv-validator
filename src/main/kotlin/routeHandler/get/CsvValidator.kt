@@ -11,8 +11,7 @@ import validation.implementation.ColumnValidation
 class CsvValidator(
     val configFileReaderWriter: ConfigFileReaderWriter,
     private val jsonContentReaderWriter: JsonContentReaderWriter
-)
-{
+) {
 
     private val response = Response()
 

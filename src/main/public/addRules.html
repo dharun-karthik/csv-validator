@@ -3,17 +3,17 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style2.css">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="css/style2.css" rel="stylesheet">
     <title>Add Rules | CSV Validator</title>
 </head>
 
 <body>
 <div class="header">
     <div class="logo">
-        <img src="https://github.com/amitkhirdekar/Quiz_Time/blob/master/logo.png?raw=true" alt="CSV Validator"
-             class="logo-image">
+        <img alt="CSV Validator" class="logo-image"
+             src="https://github.com/amitkhirdekar/Quiz_Time/blob/master/logo.png?raw=true">
     </div>
     <div class="nav-links">
         <a href="index.html"> Home </a>
@@ -26,7 +26,7 @@
 
         <h1 class="configs-heading">Step 2: Add Validation Rules</h1>
         <div id="rules-json-upload">
-            <button class="button big-font" onclick="openUploadRulesModal()"> Upload Rules as file</button> 
+            <button class="button big-font" onclick="openUploadRulesModal()"> Upload Rules as file</button>
             <div class="modal" id="upload-rules-modal">
                 <div class="modal-content">
                     <span class="close" id="close-rule-modal" onclick="hideRuleUploadModal()">&times;</span>
@@ -35,15 +35,18 @@
                             <div class="heading heading-to-upload-file">Choose File Here</div>
                             <div class="choose-file">
                                 <label for="json-id" id="Rules-Json">Rules JSON File:
-                                    <input type="file" name="json-file" id="rules-json-id" accept=".json">
+                                    <input accept=".json" id="rules-json-id" name="json-file" type="file">
                                 </label>
                             </div>
-                            <button class="button big-font" id="rules-json-submit-button" onclick="uploadConfig()">Upload</button>
+                            <button class="button big-font" id="rules-json-submit-button" onclick="uploadConfig()">
+                                Upload
+                            </button>
                         </div>
                         <div class="upload-values">
                             <div class="hints">
                                 <h2>Hints: </h2>
-                                <h3>- Choose JSON file only if downloaded earlier from <span class="important">Download Rules</span> button below</h3>
+                                <h3>- Choose JSON file only if downloaded earlier from <span class="important">Download Rules</span>
+                                    button below</h3>
                                 <h3>- After uploading Rules file, you can edit the Rules before submitting</h3>
                             </div>
                         </div>
@@ -55,12 +58,12 @@
             <div class="row1">
                 <div id="field-name">
                     <label for="field0">Field Name<span class="required-field">*</span>: </label>
-                    <input type="text" id="field0" class="inputs" name="fieldName"
-                           onchange="onChangeHandler(event)">
+                    <input class="inputs" id="field0" name="fieldName" onchange="onChangeHandler(event)"
+                           type="text">
                 </div>
                 <div id="field-type">
                     <label for="type0">Type<span class="required-field">*</span>: </label>
-                    <select id="type0" name="type" class="dropdowns" onchange="onChangeHandler(event)">
+                    <select class="dropdowns" id="type0" name="type" onchange="onChangeHandler(event)">
                         <option value="">Choose Type</option>
                         <option value="number">Number</option>
                         <option value="alphanumeric">AlphaNumeric</option>
@@ -74,7 +77,7 @@
                 </div>
                 <div id="date-format-div0" style="display: none;">
                     <label for="date-format0">Date Format<span class="required-field">*</span>: </label>
-                    <select id="date-format0" name="pattern" class="dropdowns" onchange="onChangeHandler(event)">
+                    <select class="dropdowns" id="date-format0" name="pattern" onchange="onChangeHandler(event)">
                         <option value="">Choose Type</option>
                         <option value="dd/MM/uuuu">dd/MM/yyyy</option>
                         <option value="dd/uuuu/MM">dd/yyyy/MM</option>
@@ -92,7 +95,7 @@
                 </div>
                 <div id="time-format-div0" style="display: none;">
                     <label for="time-format0">Time Format<span class="required-field">*</span>: </label>
-                    <select id="time-format0" name="pattern" class="dropdowns" onchange="onChangeHandler(event)">
+                    <select class="dropdowns" id="time-format0" name="pattern" onchange="onChangeHandler(event)">
                         <option value="">Choose Type</option>
                         <option value="HH:mm:ss">HH:mm:ss</option>
                         <option value="HH:ss:mm">HH:ss:mm</option>
@@ -107,7 +110,7 @@
                 </div>
                 <div id="date-time-format-div0" style="display: none;">
                     <label for="date-time-format0">Date-Time Format<span class="required-field">*</span>: </label>
-                    <select id="date-time-format0" name="pattern" class="dropdowns"
+                    <select class="dropdowns" id="date-time-format0" name="pattern"
                             onchange="onChangeHandler(event)">
                         <option value="">Choose Type</option>
                         <option value="HH:mm:ss dd/MM/uuuu">HH:mm:ss dd/MM/yyyy</option>
@@ -127,7 +130,7 @@
                 </div>
                 <div id="field-value">
                     <label for="text-file-id0">Values: </label>
-                    <button id="edit-button0" onclick="displayValues(this.id)" class="button-on-config-form">ADD
+                    <button class="button-on-config-form" id="edit-button0" onclick="displayValues(this.id)">ADD
                     </button>
                     <div class="modal" id="value-modal0">
                         <div class="modal-content">
@@ -135,15 +138,15 @@
                             <div class="modal-container">
                                 <div class="text-box">
                                     <h3>Enter Values</h3>
-                                    <textarea class="value-text" id="value-textbox0" rows="30" cols="50"></textarea>
+                                    <textarea class="value-text" cols="50" id="value-textbox0" rows="30"></textarea>
                                 </div>
                                 <div class="upload-values">
                                     <div class="upload-div">
-                                        <input type="file" class="choose-file config-file" id="value-file0"
-                                               name="values" accept=".txt">
-                                        <input type="submit" class="button-on-config-form"
-                                               value="Fetch Values From File" id="value-fileupload-btn0"
-                                               onclick="uploadFileAndChangeContents(this.id)">
+                                        <input accept=".txt" class="choose-file config-file" id="value-file0"
+                                               name="values" type="file">
+                                        <input class="button-on-config-form" id="value-fileupload-btn0"
+                                               onclick="uploadFileAndChangeContents(this.id)" type="submit"
+                                               value="Fetch Values From File">
                                     </div>
                                     <div class="hints">
                                         <h2>Hints: </h2>
@@ -166,38 +169,38 @@
             <div class="row1" id="row0">
                 <div id="min-length">
                     <label for="min-len0">Min-length: </label>
-                    <input type="number" name="minLength" id="min-len0" class="inputs"
-                           onchange="onChangeHandler(event)">
+                    <input class="inputs" id="min-len0" name="minLength" onchange="onChangeHandler(event)"
+                           type="number">
                 </div>
                 <div id="max-length">
                     <label for="max-len0">Max-length: </label>
-                    <input type="number" name="maxLength" id="max-len0" class="inputs"
-                           onchange="onChangeHandler(event)">
+                    <input class="inputs" id="max-len0" name="maxLength" onchange="onChangeHandler(event)"
+                           type="number">
                 </div>
                 <div id="fixed-length">
                     <label for="fixed-len0">Fixed-length: </label>
-                    <input type="number" name="length" id="fixed-len0" class="inputs"
-                           onchange="onChangeHandler(event)">
+                    <input class="inputs" id="fixed-len0" name="length" onchange="onChangeHandler(event)"
+                           type="number">
                 </div>
             </div>
             <div class="row1">
                 <div id="depends-on-column">
                     <label for="depends-on0">Dependency on column: </label>
-                    <input type="text" id="depends-on0" class="inputs" name="dependentOn"
-                           onchange="onChangeHandler(event)">
+                    <input class="inputs" id="depends-on0" name="dependentOn" onchange="onChangeHandler(event)"
+                           type="text">
                     </input>
                 </div>
-                <div id="dependent-value0" class="hidden">
+                <div class="hidden" id="dependent-value0">
                     <label for="dependent-field-value0">Dependent Field Value<span class="required-field">*</span>:
                     </label>
-                    <input type="text" class="inputs extra-width" id="dependent-field-value0"
-                           name="expectedDependentFieldValue" placeholder="null for no value, !null for any value"
-                           onchange="onChangeHandler(event)">
+                    <input class="inputs extra-width" id="dependent-field-value0" name="expectedDependentFieldValue"
+                           onchange="onChangeHandler(event)" placeholder="null for no value, !null for any value"
+                           type="text">
                 </div>
-                <div id="current-value0" class="hidden">
+                <div class="hidden" id="current-value0">
                     <label for="expectedCurrentFieldValue0">Expected Current Field Value<span
                             class="required-field">*</span>: </label>
-                    <select id="expectedCurrentFieldValue0" class="dropdowns" name="expectedCurrentFieldValue"
+                    <select class="dropdowns" id="expectedCurrentFieldValue0" name="expectedCurrentFieldValue"
                             onchange="onChangeHandler(event)">
                         <option value="">Choose here</option>
                         <option value="!null">Present</option>
@@ -210,7 +213,7 @@
             <button class="button big-font" id="upload-configs" onclick="customConfirm()">
                 Submit
             </button>
-            <button id="reset-configurations" class="button big-font reset-button" onclick="resetConfigs()">
+            <button class="button big-font reset-button" id="reset-configurations" onclick="resetConfigs()">
                 Reset Rules
             </button>
             <button class="button big-font" id="downlog-config-btn" onclick="downloadConfig()">

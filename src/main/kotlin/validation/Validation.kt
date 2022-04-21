@@ -1,7 +1,7 @@
 package validation
 
-import metaData.template.JsonMetaDataTemplate
 import metaData.ConfigFileReaderWriter
+import metaData.template.JsonMetaDataTemplate
 import org.json.JSONArray
 import org.json.JSONObject
 import validation.implementation.DuplicationValidation

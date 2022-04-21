@@ -7,7 +7,7 @@ import routeHandler.get.FileGetter
 import java.io.BufferedReader
 
 
-class PostRouteHandler{
+class PostRouteHandler {
     private val requestHandler = RequestHandler()
     private val fileGetter = FileGetter()
 
