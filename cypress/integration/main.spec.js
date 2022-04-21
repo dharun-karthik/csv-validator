@@ -9,6 +9,11 @@ describe('cypress connect test', () => {
         cy.get('#csv-id').selectFile('cypress/fixtures/correctData.csv')
         cy.get('input[type="file"]').attachFile('correctData.csv');
      })
+
+     it('should be able to upload csv file by drag and drop', () => {
+        cy.get('#csv-id').selectFile('cypress/fixtures/correctData.csv')
+        cy.get('input[type="file"]').attachFile('correctData.csv', { subjectType: 'drag-n-drop' });
+     })
  })
 
 //  describe('Upload empty configuration', () => {
