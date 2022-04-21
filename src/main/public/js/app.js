@@ -39,7 +39,7 @@ function displayHeadersInContainers(headers) {
 function fillHeadersInContainers(headers) {
     headers.forEach((fieldName, index) => {
         document.getElementById(`field${index}`).value = fieldName
-        document.getElementById(`type${index}`).value = 'text'
+        // document.getElementById(`type${index}`).value = 'text'
     })
 }
 
