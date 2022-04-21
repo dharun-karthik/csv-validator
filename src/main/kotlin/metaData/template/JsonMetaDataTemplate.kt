@@ -1,4 +1,4 @@
-package metaData
+package metaData.template
 
 data class JsonMetaDataTemplate(
     val fieldName: String,
