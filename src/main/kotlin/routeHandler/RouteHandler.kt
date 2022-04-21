@@ -6,7 +6,7 @@ import routeHandler.get.GetRouteHandler
 import routeHandler.post.PostRouteHandler
 import java.io.BufferedReader
 
-class RequestHandler(
+class RouteHandler(
     configReaderWriter: ConfigReaderWriter
 ) {
     private val getRouteHandler = GetRouteHandler()
