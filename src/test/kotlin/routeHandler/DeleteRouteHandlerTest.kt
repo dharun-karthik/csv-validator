@@ -14,7 +14,7 @@ class DeleteRouteHandlerTest {
         val lineSeparator = System.lineSeparator()
         val expected = "HTTP/1.1 204 No Content$lineSeparator$lineSeparator"
 
-        configReaderWriter.appendField("{productId: 210}")
+        configReaderWriter.writeRawContent("[{productId: 210}]")
         val actual = deleteRouteHandler.handleDeleteRequest(request)
 
         assertEquals(expected, actual)

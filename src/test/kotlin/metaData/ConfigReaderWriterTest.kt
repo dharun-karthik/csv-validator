@@ -49,21 +49,4 @@ class ConfigReaderWriterTest {
 
         assertEquals(expected, actual)
     }
-
-    @Test
-    fun shouldBeAbleToAppendFieldToFile() {
-        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/config-content-append-test.json")
-        val oldField =
-            """{"fieldName":"test field","type":"Alphabet","length":2,"minLength":1,"maxLength":3,"values":["22"]}"""
-        configReaderWriter.appendField(oldField)
-        val field = """{"fieldName": "ProductDescription","type": "AlphaNumeric","minLength": 7,"maxLength": 20}"""
-        configReaderWriter.appendField(field)
-        val expected =
-            """[{"fieldName":"test field","type":"Alphabet","length":"2","minLength":"1","maxLength":"3","values":["22"]},{"fieldName":"ProductDescription","type":"AlphaNumeric","minLength":"7","maxLength":"20"}]"""
-
-        val actual = configReaderWriter.readRawContent()
-
-        configReaderWriter.clearFields()
-        assertEquals(expected, actual)
-    }
 }

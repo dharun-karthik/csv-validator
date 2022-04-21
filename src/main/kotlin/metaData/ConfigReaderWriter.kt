@@ -4,14 +4,6 @@ import com.google.gson.Gson
 import metaData.template.JsonMetaDataTemplate
 
 class ConfigReaderWriter(path: String) : FileReaderWriter(path) {
-    fun appendField(data: String) {
-        val gson = Gson()
-        val fieldInJson = gson.fromJson(data, JsonMetaDataTemplate::class.java)
-        val existingFields = readFields()
-        val newFields = existingFields.plus(fieldInJson)
-        writeConfigContent(newFields)
-    }
-
     fun readFields(): Array<JsonMetaDataTemplate> {
         val data = readRawContent()
         val gson = Gson()
