@@ -539,22 +539,10 @@ function uploadConfig(){
     var jsonFile = document.getElementById('rules-json-id').files[0]
     var fileReader = new FileReader()
     fileReader.addEventListener("load", () => {
-        console.log(fileReader.result)
-        sendConfigToServer(fileReader.result)
+        let jsonData = JSON.parse(fileReader.result)
+        location.reload();
+        displayConfigDataFromServer(jsonData);
+        hideRuleUploadModal()
     });
     fileReader.readAsText(jsonFile, "UTF-8");
-}
-
-async function sendConfigToServer(payload) {
-    await sendResetConfigRequest();
-    const response = await fetch('add-meta-data', {
-        method: 'POST', body: JSON.stringify(payload)
-    });
-    if (response.status === 200) {
-        const jsonData = await response.json();
-        sessionStorage.removeItem('errors')
-        sessionStorage.setItem('errors', JSON.stringify(jsonData))
-        window.location.href = 'errors.html'
-    }
-    window.location.href = 'pages/404.html'
 }
