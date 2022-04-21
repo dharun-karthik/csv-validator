@@ -23,8 +23,8 @@ class PostRouteHandler{
             }
             "/add-meta-data" -> {
                 val configReaderWriter = ConfigReaderWriter("src/main/public/files/csv-config.json")
-                val metaDataAdder = MetaDataAdder(configReaderWriter)
-                metaDataAdder.handleAddCsvMetaData(request, inputStream)
+                val csvValidator = CsvValidator(configReaderWriter)
+                csvValidator.handleAddCsvMetaData(request, inputStream)
             }
             else -> fileGetter.getFileNotFound()
         }
