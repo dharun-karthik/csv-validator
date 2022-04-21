@@ -1,0 +1,7 @@
+[
+  {
+    "fieldName": "product id",
+    "type": "alphanumeric",
+    "length": 5
+  }
+]
