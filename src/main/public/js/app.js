@@ -125,7 +125,7 @@ function enableLengthInput(element) {
     let index = extractIndexFromId(element.id)
     let unknownType = document.getElementById(`type${index}`).value
     let lengthRequiredDataTypeList = ["number", "alphanumeric", "alphabets", "email", "text"]
-    if(lengthRequiredDataTypeList.includes(unknownType)) {
+    if (lengthRequiredDataTypeList.includes(unknownType)) {
         document.getElementById(`row${index}`).style.display = "flex"
     }
 }
@@ -511,7 +511,7 @@ function changeButtonToEditIfValuesAdded(configNumber) {
     }
 }
 
-function downloadConfig(){
+function downloadConfig() {
     let newConfigData = generatePayload()
     let jsonData = JSON.stringify(convertPayloadToJsonArray(newConfigData))
     download(jsonData)
@@ -525,4 +525,12 @@ function download(jsonData) {
     document.body.appendChild(element);
     element.click();
     document.body.removeChild(element);
-  }
+}
+
+function openUploadRulesModal() {
+    document.getElementById('upload-rules-modal').style.display = 'block';
+}
+
+function hideRuleUploadModal(){
+    document.getElementById('upload-rules-modal').style.display = 'none';
+}

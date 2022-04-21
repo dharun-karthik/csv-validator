@@ -81,7 +81,7 @@ body {
 }
 
 
-.upload-csv-section {
+.upload-csv-section, .upload-file-section {
     background-color: white;
     width: 50%;
     height: 30vh;
@@ -101,7 +101,7 @@ body {
     flex-direction: column;
 }
 
-.heading-to-upload-csv {
+.heading-to-upload-csv, .heading-to-upload-file {
     color: #004FEC;
     font-size: 25px;
 }
@@ -151,7 +151,7 @@ body {
     justify-content: space-around;
 }
 
-.choose-csv {
+.choose-csv, .choose-file {
     margin-top: 20px;
     margin-bottom: 15px;
 }
@@ -219,7 +219,7 @@ body {
     color: #555555;
 }
 
-.choose-file::file-selector-button, #csv-id::file-selector-button {
+.choose-file::file-selector-button, #csv-id::file-selector-button, #rules-json-id::file-selector-button {
     border: none;
     padding: 2px 10px;
     height: 34px;
