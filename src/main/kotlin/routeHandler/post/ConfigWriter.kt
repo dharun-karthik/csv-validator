@@ -11,7 +11,7 @@ class ConfigWriter(val configReaderWriter: ConfigReaderWriter) {
     private val response = Response()
     private val requestHandler = RequestHandler()
 
-    fun handleAddCsvMetaData(request: String, inputStream: BufferedReader): String {
+    fun handleWriteConfigData(request: String, inputStream: BufferedReader): String {
         val bodySize = requestHandler.getContentLength(request)
         val body = requestHandler.getBody(bodySize, inputStream)
         return addCsvMetaData(body)
