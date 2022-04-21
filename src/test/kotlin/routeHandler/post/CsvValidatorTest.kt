@@ -9,7 +9,7 @@ class CsvValidatorTest {
 
     @Test
     fun shouldBeAbleToGetEveryValidationErrorsFromTheJsonContent() {
-        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/csv-meta-data-test.json")
+        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/csv-config-content-test.json")
         val csvValidator = CsvValidator(configReaderWriter)
         val csvData = """[
     {
@@ -42,7 +42,7 @@ Content-Length: ${content.length}"""
 
     @Test
     fun shouldGetColumnErrorWhenInvalidColumnNameIsGiven() {
-        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/csv-meta-data-test.json")
+        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/csv-config-content-test.json")
         val csvValidator = CsvValidator(configReaderWriter)
         val csvData = """[
     {

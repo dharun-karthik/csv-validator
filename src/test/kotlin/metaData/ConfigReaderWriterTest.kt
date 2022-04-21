@@ -9,7 +9,7 @@ class ConfigReaderWriterTest {
 
     @Test
     fun shouldBeAbleToGiveMetaDataInJson() {
-        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/csv-meta-data-test.json")
+        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/csv-config-content-test.json")
         val fields = configReaderWriter.readFields()
         val expected = "500020"
 
@@ -29,7 +29,7 @@ class ConfigReaderWriterTest {
 
     @Test
     fun shouldBeAbleToWriteJsonToFile() {
-        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/meta-data-write-test.json")
+        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/write-csv-config-content-test.json")
         val jsonData: Array<JsonMetaDataTemplate> =
             arrayOf(
                 JsonMetaDataTemplate(
@@ -52,7 +52,7 @@ class ConfigReaderWriterTest {
 
     @Test
     fun shouldBeAbleToAppendFieldToFile() {
-        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/meta-data-append-test.json")
+        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/config-content-append-test.json")
         val oldField =
             """{"fieldName":"test field","type":"Alphabet","length":2,"minLength":1,"maxLength":3,"values":["22"]}"""
         configReaderWriter.appendField(oldField)
