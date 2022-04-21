@@ -510,3 +510,19 @@ function changeButtonToEditIfValuesAdded(configNumber) {
         button.style.backgroundColor = "#dffddf"
     }
 }
+
+function downloadConfig(){
+    let newConfigData = generatePayload()
+    let jsonData = JSON.stringify(convertPayloadToJsonArray(newConfigData))
+    download(jsonData)
+}
+
+function download(jsonData) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(jsonData));
+    element.setAttribute('download', 'csv-validator-config.json');
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  }
