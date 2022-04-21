@@ -330,9 +330,21 @@ function onChangeHandler(event) {
 async function sendConfigData() {
     let newConfigData = generatePayload()
     let newPayload = convertPayloadToJsonArray(newConfigData)
+    console.log("Before Reset")
     await sendResetConfigRequest();
     const response = await fetch('add-meta-data', {
         method: 'POST', body: JSON.stringify(newPayload)
+    });
+    if (response.status === 201) {
+        const jsonData = await response.json();
+        storeErrorsInSessionStorage()
+    }
+    window.location.href = 'pages/404.html'
+}
+
+async function storeErrorsInSessionStorage() {
+    const response = await fetch('validate', {
+        method: 'GET',
     });
     if (response.status === 200) {
         const jsonData = await response.json();

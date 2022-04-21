@@ -7,7 +7,7 @@ function displayErrorsOrValid() {
         printCsvValid()
         return
     }
-    displayErrors()
+    storeErrorsInSessionStorage()
 }
 
 function printCsvValid() {
@@ -28,7 +28,7 @@ function printCsvValid() {
 }
 
 
-function displayErrors() {
+function storeErrorsInSessionStorage() {
     clearPreviousErrors()
     for (key in errors) {
         let errorListContainer = document.createElement('div')
@@ -73,7 +73,7 @@ function displayOneTypeOfError(allErrorsInOneLine) {
         let errorDiv = document.createElement('div');
         errorDiv.className = 'error';
 
-        errorDiv.innerText = `${errorType} in ${errorField}`;
+        errorDiv.innerText = `${errorType} ${errorField}`;
 
         allErrorsInOneLine.appendChild(errorDiv);
     }
