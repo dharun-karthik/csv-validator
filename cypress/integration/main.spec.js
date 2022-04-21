@@ -23,6 +23,12 @@ describe('cypress connect test', () => {
         cy.get('#csv-submit-button').click()
         cy.url().should('be.equal', 'http://localhost:3000/')
      })
+
+     it('should be able to redirect to addRules page after clicking upload', () => {
+        cy.get('#csv-id').selectFile('cypress/fixtures/correctData.csv')
+        cy.get('#csv-submit-button').click()
+        cy.url().should('be.equal', 'http://localhost:3000/addRules.html')
+     })
  })
 
 //  describe('Upload empty configuration', () => {
