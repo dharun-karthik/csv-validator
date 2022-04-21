@@ -1,4 +1,4 @@
-import metaData.ConfigReaderWriter
+import metaData.ConfigFileReaderWriter
 import routeHandler.RouteHandler
 import java.net.ServerSocket
 
@@ -7,8 +7,8 @@ class Server(
     private val port: Int = 3000,
     metaDataPath: String = "src/main/public/files/csv-config.json"
 ) {
-    private val configReaderWriter = ConfigReaderWriter(metaDataPath)
-    private val routeHandler = RouteHandler(configReaderWriter)
+    private val configFileReaderWriter = ConfigFileReaderWriter(metaDataPath)
+    private val routeHandler = RouteHandler(configFileReaderWriter)
     private val serverSocket = ServerSocket(port)
 
     fun startServer() {

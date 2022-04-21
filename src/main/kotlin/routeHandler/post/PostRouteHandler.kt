@@ -1,6 +1,6 @@
 package routeHandler.post
 
-import metaData.ConfigReaderWriter
+import metaData.ConfigFileReaderWriter
 import metaData.JsonContentReaderWriter
 import request.RequestHandler
 import routeHandler.get.FileGetter
@@ -22,9 +22,9 @@ class PostRouteHandler{
                 csvWriter.uploadCsvContent(request, inputStream)
             }
             "/add-meta-data" -> {
-                val configReaderWriter = ConfigReaderWriter("src/main/public/files/csv-config.json")
-                val configWriter = ConfigWriter(configReaderWriter)
-                configWriter.handleAddCsvMetaData(request, inputStream)
+                val configFileReaderWriter = ConfigFileReaderWriter("src/main/public/files/csv-config.json")
+                val configWriter = ConfigWriter(configFileReaderWriter)
+                configWriter.handleWriteConfigData(request, inputStream)
             }
             else -> fileGetter.getFileNotFound()
         }

@@ -1,6 +1,6 @@
 package validation
 
-import metaData.ConfigReaderWriter
+import metaData.ConfigFileReaderWriter
 import org.json.JSONArray
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -14,8 +14,8 @@ class ValidationTest {
 
     @Test
     fun shouldGetEmptyJsonArrayWhenTheJsonContentIsValid() {
-        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/csv-config-content-test.json")
-        val validation = Validation(configReaderWriter)
+        val configFileReaderWriter = ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/csv-config-content-test.json")
+        val validation = Validation(configFileReaderWriter)
         val csvData = """[
     {
         "product id": "15645",
@@ -48,8 +48,8 @@ class ValidationTest {
 
     @Test
     fun shouldGetEmptyJsonArrayWhenThereIsNoContent() {
-        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/csv-config-content-test.json")
-        val validation = Validation(configReaderWriter)
+        val configFileReaderWriter = ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/csv-config-content-test.json")
+        val validation = Validation(configFileReaderWriter)
         val csvData = """[]"""
         val jsonData = JSONArray(csvData)
         val expectedContent = "[]"
@@ -62,8 +62,8 @@ class ValidationTest {
     @ParameterizedTest
     @MethodSource("inValidValidationArguments")
     fun shouldGetValidationErrorForDate(path: String, csvData: String, expectedContent: String) {
-        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/validation/$path")
-        val validation = Validation(configReaderWriter)
+        val configFileReaderWriter = ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/validation/$path")
+        val validation = Validation(configFileReaderWriter)
         val jsonData = JSONArray(csvData)
 
         val actual = validation.validate(jsonData)

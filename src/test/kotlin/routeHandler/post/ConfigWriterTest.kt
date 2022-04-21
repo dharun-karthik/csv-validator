@@ -1,6 +1,6 @@
 package routeHandler.post
 
-import metaData.ConfigReaderWriter
+import metaData.ConfigFileReaderWriter
 import metaData.template.JsonMetaDataTemplate
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -10,8 +10,8 @@ class ConfigWriterTest {
 
     @Test
     fun shouldBeAbleToWriteConfigToEmptyFile() {
-        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/new-json-test.json")
-        val post = ConfigWriter(configReaderWriter)
+        val configFileReaderWriter = ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/new-json-test.json")
+        val post = ConfigWriter(configFileReaderWriter)
         val data = """[
   {
     "fieldName": "ProductId",
@@ -30,8 +30,8 @@ class ConfigWriterTest {
             
         """
         post.handleWriteConfigData(request, fakeBufferedReader)
-        val fields = post.configReaderWriter.readFields()[1]
-        configReaderWriter.clearFields()
+        val fields = post.configFileReaderWriter.readFields()[1]
+        configFileReaderWriter.clearFields()
 
         val expected = JsonMetaDataTemplate(
             fieldName = "Product Description",

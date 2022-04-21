@@ -5,12 +5,12 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 
-class ConfigReaderWriterTest {
+class ConfigFileReaderWriterTest {
 
     @Test
     fun shouldBeAbleToGiveConfigInJson() {
-        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/csv-config-content-test.json")
-        val fields = configReaderWriter.readFields()
+        val configFileReaderWriter = ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/csv-config-content-test.json")
+        val fields = configFileReaderWriter.readFields()
         val expected = "500020"
 
         val actual = fields[7].values?.get(0)
@@ -20,16 +20,16 @@ class ConfigReaderWriterTest {
 
     @Test
     fun shouldBeAbleToGiveConfigInJsonWhenThereIsNoContent() {
-        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/empty-json-test.json")
+        val configFileReaderWriter = ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/empty-json-test.json")
 
-        val expected = configReaderWriter.readFields()
+        val expected = configFileReaderWriter.readFields()
 
         assertNotNull(expected)
     }
 
     @Test
     fun shouldBeAbleToWriteJsonToFile() {
-        val configReaderWriter = ConfigReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/write-csv-config-content-test.json")
+        val configFileReaderWriter = ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/write-csv-config-content-test.json")
         val jsonData: Array<JsonMetaDataTemplate> =
             arrayOf(
                 JsonMetaDataTemplate(
@@ -41,11 +41,11 @@ class ConfigReaderWriterTest {
                     values = listOf("22")
                 )
             )
-        configReaderWriter.writeConfigContent(jsonData)
+        configFileReaderWriter.writeConfigContent(jsonData)
         val expected =
             """[{"fieldName":"test field","type":"Alphabet","length":"2","minLength":"1","maxLength":"3","values":["22"]}]"""
 
-        val actual = configReaderWriter.readRawContent()
+        val actual = configFileReaderWriter.readRawContent()
 
         assertEquals(expected, actual)
     }

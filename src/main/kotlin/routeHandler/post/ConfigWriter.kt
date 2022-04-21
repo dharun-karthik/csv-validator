@@ -1,13 +1,13 @@
 package routeHandler.post
 
-import metaData.ConfigReaderWriter
+import metaData.ConfigFileReaderWriter
 import org.json.JSONObject
 import request.RequestHandler
 import response.ContentType
 import response.Response
 import java.io.BufferedReader
 
-class ConfigWriter(val configReaderWriter: ConfigReaderWriter) {
+class ConfigWriter(val configFileReaderWriter: ConfigFileReaderWriter) {
     private val response = Response()
     private val requestHandler = RequestHandler()
 
@@ -18,7 +18,7 @@ class ConfigWriter(val configReaderWriter: ConfigReaderWriter) {
     }
 
     private fun addCsvMetaData(body: String): String {
-        configReaderWriter.writeRawContent(body)
+        configFileReaderWriter.writeRawContent(body)
         val responseBody = JSONObject()
         responseBody.put("value", "Success")
         return response.generateResponse(responseBody.toString(), 201, ContentType.JSON.value)

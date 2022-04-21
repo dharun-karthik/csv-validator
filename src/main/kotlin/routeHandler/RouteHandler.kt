@@ -1,17 +1,17 @@
 package routeHandler
 
-import metaData.ConfigReaderWriter
+import metaData.ConfigFileReaderWriter
 import routeHandler.get.FileGetter
 import routeHandler.get.GetRouteHandler
 import routeHandler.post.PostRouteHandler
 import java.io.BufferedReader
 
 class RouteHandler(
-    configReaderWriter: ConfigReaderWriter
+    configFileReaderWriter: ConfigFileReaderWriter
 ) {
     private val getRouteHandler = GetRouteHandler()
     private val postRouteHandler = PostRouteHandler()
-    private val deleteRouteHandler = DeleteRouteHandler(configReaderWriter)
+    private val deleteRouteHandler = DeleteRouteHandler(configFileReaderWriter)
     private val fileGetter = FileGetter()
 
     fun handleRequest(request: String, inputStream: BufferedReader): String {
