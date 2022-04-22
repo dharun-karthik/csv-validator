@@ -49,6 +49,14 @@ describe('Uploading file', () => {
      })
  })
 
+
+ describe('navigation', () => {
+    it('should be able to navigate to home page after clicking home button', () => {
+        cy.get('#home-btn').click()
+        cy.url().should('be.equal', 'http://localhost:3000/index.html')
+    })
+})
+
 describe('Setting validation rules', () => {
     it('should be able to fill the headers from the csv file', () => {
         cy.visit('http://localhost:3000')
