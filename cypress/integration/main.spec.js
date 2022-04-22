@@ -132,12 +132,4 @@ describe('content of error page', () => {
     })
 })
 
-describe("display error", () => {
-    it('should give no error for valid csv file', () => {
-        cy.visit('http://localhost:3000/errors.html')
-        cy.get('#valid-csv-id').then(($validHeading) => {
-            expect($validHeading).to.contain('CSV Has No Errors')
-        })   
-    })
-})
 
