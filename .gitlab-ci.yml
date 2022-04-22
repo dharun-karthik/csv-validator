@@ -1,4 +1,6 @@
-image: registry.gitlab.com/sahajsoft/gurukul2022/csv-validator
+image:
+  name : registry.gitlab.com/sahajsoft/gurukul2022/csv-validator
+  entrypoint: [ "" ]
 
 stages:
   - dependencies
