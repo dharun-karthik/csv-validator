@@ -1,51 +1,38 @@
+image: registry.gitlab.com/sahajsoft/gurukul2022/csv-validator
+
 stages:
   - dependencies
   - test
 
-install-node-dependencies:
-  image: node:latest
+cache:
+  key: node-and-gradle-deps
+  paths:
+    - node_modules/
+    - build/
+    - .gradle/
+
+install-dependencies:
   stage: dependencies
-  cache:
-    key: node-modules
-    paths:
-      - node_modules/
-    policy: pull-push
   script:
     - npm install
 
-
-unit-test:
-  image: gradle:latest
+back-end-unit-test:
   stage: test
   script:
-    - echo "Test Started"
     - gradle test
-    - echo "Test Passed"
 
 front-end-unit-test:
-  image: node:latest
   stage: test
-  cache:
-    key: node-modules
-    paths:
-      - node_modules/
-    policy: pull
   script:
-    - echo "Front end unit test Started"
-    - npm install
+    - npm ci
     - npm test
-    - echo "Front end unit test Passed"
 
 integration-test:
-  image: cypress/browsers:node12.14.1-chrome85-ff81
   stage: test
+  needs:
+    - job: back-end-unit-test
+    - job: front-end-unit-test
   script:
-    - echo "Integeration test Started"
-    - apt-get --allow-releaseinfo-change update
-    - apt-get install -y default-jdk
-    - ./gradlew build
-    - ./gradlew run &
-    - echo "Server is running"
-    - npm install
+    - gradle run &
+    - npm ci
     - npm run e2e
-    - echo "Integeration test Passed"
