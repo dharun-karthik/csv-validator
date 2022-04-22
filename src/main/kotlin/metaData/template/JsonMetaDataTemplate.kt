@@ -3,6 +3,7 @@ package metaData.template
 data class JsonMetaDataTemplate(
     val fieldName: String,
     val type: String,
+    val isNullAllowed: String? = null,
     val pattern: String? = null,
     val length: String? = null,
     val minLength: String? = null,
