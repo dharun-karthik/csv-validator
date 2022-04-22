@@ -8,6 +8,7 @@ const nameIdMap = {
     "minLength": "min-len",
     "maxLength": "max-len",
     "length": "fixed-len",
+    "isNullAllowed": "allow-null",
     "dependentOn": "depends-on",
     "expectedDependentFieldValue": "dependent-field-value",
     "expectedCurrentFieldValue": "expectedCurrentFieldValue"
@@ -66,6 +67,10 @@ function fillDataInContainer(jsonData) {
                 displayDependencies(element, index);
                 continue
             }
+            if (key == "isNullAllowed") {
+                toggleYesNoButton(`${nameIdMap[key]}${index}`)
+                continue
+            }
             console.log(`idToEdit: ${nameIdMap[key]}${index}`)
             document.getElementById(`${nameIdMap[key]}${index}`).value = element[key]
         }
@@ -108,11 +113,11 @@ function toggleDependencyInputs(element) {
     let index = extractIndexFromId(element.id)
     dependsOnColumn = document.getElementById(`depends-on${index}`).value
     if (dependsOnColumn != "") {
-        document.getElementById(`dependent-value${index}`).style.visibility = 'visible'
-        document.getElementById(`current-value${index}`).style.visibility = 'visible'
+        document.getElementById(`dependent-value${index}`).style.display = 'block'
+        document.getElementById(`current-value${index}`).style.display = 'block'
     } else {
-        document.getElementById(`dependent-value${index}`).style.visibility = 'hidden'
-        document.getElementById(`current-value${index}`).style.visibility = 'hidden'
+        document.getElementById(`dependent-value${index}`).style.display = 'none'
+        document.getElementById(`current-value${index}`).style.display = 'none'
     }
 }
 
@@ -160,6 +165,20 @@ function toggleDateTimeInput(element) {
     } else {
         document.getElementById(`date-time-format-div${index}`).style.display = 'none'
     }
+}
+
+function toggleYesNoButton(element) {
+    let index = extractIndexFromId(element)
+    let oldValue = document.getElementById(element).value
+    if (oldValue == "Yes") {
+        document.getElementById(element).value = "No"
+        document.getElementById(element).style.backgroundColor = '#ffeded'
+        document.getElementById(`empty-field-hint${index}`).style.display = 'none'
+        return
+    }
+    document.getElementById(element).value = "Yes"
+    document.getElementById(element).style.backgroundColor = 'rgb(223, 253, 223)'
+    document.getElementById(`empty-field-hint${index}`).style.display = 'inline'
 }
 
 function extractIndexFromId(fieldId) {
@@ -290,11 +309,19 @@ function addNewField() {
         </div>
     </div>
     <div class="row1">
+        <div id="allow-null">
+            <label for="allow-null${numberOfFields}" style="margin-right: 40px;">Allow empty value
+                <input class="button-on-config-form bg-green" id="allow-null${numberOfFields}" name="allowNull" type="button" value="Yes" onclick="toggleYesNoButton(this.id)">
+            </label>
+            This field will <span id="empty-field-hint${numberOfFields}"> not </span> show errors for Empty values
+        </div>
         <div id="depends-on-column">
             <label for="depends-on${numberOfFields}">Dependency on column: </label>
             <input type="text" id="depends-on${numberOfFields}" class="inputs" name="dependentOn" onchange="onChangeHandler(event)">
             </input>
         </div>
+    </div>
+    <div class="row1">
         <div id="dependent-value${numberOfFields}" class="hidden">
             <label for="dependent-field-value${numberOfFields}">Dependent Field Value: </label>
             <input type="text" class="inputs extra-width" id="dependent-field-value${numberOfFields}" name="expectedDependentFieldValue"
@@ -450,6 +477,10 @@ function addOptionalDataToPayload(index, singleJson) {
             addValueDataToPayload(index, singleJson);
             continue
         }
+        if (fieldName == "isNullAllowed") {
+            addNullFieldValueToPayload(index, singleJson);
+            continue
+        }
         let data = document.getElementById(`${fieldId}${index}`).value
         let isDataEmpty = data != ""
         if (isDataEmpty) {
@@ -468,6 +499,13 @@ function addValueDataToPayload(index, singleJson) {
     }
     if (data != "") {
         singleJson["values"] = String(data).split('\n');
+    }
+}
+
+function addNullFieldValueToPayload(index, singleJson) {
+    let data = document.getElementById(`${fieldId}${index}`).value
+    if (data == "No") {
+        singleJson["isNullAllowed"] = data
     }
 }
 

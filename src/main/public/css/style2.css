@@ -257,7 +257,7 @@ body {
 }
 
 .hidden {
-    visibility: hidden;
+    display: none;
 }
 
 .displayNone {
@@ -503,5 +503,9 @@ body {
 .save-button {
     float: right;
     padding: 0px;
+}
+
+.bg-green {
+    background-color: rgb(223, 253, 223);
 }
 

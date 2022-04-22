@@ -184,12 +184,20 @@
                 </div>
             </div>
             <div class="row1">
+                <div id="allow-null">
+                    <label for="allow-null0" style="margin-right: 40px;">Allow empty value
+                        <input class="button-on-config-form bg-green" id="allow-null0" name="isNullAllowed" type="button" value="Yes" onclick="toggleYesNoButton(this.id)">
+                    </label>
+                    This field will <span id="empty-field-hint0"> not </span> show errors for Empty values
+                </div>
                 <div id="depends-on-column">
                     <label for="depends-on0">Dependency on column: </label>
                     <input class="inputs" id="depends-on0" name="dependentOn" onchange="onChangeHandler(event)"
                            type="text">
                     </input>
                 </div>
+            </div>
+            <div class="row1">
                 <div class="hidden" id="dependent-value0">
                     <label for="dependent-field-value0">Dependent Field Value<span class="required-field">*</span>:
                     </label>
