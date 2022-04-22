@@ -41,12 +41,19 @@ describe('Uploading file', () => {
         cy.get('#csv-submit-button').click()
         cy.url().should('be.equal', 'http://localhost:3000/')
      })
+
+     it('should be able to redirect to addRules page after clicking upload', () => {
+        cy.get('#csv-id').selectFile('cypress/fixtures/correctData.csv')
+        cy.get('#csv-submit-button').click()
+     })
+
  })
 
 describe('Setting validation rules', () => {
 
     it('should be able to alert if mandatory fields are not filled', () => {
         cy.visit('http://localhost:3000/addRules.html')
+        cy.get('#field0',{ timeout: 8000 }).type('abc')
         cy.get('#upload-configs').click()
         cy.get('#alert-message').then(($message) => {
              expect($message).to.contain('Enter mandatory fields')
