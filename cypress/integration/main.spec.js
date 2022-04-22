@@ -4,7 +4,7 @@ describe('cypress connect test', () => {
     })
 })
 
- describe('Uploading file', () => {
+describe('Uploading file', () => {
      it('should be able to choose csv file for uploading', () => {
         cy.get('#csv-id').selectFile('cypress/fixtures/correctData.csv')
         cy.get('input[type="file"]').attachFile('correctData.csv');
@@ -31,5 +31,19 @@ describe('cypress connect test', () => {
      })
  })
 
-
+describe('Setting validation rules', () => {
+    it('should be able to fill the headers from the csv file', () => {
+        cy.visit('http://localhost:3000')
+        cy.get('#csv-id').selectFile('cypress/fixtures/correctData.csv')
+        cy.get('#csv-submit-button').click()
+        cy.get('#field0').should('have.value', 'Product Id')
+        cy.get('#field1').should('have.value', 'Product Description')
+        cy.get('#field2').should('have.value', 'Price')
+        cy.get('#field3').should('have.value', 'Export')
+        cy.get('#field4').should('have.value', 'Country Name')
+        cy.get('#field5').should('have.value', 'Source City')
+        cy.get('#field6').should('have.value', 'Country Code')
+        cy.get('#field7').should('have.value', 'Source Pincode')
+    })
+})
 
