@@ -12,7 +12,6 @@ class ClientHandler {
         val inputStream = BufferedReader(InputStreamReader(clientSocket.getInputStream()))
 
         val request = readRequest(inputStream)
-        println("request $request")
         val responseData = routeHandler.handleRequest(request, inputStream)
 
         sendResponseToClient(outputStream, responseData)
