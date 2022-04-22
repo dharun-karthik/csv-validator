@@ -4,6 +4,24 @@ describe('cypress connect test', () => {
     })
 })
 
+describe('content of landing page', () => {
+    it('should contain heading as One place to Validate all your CSVs', () => {
+        cy.get('h1:first').should('have.text', 'One place to Validate all your CSVs')
+    })
+
+    it('should contain heading as Step 1: Upload CSV', () => {
+        cy.get('.configs-heading').should('have.text', 'Step 1: Upload CSV')
+    })
+
+    it('should contain heading as In just 3 Easy Steps', () => {
+        cy.get('h2').should('have.text', 'In just 3 Easy Steps')
+    })
+
+    it('should contain heading as Choose or Drag CSV Here', () => {
+        cy.get('.heading-to-upload-csv').should('have.text', 'Choose or Drag CSV Here')
+    })
+})
+
 describe('Uploading file', () => {
      it('should be able to choose csv file for uploading', () => {
         cy.get('#csv-id').selectFile('cypress/fixtures/correctData.csv')
