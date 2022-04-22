@@ -116,9 +116,10 @@ describe('Setting validation rules', () => {
 
 describe('content of error page', () => {
     it('should contain heading as One place to Validate all your CSVs', () => {
-
-
         cy.visit('http://localhost:3000/errors.html')
+        cy.on('uncaught:exception', () => {
+            return false;
+          });
         cy.get('h1:first').should('have.text', 'One place to Validate all your CSVs')
     })
 
@@ -133,6 +134,7 @@ describe('content of error page', () => {
 
 describe("display error", () => {
     it('should give no error for valid csv file', () => {
+        cy.visit('http://localhost:3000/errors.html')
         cy.get('#valid-csv-id').then(($validHeading) => {
             expect($validHeading).to.contain('CSV Has No Errors')
         })   
