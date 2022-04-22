@@ -13,10 +13,11 @@ cache:
     - build/
     - .gradle/
 
-install-dependencies:
+install-dependencies-and-compile-classes:
   stage: dependencies
   script:
     - npm install
+    - gradle classes
 
 back-end-unit-test:
   stage: test
