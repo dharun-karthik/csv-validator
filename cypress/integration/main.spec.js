@@ -94,3 +94,11 @@ describe('Setting validation rules', () => {
     })
 })
 
+describe('Navigating to error page', () => {
+    it('should be able to redirect to errors page after submitting validation rules', () => {
+        cy.get('#upload-configs').click()
+        cy.get('#ok-btn').click()
+        cy.url().should('be.equal', 'http://localhost:3000/errors.html')
+    })
+})
+
