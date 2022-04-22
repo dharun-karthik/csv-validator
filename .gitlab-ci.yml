@@ -3,7 +3,6 @@ image:
   entrypoint: [ "" ]
 
 stages:
-  - dependencies
   - test
 
 cache:
@@ -12,12 +11,6 @@ cache:
     - node_modules/
     - build/
     - .gradle/
-
-install-dependencies-and-compile-classes:
-  stage: dependencies
-  script:
-    - npm install
-    - gradle classes
 
 back-end-unit-test:
   stage: test
@@ -36,6 +29,7 @@ integration-test:
     - job: back-end-unit-test
     - job: front-end-unit-test
   script:
+    - gradle classes
     - gradle run &
     - npm ci
     - npm run e2e
