@@ -107,6 +107,11 @@ class ValidationTest {
                 "text-meta-data-test.json",
                 """[{"text": "£ new one"}]""",
                 """[{"2":{"Type expected 'text' in":["text : £ new one"]}}]"""
+            ),
+            Arguments.of(
+                "null-meta-data-test.json",
+                """[{"name": "john"},{"name":"null"}]""",
+                """[{"3":{"Empty Value not allowed in":["name : null"]}}]"""
             )
         )
     }

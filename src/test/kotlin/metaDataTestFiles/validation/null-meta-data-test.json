@@ -1,0 +1,7 @@
+[
+  {
+    "fieldName": "name",
+    "type": "alphabets",
+    "isNullAllowed": "No"
+  }
+]
