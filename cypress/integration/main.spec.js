@@ -53,5 +53,18 @@ describe('Setting validation rules', () => {
          })
         cy.get("#close").click()
     })
+
+    it('should allow user to select and enter values in input box', () => {
+        cy.get('#type0').select(1)
+        cy.get("#fixed-len0").type("5")
+        cy.get('#type1').select(8)
+        cy.get('#type2').select(1)
+        cy.get('#type3').select(3)
+        cy.get('#fixed-len3').type("1")
+        cy.get('#type4').select(3)
+        cy.get('#type5').select(3)
+        cy.get('#type6').select(1)   
+        cy.get('#type7').select(1) 
+    })
 })
 
