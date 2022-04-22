@@ -95,6 +95,12 @@ describe('Setting validation rules', () => {
 })
 
 describe('Navigating to error page', () => {
+    it('should not be able to redirect to errors page if cancel is selected in confirm box', () => {
+        cy.get('#upload-configs').click()
+        cy.get('#cancel-btn').click()
+        cy.url().should('be.equal', 'http://localhost:3000/addRules.html')
+    })
+
     it('should be able to redirect to errors page after submitting validation rules', () => {
         cy.get('#upload-configs').click()
         cy.get('#ok-btn').click()
