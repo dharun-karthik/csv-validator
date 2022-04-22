@@ -102,3 +102,17 @@ describe('Navigating to error page', () => {
     })
 })
 
+describe('content of error page', () => {
+    it('should contain heading as One place to Validate all your CSVs', () => {
+        cy.get('h1:first').should('have.text', 'One place to Validate all your CSVs')
+    })
+
+    it('should contain heading as Step 1: Upload CSV', () => {
+        cy.get('.configs-heading').should('have.text', 'Step 3: Get Validations For Your CSV')
+    })
+
+    it('should contain heading as In just 3 Easy Steps', () => {
+        cy.get('h2').should('have.text', 'In just 3 Easy Steps')
+    })
+})
+
