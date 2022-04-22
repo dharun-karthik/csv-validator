@@ -63,8 +63,22 @@ describe('Setting validation rules', () => {
         cy.get('#fixed-len3').type("1")
         cy.get('#type4').select(3)
         cy.get('#type5').select(3)
+<<<<<<< HEAD
         cy.get('#type6').select(1)
         cy.get('#type7').select(1)
+=======
+        cy.get('#type6').select(1)   
+        cy.get('#type7').select(1)
+    })
+
+    it('should allow  user to add restricted values', () => {
+        cy.get("#edit-button3").click()
+        cy.get("#value-textbox3").type("Y,N")
+    })
+
+    it('should allow user to save the restricted values', () => {
+        cy.get("#save-btn3").click({force: true})
+>>>>>>> 98afdb3 (Added cypress test to add and save restricted values)
     })
     it('should be able to fill the headers from the csv file', () => {
         cy.visit('http://localhost:3000')
