@@ -45,5 +45,13 @@ describe('Setting validation rules', () => {
         cy.get('#field6').should('have.value', 'Country Code')
         cy.get('#field7').should('have.value', 'Source Pincode')
     })
+
+    it('should be able to alert if mandatory fields are not filled', () => {
+        cy.get('#upload-configs').click()
+        cy.get('#alert-message').then(($message) => {
+             expect($message).to.contain('Enter mandatory fields')
+         })
+        cy.get("#close").click()
+    })
 })
 
