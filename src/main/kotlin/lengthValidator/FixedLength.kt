@@ -1,12 +1,16 @@
 package lengthValidator
 
-import validation.implementation.LengthValidation
+import metaData.template.JsonMetaDataTemplate
 
 class FixedLength : LengthTypeValidator {
-    override fun validateLengthType(value: String, length: Int?, lengthValidation: LengthValidation): Boolean {
-        if (length != null && !lengthValidation.fixedLength(value, length)) {
-            return false
+    override fun validateLengthType(value: String, length: Int?): Boolean {
+        if (length != null) {
+            return value.length == length
         }
         return true
+    }
+
+    override fun getAppropriateLengthRestriction(jsonMetaData: JsonMetaDataTemplate): Int? {
+        return jsonMetaData.length?.toInt()
     }
 }
