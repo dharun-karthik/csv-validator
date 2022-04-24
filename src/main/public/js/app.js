@@ -175,12 +175,10 @@ function toggleYesNoButton(element) {
     if (oldValue == "Yes") {
         document.getElementById(element).value = "No"
         document.getElementById(element).style.backgroundColor = '#ffeded'
-        document.getElementById(`empty-field-hint${index}`).style.display = 'none'
         return
     }
     document.getElementById(element).value = "Yes"
     document.getElementById(element).style.backgroundColor = 'rgb(223, 253, 223)'
-    document.getElementById(`empty-field-hint${index}`).style.display = 'inline'
 }
 
 function extractIndexFromId(fieldId) {
