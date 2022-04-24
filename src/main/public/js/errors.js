@@ -56,24 +56,18 @@ function displayErrorsForAllLines(errorListContainer) {
         let allErrorsInOneLine = document.createElement('div');
         allErrorsInOneLine.className = 'errors';
 
-        displayErrorsForOneLine(allErrorsInOneLine);
+        displayOneTypeOfError(allErrorsInOneLine);
         errorListContainer.appendChild(allErrorsInOneLine);
     }
 }
 
-function displayErrorsForOneLine(allErrorsInOneLine) {
-    for (errorType in errorsInLineNumber) {
-        displayOneTypeOfError(allErrorsInOneLine);
-    }
-}
-
 function displayOneTypeOfError(allErrorsInOneLine) {
-    for (errorIndex in errorsInLineNumber[errorType]) {
-        let errorField = errorsInLineNumber[errorType][errorIndex];
+    for (errorIndex in errorsInLineNumber) {
+        let errorField = errorsInLineNumber[errorIndex];
         let errorDiv = document.createElement('div');
         errorDiv.className = 'error';
 
-        errorDiv.innerText = `${errorType} ${errorField}`;
+        errorDiv.innerText = `${errorField}`;
 
         allErrorsInOneLine.appendChild(errorDiv);
     }
