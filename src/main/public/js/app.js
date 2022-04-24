@@ -18,7 +18,7 @@ const nameIdMap = {
 window.addEventListener('load', async () => loadMetaData());
 
 async function loadMetaData() {
-    let headers = JSON.parse(sessionStorage.getItem('headers'))
+    let headers = getHeaders()
     const resp = await fetch('get-meta-data', {
         method: 'GET',
     });
@@ -30,6 +30,11 @@ async function loadMetaData() {
         }
         displayConfigDataFromServer(jsonData);
     }
+}
+
+function getHeaders() {
+    return JSON.parse(sessionStorage.getItem('headers'));
+
 }
 
 function displayHeadersInContainers(headers) {
@@ -50,10 +55,27 @@ function displayConfigDataFromServer(jsonData) {
     fillDataInContainer(jsonData)
 }
 
+function fillDependencyColumn(headers) {
+    for (let index = 0; index < numberOfFields; index++) {
+        fillAllDependenciesInOneRow(index, headers)
+    }
+}
+
+function fillAllDependenciesInOneRow(index, headers) {
+    for (let oneFieldIndex in headers) {
+        let oneField = headers[oneFieldIndex]
+        let newFieldForDependency = document.createElement('option')
+        newFieldForDependency.value = oneField.toLowerCase()
+        newFieldForDependency.innerText = oneField
+        document.getElementById(`depends-on${index}`).appendChild(newFieldForDependency)
+    }
+}
+
 function displayEmptyContainers(numberOfRows) {
     for (let index = 1; index <= numberOfRows; index++) {
         addNewField();
     }
+    fillDependencyColumn(getHeaders())
 }
 
 function fillDataInContainer(jsonData) {
@@ -73,8 +95,8 @@ function fillDataInContainer(jsonData) {
                 disableLengthInput(index)
             }
             if (key === "pattern") {
-                insertPatternInRespectiveField(index, element); 
-                continue    
+                insertPatternInRespectiveField(index, element);
+                continue
             }
             console.log(`idToEdit: ${nameIdMap[key]}${index}`)
             document.getElementById(`${nameIdMap[key]}${index}`).value = element[key]
@@ -85,8 +107,8 @@ function fillDataInContainer(jsonData) {
 function displayDependencies(element, index) {
     for (dependencyField in element[key]) {
         oneDepenedency = element[key][dependencyField];
-        document.getElementById(`dependent-value${index}`).style.visibility = 'visible';
-        document.getElementById(`current-value${index}`).style.visibility = 'visible';
+        document.getElementById(`dependent-value${index}`).style.display = 'block';
+        document.getElementById(`current-value${index}`).style.display = 'block';
         displayOneDependency(index);
     }
 }
@@ -310,8 +332,11 @@ function addNewField() {
             </label>
         </div>
         <div id="depends-on-column">
-            <label for="depends-on${numberOfFields}">Dependency on column: </label>
-            <input type="text" id="depends-on${numberOfFields}" class="inputs" name="dependentOn" onchange="onChangeHandler(event)">
+            <label for="depends-on${numberOfFields}">Dependency on column:
+                <select class="dropdowns" id="depends-on${numberOfFields}" name="dependentOn" onchange="onChangeHandler(event)">
+                    <option value="">Choose Field</option>
+                </select> 
+            </label>
         </div>
     </div>
     <div class="row1">
@@ -332,7 +357,6 @@ function addNewField() {
     `
     let buttons = document.getElementById('new-field-and-submit-button')
     document.getElementById('configs-upload').insertBefore(configContainer, buttons)
-
 }
 
 function onChangeHandler(event) {
