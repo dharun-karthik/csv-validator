@@ -194,7 +194,6 @@
                     <label for="depends-on0">Dependency on column: </label>
                     <input class="inputs" id="depends-on0" name="dependentOn" onchange="onChangeHandler(event)"
                            type="text">
-                    </input>
                 </div>
             </div>
             <div class="row1">
@@ -230,14 +229,14 @@
         </div>
     </div>
 </div>
-<div id="alert-popup">
-    <p id="alert-message">Enter mandatory fields</p>
+<div id="alert-popup" class="popup">
+    <p id="alert-message" class="bottom-20px-margin">Enter mandatory fields</p>
     <button class="button big-font" id="close" onclick="customAlert()">
         Close
     </button>
 </div>
-<div id="confirm-popup">
-    <p id="alert-message">Submitting Configuration</p>
+<div id="confirm-popup" class="popup">
+    <p id="confirm-message" class="bottom-20px-margin">Submitting Configuration</p>
     <div>
         <button class="button big-font" id="cancel-btn" onclick="customConfirm()">
             Cancel
