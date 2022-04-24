@@ -1,6 +1,7 @@
-const payload = {};
 const headers = [];
-var numberOfFields = 0;
+let numberOfFields = 0;
+let tempValues;
+
 const nameIdMap = {
     "fieldName": "field",
     "type": "type",
@@ -23,7 +24,7 @@ async function loadMetaData() {
     });
     if (resp.status === 200) {
         const jsonData = await resp.json();
-        if (jsonData.length == 0) {
+        if (jsonData.length === 0) {
             displayHeadersInContainers(headers);
             return
         }
@@ -56,22 +57,22 @@ function displayEmptyContainers(numberOfRows) {
 }
 
 function fillDataInContainer(jsonData) {
+    let typesWithPatterns = ["date", "time", "date-time"]
     jsonData.forEach((element, index) => {
         for (key in element) {
             console.log(`${index} - key: ${key}: ${element[key]}`)
-            if (key == "dependencies") {
+            if (key === "dependencies") {
                 displayDependencies(element, index);
                 continue
             }
-            if (key == "isNullAllowed") {
+            if (key === "isNullAllowed") {
                 toggleYesNoButton(`${nameIdMap[key]}${index}`)
                 continue
             }
-            if (key == "type" && (element[key] == "date" || element[key] == "time" || element[key] == "date-time" )) {
+            if (key === "type" && typesWithPatterns.includes(element[key])) {
                 disableLengthInput(index)
-                
             }
-            if (key == "pattern") {
+            if (key === "pattern") {
                 insertPatternInRespectiveField(index, element); 
                 continue    
             }
@@ -104,21 +105,10 @@ function insertPatternInRespectiveField(index, element) {
     document.getElementById(`${typeOfPattern}-format${index}`).value = element[key];
 }
 
-function toggleValueFieldTextBox(element) {
-    let index = extractIndexFromId(element.id)
-    useTextForValue = document.getElementById(`use-text-for-value${index}`).value
-    valueTextArea = document.getElementById(`alternate-value${index}`)
-    if (valueTextArea.style.display == 'block') {
-        valueTextArea.style.display = 'none'
-    } else {
-        valueTextArea.style.display = 'block'
-    }
-}
-
 function toggleDependencyInputs(element) {
     let index = extractIndexFromId(element.id)
-    dependsOnColumn = document.getElementById(`depends-on${index}`).value
-    if (dependsOnColumn != "") {
+    let dependsOnColumn = document.getElementById(`depends-on${index}`).value
+    if (dependsOnColumn !== "") {
         document.getElementById(`dependent-value${index}`).style.display = 'block'
         document.getElementById(`current-value${index}`).style.display = 'block'
     } else {
@@ -144,8 +134,8 @@ function enableLengthInput(element) {
 
 function toggleDateInput(element) {
     let index = extractIndexFromId(element.id)
-    dateType = document.getElementById(`type${index}`).value
-    if (dateType == "date") {
+    let dateType = document.getElementById(`type${index}`).value
+    if (dateType === "date") {
         document.getElementById(`date-format-div${index}`).style.display = 'block'
         disableLengthInput(index)
     } else {
@@ -155,8 +145,8 @@ function toggleDateInput(element) {
 
 function toggleTimeInput(element) {
     let index = extractIndexFromId(element.id)
-    timeType = document.getElementById(`type${index}`).value
-    if (timeType == "time") {
+    let timeType = document.getElementById(`type${index}`).value
+    if (timeType === "time") {
         document.getElementById(`time-format-div${index}`).style.display = 'block'
         disableLengthInput(index)
     } else {
@@ -166,8 +156,8 @@ function toggleTimeInput(element) {
 
 function toggleDateTimeInput(element) {
     let index = extractIndexFromId(element.id)
-    dateTimeType = document.getElementById(`type${index}`).value
-    if (dateTimeType == "date-time") {
+    let dateTimeType = document.getElementById(`type${index}`).value
+    if (dateTimeType === "date-time") {
         document.getElementById(`date-time-format-div${index}`).style.display = 'block'
         disableLengthInput(index)
     } else {
@@ -176,9 +166,8 @@ function toggleDateTimeInput(element) {
 }
 
 function toggleYesNoButton(element) {
-    let index = extractIndexFromId(element)
     let oldValue = document.getElementById(element).value
-    if (oldValue == "Yes") {
+    if (oldValue === "Yes") {
         document.getElementById(element).value = "No"
         document.getElementById(element).style.backgroundColor = '#ffeded'
         return
@@ -347,10 +336,10 @@ function addNewField() {
 }
 
 function onChangeHandler(event) {
-    if (event.target.name == "dependentOn") {
+    if (event.target.name === "dependentOn") {
         toggleDependencyInputs(event.target)
     }
-    if (event.target.name == "type") {
+    if (event.target.name === "type") {
         toggleDateInput(event.target)
         toggleTimeInput(event.target)
         toggleDateTimeInput(event.target)
@@ -367,7 +356,7 @@ async function sendConfigData() {
         method: 'POST', body: JSON.stringify(newPayload)
     });
     if (response.status === 201) {
-        storeErrorsInSessionStorage()
+        await storeErrorsInSessionStorage()
     }
 }
 
@@ -397,9 +386,9 @@ async function sendResetConfigRequest() {
 }
 
 function customAlert() {
-    var blurBg = document.getElementById("blur")
+    const blurBg = document.getElementById("blur")
     blurBg.classList.toggle('active')
-    var alertPopup = document.getElementById("alert-popup")
+    const alertPopup = document.getElementById("alert-popup")
     alertPopup.classList.toggle('active')
 }
 
@@ -409,44 +398,49 @@ function customConfirm() {
         customAlert();
         return
     }
-    var blurBg = document.getElementById("blur")
+    const blurBg = document.getElementById("blur")
     blurBg.classList.toggle('active')
-    var confirmPopup = document.getElementById("confirm-popup")
+    const confirmPopup = document.getElementById("confirm-popup")
     confirmPopup.classList.toggle('active')
 }
 
 function isDateEmpty(index) {
-    return (document.getElementById(`date-format-div${index}`).style.display == "block"
-        && document.getElementById(`date-format${index}`).value == "")
+    let isDateDivBlock = document.getElementById(`date-format-div${index}`).style.display === "block";
+    let isDateFormatEmpty = document.getElementById(`date-format${index}`).value === "";
+    return (isDateDivBlock && isDateFormatEmpty)
 }
 
 function isTimeEmpty(index) {
-    return (document.getElementById(`time-format-div${index}`).style.display == "block"
-        && document.getElementById(`time-format${index}`).value == "")
+    let isTimeDivBlock = document.getElementById(`time-format-div${index}`).style.display === "block";
+    let isTimeFormatEmpty = document.getElementById(`time-format${index}`).value === "";
+    return (isTimeDivBlock && isTimeFormatEmpty)
 }
 
 function isDateTimeEmpty(index) {
-    return (document.getElementById(`date-time-format-div${index}`).style.display == "block"
-        && document.getElementById(`date-time-format${index}`).value == "")
+    let isDateTimeDivBlock = document.getElementById(`date-time-format-div${index}`).style.display === "block";
+    let isDateTimeFormatEmpty = document.getElementById(`date-time-format${index}`).value === "";
+    return (isDateTimeDivBlock && isDateTimeFormatEmpty)
 }
 
 function isDependentFieldValueEmpty(index) {
-    return (document.getElementById(`dependent-value${index}`).style.visibility == 'visible'
-        && document.getElementById(`dependent-field-value${index}`).value == "")
+    let isDependentValueVisible = document.getElementById(`dependent-value${index}`).style.visibility === 'visible';
+    let isDependentFieldEmpty = document.getElementById(`dependent-field-value${index}`).value === "";
+    return (isDependentValueVisible && isDependentFieldEmpty)
 }
 
 function isExpectedCurrentFieldValueEmpty(index) {
-    return (document.getElementById(`current-value${index}`).style.visibility == 'visible'
-        && document.getElementById(`expectedCurrentFieldValue${index}`).value == "")
+    let isCurrentValueVisible = document.getElementById(`current-value${index}`).style.visibility === 'visible';
+    let isCurrentValueEmpty = document.getElementById(`expectedCurrentFieldValue${index}`).value === "";
+    return (isCurrentValueVisible && isCurrentValueEmpty)
 }
 
 function validateInputFields() {
     for (let index = 0; index <= numberOfFields; index++) {
-        let isFieldEmpty = document.getElementById(`field${index}`).value == ""
-        let isTypeEmpty = document.getElementById(`type${index}`).value == ""
+        let isFieldEmpty = document.getElementById(`field${index}`).value === ""
+        let isTypeEmpty = document.getElementById(`type${index}`).value === ""
         console.log("inside validate input")
-        console.log(document.getElementById(`date-format-div${index}`).style.display == "block")
-        console.log(document.getElementById(`date-format${index}`).value == "")
+        console.log(document.getElementById(`date-format-div${index}`).style.display === "block")
+        console.log(document.getElementById(`date-format${index}`).value === "")
         if (isFieldEmpty || isTypeEmpty || isDateEmpty(index) || isTimeEmpty(index) ||
             isDateTimeEmpty(index) || isDependentFieldValueEmpty(index) || isExpectedCurrentFieldValueEmpty(index)) {
             return false
@@ -456,6 +450,7 @@ function validateInputFields() {
 }
 
 function generatePayload() {
+    let typesWithPatterns = ["date", "time", "date-time"]
     finalJson = {}
     for (let index = 0; index <= numberOfFields; index++) {
         let singleJson = {}
@@ -464,7 +459,7 @@ function generatePayload() {
 
         singleJson = addOptionalDataToPayload(index, singleJson)
 
-        if (type == "date" || type == 'date-time' || type == 'time') {
+        if (typesWithPatterns.includes(type)) {
             singleJson["pattern"] = document.getElementById(`${type}-format${index}`).value
         }
 
@@ -477,16 +472,16 @@ function generatePayload() {
 function addOptionalDataToPayload(index, singleJson) {
     for (fieldName in nameIdMap) {
         fieldId = nameIdMap[fieldName]
-        if (fieldName == "values") {
+        if (fieldName === "values") {
             addValueDataToPayload(index, singleJson);
             continue
         }
-        if (fieldName == "isNullAllowed") {
+        if (fieldName === "isNullAllowed") {
             addNullFieldValueToPayload(index, singleJson);
             continue
         }
         let data = document.getElementById(`${fieldId}${index}`).value
-        let isDataEmpty = data != ""
+        let isDataEmpty = data !== ""
         if (isDataEmpty) {
             singleJson[`${fieldName}`] = lowerCase(data, fieldName)
         }
@@ -496,24 +491,22 @@ function addOptionalDataToPayload(index, singleJson) {
 
 function addValueDataToPayload(index, singleJson) {
     let data = document.getElementById(`${fieldId}${index}`).value;
-    let doesDataContainComma = String(data).search(',') != -1
+    let doesDataContainComma = String(data).search(',') !== -1
     if (doesDataContainComma) {
         singleJson["values"] = String(data).split(',');
         return
     }
-    if (data != "") {
+    if (data !== "") {
         singleJson["values"] = String(data).split('\n');
     }
 }
 
 function addNullFieldValueToPayload(index, singleJson) {
     let data = document.getElementById(`${fieldId}${index}`).value
-    if (data == "No") {
+    if (data === "No") {
         singleJson["isNullAllowed"] = data
     }
 }
-
-var tempValues
 
 function displayValues(elementId) {
     let index = extractIndexFromId(elementId)
@@ -530,11 +523,11 @@ function hideValues(elementId) {
 }
 
 function uploadFileAndChangeContents(elementId) {
-    var index = extractIndexFromId(elementId)
-    var fileInputTag = document.getElementById(`value-file${index}`)
-    var uploadedFile = fileInputTag.files[0]
-    var fileReader = new FileReader();
-    var textBox = document.getElementById(`value-textbox${index}`)
+    const index = extractIndexFromId(elementId)
+    const fileInputTag = document.getElementById(`value-file${index}`)
+    const uploadedFile = fileInputTag.files[0]
+    const fileReader = new FileReader()
+    const textBox = document.getElementById(`value-textbox${index}`)
     fileReader.addEventListener("load", () => {
         textBox.value = fileReader.result;
     });
@@ -550,10 +543,10 @@ function saveValue(elementId) {
 }
 
 function changeButtonToEditIfValuesAdded(index) {
-    var textBoxValue = document.getElementById(`value-textbox${index}`).value
-    var button = document.getElementById(`edit-button${index}`)
+    const textBoxValue = document.getElementById(`value-textbox${index}`).value
+    const button = document.getElementById(`edit-button${index}`)
     console.log(textBoxValue)
-    if (textBoxValue == "") {
+    if (textBoxValue === "") {
         button.innerText = "ADD"
         button.style.backgroundColor = "#f4f9fe"
     } else {
@@ -569,7 +562,7 @@ function downloadConfig() {
 }
 
 function download(jsonData) {
-    var element = document.createElement('a');
+    const element = document.createElement('a')
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(jsonData));
     element.setAttribute('download', 'csv-validator-config.json');
     element.style.display = 'none';
@@ -587,8 +580,8 @@ function hideRuleUploadModal() {
 }
 
 function uploadConfig() {
-    var jsonFile = document.getElementById('rules-json-id').files[0]
-    var fileReader = new FileReader()
+    const jsonFile = document.getElementById('rules-json-id').files[0]
+    const fileReader = new FileReader()
     fileReader.addEventListener("load", () => {
         let jsonData = JSON.parse(fileReader.result)
         displayConfigDataFromServers(jsonData);
@@ -598,6 +591,5 @@ function uploadConfig() {
 }
 
 function displayConfigDataFromServers(jsonData) {
-    let numberOfRows = jsonData.length - 1
     fillDataInContainer(jsonData)
 }
