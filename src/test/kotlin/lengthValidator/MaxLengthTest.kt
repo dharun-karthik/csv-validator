@@ -3,18 +3,16 @@ package lengthValidator
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import validation.implementation.LengthValidation
 
 internal class MaxLengthTest {
     private val maxLength = MaxLength()
     private val inputText = "Abc123"
-    private val lengthValidation = LengthValidation()
 
     @Test
     fun shouldReturnTrueIfInputTextLengthIsLessThanMaxLengthSpecified() {
         val length = 7
 
-        val actual = maxLength.validateLengthType(inputText, length, lengthValidation)
+        val actual = maxLength.validateLengthType(inputText, length)
 
         assertTrue(actual);
     }
@@ -23,7 +21,7 @@ internal class MaxLengthTest {
     fun shouldReturnTrueIfInputTextLengthIsLessThanOrEqualToMaxLengthSpecified() {
         val length = 6
 
-        val actual = maxLength.validateLengthType(inputText, length, lengthValidation)
+        val actual = maxLength.validateLengthType(inputText, length)
 
         assertTrue(actual);
     }
@@ -32,7 +30,7 @@ internal class MaxLengthTest {
     fun shouldReturnFalseIfInputTextLengthIsMoreThanMaxLengthSpecified() {
         val length = 5
 
-        val actual = maxLength.validateLengthType(inputText, length, lengthValidation)
+        val actual = maxLength.validateLengthType(inputText, length)
 
         assertFalse(actual);
     }
@@ -41,7 +39,7 @@ internal class MaxLengthTest {
     fun shouldReturnTrueIfMaxLengthIsNull() {
         val length = null
 
-        val actual = maxLength.validateLengthType(inputText, length, lengthValidation)
+        val actual = maxLength.validateLengthType(inputText, length)
 
         assertTrue(actual);
     }
