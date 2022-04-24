@@ -93,7 +93,7 @@ describe('Setting validation rules', () => {
         cy.get('#csv-id').selectFile('cypress/fixtures/correctData.csv')
         cy.get('#csv-submit-button').click()
         cy.visit('http://localhost:3000/addRules.html')
-        cy.get('#field0', { timeout: 12000 }).should('have.value', 'Product Id')
+        cy.get('#field0', { timeout: 15000 }).should('have.value', 'Product Id')
         cy.get('#field1').should('have.value', 'Product Description')
         cy.get('#field2').should('have.value', 'Price')
         cy.get('#field3').should('have.value', 'Export')
