@@ -11,6 +11,17 @@ class RestrictedInputValidationOperation : ValidationOperation {
         key: String,
         currentRow: JSONObject?
     ): String? {
+        if (isFieldIsNull(currentFieldValue)) {
+            return null
+        }
+        return checkValueInGivenValues(metaDataField, currentFieldValue, key)
+    }
+
+    private fun checkValueInGivenValues(
+        metaDataField: JsonMetaDataTemplate,
+        currentFieldValue: String,
+        key: String
+    ): String? {
         val restrictedInputValidation = RestrictedInputValidation()
         val restrictedInputList = metaDataField.values ?: return null
         if (!restrictedInputValidation.validate(currentFieldValue, restrictedInputList)) {
