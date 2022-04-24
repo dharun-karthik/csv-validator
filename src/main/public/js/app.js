@@ -259,7 +259,7 @@ function addNewField() {
         </div>
         <div id="field-value${numberOfFields}">
 
-            <label for="text-file-id${numberOfFields}">Values: </label>
+            <label for="edit-button${numberOfFields}">Values: </label>
             <button id="edit-button${numberOfFields}" onclick="displayValues(this.id)" class="button-on-config-form">ADD</button>
             <div class="modal" id="value-modal${numberOfFields}">
             <div class="modal-content">
