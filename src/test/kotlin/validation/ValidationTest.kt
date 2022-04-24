@@ -63,7 +63,7 @@ class ValidationTest {
 
     @ParameterizedTest
     @MethodSource("inValidValidationArguments")
-    fun shouldGetValidationErrorForDate(path: String, csvData: String, expectedContent: String) {
+    fun shouldGetValidationError(path: String, csvData: String, expectedContent: String) {
         val configFileReaderWriter = ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/validation/$path")
         val validation = Validation(configFileReaderWriter)
         val jsonData = JSONArray(csvData)
@@ -78,7 +78,7 @@ class ValidationTest {
             Arguments.of(
                 "date-meta-data-test.json",
                 """[{"date": "11/02/2000",},{"date": "15/22/2002",},{"date": "15/02/23",}]""",
-                """[{"3":["Type expected 'date' in date : 15/22/2002"]},{"4":["Type expected 'date' in date : 15/02/23"]}]"""
+                """[{"3":["Incorrect format of 'date' in date : 15/22/2002"]},{"4":["Incorrect format of 'date' in date : 15/02/23"]}]"""
             ),
             Arguments.of(
                 "length-meta-data-test.json",
@@ -103,12 +103,12 @@ class ValidationTest {
             Arguments.of(
                 "email-meta-data-test.json",
                 """[{"email": "talon.atlas+managedsahaj.ai"}]""",
-                """[{"2":["Type expected 'email' in email : talon.atlas+managedsahaj.ai"]}]"""
+                """[{"2":["Incorrect format of 'email' in email : talon.atlas+managedsahaj.ai"]}]"""
             ),
             Arguments.of(
                 "text-meta-data-test.json",
                 """[{"text": "£ new one"}]""",
-                """[{"2":["Type expected 'text' in text : £ new one"]}]"""
+                """[{"2":["Incorrect format of 'text' in text : £ new one"]}]"""
             ),
             Arguments.of(
                 "null-meta-data-test.json",

@@ -35,7 +35,7 @@ class TypeValidationOperation : ValidationOperation {
         val isValid = valueTypeMap[metaDataField.type]!!.validate(currentFieldValue, metaDataField.pattern)
 
         if (!isValid) {
-            return "Type expected '${metaDataField.type}' in $key : $currentFieldValue"
+            return "Incorrect format of '${metaDataField.type}' in $key : $currentFieldValue"
 
         }
         return null
