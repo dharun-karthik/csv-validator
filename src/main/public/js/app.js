@@ -59,10 +59,6 @@ function fillDataInContainer(jsonData) {
     jsonData.forEach((element, index) => {
         for (key in element) {
             console.log(`${index} - key: ${key}: ${element[key]}`)
-            if (key == "pattern") {
-                insertPatternInRespectiveField(index, element);
-                continue
-            }
             if (key == "dependencies") {
                 displayDependencies(element, index);
                 continue
@@ -70,6 +66,14 @@ function fillDataInContainer(jsonData) {
             if (key == "isNullAllowed") {
                 toggleYesNoButton(`${nameIdMap[key]}${index}`)
                 continue
+            }
+            if (key == "type" && (element[key] == "date" || element[key] == "time" || element[key] == "date-time" )) {
+                disableLengthInput(index)
+                
+            }
+            if (key == "pattern") {
+                insertPatternInRespectiveField(index, element); 
+                continue    
             }
             console.log(`idToEdit: ${nameIdMap[key]}${index}`)
             document.getElementById(`${nameIdMap[key]}${index}`).value = element[key]
@@ -93,7 +97,9 @@ function displayOneDependency(index) {
 }
 
 function insertPatternInRespectiveField(index, element) {
+    console.log(`${nameIdMap['type']}${index}   `)
     let typeOfPattern = document.getElementById(`${nameIdMap['type']}${index}`).value;
+    console.log(`insertPattern -> ${typeOfPattern} -->`)
     document.getElementById(`${typeOfPattern}-format-div${index}`).style.display = 'block'
     document.getElementById(`${typeOfPattern}-format${index}`).value = element[key];
 }
