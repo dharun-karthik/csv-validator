@@ -17,22 +17,25 @@ class TypeValidationOperation : ValidationOperation {
     )
 
     override fun validate(
-        metaDataField: JsonMetaDataTemplate, currentFieldValue: String, currentRow: JSONObject?
+        metaDataField: JsonMetaDataTemplate,
+        currentFieldValue: String,
+        key: String,
+        currentRow: JSONObject?
     ): String? {
         if (isFieldIsNull(currentFieldValue)) {
             return null
         }
 
-        return checkType(metaDataField, currentFieldValue)
+        return checkType(metaDataField, key, currentFieldValue)
     }
 
     private fun checkType(
-        metaDataField: JsonMetaDataTemplate, currentFieldValue: String
+        metaDataField: JsonMetaDataTemplate, key: String, currentFieldValue: String
     ): String? {
         val isValid = valueTypeMap[metaDataField.type]!!.validate(currentFieldValue, metaDataField.pattern)
 
         if (!isValid) {
-            return "Type expected '${metaDataField.type}' in"
+            return "Type expected '${metaDataField.type}' in $key : $currentFieldValue"
 
         }
         return null
