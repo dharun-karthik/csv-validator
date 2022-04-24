@@ -1,9 +1,9 @@
 package validation.operation
 
-import lengthValidator.*
-import lengthValidator.LengthType.*
 import metaData.template.JsonMetaDataTemplate
 import org.json.JSONObject
+import validation.implementation.lengthValidator.*
+import validation.implementation.lengthValidator.LengthType.*
 
 class LengthValidationOperation : ValidationOperation {
     private val lengthTypeMap: Map<LengthType, LengthTypeValidator> = mapOf(
@@ -27,7 +27,7 @@ class LengthValidationOperation : ValidationOperation {
         lengthTypeMap.forEach { entry ->
             val lengthTypeValidation = entry.value
             val field = lengthTypeValidation.getAppropriateLengthRestriction(metaDataField)
-            if (lengthTypeValidation.validateLengthType(currentFieldValue, field)) {
+            if (!lengthTypeValidation.validateLengthType(currentFieldValue, field)) {
                 return "Length Error in"
             }
         }

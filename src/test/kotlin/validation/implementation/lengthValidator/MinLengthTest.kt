@@ -1,8 +1,9 @@
-package lengthValidator
+package validation.implementation.lengthValidator
 
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import validation.implementation.lengthValidator.MinLength
 
 internal class MinLengthTest {
     private val minLength = MinLength()

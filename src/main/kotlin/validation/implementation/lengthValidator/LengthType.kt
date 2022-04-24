@@ -1,4 +1,4 @@
-package lengthValidator
+package validation.implementation.lengthValidator
 
 enum class LengthType {
     FIXED_LENGTH,

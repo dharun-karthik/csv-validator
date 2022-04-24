@@ -1,4 +1,4 @@
-package lengthValidator
+package validation.implementation.lengthValidator
 
 import metaData.template.JsonMetaDataTemplate
 
