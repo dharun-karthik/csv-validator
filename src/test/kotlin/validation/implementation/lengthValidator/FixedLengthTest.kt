@@ -3,11 +3,10 @@ package validation.implementation.lengthValidator
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import validation.implementation.lengthValidator.FixedLength
 
 internal class FixedLengthTest {
 
-    private val fixedLength = FixedLength();
+    private val fixedLength = FixedLength()
     private val inputText = "IND"
 
     @Test

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 
 class ColumnValidationTest {
 
-    internal class GetColumnsNotInConfigTest() {
+    internal class GetColumnsNotInConfigTest {
 
         @Test
         fun shouldReturnEmptyJsonIfAllColumnsArePresent() {

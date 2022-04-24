@@ -23,7 +23,7 @@ class CsvValidatorTest {
     }
 
     @Test
-    fun shouldReturnErrorValuesWhenTheValidationFails(){
+    fun shouldReturnErrorValuesWhenTheValidationFails() {
         val configFileReaderWriter =
             ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/csvValidation/csv-config-test.json")
         val jsonContentReaderWriter =
@@ -31,14 +31,15 @@ class CsvValidatorTest {
         val csvValidator = CsvValidator(configFileReaderWriter, jsonContentReaderWriter)
 
         val actual = csvValidator.handleCsv()
-        val content = """[{"2":{"Length Error in":["product description : Table"],"Value Not Found":["source pincode : 560002"]}}]"""
+        val content =
+            """[{"2":{"Length Error in":["product description : Table"],"Value Not Found":["source pincode : 560002"]}}]"""
         val expected = getBodyWithSuccessHeader(content)
 
         assertEquals(expected, actual)
     }
 
     @Test
-    fun shouldReturnEmptyArrayWhenValidationIsSuccess(){
+    fun shouldReturnEmptyArrayWhenValidationIsSuccess() {
         val configFileReaderWriter =
             ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/csvValidation/csv-config-test.json")
         val jsonContentReaderWriter =

@@ -10,7 +10,8 @@ class ConfigWriterTest {
 
     @Test
     fun shouldBeAbleToWriteConfigToEmptyFile() {
-        val configFileReaderWriter = ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/new-json-test.json")
+        val configFileReaderWriter =
+            ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/new-json-test.json")
         val post = ConfigWriter(configFileReaderWriter)
         val data = """[
   {

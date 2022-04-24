@@ -16,7 +16,7 @@
              src="https://github.com/amitkhirdekar/Quiz_Time/blob/master/logo.png?raw=true">
     </div>
     <div class="nav-links">
-        <a id="home-btn" href="index.html"> Home </a>
+        <a href="index.html" id="home-btn"> Home </a>
     </div>
 </div>
 <div class="section" id="blur">
@@ -186,7 +186,8 @@
             <div class="row1">
                 <div id="allow-null">
                     <label for="allow-null0" style="margin-right: 40px;">Allow empty value
-                        <input class="button-on-config-form bg-green" id="allow-null0" name="isNullAllowed" type="button" value="Yes" onclick="toggleYesNoButton(this.id)">
+                        <input class="button-on-config-form bg-green" id="allow-null0" name="isNullAllowed"
+                               onclick="toggleYesNoButton(this.id)" type="button" value="Yes">
                     </label>
                     This field will <span id="empty-field-hint0"> not </span> show errors for Empty values
                 </div>

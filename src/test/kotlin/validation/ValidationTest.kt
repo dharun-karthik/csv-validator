@@ -14,7 +14,8 @@ class ValidationTest {
 
     @Test
     fun shouldGetEmptyJsonArrayWhenTheJsonContentIsValid() {
-        val configFileReaderWriter = ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/csv-config-content-test.json")
+        val configFileReaderWriter =
+            ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/csv-config-content-test.json")
         val validation = Validation(configFileReaderWriter)
         val csvData = """[
     {
@@ -48,7 +49,8 @@ class ValidationTest {
 
     @Test
     fun shouldGetEmptyJsonArrayWhenThereIsNoContent() {
-        val configFileReaderWriter = ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/csv-config-content-test.json")
+        val configFileReaderWriter =
+            ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/csv-config-content-test.json")
         val validation = Validation(configFileReaderWriter)
         val csvData = """[]"""
         val jsonData = JSONArray(csvData)

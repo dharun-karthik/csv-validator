@@ -21,7 +21,7 @@ class FileReaderWriterTest {
     }
 
     @Test
-    fun shouldBeAbleToWriteRawContent(){
+    fun shouldBeAbleToWriteRawContent() {
         val fileReaderWriter = FileReaderWriter("src/test/kotlin/metaDataTestFiles/raw/write-raw-content-test.json")
         val data = """[{"hello":"123"}]"""
 

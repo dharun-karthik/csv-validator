@@ -3,7 +3,6 @@ package validation.implementation.lengthValidator
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import validation.implementation.lengthValidator.MinLength
 
 internal class MinLengthTest {
     private val minLength = MinLength()
@@ -15,7 +14,7 @@ internal class MinLengthTest {
 
         val actual = minLength.validateLengthType(inputText, length)
 
-        assertTrue(actual);
+        assertTrue(actual)
     }
 
     @Test
@@ -24,7 +23,7 @@ internal class MinLengthTest {
 
         val actual = minLength.validateLengthType(inputText, length)
 
-        assertTrue(actual);
+        assertTrue(actual)
     }
 
     @Test
@@ -33,7 +32,7 @@ internal class MinLengthTest {
 
         val actual = minLength.validateLengthType(inputText, length)
 
-        assertFalse(actual);
+        assertFalse(actual)
     }
 
     @Test
@@ -42,6 +41,6 @@ internal class MinLengthTest {
 
         val actual = minLength.validateLengthType(inputText, length)
 
-        assertTrue(actual);
+        assertTrue(actual)
     }
 }

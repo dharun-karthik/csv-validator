@@ -6,15 +6,16 @@ import org.junit.jupiter.api.Test
 
 class NullValidationTest {
     @Test
-    fun shouldGetFalseIfNullIsNotThere(){
+    fun shouldGetFalseIfNullIsNotThere() {
         val nullValidation = NullValidation()
 
         val actual = nullValidation.validate("hello")
 
         assertFalse(actual)
     }
+
     @Test
-    fun shouldGetTrueIfNullIsThere(){
+    fun shouldGetTrueIfNullIsThere() {
         val nullValidation = NullValidation()
 
         val actual = nullValidation.validate("null")

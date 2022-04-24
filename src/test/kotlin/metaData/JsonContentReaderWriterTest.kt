@@ -1,6 +1,5 @@
 package metaData
 
-import org.json.JSONArray
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -13,6 +12,6 @@ class JsonContentReaderWriterTest {
         val actual = jsonContentReaderWriter.readJsonData()
         val expected = """[{"hello":"hi","Product Description":"Table chair"}]"""
 
-        assertEquals(expected,actual.toString())
+        assertEquals(expected, actual.toString())
     }
 }

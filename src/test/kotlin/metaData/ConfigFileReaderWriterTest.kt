@@ -9,7 +9,8 @@ class ConfigFileReaderWriterTest {
 
     @Test
     fun shouldBeAbleToGiveConfigInJson() {
-        val configFileReaderWriter = ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/csv-config-content-test.json")
+        val configFileReaderWriter =
+            ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/csv-config-content-test.json")
         val fields = configFileReaderWriter.readFields()
         val expected = "500020"
 
@@ -20,7 +21,8 @@ class ConfigFileReaderWriterTest {
 
     @Test
     fun shouldBeAbleToGiveConfigInJsonWhenThereIsNoContent() {
-        val configFileReaderWriter = ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/empty-json-test.json")
+        val configFileReaderWriter =
+            ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/empty-json-test.json")
 
         val expected = configFileReaderWriter.readFields()
 
@@ -29,7 +31,8 @@ class ConfigFileReaderWriterTest {
 
     @Test
     fun shouldBeAbleToWriteJsonToFile() {
-        val configFileReaderWriter = ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/write-csv-config-content-test.json")
+        val configFileReaderWriter =
+            ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/write-csv-config-content-test.json")
         val jsonData: Array<JsonMetaDataTemplate> =
             arrayOf(
                 JsonMetaDataTemplate(
