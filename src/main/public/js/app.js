@@ -123,6 +123,7 @@ function toggleDependencyInputs(element) {
 
 function disableLengthInput(index) {
     document.getElementById(`row${index}`).style.display = "none"
+    document.getElementById(`field-value${index}`).style.display = "none"
 }
 
 function enableLengthInput(element) {
@@ -131,6 +132,7 @@ function enableLengthInput(element) {
     let lengthRequiredDataTypeList = ["number", "alphanumeric", "alphabets", "email", "text"]
     if (lengthRequiredDataTypeList.includes(unknownType)) {
         document.getElementById(`row${index}`).style.display = "flex"
+        document.getElementById(`field-value${index}`).style.display = "block"
     }
 }
 
@@ -262,7 +264,7 @@ function addNewField() {
                 <option value="uuuu-MM-dd't'HH:mm:ss.SSS'z'">yyyy-MM-dd'T'HH:mm:ss.SSSZ</option>
             </select>
         </div>
-        <div id="field-value">
+        <div id="field-value${numberOfFields}">
 
             <label for="text-file-id${numberOfFields}">Values: </label>
             <button id="edit-button${numberOfFields}" onclick="displayValues(this.id)" class="button-on-config-form">ADD</button>
