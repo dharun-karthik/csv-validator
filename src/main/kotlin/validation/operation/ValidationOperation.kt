@@ -7,6 +7,7 @@ interface ValidationOperation {
     fun validate(
         metaDataField: JsonMetaDataTemplate,
         currentFieldValue: String,
+        key: String,
         currentRow: JSONObject? = null,
     ): String?
 

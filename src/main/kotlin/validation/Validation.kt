@@ -78,7 +78,7 @@ class Validation(private val configFileReaderWriter: ConfigFileReaderWriter) {
 
         validationMap.forEach { entry ->
             val validationType = entry.value
-            val result = validationType.validate(metaDataField, currentFieldValue, currentRow)
+            val result = validationType.validate(metaDataField, currentFieldValue, key, currentRow)
             if (result != null) {
                 val errorList = lineErrors.getOrPut(result) { mutableListOf() }
                 errorList.add("$key : $currentFieldValue")

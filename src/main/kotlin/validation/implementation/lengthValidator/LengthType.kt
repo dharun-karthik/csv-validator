@@ -1,7 +1,7 @@
 package validation.implementation.lengthValidator
 
-enum class LengthType {
-    FIXED_LENGTH,
-    MIN_LENGTH,
-    MAX_LENGTH
+enum class LengthType(val errorMessage: String) {
+    FIXED_LENGTH("Value length should be equal to"),
+    MIN_LENGTH("Value length should be lesser than"),
+    MAX_LENGTH("Value length should be greater than")
 }
