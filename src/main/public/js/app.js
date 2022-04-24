@@ -313,12 +313,10 @@ function addNewField() {
             <label for="allow-null${numberOfFields}" style="margin-right: 40px;">Allow empty value
                 <input class="button-on-config-form bg-green" id="allow-null${numberOfFields}" name="allowNull" type="button" value="Yes" onclick="toggleYesNoButton(this.id)">
             </label>
-            This field will <span id="empty-field-hint${numberOfFields}"> not </span> show errors for Empty values
         </div>
         <div id="depends-on-column">
             <label for="depends-on${numberOfFields}">Dependency on column: </label>
             <input type="text" id="depends-on${numberOfFields}" class="inputs" name="dependentOn" onchange="onChangeHandler(event)">
-            </input>
         </div>
     </div>
     <div class="row1">
