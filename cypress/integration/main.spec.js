@@ -123,8 +123,8 @@ describe('content of error page', () => {
         cy.get('h1:first').should('have.text', 'One place to Validate all your CSVs')
     })
 
-    it('should contain heading as Step 3: Get Validations For Your CSV', () => {
-        cy.get('.configs-heading').should('have.text', 'Step 3: Get Validations For Your CSV')
+    it('should contain heading as Step 3: Check Your CSV', () => {
+        cy.get('.configs-heading').should('have.text', 'Step 3: Check Your CSV')
     })
 
     it('should contain heading as In just 3 Easy Steps', () => {
