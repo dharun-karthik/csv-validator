@@ -28,7 +28,7 @@ class Validation(private val configFileReaderWriter: ConfigFileReaderWriter) {
         val arrayOfAllErrorsByLine = JSONArray()
         val duplicationValidation = DuplicationValidation()
         dataInJSONArray.forEachIndexed { index, element ->
-            val lineErrors = mutableMapOf<String, MutableList<String>>()
+            val lineErrors = mutableListOf<String>()
             val currentRow = (element as JSONObject)
             val keys = currentRow.keySet()
             appendDuplicationError(duplicationValidation, currentRow, index, lineErrors)
@@ -46,13 +46,12 @@ class Validation(private val configFileReaderWriter: ConfigFileReaderWriter) {
         duplicationValidation: DuplicationValidation,
         currentRow: JSONObject,
         index: Int,
-        lineErrors: MutableMap<String, MutableList<String>>
+        lineErrors: MutableList<String>
     ) {
         val previousDuplicateIndex = duplicationValidation.isDuplicateIndexAvailable(currentRow, index)
         if (previousDuplicateIndex != null) {
             val name = "Row Duplication"
-            val errorList = lineErrors.getOrPut(name) { mutableListOf() }
-            errorList.add((previousDuplicateIndex + 1).toString())
+            lineErrors.add("$name ${previousDuplicateIndex + 1}")
         }
     }
 
@@ -60,7 +59,7 @@ class Validation(private val configFileReaderWriter: ConfigFileReaderWriter) {
         keys: MutableSet<String>,
         metaDataList: Array<JsonMetaDataTemplate>,
         currentRow: JSONObject,
-        lineErrors: MutableMap<String, MutableList<String>>
+        lineErrors: MutableList<String>
     ) {
         for (key in keys) {
             appendValidationErrorForCurrentField(metaDataList, key, currentRow, lineErrors)
@@ -71,7 +70,7 @@ class Validation(private val configFileReaderWriter: ConfigFileReaderWriter) {
         metaDataList: Array<JsonMetaDataTemplate>,
         key: String,
         currentRow: JSONObject,
-        lineErrors: MutableMap<String, MutableList<String>>
+        lineErrors: MutableList<String>
     ) {
         val metaDataField = metaDataList.first { it.fieldName.contentEquals(key, ignoreCase = true) }
         val currentFieldValue = currentRow.get(key) as String
@@ -80,13 +79,12 @@ class Validation(private val configFileReaderWriter: ConfigFileReaderWriter) {
             val validationType = entry.value
             val result = validationType.validate(metaDataField, currentFieldValue, key, currentRow)
             if (result != null) {
-                val errorList = lineErrors.getOrPut(result) { mutableListOf() }
-                errorList.add("$key : $currentFieldValue")
+                lineErrors.add(result)
             }
         }
     }
 
-    private fun parseErrorsIntoSingleJson(index: Int, lineErrors: MutableMap<String, MutableList<String>>): JSONObject {
+    private fun parseErrorsIntoSingleJson(index: Int, lineErrors: MutableList<String>): JSONObject {
         return JSONObject().put(index.toString(), lineErrors)
     }
 }

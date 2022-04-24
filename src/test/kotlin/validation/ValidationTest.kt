@@ -78,42 +78,42 @@ class ValidationTest {
             Arguments.of(
                 "date-meta-data-test.json",
                 """[{"date": "11/02/2000",},{"date": "15/22/2002",},{"date": "15/02/23",}]""",
-                """[{"3":{"Type expected 'date' in":["date : 15/22/2002"]}},{"4":{"Type expected 'date' in":["date : 15/02/23"]}}]"""
+                """[{"3":["Type expected 'date' in date : 15/22/2002"]},{"4":["Type expected 'date' in date : 15/02/23"]}]"""
             ),
             Arguments.of(
                 "length-meta-data-test.json",
                 """[{"product description": "Table"}]""",
-                """[{"2":{"Length Error in":["product description : Table"]}}]"""
+                """[{"2":["Value length should be lesser than 7 in product description : Table"]}]"""
             ),
             Arguments.of(
                 "restricted-input-meta-data-test.json",
                 """[{"export": "fa"}]""",
-                """[{"2":{"Value Not Found":["export : fa"]}}]"""
+                """[{"2":["Value Not Found export : fa"]}]"""
             ),
             Arguments.of(
                 "dependency-meta-data-test.json",
                 """[{"export": "N","country name": "usa"}]""",
-                """[{"2":{"export is N but":["country name : usa"]}}]"""
+                """[{"2":["export is N but country name is usa"]}]"""
             ),
             Arguments.of(
                 "restricted-input-meta-data-test.json",
                 """[{"export": "N"},{"export": "N"}]""",
-                """[{"3":{"Row Duplication":["2"]}}]"""
+                """[{"3":["Row Duplication 2"]}]"""
             ),
             Arguments.of(
                 "email-meta-data-test.json",
                 """[{"email": "talon.atlas+managedsahaj.ai"}]""",
-                """[{"2":{"Type expected 'email' in":["email : talon.atlas+managedsahaj.ai"]}}]"""
+                """[{"2":["Type expected 'email' in email : talon.atlas+managedsahaj.ai"]}]"""
             ),
             Arguments.of(
                 "text-meta-data-test.json",
                 """[{"text": "£ new one"}]""",
-                """[{"2":{"Type expected 'text' in":["text : £ new one"]}}]"""
+                """[{"2":["Type expected 'text' in text : £ new one"]}]"""
             ),
             Arguments.of(
                 "null-meta-data-test.json",
                 """[{"name": "john"},{"name":"null"}]""",
-                """[{"3":{"Empty Value not allowed in":["name : null"]}}]"""
+                """[{"3":["Empty Value not allowed in name"]}]"""
             )
         )
     }

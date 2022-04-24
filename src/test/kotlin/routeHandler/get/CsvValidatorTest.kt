@@ -32,7 +32,7 @@ class CsvValidatorTest {
 
         val actual = csvValidator.handleCsv()
         val content =
-            """[{"2":{"Length Error in":["product description : Table"],"Value Not Found":["source pincode : 560002"]}}]"""
+            """[{"2":["Value length should be lesser than 7 in product description : Table","Value Not Found source pincode : 560002"]}]"""
         val expected = getBodyWithSuccessHeader(content)
 
         assertEquals(expected, actual)
