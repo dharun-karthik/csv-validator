@@ -381,18 +381,6 @@ async function sendConfigData() {
         method: 'POST', body: JSON.stringify(newPayload)
     });
     if (response.status === 201) {
-        await storeErrorsInSessionStorage()
-    }
-}
-
-async function storeErrorsInSessionStorage() {
-    const response = await fetch('validate', {
-        method: 'GET',
-    });
-    if (response.status === 200) {
-        const jsonData = await response.json();
-        sessionStorage.removeItem('errors')
-        sessionStorage.setItem('errors', JSON.stringify(jsonData))
         window.location.href = 'errors.html'
         return
     }

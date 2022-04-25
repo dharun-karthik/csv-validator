@@ -1,13 +1,25 @@
-var errors = [];
+let errors = []
 
-function displayErrorsOrValid() {
-    errors = JSON.parse(sessionStorage.getItem('errors'))
+window.addEventListener('load', async () => getErrorsFromServer());
+
+async function getErrorsFromServer() {
+    const response = await fetch('validate', {
+        method: 'GET',
+    });
+    if (response.status === 200) {
+        const jsonData = await response.json();
+        displayErrorsOrValid(jsonData)
+    }
+}
+
+function displayErrorsOrValid(jsonData) {
+    errors = jsonData
     console.log(errors)
     if (errors.length == 0) {
         printCsvValid()
         return
     }
-    storeErrorsInSessionStorage()
+    displayErrors()
 }
 
 function printCsvValid() {
@@ -28,7 +40,7 @@ function printCsvValid() {
 }
 
 
-function storeErrorsInSessionStorage() {
+function displayErrors() {
     clearPreviousErrors()
     for (key in errors) {
         let errorListContainer = document.createElement('div')
