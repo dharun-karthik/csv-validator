@@ -608,12 +608,16 @@ function uploadConfig() {
     const fileReader = new FileReader()
     fileReader.addEventListener("load", () => {
         let jsonData = JSON.parse(fileReader.result)
-        displayConfigDataFromServers(jsonData);
+        displayConfigDataFromServersOrDisplayError(jsonData);
         hideRuleUploadModal()
     });
     fileReader.readAsText(jsonFile, "UTF-8");
 }
 
-function displayConfigDataFromServers(jsonData) {
-    fillDataInContainer(jsonData)
+function displayConfigDataFromServersOrDisplayError(jsonData) { 
+    try {
+        fillDataInContainer(jsonData)
+    } catch (error) {
+        alert("Invalid JSON File")
+    } 
 }
