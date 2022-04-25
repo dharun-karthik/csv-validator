@@ -1,6 +1,8 @@
 package request
 
 import java.io.BufferedReader
+import java.io.InputStream
+import java.io.InputStreamReader
 
 class RequestHandler {
     fun getPath(request: String): String {
@@ -17,9 +19,17 @@ class RequestHandler {
         return 0
     }
 
-    fun getBody(bodySize: Int, inputStream: BufferedReader): String {
+    fun getBodyInString(bodySize: Int, inputStream: InputStream): String {
+        val bufferedReader = BufferedReader(InputStreamReader(inputStream))
         val buffer = CharArray(bodySize)
-        inputStream.read(buffer)
+        bufferedReader.read(buffer)
         return String(buffer)
     }
+
+    fun getBodyInBytes(bodySize: Int, inputStream: InputStream): ByteArray {
+        val buffer = ByteArray(bodySize)
+        inputStream.read(buffer)
+        return buffer
+    }
+
 }
