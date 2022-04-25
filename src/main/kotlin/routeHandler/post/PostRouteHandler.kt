@@ -4,7 +4,7 @@ import metaData.ConfigFileReaderWriter
 import metaData.JsonContentReaderWriter
 import request.RequestHandler
 import routeHandler.get.FileGetter
-import java.io.BufferedReader
+import java.io.InputStream
 
 
 class PostRouteHandler {
@@ -13,7 +13,7 @@ class PostRouteHandler {
 
     fun handlePostRequest(
         request: String,
-        inputStream: BufferedReader,
+        inputStream: InputStream,
     ): String {
         return when (requestHandler.getPath(request)) {
             "/csv" -> {
@@ -25,6 +25,10 @@ class PostRouteHandler {
                 val configFileReaderWriter = ConfigFileReaderWriter("src/main/public/files/csv-config.json")
                 val configWriter = ConfigWriter(configFileReaderWriter)
                 configWriter.handleWriteConfigData(request, inputStream)
+            }
+            "/test/file-in-chunks" -> {
+                val getFileInChunks = GetFileInChunks()
+                getFileInChunks.handle(request, inputStream)
             }
             else -> fileGetter.getFileNotFound()
         }

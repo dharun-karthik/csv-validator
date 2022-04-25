@@ -5,15 +5,15 @@ import org.json.JSONObject
 import request.RequestHandler
 import response.ContentType
 import response.Response
-import java.io.BufferedReader
+import java.io.InputStream
 
 class ConfigWriter(val configFileReaderWriter: ConfigFileReaderWriter) {
     private val response = Response()
     private val requestHandler = RequestHandler()
 
-    fun handleWriteConfigData(request: String, inputStream: BufferedReader): String {
+    fun handleWriteConfigData(request: String, inputStream: InputStream): String {
         val bodySize = requestHandler.getContentLength(request)
-        val body = requestHandler.getBody(bodySize, inputStream)
+        val body = requestHandler.getBodyInString(bodySize, inputStream)
         return addCsvMetaData(body)
     }
 

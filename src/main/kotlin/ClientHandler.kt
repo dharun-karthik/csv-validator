@@ -1,15 +1,12 @@
 import routeHandler.RouteHandler
-import java.io.BufferedReader
-import java.io.BufferedWriter
-import java.io.InputStreamReader
-import java.io.OutputStreamWriter
+import java.io.*
 import java.net.Socket
 
 class ClientHandler {
 
     fun handleClient(clientSocket: Socket, routeHandler: RouteHandler) {
         val outputStream = BufferedWriter(OutputStreamWriter(clientSocket.getOutputStream()))
-        val inputStream = BufferedReader(InputStreamReader(clientSocket.getInputStream()))
+        val inputStream = clientSocket.getInputStream()
 
         val request = readRequest(inputStream)
         println(request)
@@ -25,11 +22,12 @@ class ClientHandler {
         outputStream.flush()
     }
 
-    private fun readRequest(inputStream: BufferedReader): String {
+    private fun readRequest(inputStream: InputStream): String {
+        val bufferedInputStream = BufferedReader(InputStreamReader(inputStream))
         var request = ""
         var flag = true
         while (flag) {
-            val line = inputStream.readLine()
+            val line = bufferedInputStream.readLine()
             request += line + "\r\n"
             if (line == null || line.isEmpty()) {
                 flag = false

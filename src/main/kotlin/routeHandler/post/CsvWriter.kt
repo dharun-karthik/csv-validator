@@ -5,16 +5,16 @@ import org.json.JSONObject
 import request.RequestHandler
 import response.ContentType
 import response.Response
-import java.io.BufferedReader
+import java.io.InputStream
 
-class CsvWriter(val jsonContentReaderWriter: JsonContentReaderWriter) {
+class CsvWriter(private val jsonContentReaderWriter: JsonContentReaderWriter) {
 
     private val response = Response()
     private val requestHandler = RequestHandler()
 
-    fun uploadCsvContent(request: String, inputStream: BufferedReader): String {
+    fun uploadCsvContent(request: String, inputStream: InputStream): String {
         val bodySize = requestHandler.getContentLength(request)
-        val body = requestHandler.getBody(bodySize, inputStream)
+        val body = requestHandler.getBodyInString(bodySize, inputStream)
         writeContent(body)
         val responseBody = getResponse()
         return response.generateResponse(responseBody, 200, ContentType.JSON.value)

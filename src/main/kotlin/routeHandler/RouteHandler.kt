@@ -4,7 +4,7 @@ import metaData.ConfigFileReaderWriter
 import routeHandler.get.FileGetter
 import routeHandler.get.GetRouteHandler
 import routeHandler.post.PostRouteHandler
-import java.io.BufferedReader
+import java.io.InputStream
 
 class RouteHandler(
     configFileReaderWriter: ConfigFileReaderWriter
@@ -14,7 +14,7 @@ class RouteHandler(
     private val deleteRouteHandler = DeleteRouteHandler(configFileReaderWriter)
     private val fileGetter = FileGetter()
 
-    fun handleRequest(request: String, inputStream: BufferedReader): String {
+    fun handleRequest(request: String, inputStream: InputStream): String {
         return when (getRequestType(request)) {
             "GET" -> getRouteHandler.handleGetRequest(request)
             "POST" -> postRouteHandler.handlePostRequest(request, inputStream)
