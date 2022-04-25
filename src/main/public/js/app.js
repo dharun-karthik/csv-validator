@@ -100,7 +100,6 @@ function fillDataInContainer(jsonData) {
             }
             console.log(`idToEdit: ${nameIdMap[key]}${index}`)
             document.getElementById(`${nameIdMap[key]}${index}`).value = element[key]
-            changeButtonToEditIfValuesAdded(index)
         }
     });
 }
@@ -619,6 +618,6 @@ function displayConfigDataFromServersOrDisplayError(jsonData) {
     try {
         fillDataInContainer(jsonData)
     } catch (error) {
-        alert("Ivalid JSON File")
+        alert("Invalid JSON File")
     } 
 }
