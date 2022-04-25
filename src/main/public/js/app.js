@@ -100,6 +100,7 @@ function fillDataInContainer(jsonData) {
             }
             console.log(`idToEdit: ${nameIdMap[key]}${index}`)
             document.getElementById(`${nameIdMap[key]}${index}`).value = element[key]
+            changeButtonToEditIfValuesAdded(index)
         }
     });
 }
