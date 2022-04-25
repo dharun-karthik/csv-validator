@@ -1,7 +1,20 @@
+function extractHeaders(lines) {
+    const headerWithoutTrim = lines[0].split(",");
+    let headers = headerWithoutTrim.map(element => element.trim().toLowerCase())
+    let headersWithoutDoubleQuotes = []
+    headers.map ( header => {
+        if (header[0] === "\"") {
+            header = header.substring(1, header.length - 1);
+        }
+        headersWithoutDoubleQuotes.push(header)
+    })
+    return headersWithoutDoubleQuotes;
+}
+
 function csvToJson(lines) {
     const result = [];
-    const headerWithoutTrim = lines[0].split(",");
-    const headers = headerWithoutTrim.map(element => element.trim().toLowerCase())
+    const headers = extractHeaders(lines);
+    captureHeaders(headers)
     for (let i = 1; i < lines.length; i++) {
         const obj = {};
         const currentLine = (lines[i].split(","));
