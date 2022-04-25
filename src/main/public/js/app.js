@@ -315,15 +315,15 @@ function addNewField() {
     <div class="row1" id="row${numberOfFields}">
         <div id="min-length">
             <label for="min-len${numberOfFields}">Min-length: </label>
-            <input type="number" name="minLength" id="min-len${numberOfFields}" class="inputs" onchange="onChangeHandler(event)" min="0" oninput="validity.valid||(value='');">
+            <input type="number" name="minLength" id="min-len${numberOfFields}" class="inputs" onchange="onChangeHandler(event)" min="1" oninput="validity.valid||(value='');">
         </div>
         <div id="max-length">
             <label for="max-len${numberOfFields}">Max-length: </label>
-            <input type="number" name="maxLength" id="max-len${numberOfFields}" class="inputs" onchange="onChangeHandler(event)" min="0" oninput="validity.valid||(value='');">
+            <input type="number" name="maxLength" id="max-len${numberOfFields}" class="inputs" onchange="onChangeHandler(event)" min="1" oninput="validity.valid||(value='');">
         </div>
         <div id="fixed-length">
             <label for="fixed-len${numberOfFields}">Fixed-length: </label>
-            <input type="number" name="length" id="fixed-len${numberOfFields}" class="inputs" onchange="onChangeHandler(event)" min="0" oninput="validity.valid||(value='');">
+            <input type="number" name="length" id="fixed-len${numberOfFields}" class="inputs" onchange="onChangeHandler(event)" min="1" oninput="validity.valid||(value='');">
         </div>
     </div>
     <div class="row1">
