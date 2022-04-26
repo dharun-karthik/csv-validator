@@ -1,5 +1,8 @@
 package metaData
 
+import request.ContentRange
+import java.io.InputStream
+
 object ByteFileContent {
     private var byteArray: ByteArray? = null
     private var currentIndex = 0
@@ -8,9 +11,9 @@ object ByteFileContent {
         byteArray = ByteArray(size)
     }
 
-    fun addBytes(byteData: ByteArray) {
-        for (byte in byteData) {
-            byteArray?.set(currentIndex++, byte)
+    fun addBytes(contentLength: ContentRange, inputStream: InputStream) {
+        for (i in contentLength.rangeStart until contentLength.rangeEnd) {
+            byteArray?.set(i, inputStream.read().toByte())
         }
     }
 
