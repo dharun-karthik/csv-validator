@@ -56,7 +56,7 @@ function displayConfigDataFromServer(jsonData) {
 }
 
 function fillDependencyColumn(headers) {
-    for (let index = 0; index < numberOfFields; index++) {
+    for (let index = 0; index <= numberOfFields; index++) {
         fillAllDependenciesInOneRow(index, headers)
     }
 }
