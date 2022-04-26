@@ -1,6 +1,7 @@
 package routeHandler.post
 
 import metaData.ConfigFileReaderWriter
+import metaData.FileReaderWriter
 import metaData.JsonContentReaderWriter
 import request.RequestHandler
 import routeHandler.get.FileGetter
@@ -28,9 +29,10 @@ class PostRouteHandler {
                 val configWriter = ConfigWriter(configFileReaderWriter)
                 configWriter.handleWriteConfigData(request, getBufferedReader(inputStream))
             }
-            "/test/file-in-chunks" -> {
-                val getFileInChunks = GetFileInChunks()
-                getFileInChunks.handle(request, inputStream)
+            "/test/upload-csv" -> {
+                val fileReaderWriter = FileReaderWriter("src/main/public/files/uploaded.csv")
+                val csvFileDownloader = CsvFileDownloader(fileReaderWriter)
+                csvFileDownloader.handle(request, inputStream)
             }
             else -> fileGetter.getFileNotFound()
         }

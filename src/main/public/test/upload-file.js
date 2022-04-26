@@ -1,9 +1,4 @@
-const upload = async () => {
-    const fileElement = document.getElementById("myFile")
-    const file = fileElement.files[0]
-    const chunkSize = 5000000
-    const fileSize = file.size
-    let numberOfChunks = Math.ceil(file.size / chunkSize)
+async function divideChunksAndUpload(chunkSize, numberOfChunks, fileSize, file) {
     let start = 0
     let end = chunkSize
     while (numberOfChunks > 0) {
@@ -17,9 +12,18 @@ const upload = async () => {
     }
 }
 
+const upload = async () => {
+    const fileElement = document.getElementById("myFile")
+    const file = fileElement.files[0]
+    const chunkSize = 5000000
+    const fileSize = file.size
+    let numberOfChunks = Math.ceil(file.size / chunkSize)
+    await divideChunksAndUpload(chunkSize, numberOfChunks, fileSize, file);
+}
+
 const uploadChunk = async (fileChunk, start, end, size) => {
     console.log("length ", fileChunk.length)
-    await fetch("file-in-chunks", {
+    await fetch("upload-csv", {
         method: "POST",
         headers: {
             "content-range": `bytes ${start}-${end}/${size}`
