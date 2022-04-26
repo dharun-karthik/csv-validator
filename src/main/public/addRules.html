@@ -21,20 +21,20 @@
 </div>
 <div class="section" id="blur">
     <div class="heading-div" id="configs-upload">
-        <h1 class="heading">One place to Validate all your CSVs</h1>
-        <h2 class="heading sub-heading">In just 3 Easy Steps</h2>
+        <h1 class="heading">One place to validate all your CSVs</h1>
+        <h2 class="heading sub-heading">In just 3 easy steps</h2>
 
-        <h1 class="configs-heading">Step 2: Add Rules</h1>
+        <h1 class="configs-heading">Step 2: Add rules</h1>
         <div id="rules-json-upload">
-            <button class="button big-font" onclick="openUploadRulesModal()"> Upload Rules as file</button>
+            <button class="button big-font" onclick="openUploadRulesModal()"> Upload rules as file</button>
             <div class="modal" id="upload-rules-modal">
                 <div class="modal-content">
                     <span class="close" id="close-rule-modal" onclick="hideRuleUploadModal()">&times;</span>
                     <div class="modal-container">
                         <div class="upload-file-section">
-                            <div class="heading heading-to-upload-file">Choose File Here</div>
+                            <div class="heading heading-to-upload-file">Choose file here</div>
                             <div class="choose-file">
-                                <label for="rules-json-id" id="Rules-Json">Rules JSON File:
+                                <label for="rules-json-id" id="Rules-Json">Rules JSON file:
                                     <input accept=".json" id="rules-json-id" name="json-file" type="file">
                                 </label>
                             </div>
@@ -45,9 +45,9 @@
                         <div class="upload-values">
                             <div class="hints">
                                 <h2>Hints: </h2>
-                                <h3>- Choose JSON file only if downloaded earlier from <span class="important">Download Rules</span>
+                                <h3>- Choose JSON file only if downloaded earlier from <span class="important">Download rules</span>
                                     button below</h3>
-                                <h3>- After uploading Rules file, you can edit the Rules before submitting</h3>
+                                <h3>- After uploading rules file, you can edit the rules before submitting</h3>
                             </div>
                         </div>
                     </div>
@@ -57,14 +57,14 @@
         <div class="config-container">
             <div class="row1">
                 <div id="field-name">
-                    <label for="field0">Field Name<span class="required-field">*</span>: </label>
+                    <label for="field0">Field name<span class="required-field">*</span>: </label>
                     <input class="inputs" id="field0" name="fieldName" onchange="onChangeHandler(event)"
                            type="text">
                 </div>
                 <div id="field-type">
                     <label for="type0">Type<span class="required-field">*</span>: </label>
                     <select class="dropdowns" id="type0" name="type" onchange="onChangeHandler(event)">
-                        <option value="">Choose Type</option>
+                        <option value="">Choose type</option>
                         <option value="number">Number</option>
                         <option value="alphanumeric">AlphaNumeric</option>
                         <option value="alphabets">Alphabets</option>
@@ -76,9 +76,9 @@
                     </select>
                 </div>
                 <div id="date-format-div0" style="display: none;">
-                    <label for="date-format0">Date Format<span class="required-field">*</span>: </label>
+                    <label for="date-format0">Date format<span class="required-field">*</span>: </label>
                     <select class="dropdowns" id="date-format0" name="pattern" onchange="onChangeHandler(event)">
-                        <option value="">Choose Type</option>
+                        <option value="">Choose type</option>
                         <option value="dd/MM/uuuu">dd/MM/yyyy</option>
                         <option value="dd/uuuu/MM">dd/yyyy/MM</option>
                         <option value="MM/dd/uuuu">MM/dd/yyyy</option>
@@ -94,9 +94,9 @@
                     </select>
                 </div>
                 <div id="time-format-div0" style="display: none;">
-                    <label for="time-format0">Time Format<span class="required-field">*</span>: </label>
+                    <label for="time-format0">Time format<span class="required-field">*</span>: </label>
                     <select class="dropdowns" id="time-format0" name="pattern" onchange="onChangeHandler(event)">
-                        <option value="">Choose Type</option>
+                        <option value="">Choose type</option>
                         <option value="HH:mm:ss">HH:mm:ss</option>
                         <option value="HH:ss:mm">HH:ss:mm</option>
                         <option value="ss:HH:mm">ss:HH:mm</option>
@@ -109,10 +109,10 @@
                     </select>
                 </div>
                 <div id="date-time-format-div0" style="display: none;">
-                    <label for="date-time-format0">Date-Time Format<span class="required-field">*</span>: </label>
+                    <label for="date-time-format0">Date-Time format<span class="required-field">*</span>: </label>
                     <select class="dropdowns" id="date-time-format0" name="pattern"
                             onchange="onChangeHandler(event)">
-                        <option value="">Choose Type</option>
+                        <option value="">Choose type</option>
                         <option value="HH:mm:ss dd/MM/uuuu">HH:mm:ss dd/MM/yyyy</option>
                         <option value="HH:mm:ss?dd/uuuu/MM">HH:mm:ss?dd/yyyy/MM</option>
                         <option value="HH:ss:mm:dd:MM:uuuu">HH:ss:mm:dd:MM:yyyy</option>
@@ -137,7 +137,7 @@
                             <span class="close" id="close-modal0" onclick="hideValues(this.id)">&times;</span>
                             <div class="modal-container">
                                 <div class="text-box">
-                                    <h3>Enter Values</h3>
+                                    <h3>Enter values</h3>
                                     <textarea class="value-text" cols="50" id="value-textbox0" rows="30"></textarea>
                                 </div>
                                 <div class="upload-values">
@@ -150,7 +150,7 @@
                                     </div>
                                     <div class="hints">
                                         <h2>Hints: </h2>
-                                        <h3>- Choose txt file for values and click "Fetch Values From File" to display
+                                        <h3>- Choose txt file for values and click "Fetch values from file" to display
                                             in text box</h3>
                                         <h3>- In text box, <span class="important">Enter values on new lines</span></h3>
                                         <h3>- If values are seperated by comma(,), don't give any space</h3>
@@ -200,20 +200,20 @@
             </div>
             <div class="row1">
                 <div class="hidden" id="dependent-value0">
-                    <label for="dependent-field-value0">Dependent Field Value<span class="required-field">*</span>:
+                    <label for="dependent-field-value0">Dependent field value<span class="required-field">*</span>:
                     </label>
                     <input class="inputs extra-width" id="dependent-field-value0" name="expectedDependentFieldValue"
                            onchange="onChangeHandler(event)" placeholder="Type null for no value, !null for any value"
                            type="text">
                 </div>
                 <div class="hidden" id="current-value0">
-                    <label for="expectedCurrentFieldValue0">Expected Current Field Value<span
+                    <label for="expectedCurrentFieldValue0">Expected current field value<span
                             class="required-field">*</span>: </label>
                     <select class="dropdowns" id="expectedCurrentFieldValue0" name="expectedCurrentFieldValue"
                             onchange="onChangeHandler(event)">
                         <option value="">Choose here</option>
                         <option value="!null">Present</option>
-                        <option value="null">Not Present</option>
+                        <option value="null">Not present</option>
                     </select>
                 </div>
             </div>
@@ -223,10 +223,10 @@
                 Submit
             </button>
             <button class="button big-font reset-button" id="reset-configurations" onclick="resetConfigs()">
-                Reset Rules
+                Reset rules
             </button>
             <button class="button big-font" id="downlog-config-btn" onclick="downloadConfig()">
-                Download Rules
+                Download rules
             </button>
         </div>
     </div>
@@ -238,7 +238,7 @@
     </button>
 </div>
 <div id="confirm-popup" class="popup">
-    <p id="confirm-message" class="bottom-20px-margin">Submitting Configuration</p>
+    <p id="confirm-message" class="bottom-20px-margin">Submitting configuration</p>
     <div>
         <button class="button big-font" id="cancel-btn" onclick="customConfirm()">
             Cancel

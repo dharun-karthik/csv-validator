@@ -211,13 +211,13 @@ function addNewField() {
     configContainer.innerHTML = `
     <div class="row1">
         <div id="field-name">
-            <label for="field${numberOfFields}">Field Name<span class="required-field">*</span>: </label>
+            <label for="field${numberOfFields}">Field name<span class="required-field">*</span>: </label>
             <input type="text" id="field${numberOfFields}" class="inputs" name="fieldName" onchange="onChangeHandler(event)">
         </div>
         <div id="field-type">
             <label for="type${numberOfFields}">Type<span class="required-field">*</span>: </label>
             <select id="type${numberOfFields}" name="type" class="dropdowns" onchange="onChangeHandler(event)">
-                <option value="">Choose Type</option>
+                <option value="">Choose type</option>
                 <option value="number">Number</option>
                 <option value="alphanumeric">AlphaNumeric</option>
                 <option value="alphabets">Alphabets</option>
@@ -229,9 +229,9 @@ function addNewField() {
             </select>
         </div>
         <div id="date-format-div${numberOfFields}" style="display: none;">
-            <label for="date-format${numberOfFields}">Date Format<span class="required-field">*</span>: </label>
+            <label for="date-format${numberOfFields}">Date format<span class="required-field">*</span>: </label>
             <select id="date-format${numberOfFields}" name="pattern" class="dropdowns" onchange="onChangeHandler(event)">
-                <option value="">Choose Type</option>
+                <option value="">Choose type</option>
                 <option value="dd/MM/uuuu">dd/MM/yyyy</option>
                 <option value="dd/uuuu/MM">dd/yyyy/MM</option>
                 <option value="MM/dd/uuuu">MM/dd/yyyy</option>
@@ -247,9 +247,9 @@ function addNewField() {
             </select>
         </div>
         <div id="time-format-div${numberOfFields}" style="display: none;">
-            <label for="time-format${numberOfFields}">Time Format<span class="required-field">*</span>: </label>
+            <label for="time-format${numberOfFields}">Time format<span class="required-field">*</span>: </label>
             <select id="time-format${numberOfFields}" name="pattern" class="dropdowns" onchange="onChangeHandler(event)">
-                <option value="">Choose Type</option>
+                <option value="">Choose type</option>
                 <option value="HH:mm:ss">HH:mm:ss</option>
                 <option value="HH:ss:mm">HH:ss:mm</option>
                 <option value="ss:HH:mm">ss:HH:mm</option>
@@ -262,9 +262,9 @@ function addNewField() {
             </select>
         </div>
         <div id="date-time-format-div${numberOfFields}" style="display: none;">
-            <label for="date-time-format${numberOfFields}">Date-Time Format<span class="required-field">*</span>: </label>
+            <label for="date-time-format${numberOfFields}">Date-Time format<span class="required-field">*</span>: </label>
             <select id="date-time-format${numberOfFields}" name="pattern" class="dropdowns" onchange="onChangeHandler(event)">
-                <option value="">Choose Type</option>
+                <option value="">Choose type</option>
                 <option value="HH:mm:ss dd/MM/uuuu">HH:mm:ss dd/MM/yyyy</option>
                 <option value="HH:mm:ss?dd/uuuu/MM">HH:mm:ss?dd/yyyy/MM</option>
                 <option value="HH:ss:mm:dd:MM:uuuu">HH:ss:mm:dd:MM:yyyy</option>
@@ -289,7 +289,7 @@ function addNewField() {
                 <span class="close" id="close-modal${numberOfFields}" onclick="hideValues(this.id)">&times;</span>
                 <div class="modal-container">
                     <div class="text-box">
-                        <h3>Enter Values</h3>
+                        <h3>Enter values</h3>
                             <textarea class="value-text" id="value-textbox${numberOfFields}" rows="30" cols="50"></textarea>
                         </div>
                         <div class="upload-values">
@@ -299,7 +299,7 @@ function addNewField() {
                             </div>
                             <div class="hints">
                                 <h2>Hints: </h2>
-                                <h3>- Choose txt file for values and click "Fetch Values From File" to display in text box</h3>
+                                <h3>- Choose txt file for values and click "Fetch values from file" to display in text box</h3>
                                 <h3>- In text box, <span class="important">Enter values on new lines</span> </h3>
                                 <h3>- If values are seperated by comma(,), don't give any space</h3>
                             </div>
@@ -342,12 +342,12 @@ function addNewField() {
     </div>
     <div class="row1">
         <div id="dependent-value${numberOfFields}" class="hidden">
-            <label for="dependent-field-value${numberOfFields}">Dependent Field Value: </label>
+            <label for="dependent-field-value${numberOfFields}">Dependent field value: </label>
             <input type="text" class="inputs extra-width" id="dependent-field-value${numberOfFields}" name="expectedDependentFieldValue"
                 placeholder="Type null for no value, !null for any value" onchange="onChangeHandler(event)">
         </div>
         <div id="current-value${numberOfFields}" class="hidden">
-            <label for="expectedCurrentFieldValue${numberOfFields}">Expected Current Field Value: </label>
+            <label for="expectedCurrentFieldValue${numberOfFields}">Expected current field value: </label>
             <select id="expectedCurrentFieldValue${numberOfFields}" class="dropdowns" name="expectedCurrentFieldValue" onchange="onChangeHandler(event)">
                 <option value="">Choose here</option>
                 <option value="!null">Present</option>
