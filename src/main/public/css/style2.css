@@ -310,7 +310,8 @@ body {
 }
 
 .no-error {
-    font-size: 26px;
+    font-size: 45px;
+    font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
