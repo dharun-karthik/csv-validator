@@ -23,8 +23,8 @@ open class FileReaderWriter(
         return currentFile
     }
 
-    fun appendRawBytes(byteArray: ByteArray) {
-        file.appendBytes(byteArray)
+    fun writeBytes(byteArray: ByteArray) {
+        file.writeBytes(byteArray)
     }
 
 }
