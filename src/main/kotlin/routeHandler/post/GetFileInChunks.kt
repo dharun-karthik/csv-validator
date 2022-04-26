@@ -1,5 +1,6 @@
 package routeHandler.post
 
+import metaData.ByteFileContent
 import metaData.FileReaderWriter
 import request.RequestHandler
 import response.ContentType
@@ -7,14 +8,25 @@ import response.Response
 import java.io.InputStream
 
 class GetFileInChunks {
+    val response = Response()
     fun handle(request: String, inputStream: InputStream): String {
-        val fileReaderWriter = FileReaderWriter("src/main/public/files/test.csv")
+        println(request)
         val requestHandler = RequestHandler()
-        val contentLength = requestHandler.getContentLength(request)
-        println("length $contentLength")
-        val data = requestHandler.getBodyInBytes(contentLength, inputStream)
-        fileReaderWriter.appendRawBytes(data)
-        val response = Response()
+        val contentLength = requestHandler.getContentRange(request)
+            ?: return response.generateResponse("no content", 200, ContentType.HTML.value)
+        val length = contentLength.rangeEnd - contentLength.rangeStart
+        val data = requestHandler.getBodyInBytes(length, inputStream)
+        if (contentLength.rangeStart == 0) {
+            ByteFileContent.initialiseByteArray(contentLength.size)
+        }
+        println(String(data))
+        ByteFileContent.addBytes(data)
+        if (contentLength.rangeEnd == contentLength.size) {
+            val fileReaderWriter = FileReaderWriter("src/main/public/files/test.txt")
+            val byteContent = ByteFileContent.getBytes()
+            fileReaderWriter.writeBytes(byteContent)
+            ByteFileContent.makeByteArrayEmpty()
+        }
         return response.generateResponse("success", 200, ContentType.HTML.value)
     }
 
