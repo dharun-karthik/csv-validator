@@ -28,3 +28,15 @@ test {
         events = ["passed", "failed", "skipped"]
     }
 }
+
+jar {
+    archiveBaseName = 'csv-validator'
+    archiveVersion =  '1.0'
+
+    manifest {
+        attributes 'Main-Class': "$mainClassName"
+    }
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+
+}
