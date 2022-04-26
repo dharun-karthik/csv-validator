@@ -33,7 +33,7 @@ function printCsvValid() {
     let innerDiv = document.createElement('div')
     innerDiv.className = 'valid-csv';
     innerDiv.id = "valid-csv-id"
-    innerDiv.innerText = 'CSV Has No Errors'
+    innerDiv.innerText = 'CSV has no errors'
 
     outerDiv.appendChild(innerDiv)
     container.appendChild(outerDiv)
