@@ -4,13 +4,16 @@ import metaData.ConfigFileReaderWriter
 import metaData.JsonContentReaderWriter
 import request.RequestHandler
 import routeHandler.get.FileGetter
+import java.io.BufferedReader
 import java.io.InputStream
+import java.io.InputStreamReader
 
 
 class PostRouteHandler {
     private val requestHandler = RequestHandler()
     private val fileGetter = FileGetter()
 
+    private val fileNameToByteBufferMap = mutableMapOf<String, ByteArray>()
     fun handlePostRequest(
         request: String,
         inputStream: InputStream,
@@ -19,18 +22,22 @@ class PostRouteHandler {
             "/csv" -> {
                 val jsonContentReaderWriter = JsonContentReaderWriter("src/main/public/files/content.json")
                 val csvWriter = CsvWriter(jsonContentReaderWriter)
-                csvWriter.uploadCsvContent(request, inputStream)
+                csvWriter.uploadCsvContent(request, getBufferedReader(inputStream))
             }
             "/add-meta-data" -> {
                 val configFileReaderWriter = ConfigFileReaderWriter("src/main/public/files/csv-config.json")
                 val configWriter = ConfigWriter(configFileReaderWriter)
-                configWriter.handleWriteConfigData(request, inputStream)
+                configWriter.handleWriteConfigData(request, getBufferedReader(inputStream))
             }
             "/test/file-in-chunks" -> {
-                val getFileInChunks = GetFileInChunks()
+                val getFileInChunks = GetFileInChunks(fileNameToByteBufferMap)
                 getFileInChunks.handle(request, inputStream)
             }
             else -> fileGetter.getFileNotFound()
         }
+    }
+
+    private fun getBufferedReader(inputStream: InputStream): BufferedReader {
+        return BufferedReader(InputStreamReader(inputStream))
     }
 }
