@@ -2,7 +2,6 @@ package request
 
 import java.io.BufferedReader
 import java.io.InputStream
-import java.io.InputStreamReader
 
 class RequestHandler {
     fun getPath(request: String): String {
@@ -12,7 +11,7 @@ class RequestHandler {
     fun getContentLength(request: String): Int {
         val value = getHeaderFieldValue(request, "content-length")
         if (value != null) {
-            return value.trim().toInt()
+            return value.toInt()
         }
         return 0
     }
@@ -40,16 +39,15 @@ class RequestHandler {
         request.split("\n").forEach { headerString ->
             val keyValue = headerString.split(":", limit = 2)
             if (keyValue[0].lowercase().contains(headerField)) {
-                return keyValue[1]
+                return keyValue[1].trim()
             }
         }
         return null
     }
 
-    fun getBodyInString(bodySize: Int, inputStream: InputStream): String {
-        val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+    fun getBodyInString(bodySize: Int, inputStream: BufferedReader): String {
         val buffer = CharArray(bodySize)
-        bufferedReader.read(buffer)
+        inputStream.read(buffer)
         return String(buffer)
     }
 
