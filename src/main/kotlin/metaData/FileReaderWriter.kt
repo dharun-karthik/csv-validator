@@ -5,7 +5,7 @@ import java.io.File
 open class FileReaderWriter(
     private val path: String
 ) {
-    private val file = getMetaDataFile()
+    val file = getMetaDataFile()
 
     fun readRawContent(): String {
         return file.readText()

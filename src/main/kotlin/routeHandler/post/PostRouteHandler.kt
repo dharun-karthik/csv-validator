@@ -2,7 +2,7 @@ package routeHandler.post
 
 import metaData.ConfigFileReaderWriter
 import metaData.FileReaderWriter
-import metaData.JsonContentReaderWriter
+import metaData.CsvContentReader
 import request.RequestHandler
 import routeHandler.get.FileGetter
 import java.io.BufferedReader
@@ -20,8 +20,8 @@ class PostRouteHandler {
     ): String {
         return when (requestHandler.getPath(request)) {
             "/csv" -> {
-                val jsonContentReaderWriter = JsonContentReaderWriter("src/main/public/files/content.json")
-                val csvWriter = CsvWriter(jsonContentReaderWriter)
+                val csvContentReader = CsvContentReader("src/main/public/files/content.json")
+                val csvWriter = CsvWriter(csvContentReader)
                 csvWriter.uploadCsvContent(request, getBufferedReader(inputStream))
             }
             "/add-meta-data" -> {

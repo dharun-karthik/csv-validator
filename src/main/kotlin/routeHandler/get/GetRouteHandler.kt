@@ -1,7 +1,7 @@
 package routeHandler.get
 
 import metaData.ConfigFileReaderWriter
-import metaData.JsonContentReaderWriter
+import metaData.CsvContentReader
 import request.RequestHandler
 
 class GetRouteHandler {
@@ -14,8 +14,8 @@ class GetRouteHandler {
             "/get-meta-data" -> fileGetter.serveFile("/files/csv-config.json")
             "/validate" -> {
                 val configFileReaderWriter = ConfigFileReaderWriter("src/main/public/files/csv-config.json")
-                val jsonContentReaderWriter = JsonContentReaderWriter("src/main/public/files/content.json")
-                CsvValidator(configFileReaderWriter, jsonContentReaderWriter).handleCsv()
+                val csvContentReader = CsvContentReader("src/main/public/files/content.json")
+                CsvValidator(configFileReaderWriter, csvContentReader).handleCsv()
             }
             else -> fileGetter.serveFile(path)
         }
