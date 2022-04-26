@@ -115,20 +115,20 @@ describe('Setting validation rules', () => {
 })
 
 describe('content of error page', () => {
-    it('should contain heading as One place to Validate all your CSVs', () => {
+    it('should contain heading as One place to validate all your CSVs', () => {
         cy.visit('http://localhost:3000/errors.html')
         cy.on('uncaught:exception', () => {
             return false;
           });
-        cy.get('h1:first').should('have.text', 'One place to Validate all your CSVs')
+        cy.get('h1:first').should('have.text', 'One place to validate all your CSVs')
     })
 
-    it('should contain heading as Step 3: Check Your CSV', () => {
-        cy.get('.configs-heading').should('have.text', 'Step 3: Check Your CSV')
+    it('should contain heading as Step 3: Check your CSV', () => {
+        cy.get('.configs-heading').should('have.text', 'Step 3: Check your CSV')
     })
 
     it('should contain heading as In just 3 Easy Steps', () => {
-        cy.get('h2').should('have.text', 'In just 3 Easy Steps')
+        cy.get('h2').should('have.text', 'In just 3 easy steps')
     })
 })
 
