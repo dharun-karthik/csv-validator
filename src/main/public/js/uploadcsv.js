@@ -17,13 +17,15 @@ async function sendResetConfigRequest() {
 async function handleCsvFile(event) {
     const csv = event.target.result;
     const lines = csv.toString().split("\n");
+    captureHeaders(lines[0])
     const result = csvToJson(lines);
     console.log(result)
     const response = await sendRequest(result);
     await handleResponse(response);
 }
 
-function captureHeaders(headersList) {
+function captureHeaders(headersString) {
+    headersList = headersString.split(',')
     headersList.forEach(element => {
         headers.push(element)
     });
@@ -41,7 +43,7 @@ async function sendRequest(result) {
 async function handleResponse(response) {
     console.log(response)
     if (response.status === 200) {
-        await response.json();
+        const jsonData = await response.json();
         window.location.href = 'addRules.html'
         return
     }
