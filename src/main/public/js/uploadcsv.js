@@ -18,7 +18,7 @@ async function handleCsvFile(event) {
     const csv = event.target.result;
     const lines = csv.toString().split("\n");
     captureHeaders(lines[0])
-    const result = csvToJson(lines);
+    const result = csvToJson(csv);
     console.log(result)
     const response = await sendRequest(result);
     await handleResponse(response);

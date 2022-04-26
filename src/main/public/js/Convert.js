@@ -1,26 +1,25 @@
-function csvToJson(lines) {
-    const result = [];
-    const headerWithoutTrim = lines[0].split(",");
-    const headers = headerWithoutTrim.map(element => element.trim().toLowerCase())
-    for (let i = 1; i < lines.length; i++) {
-        const obj = {};
-        const currentLine = (lines[i].split(","));
-        for (let j = 0; j < headers.length; j++) {
-            if (currentLine[j] == "" || currentLine[j] == "\r") {
-                obj[headers[j]] = "null"
-                continue;
-            }
-            if (currentLine[j] == undefined) {
-                obj[headers[j]] = currentLine[j]
-            } else {
-                obj[headers[j]] = currentLine[j].trim();
-            }
-        }
-        result.push(obj);
+function csvToJson(text, headers) {
+    let quoteChar = '"'
+    let delimiter = ','
+    const regex = new RegExp(`\\s*(${quoteChar})?(.*?)\\1\\s*(?:${delimiter}|$)`, 'gs');
+  
+    const match = line => {
+      const matches = [...line.matchAll(regex)].map(m => m[2]);
+      matches.pop();
+      return matches;
     }
-    return result;
-}
-
+  
+    const lines = text.split('\n');
+    const heads = headers ?? match(lines.shift());
+  
+    return lines.map(line => {
+      return match(line).reduce((acc, cur, i) => {
+        const val = (cur == "" || cur == "\r") ? "null" : cur;
+        const key = heads[i] ?? `extra_${i}`;
+        return { ...acc, [key]: val };
+      }, {});
+    });
+  }
 
 function arrangeDependencies(payload) {
     for (let field in payload) {
