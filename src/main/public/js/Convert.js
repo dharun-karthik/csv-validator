@@ -15,7 +15,7 @@ function csvToJson(text, headers) {
     return lines.map(line => {
       return match(line).reduce((acc, cur, i) => {
         const val = (cur == "" || cur == "\r") ? "null" : cur;
-        const key = heads[i] ?? `extra_${i}`;
+        const key = heads[i].toLowerCase() ?? `extra_${i}`;
         return { ...acc, [key]: val };
       }, {});
     });
@@ -51,6 +51,7 @@ function convertPayloadToJsonArray(payload) {
     console.log(jsonArray);
     return jsonArray;
 }
+
 
 function lowerCase(data, field = "") {
     if (field == 'pattern') {
