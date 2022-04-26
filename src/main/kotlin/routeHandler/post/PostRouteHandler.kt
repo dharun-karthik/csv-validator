@@ -13,7 +13,6 @@ class PostRouteHandler {
     private val requestHandler = RequestHandler()
     private val fileGetter = FileGetter()
 
-    private val fileNameToByteBufferMap = mutableMapOf<String, ByteArray>()
     fun handlePostRequest(
         request: String,
         inputStream: InputStream,
@@ -30,7 +29,7 @@ class PostRouteHandler {
                 configWriter.handleWriteConfigData(request, getBufferedReader(inputStream))
             }
             "/test/file-in-chunks" -> {
-                val getFileInChunks = GetFileInChunks(fileNameToByteBufferMap)
+                val getFileInChunks = GetFileInChunks()
                 getFileInChunks.handle(request, inputStream)
             }
             else -> fileGetter.getFileNotFound()
