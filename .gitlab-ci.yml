@@ -3,19 +3,24 @@ image:
   entrypoint: [ "" ]
 
 stages:
+  - build
   - test
 
-cache:
-  key: node-and-gradle-deps
-  paths:
-    - node_modules/
-    - build/
-    - .gradle/
-
+build-job:
+  stage: build
+  script:
+    - echo "Creating Jar"
+    - ./gradlew --no-daemon jar
+    - echo "Jar Created in build/libs/"
+  artifacts:
+    paths:
+      - build/libs/csv-validator-1.0.jar
+    expire_in: 1 day
+    
 back-end-unit-test:
   stage: test
   script:
-    - gradle test
+    - gradle --no-daemon test
 
 front-end-unit-test:
   stage: test
@@ -28,8 +33,8 @@ integration-test:
   needs:
     - job: back-end-unit-test
     - job: front-end-unit-test
+    - job: build-job
   script:
-    - gradle classes
-    - gradle run &
+    - java -jar build/libs/csv-validator-1.0.jar &
     - npm ci
     - npm run e2e
