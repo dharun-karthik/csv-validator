@@ -202,9 +202,14 @@
                 <div class="hidden" id="dependent-value0">
                     <label for="dependent-field-value0">Dependent field value<span class="required-field">*</span>:
                     </label>
-                    <input class="inputs extra-width" id="dependent-field-value0" name="expectedDependentFieldValue"
+                    <!-- <input class="inputs extra-width" id="dependent-field-value0" name="expectedDependentFieldValue"
                            onchange="onChangeHandler(event)" placeholder="Type null for no value, !null for any value"
-                           type="text">
+                           type="text"> -->
+                        <input class="inputs dropdowns" list="dependent-field-valuelist0" id="dependent-field-value0" name="expectedDependentFieldValue">
+                        <datalist id="dependent-field-valuelist0">
+                            <option value="null">Empty</option>
+                            <option value="!null">Not Empty</option>
+                        </datalist>
                 </div>
                 <div class="hidden" id="current-value0">
                     <label for="expectedCurrentFieldValue0">Expected current field value<span

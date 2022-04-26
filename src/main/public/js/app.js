@@ -343,8 +343,11 @@ function addNewField() {
     <div class="row1">
         <div id="dependent-value${numberOfFields}" class="hidden">
             <label for="dependent-field-value${numberOfFields}">Dependent field value: </label>
-            <input type="text" class="inputs extra-width" id="dependent-field-value${numberOfFields}" name="expectedDependentFieldValue"
-                placeholder="Type null for no value, !null for any value" onchange="onChangeHandler(event)">
+            <input class="inputs extra-width" list="dependent-field-valuelist${numberOfFields}" id="dependent-field-value${numberOfFields}" name="expectedDependentFieldValue">
+                <datalist id="dependent-field-valuelist${numberOfFields}">
+                    <option value="null">Empty</option>
+                    <option value="!null">Not Empty</option>
+                </datalist>
         </div>
         <div id="current-value${numberOfFields}" class="hidden">
             <label for="expectedCurrentFieldValue${numberOfFields}">Expected current field value: </label>
