@@ -45,6 +45,7 @@ class TextValidatorTest {
             Arguments.of("ºhello"),
             Arguments.of("£"),
             Arguments.of("ê"),
+            Arguments.of("\uD83D"),
         )
     }
 }
