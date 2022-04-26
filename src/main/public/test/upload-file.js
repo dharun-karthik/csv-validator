@@ -1,7 +1,7 @@
 const upload = async () => {
     const fileElement = document.getElementById("myFile")
     const file = fileElement.files[0]
-    const chunkSize = 40000
+    const chunkSize = 5000000
     const fileSize = file.size
     let numberOfChunks = Math.ceil(file.size / chunkSize)
     let start = 0
@@ -9,20 +9,20 @@ const upload = async () => {
     while (numberOfChunks > 0) {
         end = Math.min(end, fileSize)
         let fileChunk = file.slice(start, end)
-        await uploadChunk(fileChunk)
+        console.log(numberOfChunks, start, end, fileSize)
+        await uploadChunk(fileChunk, start, end, fileSize)
         start = end
         end += chunkSize
         numberOfChunks--
-        console.log(numberOfChunks, start, end, fileSize)
-        console.log(fileChunk)
     }
 }
 
-const uploadChunk = async (fileChunk) => {
+const uploadChunk = async (fileChunk, start, end, size) => {
+    console.log("length ", fileChunk.length)
     await fetch("file-in-chunks", {
         method: "POST",
         headers: {
-            "content-length": fileChunk.size
+            "content-range": `bytes ${start}-${end}/${size}`
         },
         body: fileChunk
     })
