@@ -24,8 +24,11 @@ class CsvSplitter(line: String) {
     }
 
     fun getNextValue(): String {
-        val nextContent = contentIterator.next()
-        return getValueFromGroup(nextContent.groupValues)
+        if (contentIterator.hasNext()) {
+            val nextContent = contentIterator.next()
+            return getValueFromGroup(nextContent.groupValues)
+        }
+        return "null"
     }
 
     private fun getValueFromGroup(rawValue: List<String>): String {
