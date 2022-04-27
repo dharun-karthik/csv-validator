@@ -132,4 +132,90 @@ describe('content of error page', () => {
     })
 })
 
+describe('upload rules as json test', () => {
 
+    it('just uploading the csv file to go to addRulesPage', () => {
+        cy.visit('http://localhost:3000')
+        cy.get('input[type="file"]').attachFile('correctData.csv', { subjectType: 'drag-n-drop' });
+        cy.get('#csv-submit-button').click()
+        
+    })
+
+    it('should add all the data to the rules if config json is valid', () => {
+        cy.visit('http://localhost:3000/addRules.html')
+        cy.wait(500)
+        cy.get('#upload-rule-file').click()
+        cy.get('input[type="file"]').attachFile('correctRule.json');
+        cy.get('#rules-json-submit-button').click()
+        cy.wait(500)
+        cy.get('#type0').should('have.value','text')
+        cy.get('#min-len6').should('have.value','2')
+        cy.get('#max-len6').should('have.value','3')
+        cy.get('#fixed-len7').should('have.value','6')
+        cy.get('#edit-button7').click()
+        cy.get('#value-textbox7').should('have.value','530068')
+        cy.get('#allow-null2').should('have.value','No')
+    })
+
+    it('should delete all previous entered values add all the data to the rules if config json is valid', () => {
+        cy.visit('http://localhost:3000/addRules.html')
+        cy.wait(500)
+
+        cy.get('#type0').select(1)
+        cy.get("#fixed-len0").type("5")
+        cy.get('#type1').select(8)
+        cy.get('#type2').select(1)
+        cy.get('#type3').select(3)
+        cy.get('#fixed-len1').type("1")
+        cy.get('#type4').select(3)
+        cy.get('#type5').select(3)
+        cy.get('#type6').select(1)   
+        cy.get('#type7').select(1)
+
+        cy.get('#upload-rule-file').click()
+        cy.get('input[type="file"]').attachFile('correctRule.json');
+        cy.get('#rules-json-submit-button').click()
+        cy.wait(500)
+        cy.get('#type0').should('have.value','text')
+        cy.get('#min-len6').should('have.value','2')
+        cy.get('#max-len6').should('have.value','3')
+        cy.get('#fixed-len7').should('have.value','6')
+        cy.get('#edit-button7').click()
+        cy.get('#value-textbox7').should('have.value','530068')
+        cy.get('#allow-null2').should('have.value','No')
+
+        cy.get('#fixed-len1').should('have.value','')
+    })
+
+    it('should show error popup if json is invalid', () => {
+        cy.visit('http://localhost:3000/addRules.html')
+        cy.wait(500)
+        cy.get('#upload-rule-file').click()
+        cy.get('input[type="file"]').attachFile('inCorrectRule.json');
+        cy.get('#rules-json-submit-button').click()
+        //TODO
+    })
+
+    it('should erase all the entries of the form if JSON is invalid', () => {
+        cy.visit('http://localhost:3000/addRules.html')
+        cy.wait(500)
+
+        cy.get('#type0').select(1)
+        cy.get("#fixed-len0").type("5")
+        cy.get('#type1').select(8)
+        cy.get('#type2').select(1)
+        cy.get('#type3').select(3)
+        cy.get('#fixed-len1').type("1")
+        cy.get('#type4').select(3)
+        cy.get('#type5').select(3)
+        cy.get('#type6').select(1)   
+        cy.get('#type7').select(1)
+
+        cy.get('#upload-rule-file').click()
+        cy.get('input[type="file"]').attachFile('inCorrectRule.json');
+        cy.get('#rules-json-submit-button').click()
+
+        cy.get('#fixed-len0').should('have.value','')
+    })
+    
+})
