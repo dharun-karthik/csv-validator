@@ -361,7 +361,7 @@ function addNewField() {
     </div>
     <div class="row1">
         <div id="dependent-value${numberOfFields}" class="hidden">
-            <label for="dependent-field-value${numberOfFields}">Dependent field value: </label>
+            <label for="dependent-field-value${numberOfFields}">Dependent field value<span class="required-field">*</span>: </label>
             <input class="inputs extra-width" list="dependent-field-valuelist${numberOfFields}" id="dependent-field-value${numberOfFields}" name="expectedDependentFieldValue">
                 <datalist id="dependent-field-valuelist${numberOfFields}">
                     <option value="null">Empty</option>
@@ -369,7 +369,7 @@ function addNewField() {
                 </datalist>
         </div>
         <div id="current-value${numberOfFields}" class="hidden">
-            <label for="expectedCurrentFieldValue${numberOfFields}">Expected current field value: </label>
+            <label for="expectedCurrentFieldValue${numberOfFields}">Expected current field value<span class="required-field">*</span>: </label>
             <select id="expectedCurrentFieldValue${numberOfFields}" class="dropdowns" name="expectedCurrentFieldValue" onchange="onChangeHandler(event)">
                 <option value="">Choose here</option>
                 <option value="!null">Present</option>
