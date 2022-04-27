@@ -1,0 +1,53 @@
+[
+  {
+    "fieldName": "product id",
+    "type": "alphabets"
+  },
+  {
+    "fieldName": "product description",
+    "type": "alphanumeric"
+  },
+  {
+    "fieldName": "price",
+    "type": "number"
+  },
+  {
+    "fieldName": "export",
+    "type": "alphabets",
+    "minLength": "2",
+    "maxLength": "3"
+  },
+  {
+    "fieldName": "country name",
+    "type": "alphabets",
+    "dependencies": [
+      {
+        "dependentOn": "export",
+        "expectedDependentFieldValue": "null",
+        "expectedCurrentFieldValue": "!null"
+      }
+    ]
+  },
+  {
+    "fieldName": "sent date",
+    "type": "date",
+    "pattern": "MM/dd/uuuu"
+  },
+  {
+    "fieldName": "country code",
+    "type": "alphabets",
+    "minLength": "5",
+    "maxLength": "3",
+    "dependencies": [
+      {
+        "dependentOn": "export",
+        "expectedDependentFieldValue": "null"
+      }
+    ]
+  },
+  {
+    "fieldName": "source pincode",
+    "type": "number",
+    "length": "6"
+  }
+]
