@@ -5,7 +5,7 @@ import metaData.JsonContentReaderWriter
 import org.json.JSONArray
 import response.ContentType
 import response.Response
-import validation.Validation
+import validation.Validator
 import validation.implementation.ColumnValidation
 
 class CsvValidator(
@@ -23,8 +23,8 @@ class CsvValidator(
             return response.generateResponse(errorColumnsJson.toString(), 200, ContentType.JSON.value)
         }
 
-        val validation = Validation(configFileReaderWriter)
-        val responseBody = validation.validate(csvContent)
+        val validator = Validator(configFileReaderWriter)
+        val responseBody = validator.validate(csvContent)
 
         return response.generateResponse(responseBody.toString(), 200, ContentType.JSON.value)
     }

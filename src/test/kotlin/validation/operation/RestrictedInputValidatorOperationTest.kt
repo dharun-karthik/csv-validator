@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 
-internal class RestrictedInputValidationOperationTest {
+internal class RestrictedInputValidatorOperationTest {
     @Test
     fun shouldGetNullWhenFieldValueIsNull() {
         val restrictedInputValidationOperation = RestrictedInputValidationOperation()

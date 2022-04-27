@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 
-class DependencyValidationOperationTest {
+class DependencyValidatorOperationTest {
 
     @Test
     fun shouldGetErrorWhenDependencyIsNotMet() {

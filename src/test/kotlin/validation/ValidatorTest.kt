@@ -10,13 +10,13 @@ import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class ValidationTest {
+class ValidatorTest {
 
     @Test
     fun shouldGetEmptyJsonArrayWhenTheJsonContentIsValid() {
         val configFileReaderWriter =
             ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/csv-config-content-test.json")
-        val validation = Validation(configFileReaderWriter)
+        val validator = Validator(configFileReaderWriter)
         val csvData = """[
     {
         "product id": "15645",
@@ -42,7 +42,7 @@ class ValidationTest {
         val jsonData = JSONArray(csvData)
         val expectedContent = "[]"
 
-        val actual = validation.validate(jsonData)
+        val actual = validator.validate(jsonData)
 
         Assertions.assertEquals(expectedContent, actual.toString())
     }
@@ -51,12 +51,12 @@ class ValidationTest {
     fun shouldGetEmptyJsonArrayWhenThereIsNoContent() {
         val configFileReaderWriter =
             ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/csv-config-content-test.json")
-        val validation = Validation(configFileReaderWriter)
+        val validator = Validator(configFileReaderWriter)
         val csvData = """[]"""
         val jsonData = JSONArray(csvData)
         val expectedContent = "[]"
 
-        val actual = validation.validate(jsonData)
+        val actual = validator.validate(jsonData)
 
         Assertions.assertEquals(expectedContent, actual.toString())
     }
@@ -65,10 +65,10 @@ class ValidationTest {
     @MethodSource("inValidValidationArguments")
     fun shouldGetValidationError(path: String, csvData: String, expectedContent: String) {
         val configFileReaderWriter = ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/validation/$path")
-        val validation = Validation(configFileReaderWriter)
+        val validator = Validator(configFileReaderWriter)
         val jsonData = JSONArray(csvData)
 
-        val actual = validation.validate(jsonData)
+        val actual = validator.validate(jsonData)
 
         Assertions.assertEquals(expectedContent, actual.toString())
     }

@@ -1,0 +1,4 @@
+package validation
+
+class ConfigJsonValidator {
+}

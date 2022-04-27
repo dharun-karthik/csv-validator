@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 
-internal class DuplicationValidationTest {
+internal class DuplicationValidatorTest {
 
     @Test
     fun shouldReturnEmptyListForNoDuplication() {

@@ -8,7 +8,7 @@ import validation.implementation.DuplicationValidation
 import validation.operation.*
 import validation.operation.ValidationType.*
 
-class Validation(private val configFileReaderWriter: ConfigFileReaderWriter) {
+class Validator(private val configFileReaderWriter: ConfigFileReaderWriter) {
     private val validationMap = mutableMapOf(
         NULL_VALIDATION to NullValidationOperation(),
         TYPE_VALIDATION to TypeValidationOperation(),
