@@ -599,17 +599,25 @@ function uploadConfig() {
     const jsonFile = document.getElementById('rules-json-id').files[0]
     const fileReader = new FileReader()
     fileReader.addEventListener("load", () => {
-        let jsonData = JSON.parse(fileReader.result)
-        displayConfigDataFromServersOrDisplayError(jsonData);
+        displayConfigDataOrDisplayError(fileReader.result);
         hideRuleUploadModal()
     });
     fileReader.readAsText(jsonFile, "UTF-8");
 }
 
-function displayConfigDataFromServersOrDisplayError(jsonData) { 
+function displayConfigDataOrDisplayError(jsonString) {
     try {
+        let jsonData = JSON.parse(jsonString)
+        if (!isJsonValid(jsonData)) {
+            throw new Error("Invalid JSON File")
+        }
+        location.reload()
         fillDataInContainer(jsonData)
     } catch (error) {
         alert("Invalid JSON File")
-    } 
+    }
+}
+
+function isJsonValid(jsonData) {
+    return jsonData.length - 1 == numberOfFields
 }
