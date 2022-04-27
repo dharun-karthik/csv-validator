@@ -38,6 +38,9 @@ function assignDependencies(payload, field) {
         "expectedDependentFieldValue": payload[field]["expectedDependentFieldValue"],
         "expectedCurrentFieldValue": payload[field]["expectedCurrentFieldValue"]
     }];
+    delete payload[field]["dependentOn"]
+    delete payload[field]["expectedDependentFieldValue"]
+    delete payload[field]["expectedCurrentFieldValue"]
 }
 
 function convertPayloadToJsonArray(payload) {
