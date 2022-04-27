@@ -7,27 +7,25 @@ class CsvContentReader(path: String) {
     private val headers: List<String>
     private val csvContent = FileReaderWriter(path)
     private val bufferedReader = csvContent.file.bufferedReader()
-    private val regex: Regex
-    private val expression = """(?:,|\n|^)("(?:(?:"")*[^"]*)*"|[^",\n]*|(?:\n|${'$'}))"""
 
     init {
-        regex = expression.toRegex()
         headers = readHeader()
     }
 
 
     private fun readHeader(): List<String> {
         val head = bufferedReader.readLine()
-        return head.split(regex)
+        val csvSplitter = CsvSplitter(head)
+        return csvSplitter.getAllValues()
     }
 
 
     fun readNextLineInJson(): JSONObject {
         val content = bufferedReader.readLine()
-        val contentSplit = content.split(regex)
+        val csvSplitter = CsvSplitter(content)
         val jsonObject = JSONObject()
-        for (i in headers.indices) {
-            jsonObject.put(headers[i], contentSplit[i])
+        for(head in headers){
+            jsonObject.put(head,csvSplitter.getNextValue())
         }
         return jsonObject
     }
