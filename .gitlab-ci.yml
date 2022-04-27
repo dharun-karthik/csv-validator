@@ -6,11 +6,20 @@ stages:
   - build
   - test
 
+before_script:
+- export GRADLE_USER_HOME=`pwd`/.gradle
+
+cache:
+  key: gradle-cache
+  paths:
+    - .gradle/
+    - build/
+
 build-job:
   stage: build
   script:
     - echo "Creating Jar"
-    - ./gradlew --no-daemon jar
+    - gradle jar
     - echo "Jar Created in build/libs/"
   artifacts:
     paths:
@@ -20,19 +29,23 @@ build-job:
 back-end-unit-test:
   stage: test
   script:
-    - gradle --no-daemon test
+    - gradle test
 
 front-end-unit-test:
+  cache:
+    key: npm
+    policy: pull-push
+    paths:
+    - .npm
   stage: test
   script:
-    - npm ci
+    - npm ci --cache .npm --prefer-offline
     - npm test
 
 integration-test:
   stage: test
+  cache: []
   needs:
-    - job: back-end-unit-test
-    - job: front-end-unit-test
     - job: build-job
   script:
     - java -jar build/libs/csv-validator-1.0.jar &
