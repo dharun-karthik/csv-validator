@@ -7,6 +7,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Home | CSV Validator</title>
     <link href="css/style2.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/loadingstyle.css">
 </head>
 
 <body>
@@ -32,6 +33,17 @@
             </div>
             <button class="button big-font" id="csv-submit-button" onclick="uploadCSV()">Upload</button>
         </div>
+    </div>
+</div>
+<div class="upload-loading" id="uploading-pop-up" style="display: none;">
+    <div class="loading-circle">
+        <div id="circle">
+            <div class="moving-circle" id="child">
+            </div>
+        </div>
+    </div>
+    <div class="loading-message">
+        File uploading <span>10</span>%
     </div>
 </div>
 <script src="js/Convert.js"></script>

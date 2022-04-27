@@ -1,11 +1,18 @@
 const headers = [];
 
 async function uploadCSV() {
+    showLoadingDialog()
     let csvElement = document.getElementById('csv-id').files[0];
     await sendResetConfigRequest()
     const reader = new FileReader();
     reader.onload = await handleCsvFile
     reader.readAsText(csvElement)
+}
+
+function showLoadingDialog() {
+    const blurBg = document.getElementById('csv-page')
+    blurBg.classList.toggle('active')
+    document.getElementById('uploading-pop-up').style.display = 'flex'
 }
 
 async function sendResetConfigRequest() {

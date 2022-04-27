@@ -1,0 +1,61 @@
+.upload-loading {
+    position: fixed;
+    top: 25%;
+    left: 30%;
+    background-color: white;
+    width: 40%;
+    height: 50vh;
+    padding: 50px;
+    border-radius: 6px;
+    border-style: none;
+    box-shadow: 0 2px 15px rgb(0 0 0 / 13%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 30px;
+}
+
+.loading-circle {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#circle {
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
+    border: 8px solid #c9ceda;
+    position: relative;
+    animation: moveround 1s linear infinite;
+}
+
+@keyframes moveround {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+.moving-circle {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	transform: rotate(0deg);
+	transition: transform 0.7s linear;
+	top: -10px;
+	left: 60px;
+    background-color: #004FEC;
+    border-radius: 50%;
+}
+
+#csv-page.active {
+    filter: blur(10px);
+    pointer-events: none;
+    user-select: none;
+}
