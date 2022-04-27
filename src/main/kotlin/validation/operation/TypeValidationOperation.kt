@@ -1,6 +1,6 @@
 package validation.operation
 
-import metaData.template.JsonMetaDataTemplate
+import metaData.template.JsonConfigTemplate
 import org.json.JSONObject
 import validation.implementation.valueValidator.*
 
@@ -17,7 +17,7 @@ class TypeValidationOperation : ValidationOperation {
     )
 
     override fun validate(
-        metaDataField: JsonMetaDataTemplate,
+        metaDataField: JsonConfigTemplate,
         currentFieldValue: String,
         key: String,
         currentRow: JSONObject?
@@ -30,7 +30,7 @@ class TypeValidationOperation : ValidationOperation {
     }
 
     private fun checkType(
-        metaDataField: JsonMetaDataTemplate, key: String, currentFieldValue: String
+        metaDataField: JsonConfigTemplate, key: String, currentFieldValue: String
     ): String? {
         val isValid = valueTypeMap[metaDataField.type]!!.validate(currentFieldValue, metaDataField.pattern)
 

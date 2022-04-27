@@ -1,7 +1,7 @@
 package validation.operation
 
 import metaData.template.DependencyTemplate
-import metaData.template.JsonMetaDataTemplate
+import metaData.template.JsonConfigTemplate
 import org.json.JSONObject
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
@@ -13,7 +13,7 @@ class DependencyValidatorOperationTest {
     fun shouldGetErrorWhenDependencyIsNotMet() {
         val dependencyValidation = DependencyValidationOperation()
         val dependency = DependencyTemplate("parent", "null", "null")
-        val metaDataField = JsonMetaDataTemplate("test", "alphabets", dependencies = listOf(dependency))
+        val metaDataField = JsonConfigTemplate("test", "alphabets", dependencies = listOf(dependency))
         val currentRow = JSONObject("""{"test":"hello","parent":"null"}""")
 
         val actual = dependencyValidation.validate(metaDataField, "hello", "test", currentRow)
@@ -26,7 +26,7 @@ class DependencyValidatorOperationTest {
     fun shouldGetNullWhenDependencyConditionIsMet() {
         val dependencyValidation = DependencyValidationOperation()
         val dependency = DependencyTemplate("parent", "null", "null")
-        val metaDataField = JsonMetaDataTemplate("test", "alphabets", dependencies = listOf(dependency))
+        val metaDataField = JsonConfigTemplate("test", "alphabets", dependencies = listOf(dependency))
         val currentRow = JSONObject("""{"test":"null","parent":"null"}""")
 
         val actual = dependencyValidation.validate(metaDataField, "null", "test", currentRow)

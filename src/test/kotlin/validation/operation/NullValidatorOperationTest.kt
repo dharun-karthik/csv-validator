@@ -1,6 +1,6 @@
 package validation.operation
 
-import metaData.template.JsonMetaDataTemplate
+import metaData.template.JsonConfigTemplate
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
@@ -10,7 +10,7 @@ internal class NullValidatorOperationTest {
     @Test
     fun shouldGetErrorWhenFieldValueIsNullAndNullIsNotAllowed() {
         val nullValidationOperation = NullValidationOperation()
-        val metaDataField = JsonMetaDataTemplate("test", "number")
+        val metaDataField = JsonConfigTemplate("test", "number")
 
         val actual = nullValidationOperation.validate(metaDataField, "null", "test")
 
@@ -20,7 +20,7 @@ internal class NullValidatorOperationTest {
     @Test
     fun shouldGetNullWhenFieldValueIsNullAndNullIsAllowed() {
         val nullValidationOperation = NullValidationOperation()
-        val metaDataField = JsonMetaDataTemplate("test", "number", isNullAllowed = "No")
+        val metaDataField = JsonConfigTemplate("test", "number", isNullAllowed = "No")
 
         val actual = nullValidationOperation.validate(metaDataField, "null", "test")
         val expected = "Empty Value not allowed in test"

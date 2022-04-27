@@ -1,6 +1,6 @@
 package metaData
 
-import metaData.template.JsonMetaDataTemplate
+import metaData.template.JsonConfigTemplate
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
@@ -33,9 +33,9 @@ class ConfigFileReaderWriterTest {
     fun shouldBeAbleToWriteJsonToFile() {
         val configFileReaderWriter =
             ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/write-csv-config-content-test.json")
-        val jsonData: Array<JsonMetaDataTemplate> =
+        val jsonData: Array<JsonConfigTemplate> =
             arrayOf(
-                JsonMetaDataTemplate(
+                JsonConfigTemplate(
                     fieldName = "test field",
                     type = "Alphabet",
                     length = "2",

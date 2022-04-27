@@ -1,7 +1,7 @@
 package validation
 
 import metaData.ConfigFileReaderWriter
-import metaData.template.JsonMetaDataTemplate
+import metaData.template.JsonConfigTemplate
 import org.json.JSONArray
 import org.json.JSONObject
 import validation.implementation.DuplicationValidation
@@ -23,7 +23,7 @@ class Validator(private val configFileReaderWriter: ConfigFileReaderWriter) {
     }
 
     private fun iterateJsonContent(
-        dataInJSONArray: JSONArray, metaDataList: Array<JsonMetaDataTemplate>
+        dataInJSONArray: JSONArray, metaDataList: Array<JsonConfigTemplate>
     ): JSONArray {
         val arrayOfAllErrorsByLine = JSONArray()
         val duplicationValidation = DuplicationValidation()
@@ -57,7 +57,7 @@ class Validator(private val configFileReaderWriter: ConfigFileReaderWriter) {
 
     private fun appendValidationErrors(
         keys: MutableSet<String>,
-        metaDataList: Array<JsonMetaDataTemplate>,
+        metaDataList: Array<JsonConfigTemplate>,
         currentRow: JSONObject,
         lineErrors: MutableList<String>
     ) {
@@ -67,7 +67,7 @@ class Validator(private val configFileReaderWriter: ConfigFileReaderWriter) {
     }
 
     private fun appendValidationErrorForCurrentField(
-        metaDataList: Array<JsonMetaDataTemplate>,
+        metaDataList: Array<JsonConfigTemplate>,
         key: String,
         currentRow: JSONObject,
         lineErrors: MutableList<String>

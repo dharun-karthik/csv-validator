@@ -1,6 +1,6 @@
 package validation.implementation.lengthValidator
 
-import metaData.template.JsonMetaDataTemplate
+import metaData.template.JsonConfigTemplate
 
 class MaxLength : LengthTypeValidator {
     override fun validateLengthType(value: String, length: Int?): Boolean {
@@ -10,7 +10,7 @@ class MaxLength : LengthTypeValidator {
         return true
     }
 
-    override fun getAppropriateLengthRestriction(jsonMetaData: JsonMetaDataTemplate): Int? {
+    override fun getAppropriateLengthRestriction(jsonMetaData: JsonConfigTemplate): Int? {
         return jsonMetaData.maxLength?.toInt()
     }
 }

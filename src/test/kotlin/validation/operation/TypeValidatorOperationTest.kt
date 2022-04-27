@@ -1,7 +1,6 @@
 package validation.operation
 
-import metaData.template.JsonMetaDataTemplate
-import org.junit.jupiter.api.Assertions
+import metaData.template.JsonConfigTemplate
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
@@ -11,7 +10,7 @@ internal class TypeValidatorOperationTest {
     @Test
     fun shouldGetNullWhenFieldValueIsNull() {
         val typeValidation = TypeValidationOperation()
-        val metaDataField = JsonMetaDataTemplate("test", "number")
+        val metaDataField = JsonConfigTemplate("test", "number")
 
         val actual = typeValidation.validate(metaDataField, "null", "test")
 
@@ -21,7 +20,7 @@ internal class TypeValidatorOperationTest {
     @Test
     fun shouldGetAppropriateErrorMessage() {
         val typeValidation = TypeValidationOperation()
-        val metaDataField = JsonMetaDataTemplate("test", "number")
+        val metaDataField = JsonConfigTemplate("test", "number")
 
         val actual = typeValidation.validate(metaDataField, "1fa2", "test")
         val expected = "Incorrect format of 'number' in test : 1fa2"

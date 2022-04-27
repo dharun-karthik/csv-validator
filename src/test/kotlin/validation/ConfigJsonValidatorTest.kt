@@ -10,7 +10,7 @@ internal class ConfigJsonValidatorTest {
         val configJsonValidator = ConfigJsonValidator("src/test/kotlin/metaDataTestFiles/configValidation/fixed-len-error.json")
         val expected = """[{"Fixed len less than one":["price"]},{"Min length less than one":[]},{"Max length less than one":[]},{"Min length greater than max length":[]}]"""
 
-        val actual = configJsonValidator.validate().toString()
+        val actual = configJsonValidator.lengthValidate().toString()
 
         assertEquals(expected, actual)
     }
@@ -20,7 +20,7 @@ internal class ConfigJsonValidatorTest {
         val configJsonValidator = ConfigJsonValidator("src/test/kotlin/metaDataTestFiles/configValidation/min-max-len-error.json")
         val expected = """[{"Fixed len less than one":[]},{"Min length less than one":[]},{"Max length less than one":[]},{"Min length greater than max length":["country code"]}]"""
 
-        val actual = configJsonValidator.validate().toString()
+        val actual = configJsonValidator.lengthValidate().toString()
 
         assertEquals(expected, actual)
     }
@@ -30,7 +30,7 @@ internal class ConfigJsonValidatorTest {
         val configJsonValidator = ConfigJsonValidator("src/test/kotlin/metaDataTestFiles/configValidation/min-len-error.json")
         val expected = """[{"Fixed len less than one":[]},{"Min length less than one":["export"]},{"Max length less than one":[]},{"Min length greater than max length":[]}]"""
 
-        val actual = configJsonValidator.validate().toString()
+        val actual = configJsonValidator.lengthValidate().toString()
 
         assertEquals(expected, actual)
     }
@@ -40,7 +40,7 @@ internal class ConfigJsonValidatorTest {
         val configJsonValidator = ConfigJsonValidator("src/test/kotlin/metaDataTestFiles/configValidation/max-len-error.json")
         val expected = """[{"Fixed len less than one":[]},{"Min length less than one":[]},{"Max length less than one":["export"]},{"Min length greater than max length":[]}]"""
 
-        val actual = configJsonValidator.validate().toString()
+        val actual = configJsonValidator.lengthValidate().toString()
 
         assertEquals(expected, actual)
     }

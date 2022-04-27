@@ -1,6 +1,6 @@
 package validation.operation
 
-import metaData.template.JsonMetaDataTemplate
+import metaData.template.JsonConfigTemplate
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
@@ -15,7 +15,7 @@ internal class LengthValidatorOperationTest {
     @Test
     fun shouldGetNullWhenFieldValueIsNull() {
         val lengthValidation = LengthValidationOperation()
-        val metaDataField = JsonMetaDataTemplate("test", "number", maxLength = "2")
+        val metaDataField = JsonConfigTemplate("test", "number", maxLength = "2")
 
         val actual = lengthValidation.validate(metaDataField, "null", "test")
 
@@ -25,7 +25,7 @@ internal class LengthValidatorOperationTest {
     @Test
     fun shouldGetNullWhenLengthConstrainIsNotGiven() {
         val lengthValidation = LengthValidationOperation()
-        val metaDataField = JsonMetaDataTemplate("test", "number")
+        val metaDataField = JsonConfigTemplate("test", "number")
 
         val actual = lengthValidation.validate(metaDataField, "3424", "test")
 
@@ -35,7 +35,7 @@ internal class LengthValidatorOperationTest {
     @ParameterizedTest
     @MethodSource("inValidValidationArguments")
     fun shouldGetErrorWhenLengthConstrainIsGiven(
-        metaDataField: JsonMetaDataTemplate,
+        metaDataField: JsonConfigTemplate,
         currentFieldValue: String,
         expected: String,
     ) {
@@ -49,22 +49,22 @@ internal class LengthValidatorOperationTest {
     private fun inValidValidationArguments(): List<Arguments> {
         return listOf(
             Arguments.of(
-                JsonMetaDataTemplate("test", "number", minLength = "2"),
+                JsonConfigTemplate("test", "number", minLength = "2"),
                 "3",
                 "Value length should be lesser than 2 in test : 3",
             ),
             Arguments.of(
-                JsonMetaDataTemplate("test", "number", maxLength = "2"),
+                JsonConfigTemplate("test", "number", maxLength = "2"),
                 "hell",
                 "Value length should be greater than 2 in test : hell",
             ),
             Arguments.of(
-                JsonMetaDataTemplate("test", "number", length = "2"),
+                JsonConfigTemplate("test", "number", length = "2"),
                 "hell",
                 "Value length should be equal to 2 in test : hell",
             ),
             Arguments.of(
-                JsonMetaDataTemplate("test", "number", length = "2"),
+                JsonConfigTemplate("test", "number", length = "2"),
                 "h",
                 "Value length should be equal to 2 in test : h",
             ),

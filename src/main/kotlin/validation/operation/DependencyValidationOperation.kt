@@ -1,13 +1,13 @@
 package validation.operation
 
 import metaData.template.DependencyTemplate
-import metaData.template.JsonMetaDataTemplate
+import metaData.template.JsonConfigTemplate
 import org.json.JSONObject
 import validation.implementation.DependencyValidation
 
 class DependencyValidationOperation : ValidationOperation {
     override fun validate(
-        metaDataField: JsonMetaDataTemplate,
+        metaDataField: JsonConfigTemplate,
         currentFieldValue: String,
         key: String,
         currentRow: JSONObject?

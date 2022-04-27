@@ -1,6 +1,6 @@
 package validation.operation
 
-import metaData.template.JsonMetaDataTemplate
+import metaData.template.JsonConfigTemplate
 import org.json.JSONObject
 import validation.implementation.lengthValidator.*
 import validation.implementation.lengthValidator.LengthType.*
@@ -13,7 +13,7 @@ class LengthValidationOperation : ValidationOperation {
     )
 
     override fun validate(
-        metaDataField: JsonMetaDataTemplate,
+        metaDataField: JsonConfigTemplate,
         currentFieldValue: String,
         key: String,
         currentRow: JSONObject?
@@ -25,7 +25,7 @@ class LengthValidationOperation : ValidationOperation {
     }
 
     private fun lengthCheck(
-        currentFieldValue: String, key: String, metaDataField: JsonMetaDataTemplate
+        currentFieldValue: String, key: String, metaDataField: JsonConfigTemplate
     ): String? {
         lengthTypeMap.forEach { entry ->
             val lengthTypeValidation = entry.value

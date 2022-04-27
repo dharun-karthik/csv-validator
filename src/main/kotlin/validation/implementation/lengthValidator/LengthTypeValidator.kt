@@ -1,9 +1,9 @@
 package validation.implementation.lengthValidator
 
-import metaData.template.JsonMetaDataTemplate
+import metaData.template.JsonConfigTemplate
 
 interface LengthTypeValidator {
     fun validateLengthType(value: String, length: Int?): Boolean
 
-    fun getAppropriateLengthRestriction(jsonMetaData: JsonMetaDataTemplate): Int?
+    fun getAppropriateLengthRestriction(jsonMetaData: JsonConfigTemplate): Int?
 }

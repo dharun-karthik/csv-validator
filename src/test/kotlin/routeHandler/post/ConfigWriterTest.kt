@@ -1,7 +1,7 @@
 package routeHandler.post
 
 import metaData.ConfigFileReaderWriter
-import metaData.template.JsonMetaDataTemplate
+import metaData.template.JsonConfigTemplate
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import validation.implementation.FakeBufferedReader
@@ -34,7 +34,7 @@ class ConfigWriterTest {
         val fields = post.configFileReaderWriter.readFields()[1]
         configFileReaderWriter.clearFields()
 
-        val expected = JsonMetaDataTemplate(
+        val expected = JsonConfigTemplate(
             fieldName = "Product Description",
             type = "AlphaNumeric",
             minLength = "7",

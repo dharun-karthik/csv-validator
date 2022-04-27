@@ -1,12 +1,12 @@
 package validation.operation
 
-import metaData.template.JsonMetaDataTemplate
+import metaData.template.JsonConfigTemplate
 import org.json.JSONObject
 import validation.implementation.NullValidation
 
 class NullValidationOperation : ValidationOperation {
     override fun validate(
-        metaDataField: JsonMetaDataTemplate,
+        metaDataField: JsonConfigTemplate,
         currentFieldValue: String,
         key: String,
         currentRow: JSONObject?
@@ -19,6 +19,6 @@ class NullValidationOperation : ValidationOperation {
         return null
     }
 
-    private fun isNullValueAllowed(metaDataField: JsonMetaDataTemplate) =
+    private fun isNullValueAllowed(metaDataField: JsonConfigTemplate) =
         metaDataField.isNullAllowed == "No"
 }

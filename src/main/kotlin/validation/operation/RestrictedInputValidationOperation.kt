@@ -1,12 +1,12 @@
 package validation.operation
 
-import metaData.template.JsonMetaDataTemplate
+import metaData.template.JsonConfigTemplate
 import org.json.JSONObject
 import validation.implementation.RestrictedInputValidation
 
 class RestrictedInputValidationOperation : ValidationOperation {
     override fun validate(
-        metaDataField: JsonMetaDataTemplate,
+        metaDataField: JsonConfigTemplate,
         currentFieldValue: String,
         key: String,
         currentRow: JSONObject?
@@ -18,7 +18,7 @@ class RestrictedInputValidationOperation : ValidationOperation {
     }
 
     private fun checkValueInGivenValues(
-        metaDataField: JsonMetaDataTemplate,
+        metaDataField: JsonConfigTemplate,
         currentFieldValue: String,
         key: String
     ): String? {
