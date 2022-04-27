@@ -26,10 +26,29 @@ async function loadMetaData() {
         const jsonData = await resp.json();
         if (jsonData.length === 0) {
             displayHeadersInContainers(headers);
+            loadDataFromJsonFile()
             return
         }
         displayConfigDataFromServer(jsonData);
     }
+}
+
+function loadDataFromJsonFile() {
+    let jsonString = sessionStorage.getItem('json-upload')
+    if(jsonString == null) {
+        return
+    }
+    let jsonData = JSON.parse(jsonString)
+    try {
+        fillDataInContainer(jsonData)
+        sessionStorage.removeItem('json-upload')
+    }
+    catch (err) {
+        alert('Invalid JSON')
+        sessionStorage.removeItem('json-upload')
+        location.reload()
+    }
+    
 }
 
 function getHeaders() {
@@ -606,16 +625,15 @@ function uploadConfig() {
 }
 
 function displayConfigDataOrDisplayError(jsonString) {
-    try {
-        let jsonData = JSON.parse(jsonString)
-        if (!isJsonValid(jsonData)) {
-            throw new Error("Invalid JSON File")
-        }
+
+    let jsonData = JSON.parse(jsonString)
+    if (isJsonValid(jsonData)) {
+        sendResetConfigRequest()
+        sessionStorage.setItem("json-upload", jsonString)
         location.reload()
-        fillDataInContainer(jsonData)
-    } catch (error) {
-        alert("Invalid JSON File")
+        return
     }
+    alert("Ivalid JSON")
 }
 
 function isJsonValid(jsonData) {
