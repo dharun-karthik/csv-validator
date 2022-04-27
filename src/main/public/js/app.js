@@ -465,13 +465,13 @@ function isDateTimeEmpty(index) {
 }
 
 function isDependentFieldValueEmpty(index) {
-    let isDependentValueVisible = document.getElementById(`dependent-value${index}`).style.visibility === 'visible';
+    let isDependentValueVisible = document.getElementById(`dependent-value${index}`).style.display === 'block';
     let isDependentFieldEmpty = document.getElementById(`dependent-field-value${index}`).value === "";
     return (isDependentValueVisible && isDependentFieldEmpty)
 }
 
 function isExpectedCurrentFieldValueEmpty(index) {
-    let isCurrentValueVisible = document.getElementById(`current-value${index}`).style.visibility === 'visible';
+    let isCurrentValueVisible = document.getElementById(`current-value${index}`).style.display === 'block';
     let isCurrentValueEmpty = document.getElementById(`expectedCurrentFieldValue${index}`).value === "";
     return (isCurrentValueVisible && isCurrentValueEmpty)
 }
