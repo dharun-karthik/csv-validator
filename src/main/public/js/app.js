@@ -427,6 +427,13 @@ function customAlert() {
     alertPopup.classList.toggle('active')
 }
 
+function customAlertForInvalidJson() {
+    const blurBg = document.getElementById("blur")
+    blurBg.classList.toggle('active')
+    const alertPopup = document.getElementById("alert-popup-invalid-json")
+    alertPopup.classList.toggle('active')
+}
+
 function customConfirm() {
     let isInputValid = validateInputFields()
     if (!isInputValid) {
@@ -633,7 +640,7 @@ function displayConfigDataOrDisplayError(jsonString) {
         location.reload()
         return
     }
-    alert("Ivalid JSON")
+    customAlertForInvalidJson()
 }
 
 function isJsonValid(jsonData) {
