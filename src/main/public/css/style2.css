@@ -351,6 +351,13 @@ body {
     transition: 0.5s;
 }
 
+#alert-popup-invalid-json.active {
+    top: 50%;
+    visibility: visible;
+    opacity: 1;
+    transition: 0.5s;
+}
+
 .bottom-20px-margin {
     margin-bottom: 20px;
 }
