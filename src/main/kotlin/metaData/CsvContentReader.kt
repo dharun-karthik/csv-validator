@@ -20,8 +20,8 @@ class CsvContentReader(path: String) {
     }
 
 
-    fun readNextLineInJson(): JSONObject {
-        val content = bufferedReader.readLine()
+    fun readNextLineInJson(): JSONObject? {
+        val content = bufferedReader.readLine() ?: return null
         val csvSplitter = CsvSplitter(content)
         val jsonObject = JSONObject()
         for(head in headers){
