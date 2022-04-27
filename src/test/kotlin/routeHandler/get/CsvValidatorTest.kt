@@ -1,7 +1,7 @@
 package routeHandler.get
 
 import metaData.ConfigFileReaderWriter
-import metaData.JsonContentReaderWriter
+import metaData.CsvContentReader
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -11,9 +11,9 @@ class CsvValidatorTest {
     fun shouldGetColumnErrorWhenInvalidColumnNameIsGiven() {
         val configFileReaderWriter =
             ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/csvValidation/csv-config-test.json")
-        val jsonContentReaderWriter =
-            JsonContentReaderWriter("src/test/kotlin/metaDataTestFiles/csvValidation/content-with-wrong-column-name-test.json")
-        val csvValidator = CsvValidator(configFileReaderWriter, jsonContentReaderWriter)
+        val csvContentReader =
+            CsvContentReader("src/test/kotlin/metaDataTestFiles/csvValidation/content-with-wrong-column-name-test.json")
+        val csvValidator = CsvValidator(configFileReaderWriter, csvContentReader)
 
         val actual = csvValidator.handleCsv()
         val content = """[{"0":["producid"]}]"""
@@ -26,9 +26,9 @@ class CsvValidatorTest {
     fun shouldReturnErrorValuesWhenTheValidationFails() {
         val configFileReaderWriter =
             ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/csvValidation/csv-config-test.json")
-        val jsonContentReaderWriter =
-            JsonContentReaderWriter("src/test/kotlin/metaDataTestFiles/csvValidation/content-with-error-test.json")
-        val csvValidator = CsvValidator(configFileReaderWriter, jsonContentReaderWriter)
+        val csvContentReader =
+            CsvContentReader("src/test/kotlin/metaDataTestFiles/csvValidation/content-with-error-test.json")
+        val csvValidator = CsvValidator(configFileReaderWriter, csvContentReader)
 
         val actual = csvValidator.handleCsv()
         val content =
@@ -42,9 +42,9 @@ class CsvValidatorTest {
     fun shouldReturnEmptyArrayWhenValidationIsSuccess() {
         val configFileReaderWriter =
             ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/csvValidation/csv-config-test.json")
-        val jsonContentReaderWriter =
-            JsonContentReaderWriter("src/test/kotlin/metaDataTestFiles/csvValidation/content-with-no-error-test.json")
-        val csvValidator = CsvValidator(configFileReaderWriter, jsonContentReaderWriter)
+        val csvContentReader =
+            CsvContentReader("src/test/kotlin/metaDataTestFiles/csvValidation/content-with-no-error-test.json")
+        val csvValidator = CsvValidator(configFileReaderWriter, csvContentReader)
 
         val actual = csvValidator.handleCsv()
         val content = """[]"""

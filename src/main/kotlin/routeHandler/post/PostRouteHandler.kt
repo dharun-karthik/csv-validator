@@ -19,11 +19,6 @@ class PostRouteHandler {
         inputStream: InputStream,
     ): String {
         return when (requestHandler.getPath(request)) {
-            "/csv" -> {
-                val csvContentReader = CsvContentReader("src/main/public/files/content.json")
-                val csvWriter = CsvWriter(csvContentReader)
-                csvWriter.uploadCsvContent(request, getBufferedReader(inputStream))
-            }
             "/add-meta-data" -> {
                 val configFileReaderWriter = ConfigFileReaderWriter("src/main/public/files/csv-config.json")
                 val configWriter = ConfigWriter(configFileReaderWriter)

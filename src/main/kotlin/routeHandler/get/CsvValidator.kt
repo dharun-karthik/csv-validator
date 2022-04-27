@@ -1,7 +1,7 @@
 package routeHandler.get
 
 import metaData.ConfigFileReaderWriter
-import metaData.JsonContentReaderWriter
+import metaData.CsvContentReader
 import org.json.JSONArray
 import response.ContentType
 import response.Response
@@ -10,13 +10,15 @@ import validation.implementation.ColumnValidation
 
 class CsvValidator(
     val configFileReaderWriter: ConfigFileReaderWriter,
-    private val jsonContentReaderWriter: JsonContentReaderWriter
+    private val csvContentReader: CsvContentReader
 ) {
 
     private val response = Response()
 
     fun handleCsv(): String {
-        val csvContent = jsonContentReaderWriter.readJsonData()
+        //todo update validation
+//        val csvContent = csvContentReader.readJsonData()
+        val csvContent = JSONArray()
 
         val errorColumnsJson = getErrorColumns(csvContent)
         if (!errorColumnsJson.isEmpty) {
