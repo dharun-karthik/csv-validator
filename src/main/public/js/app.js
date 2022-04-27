@@ -44,7 +44,7 @@ function loadDataFromJsonFile() {
         sessionStorage.removeItem('json-upload')
     }
     catch (err) {
-        alert('Invalid JSON')
+        customAlertForInvalidJson()
         sessionStorage.removeItem('json-upload')
         location.reload()
     }
