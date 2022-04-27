@@ -214,6 +214,7 @@ describe('upload rules as json test', () => {
         cy.get('#upload-rule-file').click()
         cy.get('input[type="file"]').attachFile('inCorrectRule.json');
         cy.get('#rules-json-submit-button').click()
+        cy.visit('http://localhost:3000/addRules.html')
 
         cy.get('#fixed-len0').should('have.value','')
     })
