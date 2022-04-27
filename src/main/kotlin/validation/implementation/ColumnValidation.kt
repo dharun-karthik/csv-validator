@@ -3,22 +3,22 @@ package validation.implementation
 import org.json.JSONArray
 import org.json.JSONObject
 
-
+//todo validate with list of column names
 class ColumnValidation {
 
-    fun getColumnsNotInConfig(metaDataJson: String, jsonDataArray: JSONArray): JSONArray {
+    fun validate(metaDataJson: String, listOfHeaders: List<String>): JSONArray {
         val metaDataJsonArray = JSONArray(metaDataJson)
         val unavailableColumnJsonArray = JSONArray()
-        val fieldsInJsonData = getAllFieldNamesOfJsonData(jsonDataArray)
-        val fieldsInMetaData = getAllFieldNamesOfMetaData(metaDataJsonArray)
-        val unavailableFieldNames = fieldsInJsonData.filter { fieldName ->
-            !fieldsInMetaData.contains(fieldName)
-        }
-        if (unavailableFieldNames.isNotEmpty()) {
-            val obj = JSONObject()
-            obj.put("0", unavailableFieldNames)
-            unavailableColumnJsonArray.put(obj)
-        }
+//        val fieldsInJsonData = getAllFieldNamesOfJsonData(listOfHeaders)
+//        val fieldsInMetaData = getAllFieldNamesOfMetaData(metaDataJsonArray)
+//        val unavailableFieldNames = fieldsInJsonData.filter { fieldName ->
+//            !fieldsInMetaData.contains(fieldName)
+//        }
+//        if (unavailableFieldNames.isNotEmpty()) {
+//            val obj = JSONObject()
+//            obj.put("0", unavailableFieldNames)
+//            unavailableColumnJsonArray.put(obj)
+//        }
         return unavailableColumnJsonArray
     }
 

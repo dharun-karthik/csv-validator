@@ -20,7 +20,7 @@ class CsvValidator(
 //        val csvContent = csvContentReader.readJsonData()
         val csvContent = JSONArray()
 
-        val errorColumnsJson = getErrorColumns(csvContent)
+        val errorColumnsJson = getColumnErrors()
         if (!errorColumnsJson.isEmpty) {
             return response.generateResponse(errorColumnsJson.toString(), 200, ContentType.JSON.value)
         }
@@ -31,9 +31,9 @@ class CsvValidator(
         return response.generateResponse(responseBody.toString(), 200, ContentType.JSON.value)
     }
 
-    private fun getErrorColumns(jsonBody: JSONArray): JSONArray {
+    private fun getColumnErrors(): JSONArray {
         val columnValidation = ColumnValidation()
         val metaDataFields = configFileReaderWriter.readRawContent()
-        return columnValidation.getColumnsNotInConfig(metaDataFields, jsonBody)
+        return columnValidation.validate(metaDataFields, csvContentReader.headers)
     }
 }

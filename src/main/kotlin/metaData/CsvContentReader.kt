@@ -4,7 +4,7 @@ import org.json.JSONObject
 
 class CsvContentReader(path: String) {
 
-    private val headers: List<String>
+    val headers: List<String>
     private val csvContent = FileReaderWriter(path)
     private val bufferedReader = csvContent.file.bufferedReader()
 
