@@ -52,7 +52,6 @@ describe("convert payload to jsonarray", () => {
         {
             "field": "Product Description", "type": "Alphanumeric",
             "dependencies": [{ "dependentOn": "Product Id", "expectedDependentFieldValue": "Y", "expectedCurrentFieldValue": "null" }],
-            "dependentOn": "Product Id", "expectedDependentFieldValue": "Y", "expectedCurrentFieldValue": "null"
         }]
 
         let actual = convertPayloadToJsonArray(payload);
