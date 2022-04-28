@@ -355,7 +355,7 @@ function addNewField() {
         <div id="depends-on-column">
             <label for="depends-on${numberOfFields}">Dependency on column:
                 <select class="dropdowns" id="depends-on${numberOfFields}" name="dependentOn" onchange="onChangeHandler(event)">
-                    <option value="">Choose Field</option>
+                    <option value="">Choose field</option>
                 </select> 
             </label>
         </div>
