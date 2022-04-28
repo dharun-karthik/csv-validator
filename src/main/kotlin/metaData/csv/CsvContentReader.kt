@@ -1,5 +1,6 @@
-package metaData
+package metaData.csv
 
+import metaData.FileReaderWriter
 import org.json.JSONObject
 
 class CsvContentReader(path: String) {

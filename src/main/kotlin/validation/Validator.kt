@@ -1,7 +1,7 @@
 package validation
 
 import metaData.ConfigFileReaderWriter
-import metaData.CsvContentReader
+import metaData.csv.CsvContentReader
 import metaData.template.JsonConfigTemplate
 import org.json.JSONArray
 import org.json.JSONObject

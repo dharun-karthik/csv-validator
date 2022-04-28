@@ -1,7 +1,7 @@
 package routeHandler.get
 
 import metaData.ConfigFileReaderWriter
-import metaData.CsvContentReader
+import metaData.csv.CsvContentReader
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

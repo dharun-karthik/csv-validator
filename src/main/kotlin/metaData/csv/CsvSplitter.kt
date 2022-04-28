@@ -1,4 +1,4 @@
-package metaData
+package metaData.csv
 
 class CsvSplitter(line: String) {
 

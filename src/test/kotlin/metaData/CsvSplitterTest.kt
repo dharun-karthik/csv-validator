@@ -1,5 +1,6 @@
 package metaData
 
+import metaData.csv.CsvSplitter
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

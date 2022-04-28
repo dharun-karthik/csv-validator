@@ -1,7 +1,7 @@
 package routeHandler.get
 
 import metaData.ConfigFileReaderWriter
-import metaData.CsvContentReader
+import metaData.csv.CsvContentReader
 import request.RequestHandler
 
 class GetRouteHandler {
