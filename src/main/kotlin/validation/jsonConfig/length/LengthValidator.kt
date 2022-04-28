@@ -6,7 +6,7 @@ abstract class LengthValidator {
 
     abstract fun validate(jsonField: JsonConfigTemplate): String?
 
-    fun validateLength(length: String?, fieldName: String, lengthType: LengthType): String? {
+    protected fun validateLength(length: String?, fieldName: String, lengthType: LengthType): String? {
         if (lengthCheck(length)) {
             return generateLengthErrorMessage(fieldName, lengthType.value)
         }
