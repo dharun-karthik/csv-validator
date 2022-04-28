@@ -302,8 +302,8 @@ function addNewField() {
         </div>
         <div id="field-value${numberOfFields}">
 
-            <label for="edit-button${numberOfFields}">Values: </label>
-            <button id="edit-button${numberOfFields}" onclick="displayValues(this.id)" class="button-on-config-form">ADD</button>
+            <label for="edit-button${numberOfFields}">Allowed values: </label>
+            <button id="edit-button${numberOfFields}" onclick="displayValues(this.id)" class="button-on-config-form">Add</button>
             <div class="modal" id="value-modal${numberOfFields}">
             <div class="modal-content">
                 <span class="close" id="close-modal${numberOfFields}" onclick="hideValues(this.id)">&times;</span>
