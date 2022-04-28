@@ -242,7 +242,7 @@ function addNewField() {
                 <option value="alphabets">Alphabets</option>
                 <option value="date">Date</option>
                 <option value="time">Time</option>
-                <option value="date-time">Date-Time</option>
+                <option value="date-time">Datetime</option>
                 <option value="email">Email</option>
                 <option value="text">Text</option>
             </select>
@@ -281,7 +281,7 @@ function addNewField() {
             </select>
         </div>
         <div id="date-time-format-div${numberOfFields}" style="display: none;">
-            <label for="date-time-format${numberOfFields}">Date-Time format<span class="required-field">*</span>: </label>
+            <label for="date-time-format${numberOfFields}">Datetime format<span class="required-field">*</span>: </label>
             <select id="date-time-format${numberOfFields}" name="pattern" class="dropdowns" onchange="onChangeHandler(event)">
                 <option value="">Choose type</option>
                 <option value="HH:mm:ss dd/MM/uuuu">HH:mm:ss dd/MM/yyyy</option>
