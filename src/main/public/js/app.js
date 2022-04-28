@@ -398,11 +398,11 @@ function onChangeHandler(event) {
 async function sendConfigData() {
     let newConfigData = generatePayload()
     let newPayload = convertPayloadToJsonArray(newConfigData)
-    console.log("Before Reset")
     await sendResetConfigRequest();
     const response = await fetch('add-meta-data', {
         method: 'POST', body: JSON.stringify(newPayload)
     });
+    console.log("After adding metaDate")
     if (response.status === 201) {
         window.location.href = 'errors.html'
         return

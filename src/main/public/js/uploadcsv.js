@@ -1,12 +1,55 @@
 const headers = [];
+let totalChunks = 1;
 
 async function uploadCSV() {
     showLoadingDialog()
-    let csvElement = document.getElementById('csv-id').files[0];
+    let csvFileElement = document.getElementById('csv-id');
+    let file = csvFileElement.files[0];
+    captureFirstLine(file)
+    const chunkSize = 5000000
+    const fileSize = file.size
+    let numberOfChunks = Math.ceil(file.size / chunkSize)
+    totalChunks = numberOfChunks
     await sendResetConfigRequest()
-    const reader = new FileReader();
-    reader.onload = await handleCsvFile
-    reader.readAsText(csvElement)
+    const response = await divideChunksAndUpload(chunkSize, numberOfChunks, fileSize, file);
+    console.log(`response is : ${response}`)
+    if (response.status === 200) {
+        window.location.href = 'addRules.html'
+        return
+    }
+    window.location.href = "pages/404.html"
+}
+
+async function divideChunksAndUpload(chunkSize, numberOfChunks, fileSize, file) {
+    let start = 0
+    let end = chunkSize
+    let response
+    while (numberOfChunks > 0) {
+        end = Math.min(end, fileSize)
+        let fileChunk = file.slice(start, end)
+        sendUploadingStatus(numberOfChunks)
+        response = await uploadChunk(fileChunk, start, end, fileSize)
+        start = end
+        end += chunkSize
+        numberOfChunks--
+    }
+    return response
+}
+
+async function uploadChunk(fileChunk, start, end, size) {
+    return await fetch("upload-csv", {
+        method: "POST",
+        headers: {
+            "content-range": `bytes ${start}-${end}/${size}`
+        },
+        body: fileChunk
+    })
+}
+
+function sendUploadingStatus(currentChunkNumber) {
+    let percentageUploaded = Math.ceil((totalChunks - currentChunkNumber) / totalChunks * 100);
+    console.log(percentageUploaded)
+    document.getElementById('upload-percentage').innerText = String(percentageUploaded)
 }
 
 function showLoadingDialog() {
@@ -15,44 +58,30 @@ function showLoadingDialog() {
     document.getElementById('uploading-pop-up').style.display = 'flex'
 }
 
-async function sendResetConfigRequest() {
-    await fetch('reset-config', {
-        method: 'DELETE',
-    });
+function captureFirstLine(file) {
+    const reader = new FileReader();
+    reader.onload = handleCsvFile
+    reader.readAsText(file)
 }
 
 async function handleCsvFile(event) {
     const csv = event.target.result;
     const lines = csv.toString().split("\n");
     captureHeaders(lines[0])
-    const result = csvToJson(csv);
-    console.log(result)
-    const response = await sendRequest(result);
-    await handleResponse(response);
 }
 
 function captureHeaders(headersString) {
-    headersList = headersString.split(',')
+    let headersList = headersString.split(',')
     headersList.forEach(element => {
-        headers.push(element)
+        let newElement = element.replaceAll("\"", "");
+        headers.push(newElement)
     });
     sessionStorage.removeItem('headers')
     sessionStorage.setItem('headers', JSON.stringify(headers))
 }
 
-
-async function sendRequest(result) {
-    return await fetch('csv', {
-        method: 'POST', body: JSON.stringify(result)
+async function sendResetConfigRequest() {
+    await fetch('reset-config', {
+        method: 'DELETE',
     });
-}
-
-async function handleResponse(response) {
-    console.log(response)
-    if (response.status === 200) {
-        const jsonData = await response.json();
-        window.location.href = 'addRules.html'
-        return
-    }
-    window.location.href = "pages/404.html"
 }
