@@ -590,10 +590,10 @@ function changeButtonToEditIfValuesAdded(index) {
     const button = document.getElementById(`edit-button${index}`)
     console.log(textBoxValue)
     if (textBoxValue === "") {
-        button.innerText = "ADD"
+        button.innerText = "Add"
         button.style.backgroundColor = "#f4f9fe"
     } else {
-        button.innerText = "EDIT"
+        button.innerText = "Edit"
         button.style.backgroundColor = "#dffddf"
     }
 }
