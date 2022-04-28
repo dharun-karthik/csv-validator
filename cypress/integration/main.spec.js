@@ -1,4 +1,5 @@
 describe('cypress connect test', () => {
+    Cypress.config('pageLoadTimeout', 100000)
     it('Open link', () => {
         cy.visit("http://localhost:3000")
     })
@@ -23,6 +24,7 @@ describe('content of landing page', () => {
 })
 
 describe('Uploading file', () => {
+     Cypress.config('pageLoadTimeout', 100000)
      it('should be able to choose csv file for uploading', () => {
         cy.get('#csv-id').selectFile('cypress/fixtures/correctData.csv')
         cy.get('input[type="file"]').attachFile('correctData.csv');
