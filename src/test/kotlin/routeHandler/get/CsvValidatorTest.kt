@@ -12,7 +12,7 @@ class CsvValidatorTest {
         val configFileReaderWriter =
             ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/csvValidation/csv-config-test.json")
         val csvContentReader =
-            CsvContentReader("src/test/kotlin/metaDataTestFiles/csvValidation/content-with-wrong-column-name-test.json")
+            CsvContentReader("src/test/kotlin/metaDataTestFiles/csvValidation/content-with-wrong-column-name-test.csv")
         val csvValidator = CsvValidator(configFileReaderWriter, csvContentReader)
 
         val actual = csvValidator.handleCsv()
@@ -27,7 +27,7 @@ class CsvValidatorTest {
         val configFileReaderWriter =
             ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/csvValidation/csv-config-test.json")
         val csvContentReader =
-            CsvContentReader("src/test/kotlin/metaDataTestFiles/csvValidation/content-with-error-test.json")
+            CsvContentReader("src/test/kotlin/metaDataTestFiles/csvValidation/content-with-error-test.csv")
         val csvValidator = CsvValidator(configFileReaderWriter, csvContentReader)
 
         val actual = csvValidator.handleCsv()
@@ -43,7 +43,7 @@ class CsvValidatorTest {
         val configFileReaderWriter =
             ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/csvValidation/csv-config-test.json")
         val csvContentReader =
-            CsvContentReader("src/test/kotlin/metaDataTestFiles/csvValidation/content-with-no-error-test.json")
+            CsvContentReader("src/test/kotlin/metaDataTestFiles/csvValidation/content-with-no-error-test.csv")
         val csvValidator = CsvValidator(configFileReaderWriter, csvContentReader)
 
         val actual = csvValidator.handleCsv()
