@@ -1,10 +1,9 @@
 package validation.implementation
 
-import org.json.JSONArray
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-/*
+
 class ColumnValidationTest {
 
     internal class GetColumnsNotInConfigTest {
@@ -14,28 +13,24 @@ class ColumnValidationTest {
             val columnValidator = ColumnValidation()
             val configJSON =
                 """[{"fieldName":"ProductID","type":"Number","length":"","minLength":"","maxLength":""},{"fieldName":"ProductName","type":"Alphabet","length":"","minLength":"","maxLength":""}]"""
-            val jsonData = JSONArray(
-                """[{"ProductID":"1564","ProductName":"Table"},{"ProductID":"1234","ProductName":"Chairs"}]"""
-            )
+            val csvHeaders = listOf("ProductID", "ProductName")
             val expected = "[]"
 
-            val actual = columnValidator.validate(configJSON, jsonData).toString()
+            val actual = columnValidator.validate(configJSON, csvHeaders).toString()
 
             assertEquals(expected, actual)
         }
 
         @Test
-        fun shouldReturnAllTheColumnsNotInTest() {
+        fun shouldReturnAllTheColumnsNotInConfig() {
             val columnValidator = ColumnValidation()
             val configJSON =
                 """[{"fieldName":"ProductID","type":"Number","length":"","minLength":"","maxLength":""},{"fieldName":"ProductName","type":"Alphabet","length":"","minLength":"","maxLength":""}]"""
-            val jsonData = JSONArray(
-                """[{"ProductID":"1564","ProductName":"Table","Price":"4500.59","Export":"N","CountryName":"Nagpur","SourceCity":"440001"},{"ProductID":"1234","ProductName":"Chairs","Price":"1000","Export":"Y","CountryName":"AUS","SourceCity":"Mumbai","CountryCode":"61","SourcePincode\\r":"400001"},{"ProductID":""}]"""
-            )
+            val csvHeaders = listOf("ProductID", "ProductName", "Price", "Export", "CountryName", "SourceCity")
             val expected =
-                """[{"0":["price","countryname","export","sourcecity"]}]"""
+                """[{"0":["Price","Export","CountryName","SourceCity"]}]"""
 
-            val actual = columnValidator.validate(configJSON, jsonData).toString()
+            val actual = columnValidator.validate(configJSON, csvHeaders).toString()
 
             assertEquals(expected, actual)
         }
@@ -45,18 +40,15 @@ class ColumnValidationTest {
             val columnValidator = ColumnValidation()
             val configJSON =
                 """[{"fieldName":"productid","type":"Number","length":"","minLength":"","maxLength":""},{"fieldName":"ProductName","type":"Alphabet","length":"","minLength":"","maxLength":""}]"""
-            val jsonData = JSONArray(
-                """[{"ProductID":"1564","productname":"Table","Price":"4500.59","Export":"N","CountryName":"Nagpur","SourceCity":"440001"},{"ProductID":"1234","ProductName":"Chairs","Price":"1000","Export":"Y","CountryName":"AUS","SourceCity":"Mumbai","CountryCode":"61","SourcePincode\\r":"400001"},{"ProductID":""}]"""
-            )
-            val expected =
-                """[{"0":["price","countryname","export","sourcecity"]}]"""
+            val csvHeaders = listOf("ProductID", "productname", "Price", "Export", "CountryName", "SourceCity")
 
-            val actual = columnValidator.validate(configJSON, jsonData).toString()
+            val expected =
+                """[{"0":["Price","Export","CountryName","SourceCity"]}]"""
+
+            val actual = columnValidator.validate(configJSON, csvHeaders).toString()
 
             assertEquals(expected, actual)
         }
 
     }
 }
-
- */
