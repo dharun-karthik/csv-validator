@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-internal class PositiveLengthValidatorOperationTest {
+internal class LengthValidatorOperationTest {
 
     @Test
     fun shouldGetNullWhenFieldValueIsNull() {
