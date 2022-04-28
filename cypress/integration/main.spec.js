@@ -14,8 +14,8 @@ describe('content of landing page', () => {
         cy.get('.configs-heading').should('have.text', 'Step 1: Upload CSV')
     })
 
-    it('should contain heading as In just 3 Easy Steps', () => {
-        cy.get('h2').should('have.text', 'In just 3 easy steps')
+    it('should contain heading as In just 2 Easy Steps', () => {
+        cy.get('h2').should('have.text', 'In just 2 easy steps')
     })
 
     it('should contain heading as Choose or Drag CSV Here', () => {
