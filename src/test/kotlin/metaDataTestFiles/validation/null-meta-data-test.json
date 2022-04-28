@@ -3,5 +3,9 @@
     "fieldName": "name",
     "type": "alphabets",
     "isNullAllowed": "No"
+  },
+  {
+    "fieldName": "age",
+    "type": "number"
   }
 ]

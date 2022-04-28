@@ -1,8 +1,8 @@
 package validation
 
 import metaData.ConfigFileReaderWriter
-import org.json.JSONArray
-import org.junit.jupiter.api.Assertions
+import metaData.CsvContentReader
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
@@ -17,34 +17,13 @@ class ValidatorTest {
         val configFileReaderWriter =
             ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/csv-config-content-test.json")
         val validator = Validator(configFileReaderWriter)
-        val csvData = """[
-    {
-        "product id": "15645",
-        "product description": "TableIsT",
-        "price": "4500.59",
-        "export": "Y",
-        "country name": "USA",
-        "source city": "Nagpur",
-        "country code": "08",
-        "source pincode": "560001"
-    },
-    {
-        "product id": "12369",
-        "product description": "woodenIs",
-        "price": "1000",
-        "export": "N",
-        "country name": "null",
-        "source city": "Mumbai",
-        "country code": "null",
-        "source pincode": "700001"
-    }
-]"""
-        val jsonData = JSONArray(csvData)
+        val csvContentReader =
+            CsvContentReader("src/test/kotlin/metaDataTestFiles/csvContent/valid-csv-content-test.csv")
         val expectedContent = "[]"
 
-        val actual = validator.validate(jsonData)
+        val actual = validator.validate(csvContentReader)
 
-        Assertions.assertEquals(expectedContent, actual.toString())
+        assertEquals(expectedContent, actual.toString())
     }
 
     @Test
@@ -52,67 +31,67 @@ class ValidatorTest {
         val configFileReaderWriter =
             ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/csv-config-content-test.json")
         val validator = Validator(configFileReaderWriter)
-        val csvData = """[]"""
-        val jsonData = JSONArray(csvData)
+        val csvContentReader =
+            CsvContentReader("src/test/kotlin/metaDataTestFiles/csvContent/empty-csv-content-test.csv")
         val expectedContent = "[]"
 
-        val actual = validator.validate(jsonData)
+        val actual = validator.validate(csvContentReader)
 
-        Assertions.assertEquals(expectedContent, actual.toString())
+        assertEquals(expectedContent, actual.toString())
     }
 
     @ParameterizedTest
     @MethodSource("inValidValidationArguments")
-    fun shouldGetValidationError(path: String, csvData: String, expectedContent: String) {
-        val configFileReaderWriter = ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/validation/$path")
+    fun shouldGetValidationError(configPath: String, csvPath: String, expectedContent: String) {
+        val configFileReaderWriter = ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/validation/$configPath")
         val validator = Validator(configFileReaderWriter)
-        val jsonData = JSONArray(csvData)
+        val csvContentReader = CsvContentReader("src/test/kotlin/metaDataTestFiles/csvContent/errorCsv/$csvPath")
 
-        val actual = validator.validate(jsonData)
+        val actual = validator.validate(csvContentReader)
 
-        Assertions.assertEquals(expectedContent, actual.toString())
+        assertEquals(expectedContent, actual.toString())
     }
 
     private fun inValidValidationArguments(): List<Arguments> {
         return listOf(
             Arguments.of(
                 "date-meta-data-test.json",
-                """[{"date": "11/02/2000",},{"date": "15/22/2002",},{"date": "15/02/23",}]""",
+                "date-error-test.csv",
                 """[{"3":["Incorrect format of 'date' in date : 15/22/2002"]},{"4":["Incorrect format of 'date' in date : 15/02/23"]}]"""
             ),
             Arguments.of(
                 "length-meta-data-test.json",
-                """[{"product description": "Table"}]""",
+                "length-error-test.csv",
                 """[{"2":["Value length should be lesser than 7 in product description : Table"]}]"""
             ),
             Arguments.of(
                 "restricted-input-meta-data-test.json",
-                """[{"export": "fa"}]""",
+                "restricted-input-error-test.csv",
                 """[{"2":["Value Not Found export : fa"]}]"""
             ),
             Arguments.of(
                 "dependency-meta-data-test.json",
-                """[{"export": "N","country name": "usa"}]""",
+                "dependency-error-test.csv",
                 """[{"2":["export is N but country name is usa"]}]"""
             ),
             Arguments.of(
                 "restricted-input-meta-data-test.json",
-                """[{"export": "N"},{"export": "N"}]""",
+                "duplication-error-test.csv",
                 """[{"3":["Row Duplication 2"]}]"""
             ),
             Arguments.of(
                 "email-meta-data-test.json",
-                """[{"email": "talon.atlas+managedsahaj.ai"}]""",
+                "email-error-test.csv",
                 """[{"2":["Incorrect format of 'email' in email : talon.atlas+managedsahaj.ai"]}]"""
             ),
             Arguments.of(
                 "text-meta-data-test.json",
-                """[{"text": "£ new one"}]""",
+                "text-error-test.csv",
                 """[{"2":["Incorrect format of 'text' in text : £ new one"]}]"""
             ),
             Arguments.of(
                 "null-meta-data-test.json",
-                """[{"name": "john"},{"name":"null"}]""",
+                "null-error-test.csv",
                 """[{"3":["Empty Value not allowed in name"]}]"""
             )
         )

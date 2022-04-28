@@ -1,7 +1,8 @@
 package validation
 
 import metaData.ConfigFileReaderWriter
-import metaData.template.JsonConfigTemplate
+import metaData.CsvContentReader
+import metaData.template.JsonMetaDataTemplate
 import org.json.JSONArray
 import org.json.JSONObject
 import validation.implementation.DuplicationValidation
@@ -17,27 +18,32 @@ class Validator(private val configFileReaderWriter: ConfigFileReaderWriter) {
         DEPENDENCY_VALIDATION to DependencyValidationOperation()
     )
 
-    fun validate(dataInJSONArray: JSONArray): JSONArray {
+    fun validate(csvContentReader: CsvContentReader): JSONArray {
         val metaDataList = configFileReaderWriter.readFields()
-        return iterateJsonContent(dataInJSONArray, metaDataList)
+        return iterateJsonContent(csvContentReader, metaDataList)
     }
 
     private fun iterateJsonContent(
-        dataInJSONArray: JSONArray, metaDataList: Array<JsonConfigTemplate>
+        csvContentReader: CsvContentReader, metaDataList: Array<JsonMetaDataTemplate>
     ): JSONArray {
         val arrayOfAllErrorsByLine = JSONArray()
         val duplicationValidation = DuplicationValidation()
-        dataInJSONArray.forEachIndexed { index, element ->
+        var index = 0
+        var rowJson = csvContentReader.readNextLineInJson()
+        while (rowJson != null) {
+
             val lineErrors = mutableListOf<String>()
-            val currentRow = (element as JSONObject)
-            val keys = currentRow.keySet()
-            appendDuplicationError(duplicationValidation, currentRow, index, lineErrors)
-            appendValidationErrors(keys, metaDataList, currentRow, lineErrors)
+            val keys = rowJson.keySet()
+            appendDuplicationError(duplicationValidation, rowJson, index, lineErrors)
+            appendValidationErrors(keys, metaDataList, rowJson, lineErrors)
             val lineNumberInCsv = index + 2
             if (lineErrors.isNotEmpty()) {
                 val singleLineErrors = parseErrorsIntoSingleJson(lineNumberInCsv, lineErrors)
                 arrayOfAllErrorsByLine.put(singleLineErrors)
             }
+            index++
+
+            rowJson = csvContentReader.readNextLineInJson()
         }
         return arrayOfAllErrorsByLine
     }
@@ -57,7 +63,7 @@ class Validator(private val configFileReaderWriter: ConfigFileReaderWriter) {
 
     private fun appendValidationErrors(
         keys: MutableSet<String>,
-        metaDataList: Array<JsonConfigTemplate>,
+        metaDataList: Array<JsonMetaDataTemplate>,
         currentRow: JSONObject,
         lineErrors: MutableList<String>
     ) {
@@ -67,7 +73,7 @@ class Validator(private val configFileReaderWriter: ConfigFileReaderWriter) {
     }
 
     private fun appendValidationErrorForCurrentField(
-        metaDataList: Array<JsonConfigTemplate>,
+        metaDataList: Array<JsonMetaDataTemplate>,
         key: String,
         currentRow: JSONObject,
         lineErrors: MutableList<String>

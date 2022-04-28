@@ -16,17 +16,13 @@ class CsvValidator(
     private val response = Response()
 
     fun handleCsv(): String {
-        //todo update validation
-//        val csvContent = csvContentReader.readJsonData()
-        val csvContent = JSONArray()
-
         val errorColumnsJson = getColumnErrors()
         if (!errorColumnsJson.isEmpty) {
             return response.generateResponse(errorColumnsJson.toString(), 200, ContentType.JSON.value)
         }
 
         val validator = Validator(configFileReaderWriter)
-        val responseBody = validator.validate(csvContent)
+        val responseBody = validator.validate(csvContentReader)
 
         return response.generateResponse(responseBody.toString(), 200, ContentType.JSON.value)
     }
