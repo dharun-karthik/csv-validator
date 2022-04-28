@@ -2,7 +2,6 @@ package routeHandler.post
 
 import metaData.ConfigFileReaderWriter
 import metaData.FileReaderWriter
-import metaData.CsvContentReader
 import request.RequestHandler
 import routeHandler.get.FileGetter
 import java.io.BufferedReader
@@ -24,7 +23,7 @@ class PostRouteHandler {
                 val configWriter = ConfigWriter(configFileReaderWriter)
                 configWriter.handleWriteConfigData(request, getBufferedReader(inputStream))
             }
-            "/test/upload-csv" -> {
+            "/upload-csv" -> {
                 val fileReaderWriter = FileReaderWriter("src/main/public/files/uploaded.csv")
                 val csvFileDownloader = CsvFileDownloader(fileReaderWriter)
                 csvFileDownloader.handle(request, inputStream)

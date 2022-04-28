@@ -21,7 +21,7 @@ class CsvContentReaderTest {
         val csvContentReader =
             CsvContentReader("src/test/kotlin/metaDataTestFiles/csvContent/read-json-content-test.csv")
 
-        for(i in 1..6){
+        for (i in 1..6) {
             csvContentReader.readNextLineInJson()
         }
 
@@ -30,11 +30,12 @@ class CsvContentReaderTest {
 
         assertEquals(expected, actual.toString())
     }
+
     @Test
     fun shouldGetNullWhenAllContentsFromTheFileAreRead() {
         val csvContentReader =
             CsvContentReader("src/test/kotlin/metaDataTestFiles/csvContent/read-json-content-test.csv")
-        for(i in 1..8){
+        for (i in 1..8) {
             csvContentReader.readNextLineInJson()
         }
 
