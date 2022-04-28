@@ -84,7 +84,7 @@ function fillAllDependenciesInOneRow(index, headers) {
     for (let oneFieldIndex in headers) {
         let oneField = headers[oneFieldIndex]
         let newFieldForDependency = document.createElement('option')
-        newFieldForDependency.value = oneField.toLowerCase()
+        newFieldForDependency.value = oneField
         newFieldForDependency.innerText = oneField
         document.getElementById(`depends-on${index}`).appendChild(newFieldForDependency)
     }
@@ -497,7 +497,7 @@ function generatePayload() {
     finalJson = {}
     for (let index = 0; index <= numberOfFields; index++) {
         let singleJson = {}
-        let fieldName = lowerCase(document.getElementById(`field${index}`).value)
+        let fieldName = document.getElementById(`field${index}`).value
         let type = document.getElementById(`type${index}`).value
 
         singleJson = addOptionalDataToPayload(index, singleJson)
@@ -526,7 +526,7 @@ function addOptionalDataToPayload(index, singleJson) {
         let data = document.getElementById(`${fieldId}${index}`).value
         let isDataEmpty = data !== ""
         if (isDataEmpty) {
-            singleJson[`${fieldName}`] = lowerCase(data, fieldName)
+            singleJson[`${fieldName}`] = data
         }
     }
     return singleJson
