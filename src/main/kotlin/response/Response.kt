@@ -19,7 +19,7 @@ class Response {
 
     fun generateResponse(content: String, statusCode: Int, contentType: String): String {
         val endOfHeader = lineSeparator + lineSeparator
-        val contentLength = content.length
+        val contentLength = content.toByteArray().size
         return getHttpHead(statusCode) + generateContentType(contentType) + generateContentLength(contentLength) + endOfHeader + content
     }
 
