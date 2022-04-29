@@ -4,10 +4,7 @@ import com.google.gson.Gson
 import metaData.template.JsonConfigTemplate
 import org.json.JSONArray
 import org.json.JSONObject
-import validation.jsonConfig.DateTimePatternValidator
-import validation.jsonConfig.MandatoryFieldsValidator
-import validation.jsonConfig.MaxMinValidator
-import validation.jsonConfig.PositiveLengthValidator
+import validation.jsonConfig.*
 
 class ConfigJsonValidator {
     private val configJsonValidators = listOf(
@@ -20,23 +17,35 @@ class ConfigJsonValidator {
     fun validate(content: String): JSONArray {
         val gson = Gson()
         val configFields = gson.fromJson(content, Array<JsonConfigTemplate>::class.java)
+        val dependencyFieldsValidator = DependencyFieldsValidator()
 
-        val allErrorsInJson = JSONArray()
+        val allErrorsInJsonArray = JSONArray()
         configFields.forEachIndexed { index, jsonField ->
             val allErrorsForCurrentField = mutableListOf<String>()
             for (configValidator in configJsonValidators) {
                 val errors = configValidator.validate(jsonField)
                 allErrorsForCurrentField.addAll(errors)
             }
-            val jsonError = generateJsonError(index, allErrorsForCurrentField)
-            allErrorsInJson.put(jsonError)
+            val allErrors = JSONArray()
+            val dependencyErrors = jsonField.dependencies?.let { dependencyFieldsValidator.validate(it) }
+            if (dependencyErrors != null) {
+                val dependencyErrorInJson = generateJsonError("Dependency errors", dependencyErrors)
+                allErrors.put(dependencyErrorInJson)
+            }
+            if (allErrorsForCurrentField.isNotEmpty()) {
+                val jsonError = generateJsonError("Field errors", allErrorsForCurrentField)
+                allErrors.put(jsonError)
+            }
+            if (!allErrors.isEmpty) {
+                allErrorsInJsonArray.put(generateJsonError((index + 1).toString(), allErrors))
+            }
         }
-        return allErrorsInJson
+        return allErrorsInJsonArray
     }
 
-    private fun generateJsonError(index: Int, allErrorsForCurrentField: MutableList<String>): JSONObject {
+    private fun generateJsonError(message: String, content: Any): JSONObject {
         val jsonObject = JSONObject()
-        jsonObject.put((index + 1).toString(), allErrorsForCurrentField)
+        jsonObject.put(message, content)
         return jsonObject
     }
 }

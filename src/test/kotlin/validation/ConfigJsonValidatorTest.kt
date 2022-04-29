@@ -11,7 +11,31 @@ internal class ConfigJsonValidatorTest {
         val content = """[{"minLength":"-88"}]"""
 
         val expected =
-            """[{"1":["Field 'fieldName' should be provided","Field 'type' should be provided","Min length should be greater than 0"]}]"""
+            """[{"1":[{"Field errors":["Field 'fieldName' should be provided","Field 'type' should be provided","Min length should be greater than 0"]}]}]"""
+
+        val actual = configJsonValidator.validate(content)
+
+        assertEquals(expected, actual.toString())
+    }
+
+    @Test
+    fun shouldGetConfigDependencyErrors() {
+        val content = """[
+            |{
+                |"fieldName":"name",
+                |"type":"number",
+                |"dependencies":
+                    |[
+                        |{
+                            |"dependentOn":"on",
+                            |"expectedCurrentFieldValue":"current"
+                        |}
+                    |]
+            |}
+        |]""".trimMargin()
+
+        val expected =
+            """[{"1":[{"Dependency errors":[{"1":["Dependency field 'expectedDependentFieldValue' should be present"]}]}]}]"""
 
         val actual = configJsonValidator.validate(content)
 
