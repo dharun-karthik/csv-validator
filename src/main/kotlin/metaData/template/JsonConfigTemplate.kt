@@ -1,8 +1,8 @@
 package metaData.template
 
 data class JsonConfigTemplate(
-    val fieldName: String,
-    val type: String,
+    val fieldName: String = "<empty>",
+    val type: String = "<empty>",
     val isNullAllowed: String? = null,
     val pattern: String? = null,
     val length: String? = null,
