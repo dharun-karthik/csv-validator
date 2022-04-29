@@ -7,16 +7,16 @@ import validation.jsonConfig.length.MaxLengthValidator
 import validation.jsonConfig.length.MinLengthValidator
 
 class PositiveLengthValidator : ConfigValidator {
-    private val lengthValidatorMap = mapOf(
-        MIN to MinLengthValidator(),
-        MAX to MaxLengthValidator(),
-        FIXED to FixedLengthValidator()
+    private val lengthValidatorList = listOf(
+        MinLengthValidator(),
+        MaxLengthValidator(),
+        FixedLengthValidator()
     )
 
     override fun validate(jsonField: JsonConfigTemplate): List<String> {
         val errorList = mutableListOf<String>()
-        for (lengthValidator in lengthValidatorMap) {
-            val errorMessage = lengthValidator.value.validate(jsonField)
+        for (lengthValidator in lengthValidatorList) {
+            val errorMessage = lengthValidator.validate(jsonField)
             if (errorMessage != null) {
                 errorList.add(errorMessage)
             }
