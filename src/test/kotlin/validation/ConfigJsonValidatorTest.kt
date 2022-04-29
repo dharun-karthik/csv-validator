@@ -41,4 +41,39 @@ internal class ConfigJsonValidatorTest {
 
         assertEquals(expected, actual.toString())
     }
+    @Test
+    fun shouldNotGetErrorsWhenEveryValueIsPassed() {
+        val content = """[
+            |{
+                |"fieldName":"name",
+                |"type":"number",
+                |"dependencies":
+                    |[
+                        |{
+                            |"dependentOn":"on",
+                            |"expectedCurrentFieldValue":"current",
+                            |"expectedDependentFieldValue":"depend"
+                        |}
+                    |]
+            |}
+        |]""".trimMargin()
+
+        val expected =
+            """[]"""
+
+        val actual = configJsonValidator.validate(content)
+
+        assertEquals(expected, actual.toString())
+    }
+    @Test
+    fun shouldNotGetErrorsWhenNoValuesArePassed() {
+        val content = """[]""".trimMargin()
+
+        val expected =
+            """[]"""
+
+        val actual = configJsonValidator.validate(content)
+
+        assertEquals(expected, actual.toString())
+    }
 }

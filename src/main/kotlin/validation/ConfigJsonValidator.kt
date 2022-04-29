@@ -27,8 +27,8 @@ class ConfigJsonValidator {
                 allErrorsForCurrentField.addAll(errors)
             }
             val allErrors = JSONArray()
-            val dependencyErrors = jsonField.dependencies?.let { dependencyFieldsValidator.validate(it) }
-            if (dependencyErrors != null) {
+            val dependencyErrors = dependencyFieldsValidator.validate(jsonField.dependencies)
+            if (!dependencyErrors.isEmpty) {
                 val dependencyErrorInJson = generateJsonError("Dependency errors", dependencyErrors)
                 allErrors.put(dependencyErrorInJson)
             }

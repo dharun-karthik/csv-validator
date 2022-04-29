@@ -14,8 +14,11 @@ class DependencyFieldsValidator {
         ExpectedCurrentFieldValueValidator(),
     )
 
-    fun validate(dependencyFields: List<DependencyTemplate>): JSONArray {
+    fun validate(dependencyFields: List<DependencyTemplate>?): JSONArray {
         val allErrorsInJson = JSONArray()
+        if (dependencyFields == null) {
+            return allErrorsInJson
+        }
         for ((index, dependencyField) in dependencyFields.withIndex()) {
             val currentDependencyErrors = mutableListOf<String>()
             for (dependencyValidator in dependencyValidators) {
