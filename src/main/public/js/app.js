@@ -215,7 +215,7 @@ function toggleYesNoButton(element) {
         return
     }
     document.getElementById(element).value = "Yes"
-    document.getElementById(element).style.backgroundColor = 'rgb(223, 253, 223)'
+    document.getElementById(element).style.backgroundColor = '#c5e3ff'
 }
 
 function extractIndexFromId(fieldId) {
@@ -349,7 +349,7 @@ function addNewField() {
     <div class="row1">
         <div id="allow-null">
             <label for="allow-null${numberOfFields}" style="margin-right: 40px;">Allow empty value
-                <input class="button-on-config-form bg-green" id="allow-null${numberOfFields}" name="allowNull" type="button" value="Yes" onclick="toggleYesNoButton(this.id)">
+                <input class="button-on-config-form bg-lightblue" id="allow-null${numberOfFields}" name="allowNull" type="button" value="Yes" onclick="toggleYesNoButton(this.id)">
             </label>
         </div>
         <div id="depends-on-column">
@@ -591,7 +591,7 @@ function changeButtonToEditIfValuesAdded(index) {
     console.log(textBoxValue)
     if (textBoxValue === "") {
         button.innerText = "Add"
-        button.style.backgroundColor = "#f4f9fe"
+        button.style.backgroundColor = "#c5e3ff"
     } else {
         button.innerText = "Edit"
         button.style.backgroundColor = "#dffddf"

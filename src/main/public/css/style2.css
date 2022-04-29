@@ -482,7 +482,7 @@ body {
     cursor: pointer;
     padding: 2px 15px;
     height: 34px;
-    background-color: #f4f9fe;
+    background-color: #c5e3ff;
     font-size: 14px;
     line-height: 1.4;
     color: #555555;
@@ -493,7 +493,7 @@ body {
     padding: 0px;
 }
 
-.bg-green {
-    background-color: rgb(223, 253, 223);
+.bg-lightblue {
+    background-color: #c5e3ff;
 }
 
