@@ -10,4 +10,3 @@ cypress/screenshots
 builds/
 bin/
 Dockerfile
-src/main/public/files/
