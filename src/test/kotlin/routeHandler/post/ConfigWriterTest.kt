@@ -1,10 +1,10 @@
 package routeHandler.post
 
+import fakeStreams.FakeInputStreamProvider
 import metaData.ConfigFileReaderWriter
 import metaData.template.JsonConfigTemplate
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import validation.implementation.FakeBufferedReader
 
 class ConfigWriterTest {
 
@@ -25,12 +25,12 @@ class ConfigWriterTest {
     "maxLength": 20
   }]"""
 
-        val fakeBufferedReader = FakeBufferedReader(data)
+        val fakeInputStreamProvider = FakeInputStreamProvider(data)
         val request = """
             Content-Length: ${data.length}
             
         """
-        post.handleWriteConfigData(request, fakeBufferedReader)
+        post.handleWriteConfigData(request, fakeInputStreamProvider)
         val fields = post.configFileReaderWriter.readFields()[1]
         configFileReaderWriter.clearFields()
 

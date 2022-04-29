@@ -1,4 +1,4 @@
-package validation.implementation
+package fakeStreams
 
 import java.io.BufferedReader
 import java.io.Reader

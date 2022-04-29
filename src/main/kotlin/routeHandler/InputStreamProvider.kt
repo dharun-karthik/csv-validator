@@ -3,12 +3,12 @@ package routeHandler
 import java.io.BufferedReader
 import java.io.InputStream
 
-class InputStreamProvider(
+open class InputStreamProvider(
     private val inputStream: InputStream
 ) {
     private val bufferedReader = inputStream.bufferedReader()
 
-    fun getBufferedReader(): BufferedReader {
+    open fun getBufferedReader(): BufferedReader {
         return bufferedReader
     }
 
