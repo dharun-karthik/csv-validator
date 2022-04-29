@@ -19,7 +19,7 @@ class PostRouteHandler {
             "/add-meta-data" -> {
                 val configFileReaderWriter = ConfigFileReaderWriter("src/main/public/files/csv-config.json")
                 val configWriter = ConfigWriter(configFileReaderWriter)
-                configWriter.handleWriteConfigData(request, inputStreamProvider)
+                configWriter.uploadValidConfigJson(request, inputStreamProvider)
             }
             "/upload-csv" -> {
                 val fileReaderWriter = FileReaderWriter("src/main/public/files/uploaded.csv")

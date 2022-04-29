@@ -15,7 +15,7 @@ internal class LengthValidatorOperationTest {
     @Test
     fun shouldGetNullWhenFieldValueIsNull() {
         val lengthValidation = LengthValidationOperation()
-        val metaDataField = JsonConfigTemplate("test", "number", maxLength = "2")
+        val metaDataField = JsonConfigTemplate("test", "number", maxLength = 2)
 
         val actual = lengthValidation.validate(metaDataField, "null", "test")
 
@@ -49,22 +49,22 @@ internal class LengthValidatorOperationTest {
     private fun inValidValidationArguments(): List<Arguments> {
         return listOf(
             Arguments.of(
-                JsonConfigTemplate("test", "number", minLength = "2"),
+                JsonConfigTemplate("test", "number", minLength = 2),
                 "3",
                 "Value length should be lesser than 2 in test : 3",
             ),
             Arguments.of(
-                JsonConfigTemplate("test", "number", maxLength = "2"),
+                JsonConfigTemplate("test", "number", maxLength = 2),
                 "hell",
                 "Value length should be greater than 2 in test : hell",
             ),
             Arguments.of(
-                JsonConfigTemplate("test", "number", length = "2"),
+                JsonConfigTemplate("test", "number", length = 2),
                 "hell",
                 "Value length should be equal to 2 in test : hell",
             ),
             Arguments.of(
-                JsonConfigTemplate("test", "number", length = "2"),
+                JsonConfigTemplate("test", "number", length = 2),
                 "h",
                 "Value length should be equal to 2 in test : h",
             ),

@@ -30,15 +30,16 @@ class ConfigWriterTest {
             Content-Length: ${data.length}
             
         """
-        post.handleWriteConfigData(request, fakeInputStreamProvider)
+        val response = post.uploadValidConfigJson(request, fakeInputStreamProvider)
+        println(response)
         val fields = post.configFileReaderWriter.readFields()[1]
         configFileReaderWriter.clearFields()
 
         val expected = JsonConfigTemplate(
             fieldName = "Product Description",
             type = "AlphaNumeric",
-            minLength = "7",
-            maxLength = "20"
+            minLength = 7,
+            maxLength = 20
         )
         assertEquals(expected, fields)
     }

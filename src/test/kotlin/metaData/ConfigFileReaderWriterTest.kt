@@ -38,15 +38,15 @@ class ConfigFileReaderWriterTest {
                 JsonConfigTemplate(
                     fieldName = "test field",
                     type = "Alphabet",
-                    length = "2",
-                    minLength = "1",
-                    maxLength = "3",
+                    length = 2,
+                    minLength = 1,
+                    maxLength = 3,
                     values = listOf("22")
                 )
             )
         configFileReaderWriter.writeConfigContent(jsonData)
         val expected =
-            """[{"fieldName":"test field","type":"Alphabet","length":"2","minLength":"1","maxLength":"3","values":["22"]}]"""
+            """[{"fieldName":"test field","type":"Alphabet","length":2,"minLength":1,"maxLength":3,"values":["22"]}]"""
 
         val actual = configFileReaderWriter.readRawContent()
 

@@ -10,7 +10,7 @@ internal class MaxLengthValidatorTest {
     @Test
     fun shouldGetErrorMessageWhenMaxLengthIsLesserThanOne() {
         val maxLengthValidator = MaxLengthValidator()
-        val jsonConfig = JsonConfigTemplate("test", "number", maxLength = "-1")
+        val jsonConfig = JsonConfigTemplate("test", "number", maxLength = -1)
 
         val expected = "Max length should be greater than 0"
         val actual = maxLengthValidator.validate(jsonConfig)
@@ -21,7 +21,7 @@ internal class MaxLengthValidatorTest {
     @Test
     fun shouldGetNullWhenMaxLengthIsGreaterThanOne() {
         val maxLengthValidator = MaxLengthValidator()
-        val jsonConfig = JsonConfigTemplate("test", "number", maxLength = "11")
+        val jsonConfig = JsonConfigTemplate("test", "number", maxLength = 11)
 
         val actual = maxLengthValidator.validate(jsonConfig)
 

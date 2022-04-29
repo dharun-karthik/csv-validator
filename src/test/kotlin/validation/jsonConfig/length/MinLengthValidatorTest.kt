@@ -10,7 +10,7 @@ internal class MinLengthValidatorTest {
     @Test
     fun shouldGetErrorMessageWhenMinLengthIsLesserThanOne() {
         val minLengthValidator = MinLengthValidator()
-        val jsonConfig = JsonConfigTemplate("test", "number", minLength = "-1")
+        val jsonConfig = JsonConfigTemplate("test", "number", minLength = -1)
 
         val expected = "Min length should be greater than 0"
         val actual = minLengthValidator.validate(jsonConfig)
@@ -21,7 +21,7 @@ internal class MinLengthValidatorTest {
     @Test
     fun shouldGetNullWhenMinLengthIsGreaterThanOne() {
         val minLengthValidator = MinLengthValidator()
-        val jsonConfig = JsonConfigTemplate("test", "number", minLength = "11")
+        val jsonConfig = JsonConfigTemplate("test", "number", minLength = 11)
 
         val actual = minLengthValidator.validate(jsonConfig)
 
