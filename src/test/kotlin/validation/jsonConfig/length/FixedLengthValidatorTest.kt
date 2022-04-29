@@ -12,7 +12,7 @@ internal class FixedLengthValidatorTest {
         val fixedLengthValidator = FixedLengthValidator()
         val jsonConfig = JsonConfigTemplate("test","number", length = "-1")
 
-        val expected = "Fixed length in test should be greater than 0"
+        val expected = "Fixed length should be greater than 0"
         val actual = fixedLengthValidator.validate(jsonConfig)
 
         assertEquals(expected, actual)

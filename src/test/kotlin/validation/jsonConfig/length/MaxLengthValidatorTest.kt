@@ -12,7 +12,7 @@ internal class MaxLengthValidatorTest {
         val maxLengthValidator = MaxLengthValidator()
         val jsonConfig = JsonConfigTemplate("test", "number", maxLength = "-1")
 
-        val expected = "Max length in test should be greater than 0"
+        val expected = "Max length should be greater than 0"
         val actual = maxLengthValidator.validate(jsonConfig)
 
         assertEquals(expected, actual)

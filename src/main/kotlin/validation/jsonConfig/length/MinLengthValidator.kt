@@ -4,6 +4,6 @@ import metaData.template.JsonConfigTemplate
 
 class MinLengthValidator : LengthValidator() {
     override fun validate(jsonField: JsonConfigTemplate): String? {
-        return validateLength(jsonField.minLength, jsonField.fieldName, LengthType.MIN)
+        return validateLength(jsonField.minLength, LengthType.MIN)
     }
 }
