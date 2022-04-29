@@ -12,7 +12,7 @@ internal class MinLengthValidatorTest {
         val minLengthValidator = MinLengthValidator()
         val jsonConfig = JsonConfigTemplate("test", "number", minLength = "-1")
 
-        val expected = "Min length in test should be greater than 0"
+        val expected = "Min length should be greater than 0"
         val actual = minLengthValidator.validate(jsonConfig)
 
         assertEquals(expected, actual)

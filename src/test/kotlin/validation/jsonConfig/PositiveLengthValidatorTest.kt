@@ -12,9 +12,9 @@ internal class PositiveLengthValidatorTest {
         val jsonConfig = JsonConfigTemplate("test12", "number", length = "-12", maxLength = "-1", minLength = "-9")
 
         val expected = listOf(
-            "Min length in test12 should be greater than 0",
-            "Max length in test12 should be greater than 0",
-            "Fixed length in test12 should be greater than 0"
+            "Min length should be greater than 0",
+            "Max length should be greater than 0",
+            "Fixed length should be greater than 0"
         )
         val actual = positiveLengthValidator.validate(jsonConfig)
 
