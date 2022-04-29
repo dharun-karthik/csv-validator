@@ -1,6 +1,16 @@
 const headers = [];
 let totalChunks = 1;
 
+async function sendFileInParts(chunkSize, numberOfChunks, fileSize, file) {
+    const response = await divideChunksAndUpload(chunkSize, numberOfChunks, fileSize, file);
+    console.log(`response is : ${response}`)
+    if (response.status === 200) {
+        window.location.href = 'addRules.html'
+        return
+    }
+    window.location.href = "pages/404.html"
+}
+
 async function uploadCSV() {
     showLoadingDialog()
     let csvFileElement = document.getElementById('csv-id');
@@ -11,13 +21,7 @@ async function uploadCSV() {
     let numberOfChunks = Math.ceil(file.size / chunkSize)
     totalChunks = numberOfChunks
     await sendResetConfigRequest()
-    const response = await divideChunksAndUpload(chunkSize, numberOfChunks, fileSize, file);
-    console.log(`response is : ${response}`)
-    if (response.status === 200) {
-        window.location.href = 'addRules.html'
-        return
-    }
-    window.location.href = "pages/404.html"
+    await sendFileInParts(chunkSize, numberOfChunks, fileSize, file);
 }
 
 async function divideChunksAndUpload(chunkSize, numberOfChunks, fileSize, file) {
@@ -48,7 +52,7 @@ async function uploadChunk(fileChunk, start, end, size) {
 
 function sendUploadingStatus(currentChunkNumber) {
     let percentageUploaded = Math.ceil((totalChunks - currentChunkNumber) / totalChunks * 100);
-    console.log(percentageUploaded)
+    console.log(`File uploading: ${percentageUploaded}`)
     document.getElementById('upload-percentage').innerText = String(percentageUploaded)
 }
 
