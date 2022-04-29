@@ -41,6 +41,7 @@ internal class ConfigJsonValidatorTest {
 
         assertEquals(expected, actual.toString())
     }
+
     @Test
     fun shouldNotGetErrorsWhenEveryValueIsPassed() {
         val content = """[
@@ -65,6 +66,7 @@ internal class ConfigJsonValidatorTest {
 
         assertEquals(expected, actual.toString())
     }
+
     @Test
     fun shouldNotGetErrorsWhenNoValuesArePassed() {
         val content = """[]""".trimMargin()

@@ -1,16 +1,16 @@
 package validation.jsonConfig.length
 
 import metaData.template.JsonConfigTemplate
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
 
 internal class FixedLengthValidatorTest {
 
     @Test
     fun shouldGetErrorMessageWhenLengthIsLesserThanOne() {
         val fixedLengthValidator = FixedLengthValidator()
-        val jsonConfig = JsonConfigTemplate("test","number", length = "-1")
+        val jsonConfig = JsonConfigTemplate("test", "number", length = "-1")
 
         val expected = "Fixed length should be greater than 0"
         val actual = fixedLengthValidator.validate(jsonConfig)
@@ -21,7 +21,7 @@ internal class FixedLengthValidatorTest {
     @Test
     fun shouldGetNullWhenLengthIsGreaterThanOne() {
         val fixedLengthValidator = FixedLengthValidator()
-        val jsonConfig = JsonConfigTemplate("test","number", length = "11")
+        val jsonConfig = JsonConfigTemplate("test", "number", length = "11")
 
         val actual = fixedLengthValidator.validate(jsonConfig)
 

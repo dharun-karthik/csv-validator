@@ -2,7 +2,6 @@ package validation.jsonConfig
 
 import metaData.template.JsonConfigTemplate
 import validation.jsonConfig.length.FixedLengthValidator
-import validation.jsonConfig.length.LengthType.*
 import validation.jsonConfig.length.MaxLengthValidator
 import validation.jsonConfig.length.MinLengthValidator
 
