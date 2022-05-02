@@ -54,7 +54,7 @@ internal class TypeValidatorOperationTest {
         return listOf(
             Arguments.of("date", "uuuu/MM/dd", "02/2022/05", "yyyy/MM/dd"),
             Arguments.of("time","HH:MM:ss", "abc", "HH:MM:ss"),
-            Arguments.of("date-time", "HH:mm:ss?dd/uuuu/MM", "2022-05-02T12:10:09")
+            Arguments.of("date-time", "HH:mm:ss?dd/uuuu/MM", "2022-05-02T12:10:09", "HH:mm:ss?dd/yyyy/MM")
         )
     }
 }
