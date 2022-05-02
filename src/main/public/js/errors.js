@@ -8,11 +8,16 @@ async function getErrorsFromServer() {
     });
     if (response.status === 200) {
         const jsonData = await response.json();
+        hideLoadingText();
         displayErrorsOrValid(jsonData)
     }
 }
 
-function displayErrorsOrValid(jsonData) {
+function hideLoadingText() {
+    document.getElementById('h3-loading').style.visibility = 'hidden';
+}
+
+async function displayErrorsOrValid(jsonData) {
     errors = jsonData
     console.log(errors)
     if (errors.length == 0) {
@@ -40,7 +45,7 @@ function printCsvValid() {
 }
 
 
-function displayErrors() {
+async function displayErrors() {
     clearPreviousErrors()
     for (key in errors) {
         let errorListContainer = document.createElement('div')
