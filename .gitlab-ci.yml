@@ -4,7 +4,7 @@ image:
 
 stages:
   - unit-test-and-build
-  - test
+  - integration-test
 
 before_script:
 - export GRADLE_USER_HOME=`pwd`/.gradle
@@ -37,7 +37,7 @@ test-backend-and-build:
     
 
 integration-test:
-  stage: test
+  stage: integration-test
   cache: []
   needs:
     - job: test-backend-and-build
