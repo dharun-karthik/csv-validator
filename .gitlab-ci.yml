@@ -15,22 +15,6 @@ cache:
     - .gradle/
     - build/
 
-build-job:
-  stage: build
-  script:
-    - echo "Creating Jar"
-    - gradle jar
-    - echo "Jar Created in build/libs/"
-  artifacts:
-    paths:
-      - build/libs/csv-validator-1.0.jar
-    expire_in: 1 day
-    
-back-end-unit-test:
-  stage: test
-  script:
-    - gradle test
-
 front-end-unit-test:
   cache:
     key: npm
@@ -42,11 +26,22 @@ front-end-unit-test:
     - npm ci --cache .npm --prefer-offline
     - npm test
 
+test-backend-and-build:
+  stage: build
+  script:
+    - gradle build
+    - echo "Jar Created in build/libs/"
+  artifacts:
+    paths:
+      - build/libs/csv-validator-1.0.jar
+    expire_in: 1 day
+    
+
 integration-test:
   stage: test
   cache: []
   needs:
-    - job: build-job
+    - job: test-backend-and-build
   script:
     - java -jar build/libs/csv-validator-1.0.jar &
     - npm ci
