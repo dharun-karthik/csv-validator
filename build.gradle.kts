@@ -2,12 +2,11 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent.*
 
 plugins {
     kotlin("jvm") version "1.6.10"
+    application
 }
 
 group = "ai.sahaj.team2"
 version = "1.0-SNAPSHOT"
-
-apply(plugin = "application")
 
 repositories {
     mavenCentral()
@@ -23,9 +22,13 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
 }
 
-tasks.withType<Test>{
+tasks.withType<Test> {
     useJUnitPlatform()
     testLogging {
         events(PASSED, FAILED, SKIPPED)
     }
+}
+
+application {
+    mainClass.set("MainKt")
 }
