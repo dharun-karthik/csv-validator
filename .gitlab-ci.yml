@@ -30,10 +30,9 @@ test-backend-and-build:
   stage: build
   script:
     - gradle build
-    - echo "Jar Created in build/libs/"
   artifacts:
     paths:
-      - build/libs/csv-validator-1.0.jar
+      - build/distributions
     expire_in: 1 day
     
 
@@ -43,6 +42,7 @@ integration-test:
   needs:
     - job: test-backend-and-build
   script:
-    - java -jar build/libs/csv-validator-1.0.jar &
+    - unzip -q build/distributions/CsvValidator-1.0-SNAPSHOT.zip -d build/distributions
+    - sh build/distributions/CsvValidator-1.0-SNAPSHOT.zip/bin/CsvValidator &
     - npm ci
     - npm run e2e
