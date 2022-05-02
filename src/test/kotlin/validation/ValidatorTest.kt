@@ -57,7 +57,7 @@ class ValidatorTest {
             Arguments.of(
                 "date-meta-data-test.json",
                 "date-error-test.csv",
-                """[{"3":["Incorrect format of 'date' in date : 15/22/2002"]},{"4":["Incorrect format of 'date' in date : 15/02/23"]}]"""
+                """[{"3":["Incorrect format of 'date' in date : 15/22/2002, expected format : dd/MM/yyyy"]},{"4":["Incorrect format of 'date' in date : 15/02/23, expected format : dd/MM/yyyy"]}]"""
             ),
             Arguments.of(
                 "length-meta-data-test.json",
