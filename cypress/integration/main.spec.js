@@ -166,7 +166,7 @@ describe('upload rules as json test', () => {
         cy.get('#upload-rule-file').click()
         cy.get('input[type="file"]').attachFile('correctRule.json');
         cy.get('#rules-json-submit-button').click()
-        cy.wait(500)
+        cy.wait(5000)
         cy.get('#type0').should('have.value','text')
         cy.get('#min-len6').should('have.value','2')
         cy.get('#max-len6').should('have.value','3')
