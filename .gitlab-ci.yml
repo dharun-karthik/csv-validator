@@ -3,7 +3,7 @@ image:
   entrypoint: [ "" ]
 
 stages:
-  - build
+  - unit-test-and-build
   - test
 
 before_script:
@@ -21,13 +21,13 @@ front-end-unit-test:
     policy: pull-push
     paths:
     - .npm
-  stage: test
+  stage: unit-test-and-build
   script:
     - npm ci --cache .npm --prefer-offline
     - npm test
 
 test-backend-and-build:
-  stage: build
+  stage: unit-test-and-build
   script:
     - gradle build
   artifacts:
