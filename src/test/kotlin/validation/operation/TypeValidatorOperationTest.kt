@@ -27,4 +27,15 @@ internal class TypeValidatorOperationTest {
 
         assertEquals(expected, actual)
     }
+
+    @Test
+    fun shouldGetExpectedFormatInErrorMessageForDate() {
+        val typeValidation = TypeValidationOperation()
+        val metaDataField = JsonConfigTemplate("test", "date", pattern = "uuuu/MM/dd")
+
+        val actual = typeValidation.validate(metaDataField, "02/2022/05", "test")
+        val expected = "Incorrect format of 'date' in test : 02/2022/05, expected format : yyyy/MM/dd"
+
+        assertEquals(expected, actual)
+    }
 }
