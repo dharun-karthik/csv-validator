@@ -2,9 +2,9 @@ package validation.jsonConfig
 
 import metaData.template.JsonConfigTemplate
 
-class SupportedDateTypeValidator : ConfigValidator{
+class SupportedPatternTypeValidator : ConfigValidator{
 
-    private val supportedDateTypeList = listOf(
+    private val supportedPatternTypeList = listOf(
         "dd/MM/uuuu",
         "dd/uuuu/MM",
         "MM/dd/uuuu",
@@ -24,6 +24,6 @@ class SupportedDateTypeValidator : ConfigValidator{
         if(jsonField.pattern == null) {
             return listOf()
         }
-        return genericValidator.validate(jsonField.pattern, supportedDateTypeList)
+        return genericValidator.validate(jsonField.pattern, supportedPatternTypeList)
     }
 }
