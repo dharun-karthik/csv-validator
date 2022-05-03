@@ -37,6 +37,7 @@ class TextValidatorTest {
             Arguments.of("fishing!!"),
             Arguments.of("""he said "this is cool""""),
             Arguments.of("this_is_me"),
+            Arguments.of("16 WEST DERBY ROAD  (INBOUND) LIVERPOOL 16 WEST DERBY ROAD  (INBOUND)"),
         )
     }
 
