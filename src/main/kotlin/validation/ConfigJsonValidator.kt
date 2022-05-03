@@ -10,8 +10,8 @@ class ConfigJsonValidator {
     private val configJsonValidators = listOf(
         MandatoryFieldsValidator(),
         SupportedFieldTypeValidator(),
-        SupportedPatternTypeValidator(),
         DateTimePatternValidator(),
+        SupportedPatternTypeValidator(),
         PositiveLengthValidator(),
         MaxMinValidator(),
     )
