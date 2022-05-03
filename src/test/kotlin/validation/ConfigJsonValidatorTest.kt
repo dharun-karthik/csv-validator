@@ -11,7 +11,7 @@ internal class ConfigJsonValidatorTest {
         val content = """[{"minLength":"-88"}]"""
 
         val expected =
-            """[{"1":[{"Field errors":["Field 'fieldName' should be provided","Field 'type' should be provided","Field type <empty> is not supported","Min length should be greater than 0"]}]}]"""
+            """[{"1":[{"Field errors":["Field 'fieldName' should be provided","Field 'type' should be provided","<empty> is not supported","Min length should be greater than 0"]}]}]"""
 
         val actual = configJsonValidator.validate(content)
 

@@ -92,7 +92,7 @@ class ConfigWriterTest {
             
         """
         val content =
-            """[{"1":[{"Field errors":["Field 'fieldName' should be provided"]}]},{"2":[{"Field errors":["Field 'type' should be provided","Field type <empty> is not supported","Max length : 7 should be greater than min length : 20"]}]}]"""
+            """[{"1":[{"Field errors":["Field 'fieldName' should be provided"]}]},{"2":[{"Field errors":["Field 'type' should be provided","<empty> is not supported","Max length : 7 should be greater than min length : 20"]}]}]"""
         val expected = """HTTP/1.1 400 Bad Request
             |Content-Type: application/json; charset=utf-8
             |Content-Length: ${content.length}

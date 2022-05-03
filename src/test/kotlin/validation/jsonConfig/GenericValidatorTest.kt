@@ -9,7 +9,7 @@ internal class GenericValidatorTest {
     @Test
     fun shouldReturnErrorMessageForFieldTypeNotSupported() {
         val genericValidator = GenericValidator()
-        val expected = listOf("Field type numbers is not supported")
+        val expected = listOf("numbers is not supported")
 
         val actual = genericValidator.validate("numbers", supportedFieldTypeList)
 
