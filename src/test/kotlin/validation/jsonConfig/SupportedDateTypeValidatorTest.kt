@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 
 internal class SupportedDateTypeValidatorTest {
     @Test
-    fun shouldReturnErrorForFieldTypeNotSupported() {
+    fun shouldReturnErrorForDateTypeNotSupported() {
         val supportedDateTypeValidator = SupportedDateTypeValidator()
         val jsonConfig = JsonConfigTemplate("date", "yyyy:mm:dd")
         val expected = listOf("Field type yyyy:mm:dd is not supported")
