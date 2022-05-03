@@ -6,7 +6,7 @@ import org.json.JSONObject
 import request.RequestHandler
 import response.ContentType
 import response.Response
-import routeHandler.InputStreamProvider
+import utils.InputStreamProvider
 import validation.ConfigJsonValidator
 
 class ConfigWriter(val configFileReaderWriter: ConfigFileReaderWriter) {

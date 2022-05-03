@@ -1,6 +1,6 @@
 package fakeStreams
 
-import routeHandler.InputStreamProvider
+import utils.InputStreamProvider
 import java.io.BufferedReader
 import java.io.InputStream
 

@@ -1,12 +1,12 @@
 package routeHandler.post
 
-import metaData.ByteFileContent
+import utils.ByteFileContent
 import metaData.FileReaderWriter
 import request.ContentRange
 import request.RequestHandler
 import response.ContentType
 import response.Response
-import routeHandler.InputStreamProvider
+import utils.InputStreamProvider
 
 class CsvFileDownloader(
     private val fileReaderWriter: FileReaderWriter

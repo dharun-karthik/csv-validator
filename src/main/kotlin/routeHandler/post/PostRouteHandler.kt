@@ -3,7 +3,7 @@ package routeHandler.post
 import metaData.ConfigFileReaderWriter
 import metaData.FileReaderWriter
 import request.RequestHandler
-import routeHandler.InputStreamProvider
+import utils.InputStreamProvider
 import routeHandler.get.FileGetter
 
 
