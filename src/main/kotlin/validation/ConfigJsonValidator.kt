@@ -9,6 +9,7 @@ import validation.jsonConfig.*
 class ConfigJsonValidator {
     private val configJsonValidators = listOf(
         MandatoryFieldsValidator(),
+        SupportedFieldTypeValidator(),
         DateTimePatternValidator(),
         PositiveLengthValidator(),
         MaxMinValidator(),
