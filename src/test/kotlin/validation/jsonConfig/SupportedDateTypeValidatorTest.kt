@@ -8,7 +8,7 @@ internal class SupportedDateTypeValidatorTest {
     @Test
     fun shouldReturnErrorForDateTypeNotSupported() {
         val supportedDateTypeValidator = SupportedDateTypeValidator()
-        val jsonConfig = JsonConfigTemplate("date", "yyyy:mm:dd")
+        val jsonConfig = JsonConfigTemplate("abc", "date", pattern = "yyyy:mm:dd")
         val expected = listOf("Field type yyyy:mm:dd is not supported")
 
         val actual = supportedDateTypeValidator.validate(jsonConfig)
