@@ -77,7 +77,7 @@ class ValidatorTest {
             Arguments.of(
                 "restricted-input-meta-data-test.json",
                 "duplication-error-test.csv",
-                """[{"3":["Row Duplication 2"]}]"""
+                """[{"3":["Duplicated line found at : 2"]}]"""
             ),
             Arguments.of(
                 "email-meta-data-test.json",

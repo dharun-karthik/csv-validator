@@ -56,7 +56,7 @@ class Validator(private val configFileReaderWriter: ConfigFileReaderWriter) {
     ) {
         val previousDuplicateIndex = duplicationValidation.isDuplicateIndexAvailable(currentRow, index)
         if (previousDuplicateIndex != null) {
-            val name = "Row Duplication"
+            val name = "Duplicated line found at :"
             lineErrors.add("$name ${previousDuplicateIndex + 1}")
         }
     }
