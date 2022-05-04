@@ -659,3 +659,13 @@ function enterRuleName() {
     const ruleNamePopup = document.getElementById("enter-rule-name-popup")
     ruleNamePopup.classList.toggle('active')
 }
+
+var ruleNameListInDB = ["abc", "def", "ghi", "jkl"]
+function validateRuleName() {
+    let ruleName = document.getElementById("rule-name-input").value
+    if(ruleNameListInDB.includes(ruleName)) {
+        document.getElementById("rule-name-message").style.display = "block"
+    }
+    else
+    document.getElementById("rule-name-message").style.display = "none"
+}
