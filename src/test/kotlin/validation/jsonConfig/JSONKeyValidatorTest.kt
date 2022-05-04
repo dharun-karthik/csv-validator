@@ -16,4 +16,16 @@ internal class JSONKeyValidatorTest  {
 
         assertEquals(expected, actual)
     }
+
+    @Test
+    fun shouldNotReturnErrorMessageIfKeyIsValid() {
+        val jsonKeyValidator = JSONKeyValidator()
+        val jsonString = "{\"fieldName\":\"xyz\",\"minLength\":\"-1\",\"type\":\"text\"}"
+        val jsonObject = JSONObject(jsonString)
+        val actual = jsonKeyValidator.validateKey(jsonObject)
+
+        val expected = listOf<String>()
+
+        assertEquals(expected, actual)
+    }
 }
