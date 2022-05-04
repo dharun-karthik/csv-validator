@@ -14,7 +14,7 @@ async function getErrorsFromServer() {
 }
 
 function hideLoadingText() {
-    document.getElementById('h3-loading').style.visibility = 'hidden';
+    document.getElementById('uploading-pop-up-errors').style.display = 'none';
 }
 
 async function displayErrorsOrValid(jsonData) {

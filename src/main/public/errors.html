@@ -6,6 +6,8 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Errors | CSV Validator</title>
     <link href="css/style2.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/loadingstyle.css">
+    <link rel="icon" href="https://github.com/amitkhirdekar/Quiz_Time/blob/master/icon.png?raw=true" type="image/x-icon">
 </head>
 <body>
 <div class="header">
@@ -21,9 +23,19 @@
 <div class="section" id="csv-page">
     <div class="heading-div" id="csv-upload">
         <h1 class="configs-heading">Validation result</h1>
-        <h3 id = "h3-loading"> Loading... Please wait...</h3>
         <div class="error-list-container" id="display-errors">
         </div>
+    </div>
+</div>
+<div class="upload-loading" id="uploading-pop-up-errors">
+    <div class="loading-circle">
+        <div id="circle">
+            <div class="moving-circle" id="child">
+            </div>
+        </div>
+    </div>
+    <div class="loading-message">
+        Loading validation result
     </div>
 </div>
 <div class="footer"></div>
