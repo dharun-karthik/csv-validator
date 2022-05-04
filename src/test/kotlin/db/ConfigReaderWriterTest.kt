@@ -37,7 +37,7 @@ internal class ConfigReaderWriterTest {
             val jsonData = createArrayOfJsonTemplate()
             val expected = ""
 
-            ConfigReaderWriter().addConfig(configName, jsonData)
+            ConfigReaderWriter().writeConfig(configName, jsonData)
             val actual = "executeQuery()"
 
             assertEquals(expected, actual)
@@ -49,7 +49,7 @@ internal class ConfigReaderWriterTest {
             val jsonData = createArrayOfJsonTemplate( length = true)
             val expected = ""
 
-            ConfigReaderWriter().addConfig(configName, jsonData)
+            ConfigReaderWriter().writeConfig(configName, jsonData)
             val actual = "executeQuery()"
 
             assertEquals(expected, actual)
@@ -61,7 +61,7 @@ internal class ConfigReaderWriterTest {
             val jsonData = createArrayOfJsonTemplate(dependency = true)
             val expected = ""
 
-            ConfigReaderWriter().addConfig(configName, jsonData)
+            ConfigReaderWriter().writeConfig(configName, jsonData)
             val actual = "executeQuery()"
 
             assertEquals(expected, actual)
@@ -73,7 +73,7 @@ internal class ConfigReaderWriterTest {
             val jsonData = createArrayOfJsonTemplate(dateTime = true)
             val expected = ""
 
-            ConfigReaderWriter().addConfig(configName, jsonData)
+            ConfigReaderWriter().writeConfig(configName, jsonData)
             val actual = "executeQuery()"
 
             assertEquals(expected, actual)

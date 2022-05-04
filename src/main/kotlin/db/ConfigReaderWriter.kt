@@ -94,7 +94,7 @@ class ConfigReaderWriter {
         return values
     }
 
-    fun addConfig(configName: String, jsonData: Array<JsonConfigTemplate>) {
+    fun writeConfig(configName: String, jsonData: Array<JsonConfigTemplate>) {
         val queryTemplate = "INSERT INTO csv_configuration(config_name) VALUES(?) RETURNING config_id"
         val preparedStatement = DBConnection.getDBConnection().prepareStatement(queryTemplate)
         preparedStatement.setString(1, configName)
