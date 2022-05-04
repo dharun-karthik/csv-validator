@@ -6,6 +6,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import validation.jsonConfig.*
 
+
 class ConfigJsonValidator {
     private val configJsonValidators = listOf(
         MandatoryFieldsValidator(),
@@ -17,13 +18,18 @@ class ConfigJsonValidator {
     )
 
     fun validate(content: String): JSONArray {
+        val allErrorsInJsonArray = JSONArray()
         val gson = Gson()
         val configFields = gson.fromJson(content, Array<JsonConfigTemplate>::class.java)
         val dependencyFieldsValidator = DependencyFieldsValidator()
+        val jsonKeyValidator = JSONKeyValidator()
+        val jsonFieldArray = JSONArray(content)
 
-        val allErrorsInJsonArray = JSONArray()
         configFields.forEachIndexed { index, jsonField ->
             val allErrorsForCurrentField = mutableListOf<String>()
+            println(jsonFieldArray[index] as JSONObject)
+            val keyErrors = jsonKeyValidator.validateKey(jsonFieldArray[index] as JSONObject)
+            allErrorsForCurrentField.addAll(keyErrors)
             for (configValidator in configJsonValidators) {
                 val errors = configValidator.validate(jsonField)
                 allErrorsForCurrentField.addAll(errors)
@@ -42,6 +48,7 @@ class ConfigJsonValidator {
                 allErrorsInJsonArray.put(generateJsonError((index + 1).toString(), allErrors))
             }
         }
+
         return allErrorsInJsonArray
     }
 
