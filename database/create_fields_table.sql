@@ -10,7 +10,7 @@ CREATE TABLE fields
     config_id     INT,
     field_name    VARCHAR NOT NULL,
     field_type    VARCHAR NOT NULL,
-    isNullAllowed VARCHAR(2),
+    is_null_allowed VARCHAR(2),
     pattern       VARCHAR,
     fixed_length  INT,
     min_length    INT,

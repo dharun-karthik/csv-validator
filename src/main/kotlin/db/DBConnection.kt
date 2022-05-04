@@ -5,7 +5,7 @@ import java.sql.DriverManager
 import java.sql.Statement
 
 object DBConnection {
-    private val connection: Connection
+    val connection: Connection
 
     init {
         val url = "jdbc:postgresql://localhost:5432/csv_validator"
