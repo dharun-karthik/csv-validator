@@ -1,10 +1,10 @@
 package validation.jsonConfig
 
 import org.json.JSONObject
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-internal class JSONKeyValidatorTest  {
+internal class JSONKeyValidatorTest {
     @Test
     fun shouldReturnErrorMessageIfKeyIsNotValid() {
         val jsonKeyValidator = JSONKeyValidator()
@@ -25,6 +25,19 @@ internal class JSONKeyValidatorTest  {
         val actual = jsonKeyValidator.validateKey(jsonObject)
 
         val expected = listOf<String>()
+
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun shouldReturnErrorMessageForInvalidKeyInsideDependencies() {
+        val jsonKeyValidator = JSONKeyValidator()
+        val jsonString =
+            "{\"fieldName\":\"xyz\",\"type\":\"text\",\"dependencies\":[{\"expectedDependentFieldValue\":\"a\",\"expectedCurrentFieldValue\":\"s\",\"dependentOn\":\"abc\",\"xyz\":\"1\"}]}"
+        val jsonObject = JSONObject(jsonString)
+        val actual = jsonKeyValidator.validateKey(jsonObject)
+
+        val expected = listOf("xyz is not a valid key inside dependency")
 
         assertEquals(expected, actual)
     }
