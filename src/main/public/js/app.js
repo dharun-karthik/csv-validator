@@ -647,3 +647,15 @@ function displayConfigDataOrDisplayError(jsonString) {
 function isJsonValid(jsonData) {
     return jsonData.length - 1 == numberOfFields
 }
+
+function enterRuleName() {
+    let isInputValid = validateInputFields()
+    if (!isInputValid) {
+        customAlert();
+        return
+    }
+    const blurBg = document.getElementById("blur")
+    blurBg.classList.toggle('active')
+    const ruleNamePopup = document.getElementById("enter-rule-name-popup")
+    ruleNamePopup.classList.toggle('active')
+}
