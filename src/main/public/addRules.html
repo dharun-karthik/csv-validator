@@ -265,7 +265,8 @@
 </div>
 <div id="enter-rule-name-popup" class="popup">
     <p id="enter-rule-message" class="bottom-20px-margin">Enter rule name</p>
-    <input class="inputs" name="rulename" type="text">
+    <input class="inputs" id="rule-name-input" name="rulename" type="text" onkeyup="validateRuleName()">
+    <p id="rule-name-message">Sorry! rule name already exist</p>
     <div>
         <button class="button big-font" onclick="enterRuleName()">
             Cancel
