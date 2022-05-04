@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import metaData.template.DependencyTemplate
 import metaData.template.JsonConfigTemplate
 import java.sql.PreparedStatement
+import java.sql.Types
 
 class ConfigReaderWriter {
     private val gson = Gson()
@@ -58,6 +59,7 @@ class ConfigReaderWriter {
         statement.setString(2, dependency.dependentOn)
         statement.setString(3, dependency.expectedDependentFieldValue)
         statement.setString(4, dependency.expectedCurrentFieldValue)
+         statement.executeUpdate()
     }
 
     private fun insertValues(fieldId: Int, values: List<String>?) {
@@ -71,6 +73,7 @@ class ConfigReaderWriter {
         val statement = DBConnection.connection.prepareStatement(queryTemplate)
         statement.setInt(1, fieldId)
         statement.setString(2, value)
+        statement.executeUpdate()
     }
 
     private fun setQueryFields(
@@ -83,8 +86,20 @@ class ConfigReaderWriter {
         statement.setString(3, jsonData.type)
         statement.setString(4, jsonData.isNullAllowed)
         statement.setString(5, jsonData.pattern)
-        jsonData.length?.let { statement.setInt(6, it) }
-        jsonData.minLength?.let { statement.setInt(7, it) }
-        jsonData.maxLength?.let { statement.setInt(8, it) }
+        if (jsonData.length == null) {
+            statement.setNull(6, Types.INTEGER)
+        } else {
+            statement.setInt(6, jsonData.length)
+        }
+        if (jsonData.minLength == null) {
+            statement.setNull(7, Types.INTEGER)
+        } else {
+            statement.setInt(7, jsonData.minLength)
+        }
+        if (jsonData.maxLength == null) {
+            statement.setNull(8, Types.INTEGER)
+        } else {
+            statement.setInt(8, jsonData.maxLength)
+        }
     }
 }
