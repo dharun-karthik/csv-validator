@@ -27,7 +27,7 @@ internal class ConfigJsonValidatorTest {
                 |"dependencies":
                     |[
                         |{
-                            |"dependentOn":"on",
+                            |"dependentOn":"Product",
                             |"expectedCurrentFieldValue":"current"
                         |}
                     |]
@@ -35,7 +35,7 @@ internal class ConfigJsonValidatorTest {
         |]""".trimMargin()
 
         val expected =
-            """[{"1":[{"Dependency errors":[{"1":["Dependency field 'expectedDependentFieldValue' should be present"]}]}]}]"""
+            """[{"1":[{"Dependency errors":[{"1":["Dependency field 'expectedDependentFieldValue' should be present"]}]},{"Field errors":["Field name Product not found"]}]}]"""
 
         val actual = configJsonValidator.validate(content)
 
@@ -51,11 +51,15 @@ internal class ConfigJsonValidatorTest {
                 |"dependencies":
                     |[
                         |{
-                            |"dependentOn":"on",
+                            |"dependentOn":"product",
                             |"expectedCurrentFieldValue":"current",
                             |"expectedDependentFieldValue":"depend"
                         |}
                     |]
+            |},
+            |{
+                |"fieldName":"product",
+                |"type":"text"
             |}
         |]""".trimMargin()
 
