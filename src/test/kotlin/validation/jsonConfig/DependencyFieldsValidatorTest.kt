@@ -37,6 +37,21 @@ internal class DependencyFieldsValidatorTest {
         val actual = dependencyFieldsValidator.validate(dependencies)
 
         assertEquals(expected, actual.toString())
+    }
 
+    @Test
+    fun shouldGiveErrorWhenDependentOnColumnValueIsNotFound() {
+        val dependencyFieldsValidator = DependencyFieldsValidator()
+        val fieldNameList = listOf("Product", "Country", "Pincode")
+        val dependencies = listOf(
+            DependencyTemplate(
+                dependentOn = "abc",
+                expectedCurrentFieldValue = "current",
+                expectedDependentFieldValue = "dependent"
+            )
+        )
+        val expected = listOf("Field name abc not found")
+        val actual = dependencyFieldsValidator.validateDependentOnColumnName(dependencies, fieldNameList)
+        assertEquals(expected, actual)
     }
 }
