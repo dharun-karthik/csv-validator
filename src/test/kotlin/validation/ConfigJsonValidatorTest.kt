@@ -78,4 +78,22 @@ internal class ConfigJsonValidatorTest {
 
         assertEquals(expected, actual.toString())
     }
+
+    @Test
+    fun shouldGetInvalidKeyErrors() {
+        val content = """[
+            |{
+                |"fieldName":"name",
+                |"type":"number",
+                |"abc":"1"
+            |}
+        |]""".trimMargin()
+
+        val expected =
+            """[{"1":[{"Field errors":["abc is not a valid key"]}]}]"""
+
+        val actual = configJsonValidator.validate(content)
+
+        assertEquals(expected, actual.toString())
+    }
 }
