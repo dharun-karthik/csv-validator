@@ -24,12 +24,16 @@ class ConfigJsonValidator {
         val dependencyFieldsValidator = DependencyFieldsValidator()
         val jsonKeyValidator = JSONKeyValidator()
         val jsonFieldArray = JSONArray(content)
-
+        val fieldNameList = getFieldNames(configFields)
         configFields.forEachIndexed { index, jsonField ->
             val allErrorsForCurrentField = mutableListOf<String>()
             println(jsonFieldArray[index] as JSONObject)
             val keyErrors = jsonKeyValidator.validateKey(jsonFieldArray[index] as JSONObject)
             allErrorsForCurrentField.addAll(keyErrors)
+            if(jsonField.dependencies != null) {
+                val fieldNameErrorsInDependency = dependencyFieldsValidator.validateDependentOnColumnName(jsonField.dependencies,fieldNameList)
+                allErrorsForCurrentField.addAll(fieldNameErrorsInDependency)
+            }
             for (configValidator in configJsonValidators) {
                 val errors = configValidator.validate(jsonField)
                 allErrorsForCurrentField.addAll(errors)
@@ -56,5 +60,16 @@ class ConfigJsonValidator {
         val jsonObject = JSONObject()
         jsonObject.put(message, content)
         return jsonObject
+    }
+
+    private fun getFieldNames(configFields: Array<JsonConfigTemplate>) : List<String>{
+        val columnNameList = mutableListOf<String>()
+        configFields.forEach{jsonField ->
+            if(jsonField.fieldName != "<empty>") {
+                columnNameList.add(jsonField.fieldName)
+            }
+        }
+        println("col list -> $columnNameList")
+        return columnNameList
     }
 }
