@@ -234,7 +234,7 @@
             <button class="button big-font" id="downlog-config-btn" onclick="downloadConfig()">
                 Download rules
             </button>
-            <button class="button big-font" id="downlog-config-btn" onclick="">
+            <button class="button big-font" id="downlog-config-btn" onclick="enterRuleName()">
                 Save rules
             </button>
         </div>
@@ -259,6 +259,18 @@
             Cancel
         </button>
         <button class="button big-font" id="ok-btn" onclick="sendConfigData()">
+            Ok
+        </button>
+    </div>
+</div>
+<div id="enter-rule-name-popup" class="popup">
+    <p id="enter-rule-message" class="bottom-20px-margin">Enter rule name</p>
+    <input class="inputs" name="rulename" type="text">
+    <div>
+        <button class="button big-font" onclick="enterRuleName()">
+            Cancel
+        </button>
+        <button class="button big-font" onclick="">
             Ok
         </button>
     </div>
