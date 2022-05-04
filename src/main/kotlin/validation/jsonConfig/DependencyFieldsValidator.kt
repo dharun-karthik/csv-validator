@@ -35,10 +35,13 @@ class DependencyFieldsValidator {
         return allErrorsInJson
     }
 
-    fun validateDependentOnColumnName(dependencies: List<DependencyTemplate>, fieldNameList: List<String>) : List<String> {
+    fun validateDependentOnColumnName(
+        dependencies: List<DependencyTemplate>,
+        fieldNameList: List<String>
+    ): List<String> {
         val dependentOnColumnNameError = mutableListOf<String>()
         dependencies.forEach { dependency ->
-            if(dependency.dependentOn !in fieldNameList) {
+            if (dependency.dependentOn !in fieldNameList) {
                 dependentOnColumnNameError.add("Field name ${dependency.dependentOn} not found")
             }
         }
