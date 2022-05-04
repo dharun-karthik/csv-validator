@@ -1,7 +1,7 @@
 CREATE TABLE csv_configuration
 (
     config_id   SERIAL PRIMARY KEY,
-    config_name VARCHAR NOT NULL
+    config_name VARCHAR NOT NULL UNIQUE
 );
 
 CREATE TABLE fields
