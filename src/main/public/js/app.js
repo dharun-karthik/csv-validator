@@ -662,6 +662,8 @@ function enterRuleName() {
 
 var ruleNameListInDB = ["abc", "def", "ghi", "jkl"]
 function validateRuleName() {
+    document.getElementById("tooltiptext").style.visibility = "hidden"
+
     let ruleName = document.getElementById("rule-name-input").value
     if(ruleNameListInDB.includes(ruleName)) {
         document.getElementById("rule-name-message").style.visibility = "visible"
