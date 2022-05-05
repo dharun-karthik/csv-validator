@@ -1,6 +1,5 @@
 package db
 
-import com.google.gson.Gson
 import metaData.template.DependencyTemplate
 import metaData.template.JsonConfigTemplate
 import java.sql.PreparedStatement
@@ -8,9 +7,7 @@ import java.sql.ResultSet
 import java.sql.Types
 
 class ConfigReaderWriter {
-    private val gson = Gson()
-
-    fun readConfig(configName: String): MutableList<JsonConfigTemplate> {
+    fun readConfig(configName: String): Array<JsonConfigTemplate> {
         val query = """
             SELECT config_name,
                    field_id,
@@ -33,7 +30,7 @@ class ConfigReaderWriter {
         while (result.next()) {
             finalConfig.add(getJsonConfig(result))
         }
-        return finalConfig
+        return finalConfig.toTypedArray()
     }
 
     fun writeConfig(configName: String, jsonData: Array<JsonConfigTemplate>) {
@@ -41,7 +38,8 @@ class ConfigReaderWriter {
         val insertStatement = DBConnection.getDBConnection().prepareStatement(queryTemplate)
         insertStatement.setString(1, configName)
         insertStatement.executeUpdate()
-        val preparedStatement = DBConnection.getDBConnection().prepareStatement("select max(config_id) as config_id from csv_configuration")
+        val preparedStatement =
+            DBConnection.getDBConnection().prepareStatement("select max(config_id) as config_id from csv_configuration")
         val result = preparedStatement.executeQuery()
         if (result.next()) {
             for (data in jsonData) {
@@ -115,7 +113,8 @@ class ConfigReaderWriter {
         val preparedInsertStatement = DBConnection.getDBConnection().prepareStatement(insertQueryTemplate)
         setQueryFields(preparedInsertStatement, configId, jsonData)
         preparedInsertStatement.executeUpdate()
-        val preparedPrimaryKeyStatement = DBConnection.getDBConnection().prepareStatement("select max(field_id) as field_id from fields")
+        val preparedPrimaryKeyStatement =
+            DBConnection.getDBConnection().prepareStatement("select max(field_id) as field_id from fields")
         val result = preparedPrimaryKeyStatement.executeQuery()
         if (result.next()) {
             val fieldId = result.getInt("field_id")
