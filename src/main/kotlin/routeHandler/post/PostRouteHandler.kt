@@ -3,8 +3,8 @@ package routeHandler.post
 import metaData.ConfigFileReaderWriter
 import metaData.FileReaderWriter
 import request.RequestHandler
-import utils.InputStreamProvider
 import routeHandler.get.FileGetter
+import utils.InputStreamProvider
 
 
 class PostRouteHandler {
@@ -25,6 +25,10 @@ class PostRouteHandler {
                 val fileReaderWriter = FileReaderWriter("src/main/public/files/uploaded.csv")
                 val csvFileDownloader = CsvFileDownloader(fileReaderWriter)
                 csvFileDownloader.handle(request, inputStreamProvider)
+            }
+            "/add-config" -> {
+                val configAdder = ConfigAdder()
+                configAdder.handle(request,inputStreamProvider)
             }
             else -> fileGetter.getFileNotFound()
         }
