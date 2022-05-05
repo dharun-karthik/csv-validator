@@ -664,8 +664,19 @@ var ruleNameListInDB = ["abc", "def", "ghi", "jkl"]
 function validateRuleName() {
     let ruleName = document.getElementById("rule-name-input").value
     if(ruleNameListInDB.includes(ruleName)) {
-        document.getElementById("rule-name-message").style.display = "block"
+        document.getElementById("rule-name-message").style.visibility = "visible"
     }
     else
-    document.getElementById("rule-name-message").style.display = "none"
+    document.getElementById("rule-name-message").style.visibility = "hidden"
+}
+
+function sendRuleName() {
+    let ruleName = document.getElementById("rule-name-input").value
+    if(ruleName == "") {
+        document.getElementById("tooltiptext").style.visibility = "visible"
+        return
+    }
+    if(!ruleNameListInDB.includes(ruleName)) {
+        console.log("sendig config to backend db")
+    }
 }
