@@ -79,7 +79,11 @@ class GetRouteHandlerTest {
     fun shouldReturnOneConfigNamesSavedInDB() {
         val getRouteHandler = GetRouteHandler()
         val request = "GET /get-config-names HTTP/1.1\n\n"
-        val expected = """["config_1"]"""
+        val expected = """HTTP/1.1 200 OK
+                         |Content-Type: application/json; charset=utf-8
+                         |Content-Length: 12
+                         |
+                         |["config_1"]""".trimMargin()
 
         DBConnection.initialise("jdbc:h2:~/db;MODE=postgresql;INIT=RUNSCRIPT FROM 'src/test/kotlin/resources/createAndPopulateH2Db.sql'")
         DBConfigReaderWriter().writeConfig("config_1",generateArrayOfConfig())
@@ -93,7 +97,11 @@ class GetRouteHandlerTest {
         val getRouteHandler = GetRouteHandler()
         val jsonArray = generateArrayOfConfig()
         val request = "GET /get-config-names HTTP/1.1\n\n"
-        val expected = """["config_1","config_2"]"""
+        val expected = """HTTP/1.1 200 OK
+                         |Content-Type: application/json; charset=utf-8
+                         |Content-Length: 23
+                         |
+                         |["config_1","config_2"]""".trimMargin()
 
         DBConnection.initialise("jdbc:h2:~/db;MODE=postgresql;INIT=RUNSCRIPT FROM 'src/test/kotlin/resources/createAndPopulateH2Db.sql'")
         DBConfigReaderWriter().writeConfig("config_1",jsonArray)
