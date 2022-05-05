@@ -17,6 +17,10 @@ class GetRouteHandler {
                 val csvContentReader = CsvContentReader("src/main/public/files/uploaded.csv")
                 CsvValidator(configFileReaderWriter, csvContentReader).handleCsv()
             }
+            "/get-config-names" -> {
+                val configName = ConfigName()
+                configName.getConfigNames()
+            }
             else -> fileGetter.serveFile(path)
         }
     }
