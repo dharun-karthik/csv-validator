@@ -34,7 +34,7 @@ class RequestHandler {
         return ContentRange(unit, rangeStart, rangeEnd, size)
     }
 
-    private fun getHeaderFieldValue(request: String, headerField: String): String? {
+    fun getHeaderFieldValue(request: String, headerField: String): String? {
         request.split("\n").forEach { headerString ->
             val keyValue = headerString.split(":", limit = 2)
             if (keyValue[0].lowercase().contains(headerField)) {

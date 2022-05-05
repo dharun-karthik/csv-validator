@@ -21,6 +21,10 @@ class GetRouteHandler {
                 val configName = ConfigName()
                 configName.getConfigNames()
             }
+            "/get-config" -> {
+                val getConfigByName = GetConfigByName()
+                getConfigByName.handle(request)
+            }
             else -> fileGetter.serveFile(path)
         }
     }
