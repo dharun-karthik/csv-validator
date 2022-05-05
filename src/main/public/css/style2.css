@@ -520,20 +520,20 @@ body {
 
 #tooltiptext {
     visibility: hidden;
-    width: 60%;
+    width: auto;
     background-color: #a4cff8;
     font-size: 15px;
-    color: #fff;
+    color: black;
     text-align: center;
-    border-radius: 6px;
-    animation: hide 0s ease-in 5s;
+    border-radius: 2px;
+    padding: 5px;
 }
 
 @keyframes hide {
-    0% {
-        opacity: 1;
+    from {
+        visibility: visible;
     }
-    100% {
-        opacity: 0;
+    to {
+        visibility: hidden;
     }
 }
