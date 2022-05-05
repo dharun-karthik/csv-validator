@@ -2,8 +2,13 @@ package routeHandler.get
 
 import com.google.gson.JsonArray
 import db.DBConnection
+import response.ContentType
+import response.Response
 
 class ConfigName {
+
+    private val response = Response()
+
     fun getConfigNames(): String {
         val query = "SELECT config_name FROM csv_configuration"
         val statement = DBConnection.getDBConnection().createStatement()
@@ -12,6 +17,6 @@ class ConfigName {
         while (result.next()) {
             listOfConfigNames.add(result.getString("config_name"))
         }
-        return listOfConfigNames.toString()
+        return response.generateResponse(listOfConfigNames.toString(), 200, ContentType.JSON.value)
     }
 }
