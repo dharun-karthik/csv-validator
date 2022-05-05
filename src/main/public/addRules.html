@@ -265,13 +265,14 @@
 </div>
 <div id="enter-rule-name-popup" class="popup">
     <p id="enter-rule-message" class="bottom-20px-margin">Enter rule name</p>
-    <input class="inputs" id="rule-name-input" name="rulename" type="text" onkeyup="validateRuleName()">
+    <input class="inputs extra-width" id="rule-name-input" name="rulename" type="text" onkeyup="validateRuleName()">
     <p id="rule-name-message">Sorry! rule name already exist</p>
-    <div>
+    <span id="tooltiptext">Please fill this field</span>
+    <div class="popup-button-row">
         <button class="button big-font" onclick="enterRuleName()">
             Cancel
         </button>
-        <button class="button big-font" onclick="">
+        <button class="button big-font" onclick="sendRuleName()">
             Ok
         </button>
     </div>
