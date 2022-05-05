@@ -1,5 +1,9 @@
 package routeHandler
 
+import com.google.gson.Gson
+import db.DBConfigReaderWriter
+import db.DBConnection
+import metaData.template.JsonConfigTemplate
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -69,5 +73,38 @@ class GetRouteHandlerTest {
         val actual = getRouteHandler.handleGetRequest(request).split("\n")[0].split(" ")[1]
 
         assertEquals(expected, actual)
+    }
+
+    @Test
+    fun shouldReturnOneConfigNamesSavedInDB() {
+        val getRouteHandler = GetRouteHandler()
+        val request = "GET /get-config-names HTTP/1.1\n\n"
+        val expected = """["config_1"]"""
+
+        DBConnection.initialise("jdbc:h2:~/db;MODE=postgresql;INIT=RUNSCRIPT FROM 'src/test/kotlin/resources/createAndPopulateH2Db.sql'")
+        DBConfigReaderWriter().writeConfig("config_1",generateArrayOfConfig())
+        val actual = getRouteHandler.handleGetRequest(request)
+
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun shouldReturnTwoConfigNamesSavedInDB() {
+        val getRouteHandler = GetRouteHandler()
+        val jsonArray = generateArrayOfConfig()
+        val request = "GET /get-config-names HTTP/1.1\n\n"
+        val expected = """["config_1","config_2"]"""
+
+        DBConnection.initialise("jdbc:h2:~/db;MODE=postgresql;INIT=RUNSCRIPT FROM 'src/test/kotlin/resources/createAndPopulateH2Db.sql'")
+        DBConfigReaderWriter().writeConfig("config_1",jsonArray)
+        DBConfigReaderWriter().writeConfig("config_2",jsonArray)
+        val actual = getRouteHandler.handleGetRequest(request)
+
+        assertEquals(expected, actual)
+    }
+
+    private fun generateArrayOfConfig(): Array<JsonConfigTemplate> {
+        val jsonString = """[{"fieldName":"Product Id","type":"text"},{"fieldName":"Product Description","type":"email"},{"fieldName":"Price","type":"alphabets"},{"fieldName":"Export","type":"number"},{"fieldName":"Country Name","type":"text"},{"fieldName":"Source City","type":"text"},{"fieldName":"Country Code","type":"text"},{"fieldName":"Source Pincode","type":"text"}]"""
+        return Gson().fromJson(jsonString, Array<JsonConfigTemplate>::class.java)
     }
 }
