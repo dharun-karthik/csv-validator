@@ -18,6 +18,7 @@ const nameIdMap = {
 window.addEventListener('load', async () => loadMetaData());
 
 async function loadMetaData() {
+    loadRuleNamesFromDB()
     let headers = getHeaders()
     const resp = await fetch('get-meta-data', {
         method: 'GET',
@@ -30,6 +31,17 @@ async function loadMetaData() {
             return
         }
         displayConfigDataFromServer(jsonData);
+    }
+}
+
+async function loadRuleNamesFromDB() {
+    const resp = await fetch('get-config-names', {
+        method: 'GET',
+    });
+
+    if(resp.status === 200) {
+        const jsonData = await resp.json()
+        ruleNameListInDB = jsonData
     }
 }
 
@@ -680,7 +692,18 @@ function sendRuleName() {
     }
     if(!ruleNameListInDB.includes(ruleName)) {
         console.log("sendig config to backend db")
+        saveRuleInDB(ruleName)
     }
+}
+
+async function saveRuleInDB(ruleName) {
+    let newConfigData = generatePayload()
+    let newPayload = convertPayloadToJsonArray(newConfigData)   
+    let dbSendingFormat = {}
+    dbSendingFormat[ruleName] = newPayload
+    const response = await fetch('add-config', {
+        method: 'POST', body: JSON.stringify(dbSendingFormat)
+    });
 }
 
 function displayRuleName() {
