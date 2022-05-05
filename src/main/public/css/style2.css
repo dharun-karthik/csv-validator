@@ -537,3 +537,9 @@ body {
         visibility: hidden;
     }
 }
+
+.rule-upload-div {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly
+}
