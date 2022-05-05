@@ -36,6 +36,21 @@ class ConfigReaderWriter {
         return finalConfig
     }
 
+    fun writeConfig(configName: String, jsonData: Array<JsonConfigTemplate>) {
+        val queryTemplate = "INSERT INTO csv_configuration(config_name) VALUES(?) "
+        val insertStatement = DBConnection.getDBConnection().prepareStatement(queryTemplate)
+        insertStatement.setString(1, configName)
+        insertStatement.executeUpdate()
+        val preparedStatement = DBConnection.getDBConnection().prepareStatement("select max(config_id) as config_id from csv_configuration")
+        val result = preparedStatement.executeQuery()
+        if (result.next()) {
+            for (data in jsonData) {
+                val configId = result.getInt("config_id")
+                insertFields(configId, data)
+            }
+        }
+    }
+
     private fun getJsonConfig(result: ResultSet): JsonConfigTemplate {
         val fieldId = result.getInt("field_id")
         val fieldName = result.getString("field_name")
@@ -94,25 +109,14 @@ class ConfigReaderWriter {
         return values
     }
 
-    fun writeConfig(configName: String, jsonData: Array<JsonConfigTemplate>) {
-        val queryTemplate = "INSERT INTO csv_configuration(config_name) VALUES(?) RETURNING config_id"
-        val preparedStatement = DBConnection.getDBConnection().prepareStatement(queryTemplate)
-        preparedStatement.setString(1, configName)
-        val result = preparedStatement.executeQuery()
-        if (result.next()) {
-            for (data in jsonData) {
-                val configId = result.getInt("config_id")
-                insertFields(configId, data)
-            }
-        }
-    }
-
     private fun insertFields(configId: Int, jsonData: JsonConfigTemplate) {
-        val queryTemplate =
-            "INSERT INTO fields(config_id, field_name, field_type, is_null_allowed, pattern, fixed_length, min_length, max_length) VALUES(?,?,?,?,?,?,?,?) RETURNING field_id"
-        val preparedStatement = DBConnection.getDBConnection().prepareStatement(queryTemplate)
-        setQueryFields(preparedStatement, configId, jsonData)
-        val result = preparedStatement.executeQuery()
+        val insertQueryTemplate =
+            "INSERT INTO fields(config_id, field_name, field_type, is_null_allowed, pattern, fixed_length, min_length, max_length) VALUES(?,?,?,?,?,?,?,?)"
+        val preparedInsertStatement = DBConnection.getDBConnection().prepareStatement(insertQueryTemplate)
+        setQueryFields(preparedInsertStatement, configId, jsonData)
+        preparedInsertStatement.executeUpdate()
+        val preparedPrimaryKeyStatement = DBConnection.getDBConnection().prepareStatement("select max(field_id) as field_id from fields")
+        val result = preparedPrimaryKeyStatement.executeQuery()
         if (result.next()) {
             val fieldId = result.getInt("field_id")
             insertValues(fieldId, jsonData.values)
