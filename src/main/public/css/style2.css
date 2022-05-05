@@ -507,7 +507,33 @@ body {
 #rule-name-message {
     font-size: 12px;
     color: red;
-    display: none;
+    display: block;
+    visibility: hidden;
     margin-top: 5px;
 }
 
+.popup-button-row {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+#tooltiptext {
+    visibility: hidden;
+    width: 60%;
+    background-color: #a4cff8;
+    font-size: 15px;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    animation: hide 0s ease-in 5s;
+}
+
+@keyframes hide {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
