@@ -682,3 +682,14 @@ function sendRuleName() {
         console.log("sendig config to backend db")
     }
 }
+
+function displayRuleName() {
+    let select = document.getElementById("display-rule")
+    for(let index = 0; index < ruleNameListInDB.length; index++) {
+        let option = ruleNameListInDB[index]
+        let element = document.createElement("option")
+        element.textContent = option
+        element.value = option
+        select.appendChild(element)
+    }
+}
