@@ -6,7 +6,7 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.Types
 
-class ConfigReaderWriter {
+class DBConfigReaderWriter {
     fun readConfig(configName: String): Array<JsonConfigTemplate> {
         val query = """
             SELECT config_name,
