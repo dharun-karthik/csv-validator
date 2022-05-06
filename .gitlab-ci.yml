@@ -9,6 +9,15 @@ stages:
 before_script:
 - export GRADLE_USER_HOME=`pwd`/.gradle
 
+services:
+  - postgres:latest
+
+variables:
+  POSTGRES_DB: csv_validator
+  POSTGRES_USER: db_user
+  POSTGRES_PASSWORD: database_user
+  POSTGRES_HOST_AUTH_METHOD: trust
+
 cache:
   key: gradle-cache
   paths:
