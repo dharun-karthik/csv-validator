@@ -672,7 +672,7 @@ function enterRuleName() {
     ruleNamePopup.classList.toggle('active')
 }
 
-var ruleNameListInDB = ["abc", "def", "ghi", "jkl"]
+var ruleNameListInDB = []
 function validateRuleName() {
     document.getElementById("tooltiptext").style.visibility = "hidden"
 
@@ -717,7 +717,18 @@ function displayRuleName() {
     }
 }
 
-function fetchAndFillRule() {
+async function fetchAndFillRule() {
     let ruleName = document.getElementById("display-rule").value
     console.log(ruleName)
+    const response = await fetch('get-config', {
+        method: 'GET',
+        headers : {
+            'config-name' : 'smallSampleRule'
+        }
+    })
+    if(response.status === 200) {
+        const jsonData = await response.json()
+        console.log(JSON.stringify(jsonData))
+        displayConfigDataOrDisplayError(JSON.stringify(jsonData))
+    }
 }
