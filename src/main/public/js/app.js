@@ -693,6 +693,7 @@ function sendRuleName() {
     if(!ruleNameListInDB.includes(ruleName)) {
         saveRuleInDB(ruleName)
         loadRuleNamesFromDB()
+        displaySavedSuccessfully()
         enterRuleName()
     }
 }
@@ -732,4 +733,12 @@ async function fetchAndFillRule() {
         console.log(JSON.stringify(jsonData))
         displayConfigDataOrDisplayError(JSON.stringify(jsonData))
     }
+}
+
+function displaySavedSuccessfully() {
+    document.getElementById("success-popup").style.position = "absolute"
+    document.getElementById("success-popup").style.left = "300px"
+    setTimeout(function(){
+        document.getElementById('success-popup').className = 'hide';
+    }, 3000);
 }
