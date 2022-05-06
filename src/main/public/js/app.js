@@ -692,7 +692,8 @@ function sendRuleName() {
     }
     if(!ruleNameListInDB.includes(ruleName)) {
         saveRuleInDB(ruleName)
-        location.reload()
+        loadRuleNamesFromDB()
+        enterRuleName()
     }
 }
 
