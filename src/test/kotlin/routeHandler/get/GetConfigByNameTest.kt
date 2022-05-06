@@ -41,6 +41,20 @@ internal class GetConfigByNameTest {
         assertEquals(expected, actual)
     }
 
+    @Test
+    fun shouldGetBadRequestAsResponseForIncompleteHeader() {
+        val getConfigByName = GetConfigByName()
+        val request = """GET /get-config HTTP/1.1
+                      """.trimMargin()
+        val actual = getConfigByName.handle(request)
+        val expected = """HTTP/1.1 400 Bad Request
+                         |Content-Type: text/html; charset=utf-8
+                         |Content-Length: 14
+
+                         |No config name""".trimMargin()
+        assertEquals(expected, actual)
+    }
+
     private fun addDataToH2Database() {
         val jsonString = """{"config_1":[{"fieldName":"Product Id","type":"text"},{"fieldName":"Product Description","type":"email"}]}"""
         val inputStream = FakeInputStreamProvider(jsonString)
