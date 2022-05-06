@@ -691,8 +691,8 @@ function sendRuleName() {
         return
     }
     if(!ruleNameListInDB.includes(ruleName)) {
-        console.log("sendig config to backend db")
         saveRuleInDB(ruleName)
+        location.reload()
     }
 }
 
