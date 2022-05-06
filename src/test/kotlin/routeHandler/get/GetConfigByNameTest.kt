@@ -25,6 +25,22 @@ internal class GetConfigByNameTest {
         assertEquals(expected, actual)
     }
 
+    @Test
+    fun shouldNotGetConfigForRuleNameNotExistingInDatabase() {
+        val getConfigByName = GetConfigByName()
+        val configuration_name = "config_2"
+        val request = """GET /get-config HTTP/1.1
+                        |config-name: $configuration_name
+                      """.trimMargin()
+        val actual = getConfigByName.handle(request)
+        val expected = """HTTP/1.1 200 OK
+                         |Content-Type: application/json; charset=utf-8
+                         |Content-Length: 2
+
+                         |[]""".trimMargin()
+        assertEquals(expected, actual)
+    }
+
     private fun addDataToH2Database() {
         val jsonString = """{"config_1":[{"fieldName":"Product Id","type":"text"},{"fieldName":"Product Description","type":"email"}]}"""
         val inputStream = FakeInputStreamProvider(jsonString)
