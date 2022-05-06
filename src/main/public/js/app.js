@@ -723,7 +723,7 @@ async function fetchAndFillRule() {
     const response = await fetch('get-config', {
         method: 'GET',
         headers : {
-            'config-name' : 'smallSampleRule'
+            'config-name' : ruleName
         }
     })
     if(response.status === 200) {
