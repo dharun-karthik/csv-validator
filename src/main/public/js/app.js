@@ -716,3 +716,8 @@ function displayRuleName() {
         select.appendChild(element)
     }
 }
+
+function fetchAndFillRule() {
+    let ruleName = document.getElementById("display-rule").value
+    console.log(ruleName)
+}
