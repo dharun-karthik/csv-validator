@@ -6,7 +6,7 @@ import java.sql.DriverManager
 object DBConnection {
     private var connection: Connection? = null
 
-    fun initialise(url: String = "jdbc:postgresql://localhost:5432/csv_validator") {
+    fun initialise(url: String = "jdbc:postgresql://postgres:5432/csv_validator") {
         connection = DriverManager.getConnection(url, "db_user", "database-user")
     }
 
