@@ -12,6 +12,7 @@ async function sendFileInParts(chunkSize, numberOfChunks, fileSize, file) {
 }
 
 async function uploadCSV() {
+    sessionStorage.clear()
     showLoadingDialog()
     let csvFileElement = document.getElementById('csv-id');
     let file = csvFileElement.files[0];
