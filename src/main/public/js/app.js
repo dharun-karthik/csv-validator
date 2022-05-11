@@ -77,7 +77,6 @@ function fillHeadersInContainers(headers) {
 }
 
 function displayConfigDataFromServer(jsonData) {
-    let numberOfRows = jsonData.length - 1
     fillDataInContainer(jsonData)
 }
 
