@@ -633,9 +633,10 @@ function displayConfigDataOrDisplayError(jsonString) {
         sendResetConfigRequest()
         location.reload()
         loadDataFromJsonFile(jsonData)
-        return
+        return true
     }
     customAlertForInvalidJson()
+    return false
 }
 
 function isJsonValid(jsonData) {
@@ -716,7 +717,9 @@ async function fetchAndFillRule() {
     if (response.status === 200) {
         const jsonData = await response.json()
         console.log(JSON.stringify(jsonData))
-        displayConfigDataOrDisplayError(JSON.stringify(jsonData))
+        if(!displayConfigDataOrDisplayError(JSON.stringify(jsonData))){
+            document.getElementById("display-rule").value=""
+        }
     }
 }
 
