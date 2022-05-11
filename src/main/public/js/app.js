@@ -25,7 +25,7 @@ async function loadMetaData() {
     const jsonData = JSON.parse(jsonString)
     if (isJsonValid(jsonData)) {
         displayConfigDataFromServer(jsonData);
-    } 
+    }
 }
 
 async function loadRuleNamesFromDB() {
@@ -639,6 +639,9 @@ function displayConfigDataOrDisplayError(jsonString) {
 }
 
 function isJsonValid(jsonData) {
+    if (jsonData == null) {
+        return false
+    }
     return jsonData.length - 1 == numberOfFields
 }
 
