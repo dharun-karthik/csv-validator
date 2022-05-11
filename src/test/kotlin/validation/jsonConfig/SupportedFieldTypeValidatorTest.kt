@@ -40,7 +40,7 @@ internal class SupportedFieldTypeValidatorTest {
             Arguments.of("alphabets"),
             Arguments.of("date"),
             Arguments.of("time"),
-            Arguments.of("datetime"),
+            Arguments.of("date-time"),
             Arguments.of("email"),
             Arguments.of("text")
         )
