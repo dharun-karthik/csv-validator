@@ -23,11 +23,9 @@ async function loadMetaData() {
     displayHeadersInContainers(headers);
     const jsonString = sessionStorage.getItem('config-json')
     const jsonData = JSON.parse(jsonString)
-    if (jsonData == null) {
-        loadDataFromJsonFile()
-        return
-    }
-    displayConfigDataFromServer(jsonData);
+    if (isJsonValid(jsonData)) {
+        displayConfigDataFromServer(jsonData);
+    } 
 }
 
 async function loadRuleNamesFromDB() {
@@ -35,28 +33,20 @@ async function loadRuleNamesFromDB() {
         method: 'GET',
     });
 
-    if(resp.status === 200) {
+    if (resp.status === 200) {
         const jsonData = await resp.json()
         ruleNameListInDB = jsonData
     }
 }
 
-function loadDataFromJsonFile() {
-    let jsonString = sessionStorage.getItem('json-upload')
-    if(jsonString == null) {
-        return
-    }
-    let jsonData = JSON.parse(jsonString)
+function loadDataFromJsonFile(jsonData) {
     try {
         fillDataInContainer(jsonData)
-        sessionStorage.removeItem('json-upload')
     }
     catch (err) {
         customAlertForInvalidJson()
-        sessionStorage.removeItem('json-upload')
         location.reload()
     }
-    
 }
 
 function getHeaders() {
@@ -408,7 +398,7 @@ async function sendConfigData() {
     const response = await fetch('add-meta-data', {
         method: 'POST', body: JSON.stringify(newPayload)
     });
-    sessionStorage.setItem('config-json',JSON.stringify(newPayload));
+    sessionStorage.setItem('config-json', JSON.stringify(newPayload));
     console.log("After adding metaDate")
     window.location.href = 'errors.html'
     return
@@ -641,8 +631,8 @@ function displayConfigDataOrDisplayError(jsonString) {
     let jsonData = JSON.parse(jsonString)
     if (isJsonValid(jsonData)) {
         sendResetConfigRequest()
-        sessionStorage.setItem("json-upload", jsonString)
         location.reload()
+        loadDataFromJsonFile(jsonData)
         return
     }
     customAlertForInvalidJson()
@@ -669,20 +659,20 @@ function validateRuleName() {
     document.getElementById("tooltiptext").style.visibility = "hidden"
 
     let ruleName = document.getElementById("rule-name-input").value
-    if(ruleNameListInDB.includes(ruleName)) {
+    if (ruleNameListInDB.includes(ruleName)) {
         document.getElementById("rule-name-message").style.visibility = "visible"
     }
     else
-    document.getElementById("rule-name-message").style.visibility = "hidden"
+        document.getElementById("rule-name-message").style.visibility = "hidden"
 }
 
 function sendRuleName() {
     let ruleName = document.getElementById("rule-name-input").value
-    if(ruleName == "") {
+    if (ruleName == "") {
         document.getElementById("tooltiptext").style.visibility = "visible"
         return
     }
-    if(!ruleNameListInDB.includes(ruleName)) {
+    if (!ruleNameListInDB.includes(ruleName)) {
         saveRuleInDB(ruleName)
         loadRuleNamesFromDB()
         displaySavedSuccessfully()
@@ -692,7 +682,7 @@ function sendRuleName() {
 
 async function saveRuleInDB(ruleName) {
     let newConfigData = generatePayload()
-    let newPayload = convertPayloadToJsonArray(newConfigData)   
+    let newPayload = convertPayloadToJsonArray(newConfigData)
     let dbSendingFormat = {}
     dbSendingFormat[ruleName] = newPayload
     const response = await fetch('add-config', {
@@ -702,7 +692,7 @@ async function saveRuleInDB(ruleName) {
 
 function displayRuleName() {
     let select = document.getElementById("display-rule")
-    for(let index = 0; index < ruleNameListInDB.length; index++) {
+    for (let index = 0; index < ruleNameListInDB.length; index++) {
         let option = ruleNameListInDB[index]
         let element = document.createElement("option")
         element.textContent = option
@@ -716,11 +706,11 @@ async function fetchAndFillRule() {
     console.log(ruleName)
     const response = await fetch('get-config', {
         method: 'GET',
-        headers : {
-            'config-name' : ruleName
+        headers: {
+            'config-name': ruleName
         }
     })
-    if(response.status === 200) {
+    if (response.status === 200) {
         const jsonData = await response.json()
         console.log(JSON.stringify(jsonData))
         displayConfigDataOrDisplayError(JSON.stringify(jsonData))
@@ -730,7 +720,7 @@ async function fetchAndFillRule() {
 function displaySavedSuccessfully() {
     document.getElementById("success-popup").style.position = "absolute"
     document.getElementById("success-popup").style.left = "300px"
-    setTimeout(function(){
+    setTimeout(function () {
         document.getElementById('success-popup').className = 'hide';
     }, 3000);
 }
