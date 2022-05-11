@@ -20,18 +20,14 @@ window.addEventListener('load', async () => loadMetaData());
 async function loadMetaData() {
     loadRuleNamesFromDB()
     let headers = getHeaders()
-    const resp = await fetch('get-meta-data', {
-        method: 'GET',
-    });
-    if (resp.status === 200) {
-        const jsonData = await resp.json();
-        if (jsonData.length === 0) {
-            displayHeadersInContainers(headers);
-            loadDataFromJsonFile()
-            return
-        }
-        displayConfigDataFromServer(jsonData);
+    displayHeadersInContainers(headers);
+    const jsonString = sessionStorage.getItem('config-json')
+    const jsonData = JSON.parse(jsonString)
+    if (jsonData == null) {
+        loadDataFromJsonFile()
+        return
     }
+    displayConfigDataFromServer(jsonData);
 }
 
 async function loadRuleNamesFromDB() {
@@ -414,12 +410,10 @@ async function sendConfigData() {
     const response = await fetch('add-meta-data', {
         method: 'POST', body: JSON.stringify(newPayload)
     });
+    sessionStorage.setItem('config-json',JSON.stringify(newPayload));
     console.log("After adding metaDate")
-    if (response.status === 201) {
-        window.location.href = 'errors.html'
-        return
-    }
-    window.location.href = 'pages/404.html'
+    window.location.href = 'errors.html'
+    return
 }
 
 async function resetConfigs() {
