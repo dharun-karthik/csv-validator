@@ -47,39 +47,6 @@ function printCsvValid() {
     container.appendChild(outerDiv)
 }
 
-let errorInJSON = {
-    "product description": {    
-      "total-error-count": 2,
-      "details": {
-        "Length error": {
-          "error-count": 2,
-          "lines": {
-            "1": "Value length should be lesser than 7 in product description : Table",
-            "2": "Value length should be lesser than 7 in product description : Tablew"
-            }
-        },
-        "Type error": {
-            "error-count": 2,
-            "lines": {
-              "1": "Type should be 'alpha' in product description : Table123",
-              "2": "Type should be 'alpha' in product description : Ta12312"
-            }
-        }
-      }
-    },
-    "source pincode": {
-      "total-error-count": 1,
-      "details": {
-        "Value not found": {
-          "error-count": 1,
-          "lines": {
-            "1": "Value Not Found source pincode : 560002"
-          }
-        }
-      }
-    }
-  }
-
 function countObjectKeys(obj) { 
     return Object.keys(obj).length; 
 }
@@ -123,7 +90,6 @@ function displayTotalErrorCount(obj) {
 }
 
 function displayErrorInDetail(obj) {
-    let distinctTypesOfErrorCount = countObjectKeys(obj)
     let distinctErrorTypeInAColumnList = getKeys(obj)
     let errorTypesInOneColumn = []
     errorLinesInOneColumn = []

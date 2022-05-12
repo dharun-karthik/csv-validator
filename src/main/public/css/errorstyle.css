@@ -1,7 +1,5 @@
 .error-summary {
     display: flex;
-    /* justify-content: space-between; */
-    /* align-items: center; */
     flex-direction: column;
     border-bottom-color: rgba(0, 0, 0, .2);
     border-bottom: 1px dashed #E6E6E6;
