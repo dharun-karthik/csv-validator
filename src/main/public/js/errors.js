@@ -162,3 +162,8 @@ function displayErrorInColumn(keyName) {
     displayTotalErrorCount(errorInJson[keyName])
     displayErrorInDetail(errorInJson[keyName]["details"])
 }
+
+function displayTotalErrorCount(obj) {
+    console.log(obj["total-error-count"])
+    return obj["total-error-count"]
+}
