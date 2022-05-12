@@ -106,3 +106,36 @@ function printCsvValid() {
 // function clearPreviousErrors() {
 //     document.getElementById('display-errors').innerText = "";
 // }
+
+let errorInJson = {
+    "country name": {
+      "total-error-count": 0,
+      "details": {}
+    },
+    "product description": {    
+      "total-error-count": 1,
+      "details": {
+        "Length error": {
+          "error-count": 1,
+          "lines": {
+            "1": "Value length should be lesser than 7 in product description : Table"
+          }
+        }
+      }
+    },
+    "source city": {
+      "total-error-count": 0,
+      "details": {}
+    },
+    "source pincode": {
+      "total-error-count": 1,
+      "details": {
+        "Value not found": {
+          "error-count": 1,
+          "lines": {
+            "1": "Value Not Found source pincode : 560002"
+          }
+        }
+      }
+    }
+  }
