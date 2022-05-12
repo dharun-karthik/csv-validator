@@ -1,0 +1,183 @@
+.error-summary {
+    display: flex;
+    /* justify-content: space-between; */
+    /* align-items: center; */
+    flex-direction: column;
+    border-bottom-color: rgba(0, 0, 0, .2);
+    border-bottom: 1px dashed #E6E6E6;
+    padding: 20px 0;
+    width: 100%;
+}
+
+.column-heading {
+    font-size: 1.4rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.first-line-of-error {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.no-margin {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+.no-padding {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: -2px;
+    padding-bottom: -2px;
+    border-radius: 50%;
+}
+
+.column-name {
+    margin-left: 5px;
+    margin-right: 5px;
+    color: red;
+}
+
+.error-type {
+    font-size: 1.2rem;
+    margin-left: 40px;
+}
+
+.error-lines {
+    font-size: 1rem;
+    margin-left: 20px;
+}
+
+#line01 {
+    height: 10vh;
+    overflow: scroll;
+}
+
+/* New Error Page */
+.error-summary-container {
+    background-color: #ccd8f5;
+    margin-top: 20px;
+    margin-bottom: 100px;
+    width: 80%;
+    min-height: 80vh;
+    padding: 50px;
+    border-radius: 6px;
+    border-style: none;
+    box-shadow: 0 2px 15px rgb(0 0 0 / 13%);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.column-section {
+    width: 25%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+}
+
+.one-column {
+    background-color: white;
+    border-style: none;
+    box-shadow: 0 2px 15px rgb(0 0 0 / 13%);
+    width: 100%;
+    height: 15vh;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.one-column:hover {
+    box-shadow: 0 2px 15px rgb(248, 135, 135);
+}
+
+.column-title {
+    background-color: #3e6be0;
+    color: #E6E6E6;
+    width: 100%;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.column-error-count {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.details-section {
+    position: sticky;
+    top: 15vh;
+    width: 75%;
+    height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: scroll;
+}
+
+.details-container {
+    background: url("https://github.com/amitkhirdekar/Quiz_Time/blob/master/bg2.png?raw=true");
+    border-style: none;
+    box-shadow: 0 2px 15px rgb(0 0 0 / 13%);
+    width: 90%;
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.error-hint {
+    color: #3e6be0;
+    font-size: 1.5rem;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.one-error-type-section {
+    width: 80%;
+    margin-bottom: 20px;
+    border-bottom-color: rgba(0, 0, 0, .2);
+    border-bottom: 1px dashed #3e6be0;
+}
+
+.error-details-without-lines {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.lines-container {
+    margin-bottom: 5px;
+    max-height: 17.5vh;
+    overflow: scroll;
+}
+
+.one-error-line {
+    background-color: rgba(250, 181, 181, 0.5);
+    padding: 5px;
+    margin-bottom: 2px;
+}
+
+.active {
+    box-shadow: 0 2px 15px rgb(255, 0, 0);
+}
+
+.inactive {
+    box-shadow: 0 2px 15px rgb(0 0 0 / 13%);
+}

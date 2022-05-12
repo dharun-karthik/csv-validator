@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Errors | CSV Validator</title>
+    <link href="css/style2.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/loadingstyle.css">
+    <link rel="stylesheet" href="css/errorstyle.css">
+    <link rel="icon" href="https://github.com/amitkhirdekar/Quiz_Time/blob/master/icon.png?raw=true"
+        type="image/x-icon">
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">
+            <img alt="CSV Validator" class="logo-image"
+                src="https://github.com/amitkhirdekar/Quiz_Time/blob/master/logo.png?raw=true">
+        </div>
+        <div class="nav-links">
+            <a href="/" id="home-btn"> Home </a>
+            <a href="addRules.html"> Edit rules </a>
+        </div>
+    </div>
+    <div class="section" id="csv-page">
+        <div class="heading-div" id="csv-upload">
+            <h1 class="configs-heading">Validation result</h1>
+            <div class="error-summary-container" id="display-errors">
+                <div class="column-section">
+                    <div class="one-column inactive" id="column0" onclick="displayColumnInDetail(this)">
+                        <div class="column-title">
+                            Product Id
+                        </div>
+                        <div class="column-error-count">
+                            1234 errors
+                        </div>
+                    </div>
+
+                    <div class="one-column inactive" id="column1" onclick="displayColumnInDetail(this)">
+                        <div class="column-title">
+                            Product Descriptions
+                        </div>
+                        <div class="column-error-count">
+                            3221 errors
+                        </div>
+                    </div>
+
+                    <div class="one-column inactive" id="column2" onclick="displayColumnInDetail(this)">
+                        <div class="column-title">
+                            Product Cost
+                        </div>
+                        <div class="column-error-count">
+                            4342 errors
+                        </div>
+                    </div>
+                </div>
+                <div class="details-section">
+                    <div class="details-container" id="details-container">
+                        <!-- <div class="one-error-type-section">
+                            <div class="error-details-without-lines">
+                                <div class="error-type-title">
+                                    <span id="error-type-message"> Value Error </span> in <span id="error-count"
+                                        class="column-name"> 72 </span> lines
+                                </div>
+                                <button id="error0" class="button no-margin" onclick="displayLinesForErrorType(this)">See <span>More</span></button>
+                            </div>
+                            <div class="lines-container" style="display: none;" id="line-container0">
+                                <div class="one-error-line">
+                                    Line 1: This error
+                                </div>
+                                <div class="one-error-line">
+                                    Line 4: This error
+                                </div>
+                                <div class="one-error-line">
+                                    Line 11: This error
+                                </div>
+                                <div class="one-error-line">
+                                    Line 41: This error
+                                </div>
+                                <div class="one-error-line">
+                                    Line 21: This error
+                                </div>
+                                <div class="one-error-line">
+                                    Line 14: This error
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- <div class="one-error-type-section">
+                            <div class="error-details-without-lines">
+                                <div class="error-type-title">
+                                    <span id="error-type-message"> Incorrect format for 'alphabets' </span> in <span
+                                        id="error-count" class="column-name"> 112 </span> lines
+                                </div>
+                                <button id="error1" class="button no-margin" onclick="displayLinesForErrorType(this)">See <span>More</span></button>
+                            </div>
+                            <div class="lines-container" style="display: none;" id="line-container1">
+                                <div class="one-error-line">
+                                    Line 2: Incorrect format of 'alphabets' in Product Id : 12345
+                                </div>
+                                <div class="one-error-line">
+                                    Line 22: Incorrect format of 'alphabets' in Product Id : 11111
+                                </div>
+                                <div class="one-error-line">
+                                    Line 24: Incorrect format of 'alphabets' in Product Id : 12341
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="error-hint" id="hint-text-for-error">
+                            <div class="hint-text">
+                                Click on column name to show more details of errors
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="upload-loading" id="uploading-pop-up-errors" style="display: none;">
+        <div class="loading-circle">
+            <div id="circle">
+                <div class="moving-circle" id="child">
+                </div>
+            </div>
+        </div>
+        <div class="loading-message">
+            Loading validation result
+        </div>
+    </div>
+    <div class="footer"></div>
+    <script src="js/errors.js"></script>
+</body>
+
+</html>
