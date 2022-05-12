@@ -6,15 +6,15 @@ CREATE TABLE csv_configuration
 
 CREATE TABLE fields
 (
-    field_id      SERIAL PRIMARY KEY,
-    config_id     INT,
-    field_name    VARCHAR NOT NULL,
-    field_type    VARCHAR NOT NULL,
+    field_id        SERIAL PRIMARY KEY,
+    config_id       INT,
+    field_name      VARCHAR NOT NULL,
+    field_type      VARCHAR NOT NULL,
     is_null_allowed VARCHAR(2),
-    pattern       VARCHAR,
-    fixed_length  INT,
-    min_length    INT,
-    max_length    INT,
+    pattern         VARCHAR,
+    fixed_length    INT,
+    min_length      INT,
+    max_length      INT,
     CONSTRAINT fk_config
         FOREIGN KEY (config_id)
             REFERENCES csv_configuration (config_id)
@@ -36,7 +36,7 @@ CREATE TABLE dependencies
 (
     dependency_id            SERIAL PRIMARY KEY,
     field_id                 INT,
-    dependent_on             VARCHAR,
+    dependent_on             VARCHAR NOT NULL,
     expected_dependent_value VARCHAR,
     expected_current_value   VARCHAR,
     CONSTRAINT fk_field_id

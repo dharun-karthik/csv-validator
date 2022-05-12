@@ -1,5 +1,5 @@
 image:
-  name : registry.gitlab.com/sahajsoft/gurukul2022/csv-validator
+  name: registry.gitlab.com/sahajsoft/gurukul2022/csv-validator
   entrypoint: [ "" ]
 
 stages:
@@ -7,15 +7,16 @@ stages:
   - integration-test
 
 before_script:
-- export GRADLE_USER_HOME=`pwd`/.gradle
+  - export GRADLE_USER_HOME=`pwd`/.gradle
 
 services:
-  - postgres:latest
+  - name: postgres:14.2
+    command: [ "" ]
 
 variables:
   POSTGRES_DB: csv_validator
-  POSTGRES_USER: db_user
-  POSTGRES_PASSWORD: database_user
+  POSTGRES_USER: test_user
+  POSTGRES_PASSWORD: test-db-user
   POSTGRES_HOST_AUTH_METHOD: trust
 
 cache:
@@ -29,11 +30,12 @@ front-end-unit-test:
     key: npm
     policy: pull-push
     paths:
-    - .npm
+      - .npm
   stage: unit-test-and-build
   script:
     - npm ci --cache .npm --prefer-offline
     - npm test
+  timeout: 10m
 
 test-backend-and-build:
   stage: unit-test-and-build
@@ -43,15 +45,18 @@ test-backend-and-build:
     paths:
       - build/distributions
     expire_in: 1 day
-    
+  timeout: 10m
+
 
 integration-test:
   stage: integration-test
-  cache: []
+  cache: [ ]
   needs:
     - job: test-backend-and-build
   script:
+    - source scripts/set-test-env.sh
     - unzip -q build/distributions/CsvValidator-1.0-SNAPSHOT.zip -d build/distributions
     - sh build/distributions/CsvValidator-1.0-SNAPSHOT/bin/CsvValidator &
     - npm ci
     - npm run e2e
+  timeout: 15m

@@ -20,10 +20,4 @@ object DBConnection {
         }
         return connection!!
     }
-
-    fun getDBUrl(): String {
-        val db = System.getenv("POSTGRES_DB")
-//        val finalUrl = url + db
-        TODO()
-    }
 }
