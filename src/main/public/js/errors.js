@@ -143,3 +143,7 @@ let errorInJson = {
 function countObjectKeys(obj) { 
     return Object.keys(obj).length; 
 }
+
+function getKeys(obj) {
+    return Object.keys(obj)
+}
