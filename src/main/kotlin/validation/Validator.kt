@@ -3,9 +3,7 @@ package validation
 import metaData.ConfigFileReaderWriter
 import metaData.csv.CsvContentReader
 import metaData.template.JsonConfigTemplate
-import org.json.JSONArray
 import org.json.JSONObject
-import validation.implementation.DuplicationValidation
 import validation.operation.*
 import validation.operation.ValidationType.*
 
@@ -18,79 +16,99 @@ class Validator(private val configFileReaderWriter: ConfigFileReaderWriter) {
         DEPENDENCY_VALIDATION to DependencyValidationOperation()
     )
 
-    fun validate(csvContentReader: CsvContentReader): JSONArray {
+    fun validate(csvContentReader: CsvContentReader): JSONObject {
         val metaDataList = configFileReaderWriter.readFields()
         return iterateJsonContent(csvContentReader, metaDataList)
     }
 
     private fun iterateJsonContent(
         csvContentReader: CsvContentReader, metaDataList: Array<JsonConfigTemplate>
-    ): JSONArray {
-        val arrayOfAllErrorsByLine = JSONArray()
-        val duplicationValidation = DuplicationValidation()
-        var index = 0
-        var rowJson = csvContentReader.readNextLineInJson()
-        while (rowJson != null) {
-
-            val lineErrors = mutableListOf<String>()
+    ): JSONObject {
+        var rowNumber = 0
+        var rowJson = csvContentReader.readNextLineInJson() ?: return JSONObject()
+        val errorObject = createJsonObjectWithColumnNames(rowJson)
+        while (true) {
+            rowNumber++
             val keys = rowJson.keySet()
-            appendDuplicationError(duplicationValidation, rowJson, index, lineErrors)
-            appendValidationErrors(keys, metaDataList, rowJson, lineErrors)
-            val lineNumberInCsv = index + 2
-            if (lineErrors.isNotEmpty()) {
-                val singleLineErrors = parseErrorsIntoSingleJson(lineNumberInCsv, lineErrors)
-                arrayOfAllErrorsByLine.put(singleLineErrors)
-            }
-            index++
-
-            rowJson = csvContentReader.readNextLineInJson()
+            appendValidationErrors2(keys, metaDataList, rowJson, errorObject, rowNumber)
+            rowJson = csvContentReader.readNextLineInJson() ?: break
         }
-        return arrayOfAllErrorsByLine
+        return errorObject
     }
 
-    private fun appendDuplicationError(
-        duplicationValidation: DuplicationValidation,
-        currentRow: JSONObject,
-        index: Int,
-        lineErrors: MutableList<String>
-    ) {
-        val previousDuplicateIndex = duplicationValidation.isDuplicateIndexAvailable(currentRow, index)
-        if (previousDuplicateIndex != null) {
-            val name = "Duplicated line found at :"
-            lineErrors.add("$name ${previousDuplicateIndex + 1}")
-        }
-    }
-
-    private fun appendValidationErrors(
-        keys: MutableSet<String>,
+    private fun appendValidationErrors2(
+        keys: Set<String>,
         metaDataList: Array<JsonConfigTemplate>,
         currentRow: JSONObject,
-        lineErrors: MutableList<String>
+        errorObject: JSONObject?,
+        rowNumber: Int
     ) {
         for (key in keys) {
-            appendValidationErrorForCurrentField(metaDataList, key, currentRow, lineErrors)
-        }
-    }
+            val metaDataField = metaDataList.first { it.fieldName.contentEquals(key, ignoreCase = true) }
+            val currentFieldValue = currentRow.get(key) as String
+            validationMap.forEach { entry ->
+                val validationType = entry.value
+                val result = validationType.validate(metaDataField, currentFieldValue, key, currentRow)
+                if (result != null) {
+                    appendToErrorObject(errorObject!!, key, rowNumber, result, entry.key.errorName)
+                }
 
-    private fun appendValidationErrorForCurrentField(
-        metaDataList: Array<JsonConfigTemplate>,
-        key: String,
-        currentRow: JSONObject,
-        lineErrors: MutableList<String>
-    ) {
-        val metaDataField = metaDataList.first { it.fieldName.contentEquals(key, ignoreCase = true) }
-        val currentFieldValue = currentRow.get(key) as String
-
-        validationMap.forEach { entry ->
-            val validationType = entry.value
-            val result = validationType.validate(metaDataField, currentFieldValue, key, currentRow)
-            if (result != null) {
-                lineErrors.add(result)
             }
         }
     }
 
-    private fun parseErrorsIntoSingleJson(index: Int, lineErrors: MutableList<String>): JSONObject {
-        return JSONObject().put(index.toString(), lineErrors)
+    private fun appendToErrorObject(
+        errorObject: JSONObject,
+        key: String,
+        rowNumber: Int,
+        result: String,
+        validationType: String
+    ) {
+        val columnObject = errorObject.get(key) as JSONObject
+        val totalErrorCount = columnObject.get("total-error-count") as Int + 1
+        columnObject.put("total-error-count", totalErrorCount)
+        val detailList = columnObject.get("details") as JSONObject
+        if (!detailList.keySet().contains(validationType)) {
+            detailList.put(validationType, createNewErrorDetailObject())
+        }
+        appendError(result, rowNumber, detailList, validationType)
+
+    }
+
+    private fun appendError(
+        result: String,
+        rowNumber: Int,
+        detailsObject: JSONObject,
+        validationType: String
+    ) {
+        val specificErrorObject = detailsObject.get(validationType) as JSONObject
+        val newErrorCount = specificErrorObject.get("error-count") as Int + 1
+        specificErrorObject.put("error-count", newErrorCount)
+        val errorLines = specificErrorObject.get("lines") as JSONObject
+        errorLines.put(rowNumber.toString(), result)
+
+    }
+
+    private fun createNewErrorDetailObject(): JSONObject {
+        val jsonObject = JSONObject()
+        jsonObject.put("error-count", 0)
+        jsonObject.put("lines", JSONObject())
+        return jsonObject
+    }
+
+
+    private fun createJsonObjectWithColumnNames(rowJson: JSONObject): JSONObject {
+        val jsonObject = JSONObject()
+        rowJson.keySet().forEach {
+            jsonObject.put(it, createJsonObjectWithDetails())
+        }
+        return jsonObject
+    }
+
+    private fun createJsonObjectWithDetails(): JSONObject {
+        val jsonObject = JSONObject()
+        jsonObject.put("total-error-count", 0)
+        jsonObject.put("details", JSONObject())
+        return jsonObject
     }
 }

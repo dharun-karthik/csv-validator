@@ -19,7 +19,8 @@ class ValidatorTest {
         val validator = Validator(configFileReaderWriter)
         val csvContentReader =
             CsvContentReader("src/test/kotlin/metaDataTestFiles/csvContent/valid-csv-content-test.csv")
-        val expectedContent = "[]"
+        val expectedContent =
+            """{"country name":{"total-error-count":0,"details":{}},"product description":{"total-error-count":0,"details":{}},"source city":{"total-error-count":0,"details":{}},"source pincode":{"total-error-count":0,"details":{}},"price":{"total-error-count":0,"details":{}},"product id":{"total-error-count":0,"details":{}},"country code":{"total-error-count":0,"details":{}},"export":{"total-error-count":0,"details":{}}}"""
 
         val actual = validator.validate(csvContentReader)
 
@@ -33,7 +34,7 @@ class ValidatorTest {
         val validator = Validator(configFileReaderWriter)
         val csvContentReader =
             CsvContentReader("src/test/kotlin/metaDataTestFiles/csvContent/empty-csv-content-test.csv")
-        val expectedContent = "[]"
+        val expectedContent = "{}"
 
         val actual = validator.validate(csvContentReader)
 
@@ -57,42 +58,37 @@ class ValidatorTest {
             Arguments.of(
                 "date-meta-data-test.json",
                 "date-error-test.csv",
-                """[{"3":["Incorrect format of 'date' in date : 15/22/2002, expected format : dd/MM/yyyy"]},{"4":["Incorrect format of 'date' in date : 15/02/23, expected format : dd/MM/yyyy"]}]"""
+                """{"date":{"total-error-count":2,"details":{"Type mismatch error":{"error-count":2,"lines":{"2":"Incorrect format of 'date' in date : 15/22/2002, expected format : dd/MM/yyyy","3":"Incorrect format of 'date' in date : 15/02/23, expected format : dd/MM/yyyy"}}}}}"""
             ),
             Arguments.of(
                 "length-meta-data-test.json",
                 "length-error-test.csv",
-                """[{"2":["Value length should be lesser than 7 in product description : Table"]}]"""
+                """{"product description":{"total-error-count":1,"details":{"Length error":{"error-count":1,"lines":{"1":"Value length should be lesser than 7 in product description : Table"}}}}}"""
             ),
             Arguments.of(
                 "restricted-input-meta-data-test.json",
                 "restricted-input-error-test.csv",
-                """[{"2":["Value Not Found export : fa"]}]"""
+                """{"export":{"total-error-count":1,"details":{"Value not found":{"error-count":1,"lines":{"1":"Value Not Found export : fa"}}}}}"""
             ),
             Arguments.of(
                 "dependency-meta-data-test.json",
                 "dependency-error-test.csv",
-                """[{"2":["export is N but country name is usa"]}]"""
-            ),
-            Arguments.of(
-                "restricted-input-meta-data-test.json",
-                "duplication-error-test.csv",
-                """[{"3":["Duplicated line found at : 2"]}]"""
+                """{"country name":{"total-error-count":1,"details":{"Dependency error":{"error-count":1,"lines":{"1":"export is N but country name is usa"}}}},"export":{"total-error-count":0,"details":{}}}"""
             ),
             Arguments.of(
                 "email-meta-data-test.json",
                 "email-error-test.csv",
-                """[{"2":["Incorrect format of 'email' in email : talon.atlas+managedsahaj.ai"]}]"""
+                """{"email":{"total-error-count":1,"details":{"Type mismatch error":{"error-count":1,"lines":{"1":"Incorrect format of 'email' in email : talon.atlas+managedsahaj.ai"}}}}}"""
             ),
             Arguments.of(
                 "text-meta-data-test.json",
                 "text-error-test.csv",
-                """[{"2":["Incorrect format of 'text' in text : £ new one"]}]"""
+                """{"text":{"total-error-count":1,"details":{"Type mismatch error":{"error-count":1,"lines":{"1":"Incorrect format of 'text' in text : £ new one"}}}}}"""
             ),
             Arguments.of(
                 "null-meta-data-test.json",
                 "null-error-test.csv",
-                """[{"3":["Empty Value not allowed in name"]}]"""
+                """{"name":{"total-error-count":1,"details":{"Empty value found":{"error-count":1,"lines":{"2":"Empty Value not allowed in name"}}}},"age":{"total-error-count":0,"details":{}}}"""
             )
         )
     }
