@@ -19,6 +19,7 @@ async function getErrorsFromServer() {
 
 function hideLoadingText() {
     document.getElementById('uploading-pop-up-errors').style.display = 'none';
+    document.getElementById('error-page').className = 'section'
 }
 
 async function displayErrorsOrValid(jsonData) {

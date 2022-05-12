@@ -179,3 +179,9 @@
 .inactive {
     box-shadow: 0 2px 15px rgb(0 0 0 / 13%);
 }
+
+#error-page.active {
+    filter: blur(10px);
+    pointer-events: none;
+    user-select: none;
+}
