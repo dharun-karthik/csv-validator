@@ -147,3 +147,12 @@ function countObjectKeys(obj) {
 function getKeys(obj) {
     return Object.keys(obj)
 }
+
+function displayErrors() {
+    let keyList = getKeys(errorInJson)
+    console.log(keyList)
+    for(let key in keyList) {
+        let keyName = keyList[key]
+        displayErrorInColumn(keyName)
+    }
+}
