@@ -50,8 +50,8 @@ test-backend-and-build:
 integration-test:
   stage: integration-test
   cache: [ ]
-    needs:
-      - job: test-backend-and-build
+  needs:
+    - job: test-backend-and-build
   script:
     - source scripts/set-test-env.sh
     - unzip -q build/distributions/CsvValidator-1.0-SNAPSHOT.zip -d build/distributions
