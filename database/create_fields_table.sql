@@ -1,10 +1,10 @@
-CREATE TABLE csv_configuration
+CREATE TABLE IF NOT EXISTS csv_configuration
 (
     config_id   SERIAL PRIMARY KEY,
     config_name VARCHAR NOT NULL UNIQUE
 );
 
-CREATE TABLE fields
+CREATE TABLE IF NOT EXISTS fields
 (
     field_id        SERIAL PRIMARY KEY,
     config_id       INT,
@@ -21,7 +21,7 @@ CREATE TABLE fields
             ON DELETE CASCADE
 );
 
-CREATE TABLE values
+CREATE TABLE IF NOT EXISTS values
 (
     value_id   SERIAL PRIMARY KEY,
     field_id   INT,
@@ -32,7 +32,7 @@ CREATE TABLE values
             ON DELETE CASCADE
 );
 
-CREATE TABLE dependencies
+CREATE TABLE IF NOT EXISTS dependencies
 (
     dependency_id            SERIAL PRIMARY KEY,
     field_id                 INT,

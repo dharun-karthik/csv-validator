@@ -6,7 +6,7 @@ import java.sql.DriverManager
 object DBConnection {
     private var connection: Connection? = null
 
-    fun initialise() {
+    private fun initialise() {
         val url = getDbUrl()
         println(url)
         initialise(url)
