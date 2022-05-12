@@ -180,3 +180,15 @@ function displayErrorInDetail(obj) {
         displayErrorTypeAndCount(obj[errorType], errorType)
     }
 }
+
+function displayErrorTypeAndCount(obj, errorType) {
+    console.log(`ErrorType and count -> ${errorType}-----${obj["error-count"]}`)
+    displayLineNumberAndDescription(obj["lines"])
+}
+
+function displayLineNumberAndDescription(obj) {
+    console.log(`lines--------> ${JSON.stringify(obj)}`)
+    for (let [lineNumber, description] of Object.entries(obj)) {
+        console.log(lineNumber, description);
+    }
+}
