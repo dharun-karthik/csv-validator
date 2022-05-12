@@ -156,3 +156,9 @@ function displayErrors() {
         displayErrorInColumn(keyName)
     }
 }
+
+function displayErrorInColumn(keyName) {
+    console.log(JSON.stringify(errorInJson[keyName]))
+    displayTotalErrorCount(errorInJson[keyName])
+    displayErrorInDetail(errorInJson[keyName]["details"])
+}
