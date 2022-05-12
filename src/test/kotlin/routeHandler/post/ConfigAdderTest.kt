@@ -24,7 +24,7 @@ internal class ConfigAdderTest {
         val expected =
             """JsonConfigTemplate(fieldName=Product Id, type=text, isNullAllowed=null, pattern=null, length=0, minLength=0, maxLength=0, dependencies=null, values=null)"""
 
-        DBConnection.initialise("~/db;MODE=postgresql;INIT=RUNSCRIPT FROM 'src/test/kotlin/resources/createAndPopulateH2Db.sql'")
+        DBConnection.initialise("jdbc:h2:~/db;MODE=postgresql;INIT=RUNSCRIPT FROM 'src/test/kotlin/resources/createAndPopulateH2Db.sql'")
         ConfigAdder().handle(request, inputStream)
         val actual = DBConfigReaderWriter().readConfig("config_1").first().toString()
 
@@ -46,7 +46,7 @@ internal class ConfigAdderTest {
 
                         |success""".trimMargin()
 
-        DBConnection.initialise("~/db;MODE=postgresql;INIT=RUNSCRIPT FROM 'src/test/kotlin/resources/createAndPopulateH2Db.sql'")
+        DBConnection.initialise("jdbc:h2:~/db;MODE=postgresql;INIT=RUNSCRIPT FROM 'src/test/kotlin/resources/createAndPopulateH2Db.sql'")
         val actual = ConfigAdder().handle(request, inputStream)
 
         assertEquals(expected, actual)

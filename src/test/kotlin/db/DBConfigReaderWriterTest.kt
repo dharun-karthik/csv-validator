@@ -16,7 +16,7 @@ internal class DBConfigReaderWriterTest {
     fun shouldWriteTheDataWithFieldNameAndTypeOnly() {
         val configName = "nameAndType"
         val jsonData = generateArrayOfConfigWithoutAnyExtraParameters()
-        DBConnection.initialise("~/db;MODE=postgresql;INIT=RUNSCRIPT FROM 'src/test/kotlin/resources/createAndPopulateH2Db.sql'")
+        DBConnection.initialise("jdbc:h2:~/db;MODE=postgresql;INIT=RUNSCRIPT FROM 'src/test/kotlin/resources/createAndPopulateH2Db.sql'")
         val expected =
             "JsonConfigTemplate(fieldName=Product Id, type=text, isNullAllowed=null, pattern=null, length=0, minLength=0, maxLength=0, dependencies=null, values=null)"
 
@@ -32,7 +32,7 @@ internal class DBConfigReaderWriterTest {
         val jsonData = generateArrayOfConfigWithLengthParameters()
         val expected =
             "JsonConfigTemplate(fieldName=Product Id, type=text, isNullAllowed=null, pattern=null, length=0, minLength=2, maxLength=5, dependencies=null, values=null)"
-        DBConnection.initialise("~/db;MODE=postgresql;INIT=RUNSCRIPT FROM 'src/test/kotlin/resources/createAndPopulateH2Db.sql'")
+        DBConnection.initialise("jdbc:h2:~/db;MODE=postgresql;INIT=RUNSCRIPT FROM 'src/test/kotlin/resources/createAndPopulateH2Db.sql'")
 
         DBConfigReaderWriter().writeConfig(configName, jsonData)
         val actual = DBConfigReaderWriter().readConfig(configName).first().toString()
@@ -46,7 +46,7 @@ internal class DBConfigReaderWriterTest {
         val jsonData = generateArrayOfConfigWithDependencyParameters()
         val expected =
             "JsonConfigTemplate(fieldName=Product Id, type=text, isNullAllowed=null, pattern=null, length=0, minLength=0, maxLength=0, dependencies=[DependencyTemplate(dependentOn=Price, expectedDependentFieldValue=null, expectedCurrentFieldValue=null)], values=null)"
-        DBConnection.initialise("~/db;MODE=postgresql;INIT=RUNSCRIPT FROM 'src/test/kotlin/resources/createAndPopulateH2Db.sql'")
+        DBConnection.initialise("jdbc:h2:~/db;MODE=postgresql;INIT=RUNSCRIPT FROM 'src/test/kotlin/resources/createAndPopulateH2Db.sql'")
 
         DBConfigReaderWriter().writeConfig(configName, jsonData)
         val actual = DBConfigReaderWriter().readConfig(configName).first().toString()
@@ -60,7 +60,7 @@ internal class DBConfigReaderWriterTest {
         val jsonData = generateArrayOfConfigWithDateAndTimeParameters()
         val expected =
             "JsonConfigTemplate(fieldName=Product Id, type=date-time, isNullAllowed=null, pattern=hh:ss:mm a,uuuu-MM-dd, length=0, minLength=0, maxLength=0, dependencies=null, values=null)"
-        DBConnection.initialise("~/db;MODE=postgresql;INIT=RUNSCRIPT FROM 'src/test/kotlin/resources/createAndPopulateH2Db.sql'")
+        DBConnection.initialise("jdbc:h2:~/db;MODE=postgresql;INIT=RUNSCRIPT FROM 'src/test/kotlin/resources/createAndPopulateH2Db.sql'")
 
         DBConfigReaderWriter().writeConfig(configName, jsonData)
         val actual = DBConfigReaderWriter().readConfig(configName).first().toString()

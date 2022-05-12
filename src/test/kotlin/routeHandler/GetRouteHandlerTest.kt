@@ -67,7 +67,7 @@ class GetRouteHandlerTest {
                          |
                          |["config_1"]""".trimMargin()
 
-        DBConnection.initialise("~/db;MODE=postgresql;INIT=RUNSCRIPT FROM 'src/test/kotlin/resources/createAndPopulateH2Db.sql'")
+        DBConnection.initialise("jdbc:h2:~/db;MODE=postgresql;INIT=RUNSCRIPT FROM 'src/test/kotlin/resources/createAndPopulateH2Db.sql'")
         DBConfigReaderWriter().writeConfig("config_1",generateArrayOfConfig())
         val actual = getRouteHandler.handleGetRequest(request)
 
@@ -85,7 +85,7 @@ class GetRouteHandlerTest {
                          |
                          |["config_1","config_2"]""".trimMargin()
 
-        DBConnection.initialise("~/db;MODE=postgresql;INIT=RUNSCRIPT FROM 'src/test/kotlin/resources/createAndPopulateH2Db.sql'")
+        DBConnection.initialise("jdbc:h2:~/db;MODE=postgresql;INIT=RUNSCRIPT FROM 'src/test/kotlin/resources/createAndPopulateH2Db.sql'")
         DBConfigReaderWriter().writeConfig("config_1",jsonArray)
         DBConfigReaderWriter().writeConfig("config_2",jsonArray)
         val actual = getRouteHandler.handleGetRequest(request)

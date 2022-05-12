@@ -8,7 +8,7 @@ import utils.EnvVars
 internal class ConfigNameTest {
     init {
         EnvVars.setTestDbEnvVars()
-        DBConnection.initialise("~/db;MODE=postgresql;INIT=RUNSCRIPT FROM 'src/test/kotlin/resources/config_names.sql'")
+        DBConnection.initialise("jdbc:h2:~/db;MODE=postgresql;INIT=RUNSCRIPT FROM 'src/test/kotlin/resources/config_names.sql'")
     }
 
     @Test
