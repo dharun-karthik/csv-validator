@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Errors | CSV Validator</title>
+    <link href="css/style2.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/loadingstyle.css">
+    <link rel="stylesheet" href="css/errorstyle.css">
+    <link rel="icon" href="https://github.com/amitkhirdekar/Quiz_Time/blob/master/icon.png?raw=true"
+        type="image/x-icon">
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">
+            <img alt="CSV Validator" class="logo-image"
+                src="https://github.com/amitkhirdekar/Quiz_Time/blob/master/logo.png?raw=true">
+        </div>
+        <div class="nav-links">
+            <a href="/" id="home-btn"> Home </a>
+            <a href="addRules.html"> Edit rules </a>
+        </div>
+    </div>
+    <div class="section" id="csv-page">
+        <div class="heading-div" id="csv-upload">
+            <h1 class="configs-heading">Validation result</h1>
+            <div class="error-list-container" id="display-errors">
+                <div class="error-summary">
+                    <div class="column-heading">
+                        <div class="first-line-of-error">
+                            <div class="headingline">
+                                Column <span class="column-name">Product Id</span> contains <span
+                                    class="column-name">632</span>
+                                errors
+                            </div>
+                            <button id="error0" class="button no-margin" onclick="toggleFirstLine(this)"><span>More</span> details</button>
+                        </div>
+                        <div id="error-details0" style="display: none">
+                            <div class="error-type" id="error-type0">
+                                <div class="first-line-of-error">
+                                    <div class="error-message">
+                                        <span id="error-type-message"> Value Error </span> in <span id="error-count"
+                                            class="column-name"> 72 </span> lines
+                                    </div>
+                                    <button id="show-more-lines0" class="button no-margin no-padding" onclick="toggleSecondLine(this)">v</button>
+                                </div>
+                                <div style="display:none;">
+                                    <div class="error-lines">
+                                        > Line No <span>1</span> : <span> 'this' is not a valid value </span>
+                                    </div>
+                                    <div class="error-lines">
+                                        > Line No <span>2</span> : <span> 'that' is not a valid value </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="error-type">
+                                <div class="first-line-of-error">
+                                    <div class="error-message">
+                                        <span id="error-type-message">Incorrect format for 'datetime' </span> in <span
+                                            id="error-count" class="column-name"> 567 </span> lines
+                                    </div>
+                                    <button id="show-more-lines0" class="button no-margin no-padding" onclick="toggleSecondLine(this)">v</button>
+                                </div>
+                                <div id="line01" style="display: none;">
+                                    <div class="error-lines">
+                                        > Line No <span>1</span> : <span> 'this' is not a valid value </span>
+                                    </div>
+                                    <div class="error-lines">
+                                        > Line No <span>2</span> : <span> 'this' is not a valid value </span>
+                                    </div>
+                                    <div class="error-lines">
+                                        > Line No <span>3</span> : <span> 'this' is not a valid value </span>
+                                    </div>
+                                    <div class="error-lines">
+                                        > Line No <span>574</span> : <span> 'this' is not a valid value </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="error-summary">
+                    <div class="column-heading">
+                        <div class="first-line-of-error">
+                            <div class="headingline">
+                                Column <span class="column-name">Product Id</span> contains <span
+                                    class="column-name">632</span>
+                                errors
+                            </div>
+                            <button id="error1" class="button no-margin" onclick="toggleFirstLine(this)"><span>More</span> details</button>
+                        </div>
+                        <div id="error-details1" style="display: none">
+                            <div class="error-type" id="error-type1">
+                                <div class="first-line-of-error">
+                                    <div class="error-message">
+                                        <span id="error-type-message"> Value Error </span> in <span id="error-count"
+                                            class="column-name"> 72 </span> lines
+                                    </div>
+                                    <button id="show-more-lines1" class="button no-margin no-padding" onclick="toggleSecondLine(this)">v</button>
+                                </div>
+                                <div style="display:none;">
+                                    <div class="error-lines">
+                                        > Line No <span>1</span> : <span> 'this' is not a valid value </span>
+                                    </div>
+                                    <div class="error-lines">
+                                        > Line No <span>2</span> : <span> 'that' is not a valid value </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="error-type">
+                                <div class="first-line-of-error">
+                                    <div class="error-message">
+                                        <span id="error-type-message">Incorrect format for 'datetime' </span> in <span
+                                            id="error-count" class="column-name"> 567 </span> lines
+                                    </div>
+                                    <button id="show-more-lines1" class="button no-margin no-padding" onclick="toggleSecondLine(this)">v</button>
+                                </div>
+                                <div id="line01" style="display: none;">
+                                    <div class="error-lines">
+                                        > Line No <span>1</span> : <span> 'this' is not a valid value </span>
+                                    </div>
+                                    <div class="error-lines">
+                                        > Line No <span>2</span> : <span> 'this' is not a valid value </span>
+                                    </div>
+                                    <div class="error-lines">
+                                        > Line No <span>3</span> : <span> 'this' is not a valid value </span>
+                                    </div>
+                                    <div class="error-lines">
+                                        > Line No <span>574</span> : <span> 'this' is not a valid value </span>
+                                    </div>
+                                    <div class="error-lines">
+                                        > Line No <span>1</span> : <span> 'this' is not a valid value </span>
+                                    </div>
+                                    <div class="error-lines">
+                                        > Line No <span>2</span> : <span> 'this' is not a valid value </span>
+                                    </div>
+                                    <div class="error-lines">
+                                        > Line No <span>3</span> : <span> 'this' is not a valid value </span>
+                                    </div>
+                                    <div class="error-lines">
+                                        > Line No <span>574</span> : <span> 'this' is not a valid value </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="upload-loading" id="uploading-pop-up-errors" style="display: none;">
+        <div class="loading-circle">
+            <div id="circle">
+                <div class="moving-circle" id="child">
+                </div>
+            </div>
+        </div>
+        <div class="loading-message">
+            Loading validation result
+        </div>
+    </div>
+    <div class="footer"></div>
+    <script src="js/errors.js"></script>
+</body>
+
+</html>
