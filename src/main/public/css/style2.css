@@ -197,17 +197,6 @@ body {
     justify-content: space-between;
 }
 
-/* #field-name {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#field-name span {
-    margin-left: 2px;
-    color: #555555;
-} */
-
 .dropdowns {
     border: none;
     padding: 0 15px;
