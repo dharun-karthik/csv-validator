@@ -2,9 +2,12 @@ package utils
 
 object EnvVars {
     fun setTestDbEnvVars() {
-        setEnvVars("DB_NAME", "h2")
+        setEnvVars("DB", "h2")
         setEnvVars("DB_USERNAME", "db_user")
         setEnvVars("DB_PASSWORD", "database-user")
+        setEnvVars("DB_URL", "~")
+        setEnvVars("DB_NAME", "db;MODE=postgresql;INIT=RUNSCRIPT FROM 'src/test/kotlin/resources/config_names.sql'")
+
     }
 
     private fun setEnvVars(key: String, value: String) {

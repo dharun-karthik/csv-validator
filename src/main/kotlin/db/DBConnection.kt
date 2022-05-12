@@ -6,12 +6,23 @@ import java.sql.DriverManager
 object DBConnection {
     private var connection: Connection? = null
 
-    fun initialise(link: String = "//localhost:5432/csv_validator") {
-        val db = System.getenv("DB_NAME")
+    fun initialise() {
+        val url = getDbUrl()
+        println(url)
+        initialise(url)
+    }
+
+    fun initialise(url: String) {
         val user = System.getenv("DB_USERNAME")
         val password = System.getenv("DB_PASSWORD")
-        val url = "jdbc:$db:$link"
         connection = DriverManager.getConnection(url, user, password)
+    }
+
+    private fun getDbUrl(): String {
+        val dbUrl = System.getenv("DB_URL")
+        val db = System.getenv("DB")
+        val dbName = System.getenv("DB_NAME")
+        return "jdbc:$db:$dbUrl/$dbName"
     }
 
     fun getDBConnection(): Connection {
