@@ -17,7 +17,7 @@ variables:
 
 services:
   - name: postgres:14.2
-    command: ["echo 'ho'"]
+    command: ["psql test_user -d csv_validator -f database/create_fields_table.sql"]
 
 cache:
   key: gradle-cache
