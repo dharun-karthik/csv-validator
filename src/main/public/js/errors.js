@@ -1,4 +1,8 @@
 let errors = []
+let count = -1
+let errorTypes = []
+let errorLines = []
+let errorLinesInOneColumn = []
 
 window.addEventListener('load', async () => getErrorsFromServer());
 
@@ -29,7 +33,6 @@ async function displayErrorsOrValid(jsonData) {
 
 function printCsvValid() {
     let container = document.getElementById('display-errors')
-    console.log(container)
     container.innerHTML = ""
 
     let outerDiv = document.createElement('div')
@@ -44,25 +47,25 @@ function printCsvValid() {
     container.appendChild(outerDiv)
 }
 
-let errorInJson = {
-    "country name": {
-      "total-error-count": 0,
-      "details": {}
-    },
+let errorInJSON = {
     "product description": {    
-      "total-error-count": 1,
+      "total-error-count": 2,
       "details": {
         "Length error": {
-          "error-count": 1,
+          "error-count": 2,
           "lines": {
-            "1": "Value length should be lesser than 7 in product description : Table"
-          }
+            "1": "Value length should be lesser than 7 in product description : Table",
+            "2": "Value length should be lesser than 7 in product description : Tablew"
+            }
+        },
+        "Type error": {
+            "error-count": 2,
+            "lines": {
+              "1": "Type should be 'alpha' in product description : Table123",
+              "2": "Type should be 'alpha' in product description : Ta12312"
+            }
         }
       }
-    },
-    "source city": {
-      "total-error-count": 0,
-      "details": {}
     },
     "source pincode": {
       "total-error-count": 1,
@@ -86,8 +89,7 @@ function getKeys(obj) {
 }
 
 function displayErrors() {
-    let keyList = getKeys(errorInJson)
-    console.log(keyList)
+    let keyList = getKeys(errors)
     for(let key in keyList) {
         let keyName = keyList[key]
         displayErrorInColumn(keyName)
@@ -95,39 +97,55 @@ function displayErrors() {
 }
 
 function displayErrorInColumn(keyName) {
-    console.log(JSON.stringify(errorInJson[keyName]))
-    displayTotalErrorCount(errorInJson[keyName])
-    displayErrorInDetail(errorInJson[keyName]["details"])
+    let errorCount = displayTotalErrorCount(errors[keyName])
+    displayOneColumnInDOM(keyName, errorCount)
+    displayErrorInDetail(errors[keyName]["details"])
+}
+
+function displayOneColumnInDOM(columnName, errorCount) {
+    count++
+    let element = document.createElement('div')
+    element.className = 'one-column'
+    element.id = `column${count}`
+    element.setAttribute('onclick', 'displayColumnInDetail(this)')
+    element.innerHTML = `
+        <div class="column-title">
+            ${columnName}
+        </div>
+        <div class="column-error-count">
+            ${errorCount} errors
+        </div>`
+    document.getElementById('column-list-container').appendChild(element)
 }
 
 function displayTotalErrorCount(obj) {
-    console.log(obj["total-error-count"])
     return obj["total-error-count"]
 }
 
 function displayErrorInDetail(obj) {
-    console.log(`error in details ------> ${JSON.stringify(obj)}`)
     let distinctTypesOfErrorCount = countObjectKeys(obj)
-    console.log(`distinct type of error count ----> ${distinctTypesOfErrorCount}`)
     let distinctErrorTypeInAColumnList = getKeys(obj)
-    console.log(distinctErrorTypeInAColumnList)
+    let errorTypesInOneColumn = []
+    errorLinesInOneColumn = []
     for(let index in distinctErrorTypeInAColumnList) {
         let errorType = distinctErrorTypeInAColumnList[index]
-        console.log(JSON.stringify(obj[errorType]))
-        displayErrorTypeAndCount(obj[errorType], errorType)
+        errorTypesInOneColumn.push(displayErrorTypeAndCount(obj[errorType], errorType))
     }
+    errorTypes.push(errorTypesInOneColumn)
+    errorLines.push(errorLinesInOneColumn)
 }
 
 function displayErrorTypeAndCount(obj, errorType) {
-    console.log(`ErrorType and count -> ${errorType}-----${obj["error-count"]}`)
     displayLineNumberAndDescription(obj["lines"])
+    return [errorType, obj["error-count"]]
 }
 
 function displayLineNumberAndDescription(obj) {
-    console.log(`lines--------> ${JSON.stringify(obj)}`)
+    let errorLinesOfOneType = []
     for (let [lineNumber, description] of Object.entries(obj)) {
-        console.log(lineNumber, description);
+        errorLinesOfOneType.push([lineNumber, description])
     }
+    errorLinesInOneColumn.push(errorLinesOfOneType)
 }
 
 function clearPreviousErrors() {
@@ -147,60 +165,47 @@ function displayColumnInDetail(target) {
 }
 
 function removeActiveFromAllColumns() {
-    //todo
+    let totalErrorColumns = countObjectKeys(errors)
+    for (let index = 0; index < totalErrorColumns; index++) {
+        document.getElementById(`column${index}`).classList.remove('active')
+    }
 }
 
 function displayColumnDetailsOf(index) {
-    document.getElementById('details-container').innerHTML = `
-    <div class="one-error-type-section">
+    let errorTypeHTML = getErrorTypeHTMLAt(index)
+    document.getElementById('details-container').innerHTML = errorTypeHTML
+}
+
+function getErrorTypeHTMLAt(index) {
+    let errorsInOneColumnHTML = ""
+    for (let indexToFill = 0; indexToFill < errorTypes[index].length; indexToFill++) {
+        errorsInOneColumnHTML += `
+        <div class="one-error-type-section">
         <div class="error-details-without-lines">
             <div class="error-type-title">
-                <span id="error-type-message"> Value Error </span> in <span id="error-count"
-                    class="column-name"> 72 </span> lines
+                <span id="error-type-message"> ${errorTypes[index][indexToFill][0]} </span> in <span id="error-count"
+                    class="column-name"> ${errorTypes[index][indexToFill][1]} </span> lines
             </div>
-            <button id="error0" class="button no-margin" onclick="displayLinesForErrorType(this)">See <span>More</span></button>
+            <button id="error${indexToFill}" class="button no-margin" onclick="displayLinesForErrorType(this)">See <span>More</span></button>
+        </div>`
+        errorsInOneColumnHTML += getOneTypeOfError(index, indexToFill)
+        errorsInOneColumnHTML += '</div>'
+    }
+    console.log(errorsInOneColumnHTML)
+    return errorsInOneColumnHTML
+}
+
+function getOneTypeOfError(index, indexToFill) {
+    let linesHTML = `<div class="lines-container" style="display: none;" id="line-container${indexToFill}">`
+    for (let indexOfLine = 0; indexOfLine < errorTypes[index][indexToFill][1]; indexOfLine++) {
+        linesHTML += `
+        <div class="one-error-line">
+                Line ${errorLines[index][indexToFill][indexOfLine][0]}: ${errorLines[index][indexToFill][indexOfLine][1]}
         </div>
-        <div class="lines-container" style="display: none;" id="line-container0">
-            <div class="one-error-line">
-                Line 1: This error
-            </div>
-            <div class="one-error-line">
-                Line 4: This error
-            </div>
-            <div class="one-error-line">
-                Line 11: This error
-            </div>
-            <div class="one-error-line">
-                Line 41: This error
-            </div>
-            <div class="one-error-line">
-                Line 21: This error
-            </div>
-            <div class="one-error-line">
-                Line 14: This error
-            </div>
-        </div>
-    </div>
-    <div class="one-error-type-section">
-        <div class="error-details-without-lines">
-            <div class="error-type-title">
-                <span id="error-type-message"> Incorrect format for 'alphabets' </span> in <span
-                    id="error-count" class="column-name"> 112 </span> lines
-            </div>
-            <button id="error1" class="button no-margin" onclick="displayLinesForErrorType(this)">See <span>More</span></button>
-        </div>
-        <div class="lines-container" style="display: none;" id="line-container1">
-            <div class="one-error-line">
-                Line 2: Incorrect format of 'alphabets' in Product Id : 12345
-            </div>
-            <div class="one-error-line">
-                Line 22: Incorrect format of 'alphabets' in Product Id : 11111
-            </div>
-            <div class="one-error-line">
-                Line 24: Incorrect format of 'alphabets' in Product Id : 12341
-            </div>
-        </div>
-    </div>`
+        `
+    }
+    linesHTML += `</div>`
+    return linesHTML
 }
 
 function displayLinesForErrorType(target) {
