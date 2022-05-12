@@ -139,3 +139,7 @@ let errorInJson = {
       }
     }
   }
+
+function countObjectKeys(obj) { 
+    return Object.keys(obj).length; 
+}
