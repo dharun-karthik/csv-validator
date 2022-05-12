@@ -25,28 +25,28 @@ cache:
     - .gradle/
     - build/
 
-front-end-unit-test:
-  cache:
-    key: npm
-    policy: pull-push
-    paths:
-      - .npm
-  stage: unit-test-and-build
-  script:
-    - npm ci --cache .npm --prefer-offline
-    - npm test
-  timeout: 10m
-
-test-backend-and-build:
-  stage: unit-test-and-build
-  script:
-    - gradle build
-  artifacts:
-    paths:
-      - build/distributions
-    expire_in: 1 day
-  timeout: 10m
-
+#front-end-unit-test:
+#  cache:
+#    key: npm
+#    policy: pull-push
+#    paths:
+#      - .npm
+#  stage: unit-test-and-build
+#  script:
+#    - npm ci --cache .npm --prefer-offline
+#    - npm test
+#  timeout: 10m
+#
+#test-backend-and-build:
+#  stage: unit-test-and-build
+#  script:
+#    - gradle build
+#  artifacts:
+#    paths:
+#      - build/distributions
+#    expire_in: 1 day
+#  timeout: 10m
+#
 
 integration-test:
   stage: integration-test
