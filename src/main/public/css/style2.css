@@ -521,12 +521,9 @@ body {
 #tooltiptext {
     visibility: hidden;
     width: auto;
-    background-color: #a4cff8;
-    font-size: 15px;
-    color: black;
+    font-size: 12px;
+    color: red;
     text-align: center;
-    border-radius: 2px;
-    padding: 5px;
 }
 
 @keyframes hide {
