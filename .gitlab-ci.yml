@@ -1,7 +1,6 @@
-#image:
-#  name: registry.gitlab.com/sahajsoft/gurukul2022/csv-validator
-#  entrypoint: [ "" ]
-image: gradle:latest
+image:
+  name: registry.gitlab.com/sahajsoft/gurukul2022/csv-validator
+  entrypoint: [ "" ]
 
 stages:
   - unit-test-and-build
