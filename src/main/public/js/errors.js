@@ -167,3 +167,16 @@ function displayTotalErrorCount(obj) {
     console.log(obj["total-error-count"])
     return obj["total-error-count"]
 }
+
+function displayErrorInDetail(obj) {
+    console.log(`error in details ------> ${JSON.stringify(obj)}`)
+    let distinctTypesOfErrorCount = countObjectKeys(obj)
+    console.log(`distinct type of error count ----> ${distinctTypesOfErrorCount}`)
+    let distinctErrorTypeInAColumnList = getKeys(obj)
+    console.log(distinctErrorTypeInAColumnList)
+    for(let index in distinctErrorTypeInAColumnList) {
+        let errorType = distinctErrorTypeInAColumnList[index]
+        console.log(JSON.stringify(obj[errorType]))
+        displayErrorTypeAndCount(obj[errorType], errorType)
+    }
+}
