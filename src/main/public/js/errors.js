@@ -33,8 +33,10 @@ async function displayErrorsOrValid(jsonData) {
 }
 
 function printCsvValid() {
-    let container = document.getElementById('display-errors')
+    let container = document.getElementById('display-no-errors')
+    let errorContainer = document.getElementById('display-errors')
     container.innerHTML = ""
+    errorContainer.style.display = 'none'
 
     let outerDiv = document.createElement('div')
     outerDiv.className = 'no-error';

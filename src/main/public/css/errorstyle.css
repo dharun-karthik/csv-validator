@@ -137,7 +137,7 @@
 }
 
 .error-hint {
-    color: #3e6be0;
+    color: #56607c;
     font-size: 1.5rem;
     width: 100%;
     height: 100%;
@@ -184,4 +184,8 @@
     filter: blur(10px);
     pointer-events: none;
     user-select: none;
+}
+
+#error-page-container {
+    min-height: 80vh;
 }
