@@ -20,7 +20,7 @@ class ValidatorTest {
         val csvContentReader =
             CsvContentReader("src/test/kotlin/metaDataTestFiles/csvContent/valid-csv-content-test.csv")
         val expectedContent =
-            """{"country name":{"total-error-count":0,"details":{}},"product description":{"total-error-count":0,"details":{}},"source city":{"total-error-count":0,"details":{}},"source pincode":{"total-error-count":0,"details":{}},"price":{"total-error-count":0,"details":{}},"product id":{"total-error-count":0,"details":{}},"country code":{"total-error-count":0,"details":{}},"export":{"total-error-count":0,"details":{}}}"""
+            "{}"
 
         val actual = validator.validate(csvContentReader)
 
@@ -73,7 +73,7 @@ class ValidatorTest {
             Arguments.of(
                 "dependency-meta-data-test.json",
                 "dependency-error-test.csv",
-                """{"country name":{"total-error-count":1,"details":{"Dependency error":{"error-count":1,"lines":{"1":"export is N but country name is usa"}}}},"export":{"total-error-count":0,"details":{}}}"""
+                """{"country name":{"total-error-count":1,"details":{"Dependency error":{"error-count":1,"lines":{"1":"export is N but country name is usa"}}}}}"""
             ),
             Arguments.of(
                 "email-meta-data-test.json",
@@ -88,7 +88,7 @@ class ValidatorTest {
             Arguments.of(
                 "null-meta-data-test.json",
                 "null-error-test.csv",
-                """{"name":{"total-error-count":1,"details":{"Empty value found":{"error-count":1,"lines":{"2":"Empty Value not allowed in name"}}}},"age":{"total-error-count":0,"details":{}}}"""
+                """{"name":{"total-error-count":1,"details":{"Empty value found":{"error-count":1,"lines":{"2":"Empty Value not allowed in name"}}}}}"""
             )
         )
     }

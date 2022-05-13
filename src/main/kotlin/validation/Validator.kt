@@ -25,35 +25,43 @@ class Validator(private val configFileReaderWriter: ConfigFileReaderWriter) {
         csvContentReader: CsvContentReader, metaDataList: Array<JsonConfigTemplate>
     ): JSONObject {
         var rowNumber = 0
-        var rowJson = csvContentReader.readNextLineInJson() ?: return JSONObject()
-        val errorObject = createJsonObjectWithColumnNames(rowJson)
-        while (true) {
+        var rowJson = csvContentReader.readNextLineInJson()
+        val errorJsonObject = JSONObject()
+        while (rowJson != null) {
             rowNumber++
             val keys = rowJson.keySet()
-            appendValidationErrors2(keys, metaDataList, rowJson, errorObject, rowNumber)
-            rowJson = csvContentReader.readNextLineInJson() ?: break
+            appendValidationErrors2(keys, metaDataList, rowJson, errorJsonObject, rowNumber)
+            rowJson = csvContentReader.readNextLineInJson()
         }
-        return errorObject
+        return errorJsonObject
     }
+
 
     private fun appendValidationErrors2(
         keys: Set<String>,
         metaDataList: Array<JsonConfigTemplate>,
         currentRow: JSONObject,
-        errorObject: JSONObject?,
+        errorObject: JSONObject,
         rowNumber: Int
     ) {
         for (key in keys) {
             val metaDataField = metaDataList.first { it.fieldName.contentEquals(key, ignoreCase = true) }
-            val currentFieldValue = currentRow.get(key) as String
+            val currentFieldValue = currentRow.getString(key)
             validationMap.forEach { entry ->
                 val validationType = entry.value
                 val result = validationType.validate(metaDataField, currentFieldValue, key, currentRow)
                 if (result != null) {
-                    appendToErrorObject(errorObject!!, key, rowNumber, result, entry.key.errorName)
+                    appendColumnNameIfNotAvailable(errorObject, key)
+                    appendToErrorObject(errorObject, key, rowNumber, result, entry.key.errorName)
                 }
 
             }
+        }
+    }
+
+    private fun appendColumnNameIfNotAvailable(errorObject: JSONObject, key: String) {
+        if (!errorObject.has(key)) {
+            errorObject.put(key, createJsonObjectWithDetails())
         }
     }
 
@@ -64,11 +72,11 @@ class Validator(private val configFileReaderWriter: ConfigFileReaderWriter) {
         result: String,
         validationType: String
     ) {
-        val columnObject = errorObject.get(key) as JSONObject
-        val totalErrorCount = columnObject.get("total-error-count") as Int + 1
+        val columnObject = errorObject.getJSONObject(key)
+        val totalErrorCount = columnObject.getInt("total-error-count") + 1
         columnObject.put("total-error-count", totalErrorCount)
-        val detailList = columnObject.get("details") as JSONObject
-        if (!detailList.keySet().contains(validationType)) {
+        val detailList = columnObject.getJSONObject("details")
+        if (!detailList.has(validationType)) {
             detailList.put(validationType, createNewErrorDetailObject())
         }
         appendError(result, rowNumber, detailList, validationType)
@@ -81,10 +89,10 @@ class Validator(private val configFileReaderWriter: ConfigFileReaderWriter) {
         detailsObject: JSONObject,
         validationType: String
     ) {
-        val specificErrorObject = detailsObject.get(validationType) as JSONObject
-        val newErrorCount = specificErrorObject.get("error-count") as Int + 1
+        val specificErrorObject = detailsObject.getJSONObject(validationType)
+        val newErrorCount = specificErrorObject.getInt("error-count") + 1
         specificErrorObject.put("error-count", newErrorCount)
-        val errorLines = specificErrorObject.get("lines") as JSONObject
+        val errorLines = specificErrorObject.getJSONObject("lines")
         errorLines.put(rowNumber.toString(), result)
 
     }
@@ -93,15 +101,6 @@ class Validator(private val configFileReaderWriter: ConfigFileReaderWriter) {
         val jsonObject = JSONObject()
         jsonObject.put("error-count", 0)
         jsonObject.put("lines", JSONObject())
-        return jsonObject
-    }
-
-
-    private fun createJsonObjectWithColumnNames(rowJson: JSONObject): JSONObject {
-        val jsonObject = JSONObject()
-        rowJson.keySet().forEach {
-            jsonObject.put(it, createJsonObjectWithDetails())
-        }
         return jsonObject
     }
 

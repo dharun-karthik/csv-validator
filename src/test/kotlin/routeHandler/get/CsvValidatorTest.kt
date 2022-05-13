@@ -32,7 +32,7 @@ class CsvValidatorTest {
 
         val actual = csvValidator.handleCsv()
         val content =
-            """{"country name":{"total-error-count":0,"details":{}},"product description":{"total-error-count":1,"details":{"Length error":{"error-count":1,"lines":{"1":"Value length should be lesser than 7 in product description : Table"}}}},"source city":{"total-error-count":0,"details":{}},"source pincode":{"total-error-count":1,"details":{"Value not found":{"error-count":1,"lines":{"1":"Value Not Found source pincode : 560002"}}}},"price":{"total-error-count":0,"details":{}},"product id":{"total-error-count":0,"details":{}},"country code":{"total-error-count":0,"details":{}},"export":{"total-error-count":0,"details":{}}}"""
+            """{"product description":{"total-error-count":1,"details":{"Length error":{"error-count":1,"lines":{"1":"Value length should be lesser than 7 in product description : Table"}}}},"source pincode":{"total-error-count":1,"details":{"Value not found":{"error-count":1,"lines":{"1":"Value Not Found source pincode : 560002"}}}}}"""
         val expected = getBodyWithSuccessHeader(content)
 
         assertEquals(expected, actual)
@@ -48,7 +48,7 @@ class CsvValidatorTest {
 
         val actual = csvValidator.handleCsv()
         val content =
-            """{"country name":{"total-error-count":0,"details":{}},"product description":{"total-error-count":0,"details":{}},"source city":{"total-error-count":0,"details":{}},"source pincode":{"total-error-count":0,"details":{}},"price":{"total-error-count":0,"details":{}},"product id":{"total-error-count":0,"details":{}},"country code":{"total-error-count":0,"details":{}},"export":{"total-error-count":0,"details":{}}}"""
+            "{}"
         val expected = getBodyWithSuccessHeader(content)
 
         assertEquals(expected, actual)
