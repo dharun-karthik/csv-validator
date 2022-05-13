@@ -24,6 +24,10 @@ class GetRouteHandler {
                 val getConfigByName = GetConfigByName()
                 getConfigByName.handle(request)
             }
+            "/get-error" -> {
+                val getError = GetError()
+                getError.get(request)
+            }
             else -> fileGetter.serveFile(path)
         }
     }
