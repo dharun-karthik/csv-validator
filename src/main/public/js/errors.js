@@ -24,8 +24,8 @@ function hideLoadingText() {
 
 async function displayErrorsOrValid(jsonData) {
     errors = jsonData
-    console.log(errors)
-    if (errors.length == 0) {
+    console.log(`errors.length ${jsonData}`)
+    if (JSON.stringify(jsonData)==='{}') {
         printCsvValid()
         return
     }
