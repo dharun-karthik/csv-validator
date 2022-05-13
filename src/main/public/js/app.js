@@ -631,7 +631,7 @@ function displayConfigDataOrDisplayError(jsonString) {
     let jsonData = JSON.parse(jsonString)
     if (isJsonValid(jsonData)) {
         sendResetConfigRequest()
-        location.reload()
+        // location.reload()
         loadDataFromJsonFile(jsonData)
         return true
     }
