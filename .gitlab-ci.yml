@@ -15,9 +15,6 @@ variables:
   POSTGRES_PASSWORD: test-db-user
   POSTGRES_HOST_AUTH_METHOD: trust
 
-services:
-  - name: postgres:14.2
-
 cache:
   key: gradle-cache
   paths:
@@ -49,6 +46,9 @@ test-backend-and-build:
 
 integration-test:
   stage: integration-test
+  services:
+    - name: postgres:14.2
+
   cache: [ ]
   needs:
     - job: test-backend-and-build
