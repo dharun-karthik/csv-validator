@@ -114,6 +114,7 @@ function fillDataInContainer(jsonData) {
                 continue
             }
             console.log(`idToEdit: ${nameIdMap[key]}${index}`)
+            if (element[key] === 0) continue
             document.getElementById(`${nameIdMap[key]}${index}`).value = element[key]
             changeButtonToEditIfValuesAdded(index)
         }
