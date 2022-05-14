@@ -3,6 +3,10 @@ package routeHandler.get
 import metaData.ConfigFileReaderWriter
 import metaData.csv.CsvContentReader
 import request.RequestHandler
+import response.ContentType
+import response.Response
+import routeHandler.get.getErrors.ErrorContent
+import routeHandler.get.getErrors.GetError
 
 class GetRouteHandler {
     private val requestHandler = RequestHandler()
@@ -25,7 +29,11 @@ class GetRouteHandler {
                 getConfigByName.handle(request)
             }
             "/get-error" -> {
-                val getError = GetError()
+                val errorContents = ErrorContent.getErrors()
+                if (errorContents == null) {
+                    return Response().generateResponse("No errors", 400, ContentType.HTML.value)
+                }
+                val getError = GetError(errorContents)
                 getError.get(request)
             }
             else -> fileGetter.serveFile(path)

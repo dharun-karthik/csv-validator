@@ -1,4 +1,4 @@
-package routeHandler.get
+package routeHandler.get.getErrors
 
 data class ErrorRange(
     val start: Int,
