@@ -16,7 +16,6 @@ class GetError(val errors: JSONObject) {
 
     private fun getErrors(request: String): String {
         val columnName = extractColumnName(request)
-        val currentRange = extractRange(request)
         val errorType = extractErrorType(request)
         println(errors)
         val columnError = errors.get(columnName) as JSONObject
@@ -32,16 +31,6 @@ class GetError(val errors: JSONObject) {
         val errorType = requestHandler.getHeaderFieldValue(request, "error-type")
         if (errorType != null) {
             return errorType
-        }
-        throw InvalidHeaderException()
-    }
-
-    private fun extractRange(request: String): ErrorRange {
-        val requestHandler = RequestHandler()
-        val errorRange = requestHandler.getHeaderFieldValue(request, "error-range")
-        if (errorRange != null) {
-            val split = errorRange.split("-")
-            return ErrorRange(split[0].toInt(), split[1].toInt())
         }
         throw InvalidHeaderException()
     }

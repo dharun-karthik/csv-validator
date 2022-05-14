@@ -13,7 +13,6 @@ internal class GetErrorTest {
         val getError = GetError(JSONObject(errorContent))
         val request = """GET /get-error HTTP/1.0
             |column-name : Emoji
-            |error-range : 0-50
             |error-type : Type mismatch error
         """.trimIndent()
 
@@ -30,7 +29,6 @@ internal class GetErrorTest {
         val getError = GetError(JSONObject(errorContent))
         val request = """GET /get-error HTTP/1.0
             |column-name : date
-            |error-range : 0-50
             |error-type : Type mismatch error
         """.trimIndent()
 
