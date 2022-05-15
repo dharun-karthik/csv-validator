@@ -145,6 +145,11 @@ function displayColumnDetailsOf(index) {
     document.getElementById('details-container').innerHTML = errorTypeHTML
 }
 
+function extractErrorFromWholeErrorLine(line) {
+    let indexOfIn = line.match(/(in)/).index - 1
+    return line.slice(0, indexOfIn)
+}
+
 function getErrorTypeHTMLAt(index) {
     let errorsInOneColumnHTML = ""
     for (let indexToFill = 0; indexToFill < errorTypes[index].length; indexToFill++) {
@@ -152,7 +157,7 @@ function getErrorTypeHTMLAt(index) {
         <div class="one-error-type-section">
         <div class="error-details-without-lines">
             <div class="error-type-title">
-                <span id="error-type-message"> ${errorTypes[index][indexToFill][0]} </span> in <span id="error-count"
+                <span id="error-type-message"> ${extractErrorFromWholeErrorLine(errorLines[index][indexToFill][0][1])} </span> in <span id="error-count"
                     class="column-name"> ${errorTypes[index][indexToFill][1]} </span> lines
             </div>
             <button id="error${indexToFill}" class="button no-margin" onclick="displayLinesForErrorType(this)">See <span>More</span></button>
