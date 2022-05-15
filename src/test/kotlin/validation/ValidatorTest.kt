@@ -63,7 +63,7 @@ class ValidatorTest {
             Arguments.of(
                 "length-meta-data-test.json",
                 "length-error-test.csv",
-                """{"product description":{"total-error-count":1,"details":{"Length error":{"error-count":1,"lines":{"1":"Value length should be lesser than 7 in product description : Table"}}}}}"""
+                """{"product description":{"total-error-count":1,"details":{"Length error":{"error-count":1,"lines":{"1":"Value length should be greater than or equal to 7 in product description : Table"}}}}}"""
             ),
             Arguments.of(
                 "restricted-input-meta-data-test.json",

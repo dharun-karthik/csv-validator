@@ -32,7 +32,7 @@ class CsvValidatorTest {
 
         val actual = csvValidator.handleCsv()
         val content =
-            """{"product description":{"total-error-count":1,"details":{"Length error":{"error-count":1,"lines":{"1":"Value length should be lesser than 7 in product description : Table"}}}},"source pincode":{"total-error-count":1,"details":{"Value not found":{"error-count":1,"lines":{"1":"Value Not Found source pincode : 560002"}}}}}"""
+            """{"product description":{"total-error-count":1,"details":{"Length error":{"error-count":1,"lines":{"1":"Value length should be greater than or equal to 7 in product description : Table"}}}},"source pincode":{"total-error-count":1,"details":{"Value not found":{"error-count":1,"lines":{"1":"Value Not Found source pincode : 560002"}}}}}"""
         val expected = getBodyWithSuccessHeader(content)
 
         assertEquals(expected, actual)

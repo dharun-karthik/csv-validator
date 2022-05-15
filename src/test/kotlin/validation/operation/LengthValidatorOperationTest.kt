@@ -51,12 +51,12 @@ internal class LengthValidatorOperationTest {
             Arguments.of(
                 JsonConfigTemplate("test", "number", minLength = 2),
                 "3",
-                "Value length should be lesser than 2 in test : 3",
+                "Value length should be greater than or equal to 2 in test : 3",
             ),
             Arguments.of(
                 JsonConfigTemplate("test", "number", maxLength = 2),
                 "hell",
-                "Value length should be greater than 2 in test : hell",
+                "Value length should be lesser than or equal to 2 in test : hell",
             ),
             Arguments.of(
                 JsonConfigTemplate("test", "number", length = 2),
