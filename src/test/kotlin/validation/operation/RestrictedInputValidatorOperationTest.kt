@@ -22,7 +22,7 @@ internal class RestrictedInputValidatorOperationTest {
         val metaDataField = JsonConfigTemplate("test", "number", values = listOf("123"))
 
         val actual = restrictedInputValidationOperation.validate(metaDataField, "12", "test")
-        val expected = "Value Not Found test : 12"
+        val expected = "Value not found test : 12"
 
         assertEquals(expected, actual)
     }

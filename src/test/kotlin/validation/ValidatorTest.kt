@@ -68,7 +68,7 @@ class ValidatorTest {
             Arguments.of(
                 "restricted-input-meta-data-test.json",
                 "restricted-input-error-test.csv",
-                """{"export":{"total-error-count":1,"details":{"Value not found":{"error-count":1,"lines":{"1":"Value Not Found export : fa"}}}}}"""
+                """{"export":{"total-error-count":1,"details":{"Value not found":{"error-count":1,"lines":{"1":"Value not found export : fa"}}}}}"""
             ),
             Arguments.of(
                 "dependency-meta-data-test.json",

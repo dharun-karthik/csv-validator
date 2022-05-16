@@ -25,7 +25,7 @@ class RestrictedInputValidationOperation : ValidationOperation {
         val restrictedInputValidation = RestrictedInputValidation()
         val restrictedInputList = metaDataField.values ?: return null
         if (!restrictedInputValidation.validate(currentFieldValue, restrictedInputList)) {
-            return "Value Not Found $key : $currentFieldValue"
+            return "Value not found $key : $currentFieldValue"
         }
         return null
     }
