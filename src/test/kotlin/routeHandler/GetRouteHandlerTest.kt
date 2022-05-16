@@ -34,6 +34,25 @@ class GetRouteHandlerTest {
         assertEquals(expectedContentLength, actualContentLength)
     }
 
+    @Test
+    fun shouldReturnMetaDataJsonIfTheGetRequestIsMadeForMetaDataJson() {
+        val getRouteHandler = GetRouteHandler()
+        val lineSeparator = System.lineSeparator()
+        val request = "GET /get-meta-data HTTP/1.1$lineSeparator$lineSeparator"
+        val expected = getMetaDataContent()
+
+        val actual = getRouteHandler.handleGetRequest(request).split(lineSeparator + lineSeparator)[1]
+
+        assertEquals(expected, actual)
+    }
+
+    private fun getMetaDataContent(): String {
+        val path = System.getProperty("user.dir")
+        val file = File("$path/src/main/public/files/csv-config.json")
+        return file.readText(Charsets.UTF_8)
+    }
+
+
     @ParameterizedTest
     @MethodSource("contentTypeArguments")
     fun shouldGetRightContentType(requestPath: String, expectedContentType: String) {

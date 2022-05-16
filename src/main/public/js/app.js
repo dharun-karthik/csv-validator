@@ -20,10 +20,16 @@ window.addEventListener('load', async () => loadMetaData());
 async function loadMetaData() {
     loadRuleNamesFromDB()
     let headers = getHeaders()
-    displayHeadersInContainers(headers);
-    const jsonString = sessionStorage.getItem('config-json')
-    const jsonData = JSON.parse(jsonString)
-    if (isJsonValid(jsonData)) {
+    const resp = await fetch('get-meta-data', {
+        method: 'GET',
+    });
+    if (resp.status === 200) {
+        const jsonData = await resp.json();
+        if (jsonData.length === 0) {
+            displayHeadersInContainers(headers);
+            loadDataFromJsonFile()
+            return
+        }
         displayConfigDataFromServer(jsonData);
     }
 }
@@ -39,12 +45,19 @@ async function loadRuleNamesFromDB() {
     }
 }
 
-function loadDataFromJsonFile(jsonData) {
+function loadDataFromJsonFile() {
+    let jsonString = sessionStorage.getItem('json-upload')
+    if(jsonString == null) {
+        return
+    }
+    let jsonData = JSON.parse(jsonString)
     try {
         fillDataInContainer(jsonData)
+        sessionStorage.removeItem('json-upload')
     }
     catch (err) {
         customAlertForInvalidJson()
+        sessionStorage.removeItem('json-upload')
         location.reload()
     }
 }
@@ -67,6 +80,8 @@ function fillHeadersInContainers(headers) {
 }
 
 function displayConfigDataFromServer(jsonData) {
+    let numberOfRows = jsonData.length - 1
+    displayEmptyContainers(numberOfRows)
     fillDataInContainer(jsonData)
 }
 
@@ -628,16 +643,14 @@ function uploadConfig() {
 }
 
 function displayConfigDataOrDisplayError(jsonString) {
-
     let jsonData = JSON.parse(jsonString)
     if (isJsonValid(jsonData)) {
         sendResetConfigRequest()
-        // location.reload()
-        loadDataFromJsonFile(jsonData)
-        return true
+        sessionStorage.setItem("json-upload", jsonString)
+        location.reload()
+        return
     }
     customAlertForInvalidJson()
-    return false
 }
 
 function isJsonValid(jsonData) {
