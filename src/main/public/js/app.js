@@ -152,8 +152,7 @@ function displayOneDependency(index) {
 }
 
 function insertPatternInRespectiveField(index, element) {
-    console.log(`${nameIdMap['type']}${index}   `)
-    let typeOfPattern = document.getElementById(`${nameIdMap['type']}${index}`).value;
+    let typeOfPattern = element['type']
     console.log(`insertPattern -> ${typeOfPattern} -->`)
     document.getElementById(`${typeOfPattern}-format-div${index}`).style.display = 'block'
     document.getElementById(`${typeOfPattern}-format${index}`).value = element[key];
