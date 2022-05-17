@@ -83,9 +83,16 @@ function displayOneColumnInDOM(columnName, errorCount) {
             ${columnName}
         </div>
         <div class="column-error-count">
-            ${errorCount} errors
+            ${errorCount} ${addSuffixSForPlural('error', errorCount)}
         </div>`
     document.getElementById('column-list-container').appendChild(element)
+}
+
+function addSuffixSForPlural(value, count) {
+    if (parseInt(count) === 1) {
+        return value
+    }
+    return value + 's'
 }
 
 function displayTotalErrorCount(obj) {
@@ -161,7 +168,7 @@ function getErrorTypeHTMLAt(index) {
         <div class="error-details-without-lines">
             <div class="error-type-title">
                 <span id="error-type-message"> ${extractErrorFromWholeErrorLine(errorLines[index][indexToFill][0][1], errorTypes[index][indexToFill][0])} </span> in <span id="error-count"
-                    class="column-name"> ${errorTypes[index][indexToFill][1]} </span> lines
+                    class="column-name"> ${errorTypes[index][indexToFill][1]} </span> ${addSuffixSForPlural('line', errorTypes[index][indexToFill][1])}
             </div>
             <button id="error${indexToFill}" class="button no-margin" onclick="displayLinesForErrorType(this)">See <span>More</span></button>
         </div>`
