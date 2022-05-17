@@ -177,7 +177,7 @@ function getOneTypeOfError(index, indexToFill) {
     for (let indexOfLine = 0; indexOfLine < errorTypes[index][indexToFill][1]; indexOfLine++) {
         linesHTML += `
         <div class="one-error-line">
-                Line ${errorLines[index][indexToFill][indexOfLine][0]}: ${errorLines[index][indexToFill][indexOfLine][1]}
+                Line ${parseInt(errorLines[index][indexToFill][indexOfLine][0]) + 1}: ${errorLines[index][indexToFill][indexOfLine][1]}
         </div>
         `
     }
