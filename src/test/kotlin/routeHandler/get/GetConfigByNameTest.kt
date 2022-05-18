@@ -16,12 +16,14 @@ internal class GetConfigByNameTest {
         val request = """GET /get-config HTTP/1.1
                         |config-name: $configuration_name
                       """.trimMargin()
-        val actual = getConfigByName.handle(request)
         val expected = """HTTP/1.1 200 OK
                          |Content-Type: application/json; charset=utf-8
                          |Content-Length: 171
 
                          |[{"fieldName":"Product Id","minLength":0,"length":0,"type":"text","maxLength":0},{"fieldName":"Product Description","minLength":0,"length":0,"type":"email","maxLength":0}]""".trimMargin()
+
+        val actual = getConfigByName.handle(request)
+
         assertEquals(expected, actual)
     }
 
@@ -32,12 +34,14 @@ internal class GetConfigByNameTest {
         val request = """GET /get-config HTTP/1.1
                         |config-name: $configuration_name
                       """.trimMargin()
-        val actual = getConfigByName.handle(request)
         val expected = """HTTP/1.1 200 OK
                          |Content-Type: application/json; charset=utf-8
                          |Content-Length: 2
 
                          |[]""".trimMargin()
+
+        val actual = getConfigByName.handle(request)
+
         assertEquals(expected, actual)
     }
 
@@ -46,12 +50,14 @@ internal class GetConfigByNameTest {
         val getConfigByName = GetConfigByName()
         val request = """GET /get-config HTTP/1.1
                       """.trimMargin()
-        val actual = getConfigByName.handle(request)
         val expected = """HTTP/1.1 400 Bad Request
                          |Content-Type: text/html; charset=utf-8
                          |Content-Length: 14
 
                          |No config name""".trimMargin()
+
+        val actual = getConfigByName.handle(request)
+
         assertEquals(expected, actual)
     }
 

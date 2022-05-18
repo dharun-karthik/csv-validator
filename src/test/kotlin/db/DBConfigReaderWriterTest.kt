@@ -91,5 +91,4 @@ internal class DBConfigReaderWriterTest {
             """[{"fieldName":"Product Id","type":"text"},{"fieldName":"Product Description","type":"email"},{"fieldName":"Price","type":"alphabets"},{"fieldName":"Export","type":"number"},{"fieldName":"Country Name","type":"text"},{"fieldName":"Source City","type":"text"},{"fieldName":"Country Code","type":"text"},{"fieldName":"Source Pincode","type":"text"}]"""
         return Gson().fromJson(jsonString, Array<JsonConfigTemplate>::class.java)
     }
-
 }

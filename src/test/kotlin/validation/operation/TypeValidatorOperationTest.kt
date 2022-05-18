@@ -26,9 +26,9 @@ internal class TypeValidatorOperationTest {
     fun shouldGetAppropriateErrorMessage() {
         val typeValidation = TypeValidationOperation()
         val metaDataField = JsonConfigTemplate("test", "number")
+        val expected = "Incorrect format of 'number' in test : 1fa2"
 
         val actual = typeValidation.validate(metaDataField, "1fa2", "test")
-        val expected = "Incorrect format of 'number' in test : 1fa2"
 
         assertEquals(expected, actual)
     }
@@ -43,9 +43,9 @@ internal class TypeValidatorOperationTest {
     ) {
         val typeValidation = TypeValidationOperation()
         val metaDataField = JsonConfigTemplate("test", type, pattern = pattern)
+        val expected = "Incorrect format of '$type' in test : $currentFieldValue, expected format : $expectedPattern"
 
         val actual = typeValidation.validate(metaDataField, currentFieldValue, "test")
-        val expected = "Incorrect format of '$type' in test : $currentFieldValue, expected format : $expectedPattern"
 
         assertEquals(expected, actual)
     }

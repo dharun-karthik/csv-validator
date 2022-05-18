@@ -10,9 +10,9 @@ internal class JSONKeyValidatorTest {
         val jsonKeyValidator = JSONKeyValidator()
         val jsonString = "{\"fieldName\":\"xyz\",\"abc\":\"d\", \"xyz\":\"e\",\"minLength\":\"-1\",\"type\":\"text\"}"
         val jsonObject = JSONObject(jsonString)
-        val actual = jsonKeyValidator.validateKey(jsonObject)
-
         val expected = listOf("abc is not a valid key", "xyz is not a valid key")
+
+        val actual = jsonKeyValidator.validateKey(jsonObject)
 
         assertEquals(expected, actual)
     }
@@ -22,9 +22,9 @@ internal class JSONKeyValidatorTest {
         val jsonKeyValidator = JSONKeyValidator()
         val jsonString = "{\"fieldName\":\"xyz\",\"minLength\":\"-1\",\"type\":\"text\"}"
         val jsonObject = JSONObject(jsonString)
-        val actual = jsonKeyValidator.validateKey(jsonObject)
-
         val expected = listOf<String>()
+
+        val actual = jsonKeyValidator.validateKey(jsonObject)
 
         assertEquals(expected, actual)
     }
@@ -35,9 +35,9 @@ internal class JSONKeyValidatorTest {
         val jsonString =
             "{\"fieldName\":\"xyz\",\"type\":\"text\",\"dependencies\":[{\"expectedDependentFieldValue\":\"a\",\"expectedCurrentFieldValue\":\"s\",\"dependentOn\":\"abc\",\"xyz\":\"1\"}]}"
         val jsonObject = JSONObject(jsonString)
-        val actual = jsonKeyValidator.validateKey(jsonObject)
-
         val expected = listOf("xyz is not a valid key inside dependency")
+
+        val actual = jsonKeyValidator.validateKey(jsonObject)
 
         assertEquals(expected, actual)
     }

@@ -9,7 +9,6 @@ import org.junit.jupiter.params.provider.MethodSource
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class TextValidatorTest {
-
     @ParameterizedTest
     @MethodSource("validTextArguments")
     fun shouldReturnTrueWhenTextIsValid(value: String) {

@@ -11,8 +11,8 @@ internal class DateTimePatternValidatorTest {
     fun shouldGetErrorWhenDateOrTimeFieldIsGivenButPatternIsNotGiven() {
         val dateTimePatternValidator = DateTimePatternValidator()
         val content = JsonConfigTemplate("test", "date")
-
         val expected = listOf("Type 'date' expects pattern field to be not empty")
+
         val actual = dateTimePatternValidator.validate(content)
 
         assertEquals(expected, actual)

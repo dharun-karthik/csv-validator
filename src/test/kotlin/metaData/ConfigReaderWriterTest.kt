@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 
 class ConfigFileReaderWriterTest {
-
     @Test
     fun shouldBeAbleToGiveConfigInJson() {
         val configFileReaderWriter =

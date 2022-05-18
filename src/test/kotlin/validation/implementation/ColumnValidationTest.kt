@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test
 class ColumnValidationTest {
 
     internal class GetColumnsNotInConfigTest {
-
         @Test
         fun shouldReturnEmptyJsonIfAllColumnsArePresent() {
             val columnValidator = ColumnValidation()
@@ -41,7 +40,6 @@ class ColumnValidationTest {
             val configJSON =
                 """[{"fieldName":"productid","type":"Number","length":"","minLength":"","maxLength":""},{"fieldName":"ProductName","type":"Alphabet","length":"","minLength":"","maxLength":""}]"""
             val csvHeaders = listOf("ProductID", "productname", "Price", "Export", "CountryName", "SourceCity")
-
             val expected =
                 """[{"0":["Price","Export","CountryName","SourceCity"]}]"""
 
@@ -49,6 +47,5 @@ class ColumnValidationTest {
 
             assertEquals(expected, actual)
         }
-
     }
 }

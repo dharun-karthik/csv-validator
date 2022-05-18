@@ -15,9 +15,9 @@ class DependencyValidatorOperationTest {
         val dependency = DependencyTemplate("parent", "null", "null")
         val metaDataField = JsonConfigTemplate("test", "alphabets", dependencies = listOf(dependency))
         val currentRow = JSONObject("""{"test":"hello","parent":"null"}""")
+        val expected = "parent is null but test is hello"
 
         val actual = dependencyValidation.validate(metaDataField, "hello", "test", currentRow)
-        val expected = "parent is null but test is hello"
 
         assertEquals(expected, actual)
     }

@@ -8,43 +8,6 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 class ConfigWriterTest {
-
-//    @Test
-//    fun shouldBeAbleToWriteConfigToEmptyFile() {
-//        val configFileReaderWriter =
-//            ConfigFileReaderWriter("src/test/kotlin/metaDataTestFiles/configContent/new-json-test.json")
-//        val post = ConfigWriter(configFileReaderWriter)
-//        val data = """[
-//  {
-//    "fieldName": "ProductId",
-//    "type": "AlphaNumeric",
-//    "length": 5
-//  },{
-//    "fieldName": "Product Description",
-//    "type": "AlphaNumeric",
-//    "minLength": 7,
-//    "maxLength": 20
-//  }]"""
-//
-//        val fakeInputStreamProvider = FakeInputStreamProvider(data)
-//        val request = """
-//            Content-Length: ${data.length}
-//
-//        """
-//        val response = post.uploadValidConfigJson(request, fakeInputStreamProvider)
-//        println(response)
-//        val fields = post.configFileReaderWriter.readFields()[0]
-//        configFileReaderWriter.clearFields()
-//
-//        val expected = JsonConfigTemplate(
-//            fieldName = "Product Description",
-//            type = "AlphaNumeric",
-//            minLength = 7,
-//            maxLength = 20
-//        )
-//        assertEquals(expected, fields)
-//    }
-
     @Test
     fun shouldNotWriteConfigIfValidationFails() {
         val configFileReaderWriter =
@@ -98,6 +61,7 @@ class ConfigWriterTest {
             |Content-Length: ${content.length}
             |
             |$content""".trimMargin()
+
         val actual = post.uploadValidConfigJson(request, fakeInputStreamProvider)
 
         assertEquals(expected, actual)

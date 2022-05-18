@@ -21,9 +21,9 @@ internal class NullValidatorOperationTest {
     fun shouldGetNullWhenFieldValueIsNullAndNullIsAllowed() {
         val nullValidationOperation = NullValidationOperation()
         val metaDataField = JsonConfigTemplate("test", "number", isNullAllowed = "No")
+        val expected = "Empty Value not allowed in test"
 
         val actual = nullValidationOperation.validate(metaDataField, "null", "test")
-        val expected = "Empty Value not allowed in test"
 
         assertEquals(expected, actual)
     }

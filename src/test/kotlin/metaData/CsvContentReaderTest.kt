@@ -10,8 +10,8 @@ class CsvContentReaderTest {
     fun shouldBeAbleToReadJsonData() {
         val csvContentReader =
             CsvContentReader("src/test/kotlin/metaDataTestFiles/csvContent/read-json-content-test.csv")
-
         val actual = csvContentReader.readNextLineInJson()
+
         val expected = """{"hello":"not ,bad","Product Description":"I hope this works"}"""
 
         assertEquals(expected, actual.toString())
@@ -21,13 +21,12 @@ class CsvContentReaderTest {
     fun shouldBeAbleToReadJsonDataAsNullWhenValueIsEmpty() {
         val csvContentReader =
             CsvContentReader("src/test/kotlin/metaDataTestFiles/csvContent/read-json-content-test.csv")
-
         for (i in 1..6) {
             csvContentReader.readNextLineInJson()
         }
+        val expected = """{"hello":"null","Product Description":"null"}"""
 
         val actual = csvContentReader.readNextLineInJson()
-        val expected = """{"hello":"null","Product Description":"null"}"""
 
         assertEquals(expected, actual.toString())
     }

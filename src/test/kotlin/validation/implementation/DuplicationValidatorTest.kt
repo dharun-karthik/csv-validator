@@ -18,6 +18,7 @@ internal class DuplicationValidatorTest {
         for (json in jsonArray) {
             duplicationValidation.isDuplicateIndexAvailable(json, index++)
         }
+
         val actual = duplicationValidation.isDuplicateIndexAvailable(testJson, 2)
 
         assertNull(actual)
@@ -32,8 +33,8 @@ internal class DuplicationValidatorTest {
         for ((index, json) in jsonArray.withIndex()) {
             duplicationValidation.isDuplicateIndexAvailable(json, index)
         }
-
         val expected = 1
+
         val actual = duplicationValidation.isDuplicateIndexAvailable(testJson, 3)
 
         assertEquals(expected, actual)

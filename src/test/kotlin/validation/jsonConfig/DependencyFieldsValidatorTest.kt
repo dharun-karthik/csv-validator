@@ -14,9 +14,9 @@ internal class DependencyFieldsValidatorTest {
             DependencyTemplate(expectedCurrentFieldValue = "current", expectedDependentFieldValue = "given"),
             DependencyTemplate(dependentOn = "hello", expectedDependentFieldValue = "dependent")
         )
-
         val expected =
             """[{"1":["Dependency field 'expectedDependentFieldValue' should be present"]},{"2":["Dependency field 'dependentOn' should be present"]},{"3":["Dependency field 'expectedCurrentFieldValue' should be present"]}]"""
+
         val actual = dependencyFieldsValidator.validate(dependencies)
 
         assertEquals(expected, actual.toString())
@@ -32,8 +32,8 @@ internal class DependencyFieldsValidatorTest {
                 expectedDependentFieldValue = "dependent"
             )
         )
-
         val expected = "[]"
+
         val actual = dependencyFieldsValidator.validate(dependencies)
 
         assertEquals(expected, actual.toString())
@@ -51,7 +51,9 @@ internal class DependencyFieldsValidatorTest {
             )
         )
         val expected = listOf("Field name abc not found")
+
         val actual = dependencyFieldsValidator.validateDependentOnColumnName(dependencies, fieldNameList)
+
         assertEquals(expected, actual)
     }
 }

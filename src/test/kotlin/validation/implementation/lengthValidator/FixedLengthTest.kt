@@ -35,6 +35,4 @@ internal class FixedLengthTest {
 
         assertTrue(actual)
     }
-
-
 }

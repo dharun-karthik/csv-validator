@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 
 internal class FixedLengthValidatorTest {
-
     @Test
     fun shouldGetErrorMessageWhenLengthIsLesserThanOne() {
         val fixedLengthValidator = FixedLengthValidator()

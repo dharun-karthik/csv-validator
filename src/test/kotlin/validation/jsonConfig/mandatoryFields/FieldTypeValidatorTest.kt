@@ -11,8 +11,8 @@ internal class FieldTypeValidatorTest {
     fun shouldGetErrorIfFieldTypeIsNotProvided() {
         val fieldTypeValidator = FieldTypeValidator()
         val jsonField = JsonConfigTemplate("hello")
-
         val expected = "Field 'type' should be provided"
+
         val actual = fieldTypeValidator.validate(jsonField)
 
         assertEquals(expected, actual)

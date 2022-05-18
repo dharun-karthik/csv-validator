@@ -20,9 +20,9 @@ internal class RestrictedInputValidatorOperationTest {
     fun shouldGetAppropriateErrorMessage() {
         val restrictedInputValidationOperation = RestrictedInputValidationOperation()
         val metaDataField = JsonConfigTemplate("test", "number", values = listOf("123"))
+        val expected = "Value not found test : 12"
 
         val actual = restrictedInputValidationOperation.validate(metaDataField, "12", "test")
-        val expected = "Value not found test : 12"
 
         assertEquals(expected, actual)
     }

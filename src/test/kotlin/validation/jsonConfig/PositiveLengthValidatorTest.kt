@@ -10,12 +10,12 @@ internal class PositiveLengthValidatorTest {
     fun shouldGetAllTypeOfLengthErrors() {
         val positiveLengthValidator = PositiveLengthValidator()
         val jsonConfig = JsonConfigTemplate("test12", "number", length = -12, maxLength = -1, minLength = -9)
-
         val expected = listOf(
             "Min length should be greater than 0",
             "Max length should be greater than 0",
             "Fixed length should be greater than 0"
         )
+
         val actual = positiveLengthValidator.validate(jsonConfig)
 
         assertEquals(expected, actual)
@@ -25,8 +25,8 @@ internal class PositiveLengthValidatorTest {
     fun shouldGetNoErrorsWhenNoLengthIsPassed() {
         val positiveLengthValidator = PositiveLengthValidator()
         val jsonConfig = JsonConfigTemplate("test12", "number")
-
         val expected = listOf<String>()
+
         val actual = positiveLengthValidator.validate(jsonConfig)
 
         assertEquals(expected, actual)

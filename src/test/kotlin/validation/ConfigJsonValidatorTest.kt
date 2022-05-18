@@ -9,7 +9,6 @@ internal class ConfigJsonValidatorTest {
     @Test
     fun shouldGetConfigErrors() {
         val content = """[{"minLength":"-88"}]"""
-
         val expected =
             """[{"1":[{"Field errors":["Field 'fieldName' should be provided","Field 'type' should be provided","<empty> is not supported","Min length should be greater than 0"]}]}]"""
 
@@ -33,7 +32,6 @@ internal class ConfigJsonValidatorTest {
                     |]
             |}
         |]""".trimMargin()
-
         val expected =
             """[{"1":[{"Dependency errors":[{"1":["Dependency field 'expectedDependentFieldValue' should be present"]}]},{"Field errors":["Field name Product not found"]}]}]"""
 
@@ -62,7 +60,6 @@ internal class ConfigJsonValidatorTest {
                 |"type":"text"
             |}
         |]""".trimMargin()
-
         val expected =
             """[]"""
 
@@ -74,7 +71,6 @@ internal class ConfigJsonValidatorTest {
     @Test
     fun shouldNotGetErrorsWhenNoValuesArePassed() {
         val content = """[]""".trimMargin()
-
         val expected =
             """[]"""
 
@@ -92,7 +88,6 @@ internal class ConfigJsonValidatorTest {
                 |"abc":"1"
             |}
         |]""".trimMargin()
-
         val expected =
             """[{"1":[{"Field errors":["abc is not a valid key"]}]}]"""
 

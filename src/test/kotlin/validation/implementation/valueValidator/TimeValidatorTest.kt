@@ -55,5 +55,4 @@ internal class TimeValidatorTest {
             Arguments.of("hh:mm:ss", "13:00:00"),
         )
     }
-
 }

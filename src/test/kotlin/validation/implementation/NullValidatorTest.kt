@@ -22,5 +22,4 @@ class NullValidatorTest {
 
         assertTrue(actual)
     }
-
 }

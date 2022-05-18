@@ -11,8 +11,8 @@ internal class FieldNameValidatorTest {
     fun shouldGetErrorIfFieldNameIsNotProvided() {
         val fieldNameValidator = FieldNameValidator()
         val jsonField = JsonConfigTemplate(type = "number")
-
         val expected = "Field 'fieldName' should be provided"
+
         val actual = fieldNameValidator.validate(jsonField)
 
         assertEquals(expected, actual)

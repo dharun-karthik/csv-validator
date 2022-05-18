@@ -15,9 +15,9 @@ internal class GetErrorTest {
             |column-name : Emoji
             |error-type : Type mismatch error
         """.trimIndent()
+        val expected = """{"1":"Incorrect format of 'text' in Emoji : 😁"}"""
 
         val actual = getError.get(request)
-        val expected = """{"1":"Incorrect format of 'text' in Emoji : 😁"}"""
 
         assertEquals(expected, actual)
     }
@@ -31,9 +31,9 @@ internal class GetErrorTest {
             |column-name : date
             |error-type : Type mismatch error
         """.trimIndent()
+        val expected = """{"1":"Incorrect format of 'alphabets' in date : 11/3/1888","2":"Incorrect format of 'alphabets' in date : 06/06/2000"}"""
 
         val actual = getError.get(request)
-        val expected = """{"1":"Incorrect format of 'alphabets' in date : 11/3/1888","2":"Incorrect format of 'alphabets' in date : 06/06/2000"}"""
 
         assertEquals(expected, actual)
     }

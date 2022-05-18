@@ -10,11 +10,11 @@ internal class MandatoryFieldsValidatorTest {
     fun shouldGetErrorWhenMandatoryFieldsAreNotProvided() {
         val mandatoryFieldsValidator = MandatoryFieldsValidator()
         val jsonConfig = JsonConfigTemplate()
-
         val expected = listOf(
             "Field 'fieldName' should be provided",
             "Field 'type' should be provided"
         )
+
         val actual = mandatoryFieldsValidator.validate(jsonConfig)
 
         assertEquals(expected, actual)
@@ -24,8 +24,8 @@ internal class MandatoryFieldsValidatorTest {
     fun shouldNotGetErrorWhenMandatoryFieldsAreProvided() {
         val mandatoryFieldsValidator = MandatoryFieldsValidator()
         val jsonConfig = JsonConfigTemplate("test", "type")
-
         val expected = listOf<String>()
+
         val actual = mandatoryFieldsValidator.validate(jsonConfig)
 
         assertEquals(expected, actual)

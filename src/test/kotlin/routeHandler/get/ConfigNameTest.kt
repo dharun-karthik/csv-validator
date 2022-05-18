@@ -14,13 +14,13 @@ internal class ConfigNameTest {
     @Test
     fun shouldGetConfigNames() {
         val configName = ConfigName()
-
-        val actual = configName.getConfigNames()
         val expected = """HTTP/1.1 200 OK
                          |Content-Type: application/json; charset=utf-8
                          |Content-Length: 26
 
                          |["first","second","third"]""".trimMargin()
+
+        val actual = configName.getConfigNames()
 
         assertEquals(expected, actual)
     }

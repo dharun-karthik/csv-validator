@@ -11,8 +11,8 @@ internal class DependentOnValidatorTest {
     fun shouldGetErrorWhenDependentOnValueIsNotProvided() {
         val expectedCurrentFieldValueValidator = DependentOnValidator()
         val dependency = DependencyTemplate(expectedCurrentFieldValue = "hello", expectedDependentFieldValue = "new")
-
         val expected = "Dependency field 'dependentOn' should be present"
+
         val actual = expectedCurrentFieldValueValidator.validate(dependency)
 
         assertEquals(expected, actual)

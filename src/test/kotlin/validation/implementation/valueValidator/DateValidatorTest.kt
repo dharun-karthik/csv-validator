@@ -9,7 +9,6 @@ import org.junit.jupiter.params.provider.MethodSource
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class DateValidatorTest {
-
     @ParameterizedTest
     @MethodSource("validDateArguments")
     fun shouldReturnTrueWhenValidDateAndPatternIsGiven(pattern: String, dateValue: String) {

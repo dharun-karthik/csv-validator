@@ -31,6 +31,7 @@ class GetRouteHandlerTest {
 
         val actualContentLength =
             getRouteHandler.handleGetRequest(request).split("\n")[2].replace("\n", "").replace("\r", "")
+
         assertEquals(expectedContentLength, actualContentLength)
     }
 
@@ -46,11 +47,6 @@ class GetRouteHandlerTest {
         assertEquals(expected, actual)
     }
 
-    private fun getMetaDataContent(): String {
-        val path = System.getProperty("user.dir")
-        val file = File("$path/src/main/public/files/csv-config.json")
-        return file.readText(Charsets.UTF_8)
-    }
 
 
     @ParameterizedTest
@@ -110,6 +106,12 @@ class GetRouteHandlerTest {
         val actual = getRouteHandler.handleGetRequest(request)
 
         assertEquals(expected, actual)
+    }
+
+    private fun getMetaDataContent(): String {
+        val path = System.getProperty("user.dir")
+        val file = File("$path/src/main/public/files/csv-config.json")
+        return file.readText(Charsets.UTF_8)
     }
 
     private fun generateArrayOfConfig(): Array<JsonConfigTemplate> {

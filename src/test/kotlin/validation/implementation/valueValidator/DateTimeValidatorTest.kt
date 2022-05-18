@@ -9,8 +9,6 @@ import org.junit.jupiter.params.provider.MethodSource
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class DateTimeValidatorTest {
-
-
     @ParameterizedTest
     @MethodSource("validDateTimeArguments")
     fun shouldReturnTrueWhenValidDateTimeAndPatternIsGiven(pattern: String, dateTimeValue: String) {
