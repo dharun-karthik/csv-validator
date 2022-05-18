@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS fields
             ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS values
+CREATE TABLE IF NOT EXISTS allowed_values
 (
     value_id   SERIAL PRIMARY KEY,
     field_id   INT,

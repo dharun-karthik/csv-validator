@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS dependencies;
-DROP TABLE IF EXISTS values;
+DROP TABLE IF EXISTS allowed_values;
 DROP TABLE IF EXISTS fields;
 DROP TABLE IF EXISTS csv_configuration;
 
@@ -27,7 +27,7 @@ CREATE TABLE fields
             ON DELETE CASCADE
 );
 
-CREATE TABLE values
+CREATE TABLE allowed_values
 (
     value_id   SERIAL PRIMARY KEY,
     field_id   INT,

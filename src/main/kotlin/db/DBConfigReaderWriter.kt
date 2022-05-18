@@ -93,7 +93,7 @@ class DBConfigReaderWriter {
     }
 
     private fun getValues(fieldId: Int): List<String>? {
-        val query = "SELECT value_name from values WHERE field_id = ?"
+        val query = "SELECT value_name from allowed_values WHERE field_id = ?"
         val preparedStatement = DBConnection.getDBConnection().prepareStatement(query)
         preparedStatement.setInt(1, fieldId)
         val result = preparedStatement.executeQuery()
@@ -147,7 +147,7 @@ class DBConfigReaderWriter {
     }
 
     private fun insertValue(fieldId: Int, value: String) {
-        val queryTemplate = "INSERT INTO values(field_id, value_name) VALUES(?,?)"
+        val queryTemplate = "INSERT INTO allowed_values(field_id, value_name) VALUES(?,?)"
         val preparedStatement = DBConnection.getDBConnection().prepareStatement(queryTemplate)
         preparedStatement.setInt(1, fieldId)
         preparedStatement.setString(2, value)
