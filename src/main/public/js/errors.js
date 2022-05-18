@@ -170,7 +170,7 @@ function getErrorTypeHTMLAt(index) {
                 <span id="error-type-message"> ${extractErrorFromWholeErrorLine(errorLines[index][indexToFill][0][1], errorTypes[index][indexToFill][0])} </span> in <span id="error-count"
                     class="column-name"> ${errorTypes[index][indexToFill][1]} </span> ${addSuffixSForPlural('line', errorTypes[index][indexToFill][1])}
             </div>
-            <button id="error${indexToFill}" class="button no-margin" onclick="displayLinesForErrorType(this)">See <span>More</span></button>
+            <button id="error${indexToFill}" class="button no-margin red-bg" onclick="displayLinesForErrorType(this)">See <span>more</span></button>
         </div>`
         errorsInOneColumnHTML += getOneTypeOfError(index, indexToFill)
         errorsInOneColumnHTML += '</div>'
@@ -197,9 +197,9 @@ function displayLinesForErrorType(target) {
     let element = document.getElementById(`line-container${index}`)
     if (element.style.display === 'block') {
         element.style.display = 'none'
-        document.querySelector(`#error${index} span`).innerText = "More"
+        document.querySelector(`#error${index} span`).innerText = "more"
         return
     }
     element.style.display = 'block'
-    document.querySelector(`#error${index} span`).innerText = "Less"
+    document.querySelector(`#error${index} span`).innerText = "less"
 }
