@@ -8,4 +8,8 @@ class FakeInputStreamProvider(private val data: String) : InputStreamProvider(In
     override fun getBufferedReader(): BufferedReader {
         return FakeBufferedReader(data)
     }
+
+    override fun getByteStream(): InputStream {
+        return FakeInputStream(data)
+    }
 }

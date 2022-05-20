@@ -12,7 +12,7 @@ open class InputStreamProvider(
         return bufferedReader
     }
 
-    fun getByteStream(): InputStream {
+    open fun getByteStream(): InputStream {
         return inputStream
     }
 }
