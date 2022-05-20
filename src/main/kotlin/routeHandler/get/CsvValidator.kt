@@ -5,7 +5,6 @@ import metaData.csv.CsvContentReader
 import org.json.JSONArray
 import response.ContentType
 import response.Response
-import routeHandler.get.getErrors.ErrorContent
 import validation.Validator
 import validation.implementation.ColumnValidation
 
@@ -24,7 +23,6 @@ class CsvValidator(
 
         val validator = Validator(configFileReaderWriter)
         val responseBody = validator.validate(csvContentReader)
-        ErrorContent.setError(responseBody)
 
         return response.generateResponse(responseBody.toString(), 200, ContentType.JSON.value)
     }
