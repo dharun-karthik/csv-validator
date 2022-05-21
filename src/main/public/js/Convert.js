@@ -1,26 +1,3 @@
-function csvToJson(text, headers) {
-    let quoteChar = '"'
-    let delimiter = ','
-    const regex = new RegExp(`\\s*(${quoteChar})?(.*?)\\1\\s*(?:${delimiter}|$)`, 'gs');
-  
-    const match = line => {
-      const matches = [...line.matchAll(regex)].map(m => m[2]);
-      matches.pop();
-      return matches;
-    }
-  
-    const lines = text.split('\n');
-    const heads = headers ?? match(lines.shift());
-  
-    return lines.map(line => {
-      return match(line).reduce((acc, cur, i) => {
-        const val = (cur == "" || cur == "\r") ? "null" : cur;
-        const key = heads[i] ?? `extra_${i}`;
-        return { ...acc, [key]: val };
-      }, {});
-    });
-  }
-
 function arrangeDependencies(payload) {
     for (let field in payload) {
         for (let key in payload[field]) {
