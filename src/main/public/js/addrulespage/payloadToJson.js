@@ -1,7 +1,19 @@
+function convertPayloadToJsonArray(payload) {
+    console.log(`payload ${payload}`)
+    let jsonArray = []
+    let index = 0;
+    payload = arrangeDependencies(payload);
+    for (let field in payload) {
+        jsonArray[index++] = payload[field];
+    }
+    console.log(jsonArray);
+    return jsonArray;
+}
+
 function arrangeDependencies(payload) {
     for (let field in payload) {
         for (let key in payload[field]) {
-            if (key == "dependentOn") {
+            if (key === "dependentOn") {
                 assignDependencies(payload, field);
             }
         }
@@ -18,16 +30,4 @@ function assignDependencies(payload, field) {
     delete payload[field]["dependentOn"]
     delete payload[field]["expectedDependentFieldValue"]
     delete payload[field]["expectedCurrentFieldValue"]
-}
-
-function convertPayloadToJsonArray(payload) {
-    console.log(`payload ${payload}`)
-    let jsonArray = []
-    let index = 0;
-    payload = arrangeDependencies(payload);
-    for (let field in payload) {
-        jsonArray[index++] = payload[field];
-    }
-    console.log(jsonArray);
-    return jsonArray;
 }
