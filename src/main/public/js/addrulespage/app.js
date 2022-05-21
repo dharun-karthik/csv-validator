@@ -1,6 +1,7 @@
 const headers = [];
 let numberOfFields = 0;
-let tempValues;
+let valuesFieldText;
+let ruleNameListInDB = [];
 
 const nameIdMap = {
     "fieldName": "field",
@@ -35,13 +36,12 @@ async function loadMetaData() {
 }
 
 async function loadRuleNamesFromDB() {
-    const resp = await fetch('get-config-names', {
+    const response = await fetch('get-config-names', {
         method: 'GET',
     });
 
-    if (resp.status === 200) {
-        const jsonData = await resp.json()
-        ruleNameListInDB = jsonData
+    if (response.status === 200) {
+        ruleNameListInDB = await response.json()
     }
 }
 
@@ -187,10 +187,12 @@ async function sendConfigData() {
     const response = await fetch('add-meta-data', {
         method: 'POST', body: JSON.stringify(newPayload)
     });
+    if (response.status !== 201) {
+        window.location.href = 'pages/errors.html'
+    }
     sessionStorage.setItem('config-json', JSON.stringify(newPayload));
     console.log("After adding metaDate")
     window.location.href = 'errors.html'
-    return
 }
 
 async function resetConfigs() {
@@ -338,14 +340,14 @@ function displayValues(elementId) {
     let index = extractIndexFromId(elementId)
     let modalDiv = document.getElementById(`value-modal${index}`)
     modalDiv.style.display = "block"
-    tempValues = document.getElementById(`value-textbox${index}`).value
+    valuesFieldText = document.getElementById(`value-textbox${index}`).value
 }
 
 function hideValues(elementId) {
     let index = extractIndexFromId(elementId)
     let modalDiv = document.getElementById(`value-modal${index}`)
     modalDiv.style.display = "none"
-    document.getElementById(`value-textbox${index}`).value = tempValues
+    document.getElementById(`value-textbox${index}`).value = valuesFieldText
 }
 
 function uploadFileAndChangeContents(elementId) {
@@ -417,7 +419,7 @@ function isJsonValid(jsonData) {
     if (jsonData == null) {
         return false
     }
-    return jsonData.length - 1 == numberOfFields
+    return jsonData.length - 1 === numberOfFields
 }
 
 function enterRuleName() {
@@ -432,7 +434,6 @@ function enterRuleName() {
     ruleNamePopup.classList.toggle('active')
 }
 
-var ruleNameListInDB = []
 function validateRuleName() {
     document.getElementById("tooltiptext").style.visibility = "hidden"
 
@@ -446,7 +447,7 @@ function validateRuleName() {
 
 function sendRuleName() {
     let ruleName = document.getElementById("rule-name-input").value
-    if (ruleName == "") {
+    if (ruleName === "") {
         document.getElementById("tooltiptext").style.visibility = "visible"
         return
     }
@@ -466,6 +467,8 @@ async function saveRuleInDB(ruleName) {
     const response = await fetch('add-config', {
         method: 'POST', body: JSON.stringify(dbSendingFormat)
     });
+    return response.status === 200;
+
 }
 
 function displayRuleName() {
