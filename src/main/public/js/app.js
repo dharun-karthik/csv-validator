@@ -188,7 +188,7 @@ async function sendConfigData() {
         method: 'POST', body: JSON.stringify(newPayload)
     });
     if (response.status !== 201) {
-        window.location.href = 'pages/errors.html'
+        window.location.href = '../errors.html'
     }
     sessionStorage.setItem('config-json', JSON.stringify(newPayload));
     console.log("After adding metaDate")
