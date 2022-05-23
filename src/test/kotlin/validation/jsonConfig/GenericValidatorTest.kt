@@ -1,10 +1,12 @@
 package validation.jsonConfig
 
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+
 internal class GenericValidatorTest {
 
-    private val supportedFieldTypeList = listOf("number", "alphanumeric", "alphabets", "date", "time", "datetime", "email", "text")
+    private val supportedFieldTypeList =
+        listOf("number", "alphanumeric", "alphabets", "date", "time", "datetime", "email", "text")
 
     @Test
     fun shouldReturnErrorMessageForFieldTypeNotSupported() {

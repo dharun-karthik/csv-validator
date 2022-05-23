@@ -28,7 +28,7 @@ class PostRouteHandler {
             }
             "/add-config" -> {
                 val configAdder = ConfigAdder()
-                configAdder.handle(request,inputStreamProvider)
+                configAdder.handle(request, inputStreamProvider)
             }
             else -> fileGetter.getFileNotFound()
         }

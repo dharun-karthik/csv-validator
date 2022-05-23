@@ -16,6 +16,7 @@ internal class MaxMinValidatorTest {
 
         assertEquals(expected, actual)
     }
+
     @Test
     fun shouldNotGetErrorWhenMinAndMaxValueAreValid() {
         val maxMinValidator = MaxMinValidator()

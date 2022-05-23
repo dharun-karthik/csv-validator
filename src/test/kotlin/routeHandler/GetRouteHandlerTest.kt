@@ -48,7 +48,6 @@ class GetRouteHandlerTest {
     }
 
 
-
     @ParameterizedTest
     @MethodSource("contentTypeArguments")
     fun shouldGetRightContentType(requestPath: String, expectedContentType: String) {
@@ -83,7 +82,7 @@ class GetRouteHandlerTest {
                          |["config_1"]""".trimMargin()
 
         DBConnection.initialise("jdbc:h2:~/db;MODE=postgresql;INIT=RUNSCRIPT FROM 'src/test/kotlin/resources/createAndPopulateH2Db.sql'")
-        DBConfigReaderWriter().writeConfig("config_1",generateArrayOfConfig())
+        DBConfigReaderWriter().writeConfig("config_1", generateArrayOfConfig())
         val actual = getRouteHandler.handleGetRequest(request)
 
         assertEquals(expected, actual)
@@ -101,8 +100,8 @@ class GetRouteHandlerTest {
                          |["config_1","config_2"]""".trimMargin()
 
         DBConnection.initialise("jdbc:h2:~/db;MODE=postgresql;INIT=RUNSCRIPT FROM 'src/test/kotlin/resources/createAndPopulateH2Db.sql'")
-        DBConfigReaderWriter().writeConfig("config_1",jsonArray)
-        DBConfigReaderWriter().writeConfig("config_2",jsonArray)
+        DBConfigReaderWriter().writeConfig("config_1", jsonArray)
+        DBConfigReaderWriter().writeConfig("config_2", jsonArray)
         val actual = getRouteHandler.handleGetRequest(request)
 
         assertEquals(expected, actual)
@@ -115,7 +114,8 @@ class GetRouteHandlerTest {
     }
 
     private fun generateArrayOfConfig(): Array<JsonConfigTemplate> {
-        val jsonString = """[{"fieldName":"Product Id","type":"text"},{"fieldName":"Product Description","type":"email"},{"fieldName":"Price","type":"alphabets"},{"fieldName":"Export","type":"number"},{"fieldName":"Country Name","type":"text"},{"fieldName":"Source City","type":"text"},{"fieldName":"Country Code","type":"text"},{"fieldName":"Source Pincode","type":"text"}]"""
+        val jsonString =
+            """[{"fieldName":"Product Id","type":"text"},{"fieldName":"Product Description","type":"email"},{"fieldName":"Price","type":"alphabets"},{"fieldName":"Export","type":"number"},{"fieldName":"Country Name","type":"text"},{"fieldName":"Source City","type":"text"},{"fieldName":"Country Code","type":"text"},{"fieldName":"Source Pincode","type":"text"}]"""
         return Gson().fromJson(jsonString, Array<JsonConfigTemplate>::class.java)
     }
 }

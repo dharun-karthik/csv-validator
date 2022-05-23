@@ -184,7 +184,6 @@ describe('upload rules as json test', () => {
        cy.get('#upload-rule-file').click()
        cy.get('input[type="file"]').attachFile('inCorrectRule.json');
        cy.get('#rules-json-submit-button').click()
-       //TODO
    })
 
    // it('should erase all the entries of the form if JSON is invalid', () => {

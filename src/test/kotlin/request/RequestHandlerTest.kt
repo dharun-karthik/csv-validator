@@ -56,7 +56,7 @@ Content-Type: application/x-www-form-urlencoded"""
         val request = """GET / HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 Content-Range: bytes 200-1000/67589"""
-        val expected = ContentRange("bytes",200,1000,67589)
+        val expected = ContentRange("bytes", 200, 1000, 67589)
 
         val actual = requestHandler.getContentRange(request)
 
@@ -68,17 +68,18 @@ Content-Range: bytes 200-1000/67589"""
         val content = "hello this is me"
         val fakeBufferedReader = FakeBufferedReader(content)
 
-        val actual = requestHandler.getBodyInString(content.length,fakeBufferedReader)
+        val actual = requestHandler.getBodyInString(content.length, fakeBufferedReader)
 
-        assertEquals(content,actual)
+        assertEquals(content, actual)
     }
+
     @Test
     fun shouldGetEmptyBodyInStringWhenThereIsNoContent() {
         val content = ""
         val fakeBufferedReader = FakeBufferedReader(content)
 
-        val actual = requestHandler.getBodyInString(content.length,fakeBufferedReader)
+        val actual = requestHandler.getBodyInString(content.length, fakeBufferedReader)
 
-        assertEquals(content,actual)
+        assertEquals(content, actual)
     }
 }

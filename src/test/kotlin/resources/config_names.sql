@@ -12,15 +12,15 @@ CREATE TABLE csv_configuration
 
 CREATE TABLE fields
 (
-    field_id      SERIAL PRIMARY KEY,
-    config_id     INT,
-    field_name    VARCHAR NOT NULL,
-    field_type    VARCHAR NOT NULL,
+    field_id        SERIAL PRIMARY KEY,
+    config_id       INT,
+    field_name      VARCHAR NOT NULL,
+    field_type      VARCHAR NOT NULL,
     is_null_allowed VARCHAR(2),
-    pattern       VARCHAR,
-    fixed_length  INT,
-    min_length    INT,
-    max_length    INT,
+    pattern         VARCHAR,
+    fixed_length    INT,
+    min_length      INT,
+    max_length      INT,
     CONSTRAINT fk_config
         FOREIGN KEY (config_id)
             REFERENCES csv_configuration (config_id)
@@ -51,6 +51,9 @@ CREATE TABLE dependencies
             ON DELETE CASCADE
 );
 
-INSERT INTO csv_configuration(config_name) VALUES('first');
-INSERT INTO csv_configuration(config_name) VALUES('second');
-INSERT INTO csv_configuration(config_name) VALUES('third');
+INSERT INTO csv_configuration(config_name)
+VALUES ('first');
+INSERT INTO csv_configuration(config_name)
+VALUES ('second');
+INSERT INTO csv_configuration(config_name)
+VALUES ('third');

@@ -62,7 +62,8 @@ internal class GetConfigByNameTest {
     }
 
     private fun addDataToH2Database() {
-        val jsonString = """{"config_1":[{"fieldName":"Product Id","type":"text"},{"fieldName":"Product Description","type":"email"}]}"""
+        val jsonString =
+            """{"config_1":[{"fieldName":"Product Id","type":"text"},{"fieldName":"Product Description","type":"email"}]}"""
         val inputStream = FakeInputStreamProvider(jsonString)
         val request = """
             Content-Length: ${jsonString.length}

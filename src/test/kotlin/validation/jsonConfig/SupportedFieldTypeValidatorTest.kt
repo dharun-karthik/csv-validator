@@ -1,7 +1,7 @@
 package validation.jsonConfig
 
 import metaData.template.JsonConfigTemplate
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
@@ -23,7 +23,7 @@ internal class SupportedFieldTypeValidatorTest {
 
     @ParameterizedTest
     @MethodSource("supportedFieldTypeArguments")
-    fun shouldNotReturnErrorForSupportedFieldType(type : String) {
+    fun shouldNotReturnErrorForSupportedFieldType(type: String) {
         val supportedFieldTypeValidator = SupportedFieldTypeValidator()
         val jsonConfig = JsonConfigTemplate("test", type)
         val expected = listOf<String>()
@@ -33,7 +33,7 @@ internal class SupportedFieldTypeValidatorTest {
         assertEquals(expected, actual)
     }
 
-    private fun supportedFieldTypeArguments() : List<Arguments> {
+    private fun supportedFieldTypeArguments(): List<Arguments> {
         return listOf<Arguments>(
             Arguments.of("number"),
             Arguments.of("alphanumeric"),

@@ -2,7 +2,6 @@ package routeHandler.post
 
 import fakeStreams.FakeInputStreamProvider
 import metaData.ConfigFileReaderWriter
-import metaData.template.JsonConfigTemplate
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test

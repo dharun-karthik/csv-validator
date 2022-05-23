@@ -1,7 +1,7 @@
 package validation.jsonConfig
 
 import metaData.template.JsonConfigTemplate
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 internal class SupportedPatternTypeValidatorTest {

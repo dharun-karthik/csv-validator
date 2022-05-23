@@ -12,6 +12,7 @@ internal class ConfigAdderTest {
     init {
         EnvVars.setTestDbEnvVars()
     }
+
     @Test
     fun shouldAddConfigToTheDB() {
         val jsonString =
