@@ -22,7 +22,7 @@ object DBConnection {
         val dbUrl = System.getenv("DB_URL")
         val db = System.getenv("DB")
         val dbName = System.getenv("DB_NAME")
-        return "jdbc:$db:$dbUrl/$dbName"
+        return "jdbc:$db://$dbUrl/$dbName"
     }
 
     fun getDBConnection(): Connection {
